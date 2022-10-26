@@ -49,7 +49,7 @@ class Report:
         self.datetime = str(datetime.datetime.now(datetime.timezone.utc))
         self.validator = validator
 
-    def write(self, fname: str) -> None:
+    def write(self, results, fname: str) -> None:
         with open(fname, "w") as output:
             output.write(
                 f"""# Benchmark
@@ -72,18 +72,5 @@ class Report:
                 )
             )
             output.write("\n\n")
-            output.write(
-                """## Results
-
-| Problem | Solver | Found solution? | Primal |
-|---------|--------|-----------------|--------|
-"""
-            )
-            for result in self.results:
-                problem = result["problem"]
-                solver = result["solver"]
-                found = check_as_emoji(result["found"])
-                primal = check_as_emoji(result["primal"])
-                output.write(
-                    f"| {problem} | {solver} | {found} | {primal} |\n"
-                )
+            output.write("## Results\n\n")
+            results.df.to_markdown(buf=output, index=False)
