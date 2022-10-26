@@ -9,3 +9,4 @@ dist/
 gurobi.log
 htmlcov/
 qpsolvers.egg-info
+results/README.md
