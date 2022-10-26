@@ -20,6 +20,7 @@ Benchmark report generator.
 """
 
 import datetime
+import logging
 import platform
 
 CPU_INFO = platform.processor()
@@ -29,7 +30,10 @@ try:
 
     CPU_INFO = cpuinfo.get_cpu_info()["brand_raw"]
 except ImportError:
-    pass
+    logging.warn(
+        f'CPU info set to "{CPU_INFO}", '
+        "run ``pip install py-cpuinfo`` for a more accurate description"
+    )
 
 
 class Report:
