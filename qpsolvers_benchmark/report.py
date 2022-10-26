@@ -79,7 +79,8 @@ class Report:
             {
                 "problem": problem.name,
                 "solver": solver,
-                "solved": self.validator.check_primal(problem, solution),
+                "found": solution is not None,
+                "primal": self.validator.check_primal(problem, solution),
             }
         )
 
@@ -87,12 +88,15 @@ class Report:
         self.output.write(
             """## Results
 
-| Problem | Solver | Primal |
-|---------|--------|--------|
+| Problem | Solver | Found solution? | Primal |
+|---------|--------|-----------------|--------|
 """
         )
         for result in self.results:
             problem = result["problem"]
             solver = result["solver"]
-            solved = check_as_emoji(result["solved"])
-            self.output.write(f"| {problem} | {solver} | {solved} |\n")
+            found = check_as_emoji(result["found"])
+            primal = check_as_emoji(result["primal"])
+            self.output.write(
+                f"| {problem} | {solver} | {found} | {primal} |\n"
+            )

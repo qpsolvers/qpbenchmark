@@ -29,6 +29,7 @@ def maros_meszaros_files():
 
 if __name__ == "__main__":
     validator = Validator(eps_abs=1e-5)
+    solver_settings = {"osqp": {"eps_abs": 1e-5, "eps_rel": 0.0}}
 
     report = Report("results/README.md", validator)
     report.start()
