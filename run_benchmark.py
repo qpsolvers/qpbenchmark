@@ -15,5 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from qpsolvers_benchmark import Problem
+
 if __name__ == "__main__":
-    pass
+    problem = Problem.from_mat_file("maros_meszaros/CONT-300.mat")
+    print(problem.ub)
