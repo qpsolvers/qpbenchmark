@@ -21,11 +21,11 @@ Matrix-vector representation of a quadratic program.
 
 import os
 from typing import Optional, Union
-from numpy import linalg
 
 import numpy as np
 import scipy.io as spio
 import scipy.sparse as spa
+from numpy import linalg
 from qpsolvers import solve_qp
 
 
@@ -42,23 +42,37 @@ class Problem:
     h: np.ndarray
     lb: np.ndarray
     name: str
+    optimal_cost: Optional[float]
     q: np.ndarray
     ub: np.ndarray
 
-    def __init__(self, P, q, G, h, A, b, lb, ub, name: str):
+    def __init__(
+        self,
+        P,
+        q,
+        G,
+        h,
+        A,
+        b,
+        lb,
+        ub,
+        name: str,
+        optimal_cost: Optional[float] = None,
+    ):
         """
         Quadratic program in qpsolvers format.
         """
-        self.P = P
-        self.q = q
-        self.G = G
-        self.h = h
         self.A = A
+        self.G = G
+        self.P = P
         self.b = b
+        self.h = h
         self.lb = lb
-        self.ub = ub
         self.n = P.shape[0]
         self.name = name
+        self.optimal_cost = optimal_cost
+        self.q = q
+        self.ub = ub
 
     @staticmethod
     def from_mat_file(path):
@@ -167,7 +181,14 @@ class Problem:
             **kwargs,
         )
 
-    def primal_error(self, x: Optional[np.ndarray]) -> bool:
+    def cost_error(self, x: Optional[np.ndarray]) -> Optional[float]:
+        if x is None or self.optimal_cost is None:
+            return None
+        P, q = self.P, self.q
+        cost = 0.5 * x.dot(P.dot(x)) + q.dot(x)
+        return cost - self.optimal_cost
+
+    def primal_error(self, x: Optional[np.ndarray]) -> Optional[float]:
         """
         Compute primal error for a given (primal) solution.
 
@@ -183,13 +204,13 @@ class Problem:
             tolerance parameter specified in the OSQP paper, set to zero.
         """
         if x is None:
-            return False
+            return None
         C, l, u = self.constraints_as_double_sided_ineq()
         C_x = C.dot(x)
         primal_residual = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
         return linalg.norm(primal_residual, np.inf)
 
-    def dual_error(self, x, y) -> bool:
+    def dual_error(self, x, y) -> Optional[float]:
         """
         Compute dual error for a set of dual multipliers at a primal solution.
 
