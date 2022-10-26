@@ -18,14 +18,14 @@
 import argparse
 import os
 
+import yaml
 from qpsolvers import available_solvers
 
 from qpsolvers_benchmark import Problem, Report, Results, Validator
 
 
-def maros_meszaros_files():
-    mm_dir = os.path.join(os.path.dirname(__file__), "data", "maros_meszaros")
-    for fname in os.listdir(mm_dir):
+def list_mat_files(data_dir):
+    for fname in os.listdir(data_dir):
         if fname.endswith(".mat"):
             yield os.path.join(mm_dir, fname)
 
@@ -40,7 +40,6 @@ if __name__ == "__main__":
         help="Only test a specific solver",
     )
     args = parser.parse_args()
-
     solvers = [args.solver] if args.solver is not None else available_solvers
 
     validator = Validator(eps_abs=1e-5)
@@ -50,7 +49,7 @@ if __name__ == "__main__":
 
     problem_number = 1
     for solver in solvers:
-        for fname in maros_meszaros_files():
+        for fname in list_mat_files(mm_dir):
             problem_name = os.path.basename(fname)[:-4]
             print(
                 f"Running problem #{problem_number} ({problem_name}) "
@@ -63,5 +62,6 @@ if __name__ == "__main__":
             if problem_number > 5:
                 break
 
+    results.write()
     report = Report(validator)
-    report.write("results/README.md")
+    report.write(results, "results/README.md")

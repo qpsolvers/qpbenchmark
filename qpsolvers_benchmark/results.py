@@ -29,12 +29,15 @@ from .problem import Problem
 class Results:
     def __init__(self, csv_path: str):
         df = pandas.DataFrame(
-            [], columns=["problem", "solver", "found", "primal"]
+            [], columns=["problem", "solver", "found", "primal_error"]
         )
         if os.path.exists(csv_path):
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         self.df = df
         self.csv_path = csv_path
+
+    def write(self):
+        self.df.to_csv(self.csv_path, index=False)
 
     def update(self, problem: Problem, solver: str, solution):
         self.df = self.df.drop(
@@ -51,11 +54,9 @@ class Results:
                         "problem": [problem.name],
                         "solver": [solver],
                         "found": [solution is not None],
+                        "cost_error": [problem.cost_error(solution)],
                         "primal_error": [problem.primal_error(solution)],
                     }
                 ),
             ],
         )
-
-    def write(self):
-        self.df.to_csv(self.csv_path, index=False)
