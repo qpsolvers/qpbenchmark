@@ -21,4 +21,8 @@ Benchmark for quadratic programming solvers available in Python.
 
 __version__ = "0.1.0"
 
-__all__ = []
+from .problem import Problem
+
+__all__ = [
+    "Problem",
+]
