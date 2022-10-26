@@ -15,7 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import argparse
 import os
+
+from qpsolvers import available_solvers
 
 from qpsolvers_benchmark import Problem, Report, Validator
 
@@ -28,20 +31,37 @@ def maros_meszaros_files():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Benchmark quadratic programming solvers"
+    )
+    parser.add_argument(
+        "--solver",
+        "-s",
+        help="Only test a specific solver",
+    )
+    args = parser.parse_args()
+
+    solvers = [args.solver] if args.solver is not None else available_solvers
+
     validator = Validator(eps_abs=1e-5)
     solver_settings = {"osqp": {"eps_abs": 1e-5, "eps_rel": 0.0}}
 
     report = Report("results/README.md", validator)
     report.start()
 
-    i = 0
-    for fname in maros_meszaros_files():
-        solver = "osqp"
-        problem = Problem.from_mat_file(fname)
-        solution = problem.solve(solver=solver, **solver_settings[solver])
-        report.append_result(problem, solver, solution)
-        i += 1
-        if i > 5:
-            break
+    problem_number = 1
+    for solver in solvers:
+        for fname in maros_meszaros_files():
+            problem_name = os.path.basename(fname)[:-4]
+            print(
+                f"Running problem #{problem_number} ({problem_name}) "
+                f"with {solver}..."
+            )
+            problem = Problem.from_mat_file(fname)
+            solution = problem.solve(solver=solver, **solver_settings[solver])
+            report.append_result(problem, solver, solution)
+            problem_number += 1
+            if problem_number > 5:
+                pass
 
     report.finalize()
