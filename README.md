@@ -8,23 +8,21 @@ Benchmark for quadratic programming solvers available in Python.
 
 ## Running the benchmark
 
-### Installation
-
-To install both the library and a starter set of free QP solvers:
+To run the benchmark on your machine, you will first need to install [qpsolvers](https://github.com/stephane-caron/qpsolvers) along with solvers you want to test. For instance, to install a base set of open source solvers:
 
 ```console
 $ pip install qpsolvers[open_source_solvers]
 ```
 
-### Usage
-
-Run the benchmark by:
+Then, run the benchmark by:
 
 ```console
 $ python run_benchmark.py
 ```
 
-### Details
+## Design
+
+### Validation
 
 ...
 
