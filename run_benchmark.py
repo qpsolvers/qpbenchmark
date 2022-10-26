@@ -20,7 +20,7 @@ import os
 
 from qpsolvers import available_solvers
 
-from qpsolvers_benchmark import Problem, Report, Validator
+from qpsolvers_benchmark import Problem, Report, Results, Validator
 
 
 def maros_meszaros_files():
@@ -47,8 +47,6 @@ if __name__ == "__main__":
     solver_settings = {"osqp": {"eps_abs": 1e-5, "eps_rel": 0.0}}
 
     results = Results("results/data.csv")
-    report = Report("results/README.md", validator)
-    report.start()
 
     problem_number = 1
     for solver in solvers:
@@ -60,9 +58,10 @@ if __name__ == "__main__":
             )
             problem = Problem.from_mat_file(fname)
             solution = problem.solve(solver=solver, **solver_settings[solver])
-            report.append_result(problem, solver, solution)
+            results.update(problem, solver, solution)
             problem_number += 1
             if problem_number > 5:
                 break
 
-    report.finalize()
+    report = Report(validator)
+    report.write("results/README.md")

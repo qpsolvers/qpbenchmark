@@ -20,7 +20,8 @@ Matrix-vector representation of a quadratic program.
 """
 
 import os
-from typing import Union
+from typing import Optional, Union
+from numpy import linalg
 
 import numpy as np
 import scipy.io as spio
