@@ -33,6 +33,9 @@ class Problem:
 
     """
     Quadratic program.
+
+    Attributes:
+        r: Cost offset, used to compare solution cost to a known optimal one.
     """
 
     A: Union[np.ndarray, spa.csc_matrix]
@@ -44,6 +47,7 @@ class Problem:
     name: str
     optimal_cost: Optional[float]
     q: np.ndarray
+    r: float
     ub: np.ndarray
 
     def __init__(
@@ -58,6 +62,7 @@ class Problem:
         ub,
         name: str,
         optimal_cost: Optional[float] = None,
+        r: float = 0.0,
     ):
         """
         Quadratic program in qpsolvers format.
@@ -72,6 +77,7 @@ class Problem:
         self.name = name
         self.optimal_cost = optimal_cost
         self.q = q
+        self.r = r
         self.ub = ub
 
     @staticmethod
@@ -91,6 +97,7 @@ class Problem:
         mat_dict = spio.loadmat(path)
         P = mat_dict["P"].astype(float).tocsc()
         q = mat_dict["q"].T.flatten().astype(float)
+        r = mat_dict["r"].T.flatten().astype(float)[0]
         A = mat_dict["A"].astype(float).tocsc()
         l = mat_dict["l"].T.flatten().astype(float)
         u = mat_dict["u"].T.flatten().astype(float)
@@ -103,11 +110,11 @@ class Problem:
         l_c = l[:-n]
         u_c = u[:-n]
         return Problem.from_double_sided_ineq(
-            P, q, C, l_c, u_c, lb, ub, name=name
+            P, q, C, l_c, u_c, lb, ub, name=name, r=r
         )
 
     @staticmethod
-    def from_double_sided_ineq(P, q, C, l, u, lb, ub, name: str):
+    def from_double_sided_ineq(P, q, C, l, u, lb, ub, name: str, r: float):
         """
         Load problem from double-sided inequality format:
 
@@ -143,6 +150,7 @@ class Problem:
             lb,
             ub,
             name=name,
+            r=r,
         )
 
     def constraints_as_double_sided_ineq(self):
@@ -182,10 +190,19 @@ class Problem:
         )
 
     def cost_error(self, x: Optional[np.ndarray]) -> Optional[float]:
+        """
+        Compute difference between found cost and the optimal one.
+
+        Args:
+            x: Primal solution.
+
+        Returns:
+            Cost error, i.e. deviation from the (known) optimal cost.
+        """
         if x is None or self.optimal_cost is None:
             return None
         P, q = self.P, self.q
-        cost = 0.5 * x.dot(P.dot(x)) + q.dot(x)
+        cost = 0.5 * x.dot(P.dot(x)) + q.dot(x) + self.r
         return cost - self.optimal_cost
 
     def primal_error(self, x: Optional[np.ndarray]) -> Optional[float]:
@@ -196,7 +213,7 @@ class Problem:
             x: Primal solution.
 
         Returns:
-            True if and only if (x, y) is a valid primal-dual solution.
+            Primal error, i.e. the largest constraint violation.
 
         Note:
             This function is adapted from `is_qp_solution_optimal` in
