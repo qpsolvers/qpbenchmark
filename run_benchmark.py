@@ -38,7 +38,7 @@ if __name__ == "__main__":
     for fname in maros_meszaros_files():
         solver = "osqp"
         problem = Problem.from_mat_file(fname)
-        solution = problem.solve(solver=solver)
+        solution = problem.solve(solver=solver, **solver_settings[solver])
         report.append_result(problem, solver, solution)
         i += 1
         if i > 5:
