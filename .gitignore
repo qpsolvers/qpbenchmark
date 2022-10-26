@@ -1,0 +1,11 @@
+*.pyc
+*.pyo
+.coverage
+.ropeproject
+.tox
+MANIFEST
+build/
+dist/
+gurobi.log
+htmlcov/
+qpsolvers.egg-info
