@@ -23,11 +23,10 @@ __version__ = "0.1.0"
 
 from .problem import Problem
 from .report import Report
-from .validation import is_valid_dual_solution, is_valid_primal_solution
+from .validator import Validator
 
 __all__ = [
     "Problem",
     "Report",
-    "is_valid_primal_solution",
-    "is_valid_dual_solution",
+    "Validator",
 ]

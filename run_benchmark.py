@@ -17,7 +17,7 @@
 
 import os
 
-from qpsolvers_benchmark import Problem, Report, is_valid_primal_solution
+from qpsolvers_benchmark import Problem, Report, Validator
 
 
 def maros_meszaros_files():
@@ -28,7 +28,9 @@ def maros_meszaros_files():
 
 
 if __name__ == "__main__":
-    report = Report("results/README.md")
+    validator = Validator(eps_abs=1e-5)
+
+    report = Report("results/README.md", validator)
     report.start()
 
     for fname in maros_meszaros_files():
@@ -36,6 +38,6 @@ if __name__ == "__main__":
         print(problem.ub)
         x = problem.solve("osqp")
         print(x)
-        print(is_valid_primal_solution(problem, x, eps_abs=1e-5))
+        print(validator.check_primal(problem, x))
 
     report.finalize()

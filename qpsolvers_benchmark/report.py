@@ -23,6 +23,8 @@ import datetime
 import logging
 import platform
 
+from .validator import Validator
+
 CPU_INFO = platform.processor()
 
 try:
@@ -37,7 +39,7 @@ except ImportError:
 
 
 class Report:
-    def __init__(self, fname: str):
+    def __init__(self, fname: str, validator: Validator):
         """
         Initialize report written to file.
 
@@ -45,6 +47,7 @@ class Report:
             fname: File to write report to.
         """
         self.output = open(fname, "w")
+        self.validator = validator
 
     def start(self):
         self.output.write(
@@ -52,7 +55,20 @@ class Report:
 
 - Date: {str(datetime.datetime.now(datetime.timezone.utc))}
 - CPU: {CPU_INFO}
+
+## Validation parameters
+
+| Name | Value |
+|------|-------|
 """
+        )
+        self.output.write(
+            "\n".join(
+                [
+                    f"| ``{name}`` | {value} |"
+                    for name, value in self.validator.list_params()
+                ]
+            )
         )
 
     def finalize(self):

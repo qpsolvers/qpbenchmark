@@ -21,18 +21,16 @@
 import os.path
 import unittest
 
-from qpsolvers_benchmark import Problem, is_valid_primal_solution
+from qpsolvers_benchmark import Problem, Validator
 
 
 class TestValidation(unittest.TestCase):
     def setUp(self):
         path = os.path.join(os.path.dirname(__file__), "CVXQP1_S.mat")
         self.problem = Problem.from_mat_file(path)
+        self.validator = Validator(eps_abs=1e-5)
 
     def test_primal_validation(self):
         primal_solution = self.problem.solve("osqp", eps_abs=1e-5, eps_rel=0)
         self.assertTrue(
-            is_valid_primal_solution(
-                self.problem, primal_solution, eps_abs=1e-5
-            )
-        )
+            self.validator.check_primal(self.problem, primal_solution))
