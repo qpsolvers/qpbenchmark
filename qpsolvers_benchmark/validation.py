@@ -15,6 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Validate primal-dual solutions to a quadratic program.
+"""
+
 import numpy as np
 from numpy import linalg
 

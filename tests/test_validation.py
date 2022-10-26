@@ -30,7 +30,7 @@ class TestValidation(unittest.TestCase):
         self.problem = Problem.from_mat_file(path)
 
     def test_primal_validation(self):
-        primal_solution = self.problem.solve("osqp")
+        primal_solution = self.problem.solve("osqp", eps_abs=1e-5, eps_rel=0)
         self.assertTrue(
             is_valid_primal_solution(
                 self.problem, primal_solution, eps_abs=1e-5
