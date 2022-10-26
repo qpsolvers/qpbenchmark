@@ -74,16 +74,6 @@ class Report:
         )
         self.output.write("\n\n")
 
-    def append_result(self, problem, solver: str, solution):
-        self.results.append(
-            {
-                "problem": problem.name,
-                "solver": solver,
-                "found": solution is not None,
-                "primal": self.validator.check_primal(problem, solution),
-            }
-        )
-
     def finalize(self):
         self.output.write(
             """## Results
