@@ -18,6 +18,7 @@
 import numpy as np
 from numpy import linalg
 
+
 def is_valid_primal_solution(problem, x, eps_abs: float) -> bool:
     """
     Validate optimality condition of a given primal solution.

@@ -20,6 +20,7 @@ from typing import Union
 import numpy as np
 import scipy.io as spio
 import scipy.sparse as spa
+from qpsolvers import solve_qp
 
 
 class Problem:
@@ -116,3 +117,26 @@ class Problem:
         l = np.hstack([np.full(self.h.shape, -np.infty), self.b, self.lb])
         u = np.hstack([self.h, self.b, self.ub])
         return C, l, u
+
+    def solve(self, solver: str):
+        """
+        Solve quadratic program.
+
+        Args:
+            solver: Name of the backend QP solver to call.
+
+        Returns:
+            Primal solution to the quadratic program, or None if it is
+            unfeasible.
+        """
+        return solve_qp(
+            self.P,
+            self.q,
+            G=self.G,
+            h=self.h,
+            A=self.A,
+            b=self.b,
+            lb=self.lb,
+            ub=self.ub,
+            solver=solver,
+        )

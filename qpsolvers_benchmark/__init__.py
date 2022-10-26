@@ -22,7 +22,10 @@ Benchmark for quadratic programming solvers available in Python.
 __version__ = "0.1.0"
 
 from .problem import Problem
+from .validation import is_valid_dual_solution, is_valid_primal_solution
 
 __all__ = [
     "Problem",
+    "is_valid_primal_solution",
+    "is_valid_dual_solution",
 ]
