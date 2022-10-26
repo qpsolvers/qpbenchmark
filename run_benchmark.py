@@ -47,6 +47,11 @@ if __name__ == "__main__":
 
     results = Results("results/data.csv")
 
+    mm_dir = os.path.join(os.path.dirname(__file__), "data", "maros_meszaros")
+    with open(os.path.join(mm_dir, "OPTCOSTS.yaml"), "r") as fh:
+        file_dict = yaml.load(fh)
+        optimal_costs = {key: float(value) for key, value in file_dict.items()}
+
     problem_number = 1
     for solver in solvers:
         for fname in list_mat_files(mm_dir):
@@ -56,6 +61,8 @@ if __name__ == "__main__":
                 f"with {solver}..."
             )
             problem = Problem.from_mat_file(fname)
+            if problem.name in optimal_costs:
+                problem.optimal_cost = optimal_costs[problem.name]
             solution = problem.solve(solver=solver, **solver_settings[solver])
             results.update(problem, solver, solution)
             problem_number += 1
