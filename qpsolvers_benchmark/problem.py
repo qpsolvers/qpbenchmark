@@ -94,9 +94,44 @@ class Problem:
             P, q, ineq_matrix, ineq_vector, eq_matrix, eq_vector, lb, ub
         )
 
-    def is_valid_solution(self, x, y, eps_abs):
+    def constraints_as_double_sided_ineq(self):
         """
-        Validate optimality condition of a given primal-dual solution.
+        ...
+        """
+        C = spa.vstack([self.G, self.A, spa.eye(self.n)], format="csc")
+        l = np.hstack([np.full(self.h.shape, -np.infty), self.b, self.lb])
+        u = np.hstack([self.h, self.b, self.ub])
+        return C, l, u
+
+    def is_valid_primal_solution(self, x, eps_abs: float) -> bool:
+        """
+        Validate optimality condition of a given primal solution.
+
+        Args:
+            x: Primal solution.
+            eps_abs: Absolute tolerance.
+
+        Returns:
+            True if and only if (x, y) is a valid primal-dual solution.
+
+        Note:
+            This function is adapted from `is_qp_solution_optimal` in
+            proxqp_benchmark. The original function included the relative
+            tolerance parameter specified in the OSQP paper, set to zero.
+        """
+        C, l, u = self.constraints_as_double_sided_ineq()
+        C_x = C.dot(x)
+        primal_residual = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
+        primal_error = linalg.norm(primal_residual, np.inf)
+        if primal_error > eps_abs:
+            print(f"Error in primal residual: {primal_error} > {eps_abs}")
+            return False
+
+        return True
+
+    def is_valid_dual_solution(self, y, x, eps_abs: float) -> bool:
+        """
+        Validate optimality condition of a given primal solution.
 
         Args:
             x: Primal solution.
@@ -113,21 +148,10 @@ class Problem:
         """
         P = self.P
         q = self.q
-        A = self.A
-        l = self.l
-        u = self.u
-
-        A_x = A.dot(x)
-        primal_residual = np.minimum(A_x - l, 0.0) + np.maximum(A_x - u, 0.0)
-        primal_error = linalg.norm(primal_residual, np.inf)
-        if primal_error > eps_abs:
-            print(f"Error in primal residual: {primal_error} > {eps_abs}")
-            return False
-
-        dual_residual = P.dot(x) + q + A.T.dot(y)
+        C, _, _ = self.constraints_as_double_sided_ineq()
+        dual_residual = P.dot(x) + q + C.T.dot(y)
         dual_error = linalg.norm(dual_residual, np.inf)
         if dual_error > eps_abs:
             print(f"Error in dual residual: {dual_error} > {eps_abs}")
             return False
-
         return True
