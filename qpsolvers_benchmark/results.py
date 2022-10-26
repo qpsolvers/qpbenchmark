@@ -19,38 +19,43 @@
 Benchmark results.
 """
 
+import os.path
+
 import pandas
+
+from .problem import Problem
 
 
 class Results:
-    def __init__(self, path):
+    def __init__(self, csv_path: str):
         df = pandas.DataFrame(
             [], columns=["problem", "solver", "found", "primal"]
         )
-        df = pandas.concat([df, pandas.read_csv(path)])
+        if os.path.exists(csv_path):
+            df = pandas.concat([df, pandas.read_csv(csv_path)])
         self.df = df
-        self.path = path
+        self.csv_path = csv_path
 
-    def append_result(self, problem, solver: str, solution):
-        df = self.df
-        row = df.loc[
-            (df["problem"] == problem.name) & (df["solver"] == solver)
-        ]
-        found = solution is not None
-        primal = self.validator.check_primal(problem, solution)
-        if row.empty:
-            df = pandas.concat(
-                df,
-                {
-                    "problem": problem.name,
-                    "solver": solver,
-                    "found": found,
-                    "primal": primal,
-                },
-            )
-        df.loc[
-            (df["problem"] == problem.name) & (df["solver"] == solver), ["found", "primal"]
-        ] = (found, primal)
+    def update(self, problem: Problem, solver: str, solution):
+        self.df = self.df.drop(
+            self.df.index[
+                (self.df["problem"] == problem.name)
+                & (self.df["solver"] == solver)
+            ]
+        )
+        self.df = pandas.concat(
+            [
+                self.df,
+                pandas.DataFrame(
+                    {
+                        "problem": [problem.name],
+                        "solver": [solver],
+                        "found": [solution is not None],
+                        "primal_error": [problem.primal_error(solution)],
+                    }
+                ),
+            ],
+        )
 
     def write(self):
-        self.df.to_csv(self.path, index=False)
+        self.df.to_csv(self.csv_path, index=False)

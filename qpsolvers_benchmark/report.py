@@ -26,67 +26,64 @@ import platform
 from .utils import check_as_emoji
 from .validator import Validator
 
-CPU_INFO = platform.processor()
-
 try:
     import cpuinfo
-
-    CPU_INFO = cpuinfo.get_cpu_info()["brand_raw"]
 except ImportError:
-    logging.warn(
-        f'CPU info set to "{CPU_INFO}", '
-        "run ``pip install py-cpuinfo`` for a more accurate description"
-    )
+    cpuinfo = None
+    logging.warn("Run ``pip install py-cpuinfo`` for a more CPU info")
 
 
 class Report:
-    def __init__(self, fname: str, validator: Validator):
+    def __init__(self, validator: Validator):
         """
         Initialize report written to file.
 
         Args:
             fname: File to write report to.
         """
-        self.output = open(fname, "w")
+        self.cpu_info = (
+            platform.processor()
+            if cpuinfo is None
+            else cpuinfo.get_cpu_info()["brand_raw"]
+        )
+        self.datetime = str(datetime.datetime.now(datetime.timezone.utc))
         self.validator = validator
-        self.results = []
 
-    def start(self):
-        self.output.write(
-            f"""# Benchmark
+    def write(self, fname: str) -> None:
+        with open(fname, "w") as output:
+            output.write(
+                f"""# Benchmark
 
-- Date: {str(datetime.datetime.now(datetime.timezone.utc))}
-- CPU: {CPU_INFO}
+- Date: {self.datetime}
+- CPU: {self.cpu_info}
 
 ## Validation parameters
 
 | Name | Value |
 |------|-------|
 """
-        )
-        self.output.write(
-            "\n".join(
-                [
-                    f"| ``{name}`` | {value} |"
-                    for name, value in self.validator.list_params()
-                ]
             )
-        )
-        self.output.write("\n\n")
-
-    def finalize(self):
-        self.output.write(
-            """## Results
+            output.write(
+                "\n".join(
+                    [
+                        f"| ``{name}`` | {value} |"
+                        for name, value in self.validator.list_params()
+                    ]
+                )
+            )
+            output.write("\n\n")
+            output.write(
+                """## Results
 
 | Problem | Solver | Found solution? | Primal |
 |---------|--------|-----------------|--------|
 """
-        )
-        for result in self.results:
-            problem = result["problem"]
-            solver = result["solver"]
-            found = check_as_emoji(result["found"])
-            primal = check_as_emoji(result["primal"])
-            self.output.write(
-                f"| {problem} | {solver} | {found} | {primal} |\n"
             )
+            for result in self.results:
+                problem = result["problem"]
+                solver = result["solver"]
+                found = check_as_emoji(result["found"])
+                primal = check_as_emoji(result["primal"])
+                output.write(
+                    f"| {problem} | {solver} | {found} | {primal} |\n"
+                )
