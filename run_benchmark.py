@@ -15,11 +15,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from qpsolvers_benchmark import Problem, is_valid_primal_solution
+import os
+
+from qpsolvers_benchmark import Problem, Report, is_valid_primal_solution
+
+
+def maros_meszaros_files():
+    mm_dir = os.path.join(os.path.dirname(__file__), "data", "maros_meszaros")
+    for fname in os.listdir(mm_dir):
+        if fname.endswith(".mat"):
+            yield os.path.join(mm_dir, fname)
+
 
 if __name__ == "__main__":
-    problem = Problem.from_mat_file("maros_meszaros/CONT-050.mat")
-    print(problem.ub)
-    x = problem.solve("osqp")
-    print(x)
-    print(is_valid_primal_solution(problem, x, eps_abs=1e-5))
+    report = Report("results/README.md")
+    report.start()
+
+    for fname in maros_meszaros_files():
+        problem = Problem.from_mat_file(fname)
+        print(problem.ub)
+        x = problem.solve("osqp")
+        print(x)
+        print(is_valid_primal_solution(problem, x, eps_abs=1e-5))
+
+    report.finalize()
