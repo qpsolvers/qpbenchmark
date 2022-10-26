@@ -46,6 +46,7 @@ if __name__ == "__main__":
     validator = Validator(eps_abs=1e-5)
     solver_settings = {"osqp": {"eps_abs": 1e-5, "eps_rel": 0.0}}
 
+    results = Results("results/data.csv")
     report = Report("results/README.md", validator)
     report.start()
 
@@ -62,6 +63,6 @@ if __name__ == "__main__":
             report.append_result(problem, solver, solution)
             problem_number += 1
             if problem_number > 5:
-                pass
+                break
 
     report.finalize()
