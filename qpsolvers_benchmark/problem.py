@@ -46,6 +46,7 @@ class Problem:
         self.b = b
         self.lb = lb
         self.ub = ub
+        self.n = P.shape[0]
 
     @staticmethod
     def from_mat_file(path):
