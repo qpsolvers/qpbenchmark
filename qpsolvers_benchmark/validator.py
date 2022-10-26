@@ -19,11 +19,6 @@
 Validate primal-dual solutions to a quadratic program.
 """
 
-from typing import Optional
-
-import numpy as np
-from numpy import linalg
-
 
 class Validator:
 
@@ -47,54 +42,3 @@ class Validator:
 
     def list_params(self):
         return [("eps_abs", self.eps_abs)]
-
-    def check_primal(self, problem, x: Optional[np.ndarray]) -> bool:
-        """
-        Validate optimality condition of a given primal solution.
-
-        Args:
-            x: Primal solution.
-
-        Returns:
-            True if and only if (x, y) is a valid primal-dual solution.
-
-        Note:
-            This function is adapted from `is_qp_solution_optimal` in
-            proxqp_benchmark. The original function included the relative
-            tolerance parameter specified in the OSQP paper, set to zero.
-        """
-        if x is None:
-            return False
-        C, l, u = problem.constraints_as_double_sided_ineq()
-        C_x = C.dot(x)
-        primal_residual = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
-        primal_error = linalg.norm(primal_residual, np.inf)
-        if primal_error > self.eps_abs:
-            print(f"Error in primal residual: {primal_error} > {self.eps_abs}")
-            return False
-        return True
-
-    def check_dual(self, problem, y, x) -> bool:
-        """
-        Validate optimality condition of a given primal solution.
-
-        Args:
-            x: Primal solution.
-            y: Dual solution.
-
-        Returns:
-            True if and only if (x, y) is a valid primal-dual solution.
-
-        Note:
-            This function is adapted from `is_qp_solution_optimal` in
-            proxqp_benchmark. The original function included the relative
-            tolerance parameter specified in the OSQP paper, set to zero.
-        """
-        P, q = problem.P, problem.q
-        C, _, _ = problem.constraints_as_double_sided_ineq()
-        dual_residual = P.dot(x) + q + C.T.dot(y)
-        dual_error = linalg.norm(dual_residual, np.inf)
-        if dual_error > self.eps_abs:
-            print(f"Error in dual residual: {dual_error} > {self.eps_abs}")
-            return False
-        return True
