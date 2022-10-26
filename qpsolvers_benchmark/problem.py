@@ -19,8 +19,8 @@
 Matrix-vector representation of a quadratic program.
 """
 
-from typing import Union
 import os
+from typing import Union
 
 import numpy as np
 import scipy.io as spio
@@ -91,7 +91,7 @@ class Problem:
         )
 
     @staticmethod
-    def from_double_sided_ineq(P, q, C, l, u, lb, ub):
+    def from_double_sided_ineq(P, q, C, l, u, lb, ub, name: str):
         """
         Load problem from double-sided inequality format:
 
@@ -118,7 +118,15 @@ class Problem:
         ineq_matrix = spa.vstack([C[ineq_rows], -C[ineq_rows]], format="csc")
         ineq_vector = np.hstack([u[ineq_rows], -l[ineq_rows]])
         return Problem(
-            P, q, ineq_matrix, ineq_vector, eq_matrix, eq_vector, lb, ub
+            P,
+            q,
+            ineq_matrix,
+            ineq_vector,
+            eq_matrix,
+            eq_vector,
+            lb,
+            ub,
+            name=name,
         )
 
     def constraints_as_double_sided_ineq(self):
