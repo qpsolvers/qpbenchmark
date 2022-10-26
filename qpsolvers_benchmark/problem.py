@@ -127,7 +127,7 @@ class Problem:
         u = np.hstack([self.h, self.b, self.ub])
         return C, l, u
 
-    def solve(self, solver: str):
+    def solve(self, solver: str, **kwargs):
         """
         Solve quadratic program.
 
@@ -148,4 +148,5 @@ class Problem:
             lb=self.lb,
             ub=self.ub,
             solver=solver,
+            **kwargs,
         )
