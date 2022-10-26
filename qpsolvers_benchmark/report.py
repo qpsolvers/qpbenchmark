@@ -23,6 +23,7 @@ import datetime
 import logging
 import platform
 
+from .utils import check_as_emoji
 from .validator import Validator
 
 CPU_INFO = platform.processor()
@@ -48,6 +49,7 @@ class Report:
         """
         self.output = open(fname, "w")
         self.validator = validator
+        self.results = []
 
     def start(self):
         self.output.write(
@@ -70,6 +72,27 @@ class Report:
                 ]
             )
         )
+        self.output.write("\n\n")
+
+    def append_result(self, problem, solver: str, solution):
+        self.results.append(
+            {
+                "problem": problem.name,
+                "solver": solver,
+                "solved": self.validator.check_primal(problem, solution),
+            }
+        )
 
     def finalize(self):
-        pass
+        self.output.write(
+            """## Results
+
+| Problem | Solver | Primal |
+|---------|--------|--------|
+"""
+        )
+        for result in self.results:
+            problem = result["problem"]
+            solver = result["solver"]
+            solved = check_as_emoji(result["solved"])
+            self.output.write(f"| {problem} | {solver} | {solved} |\n")

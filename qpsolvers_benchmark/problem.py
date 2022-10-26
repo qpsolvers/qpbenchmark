@@ -71,7 +71,8 @@ class Problem:
             We assume that matrix files result from calling `sif2mat.m` in
             proxqp_benchmark. In particular, ``A = [sparse(A_c); speye(n)];``.
         """
-        name = os.path.basename(path)
+        assert path.endswith(".mat")
+        name = os.path.basename(path)[:-4]
         mat_dict = spio.loadmat(path)
         P = mat_dict["P"].astype(float).tocsc()
         q = mat_dict["q"].T.flatten().astype(float)

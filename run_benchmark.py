@@ -33,11 +33,14 @@ if __name__ == "__main__":
     report = Report("results/README.md", validator)
     report.start()
 
+    i = 0
     for fname in maros_meszaros_files():
+        solver = "osqp"
         problem = Problem.from_mat_file(fname)
-        print(problem.ub)
-        x = problem.solve("osqp")
-        print(x)
-        print(validator.check_primal(problem, x))
+        solution = problem.solve(solver=solver)
+        report.append_result(problem, solver, solution)
+        i += 1
+        if i > 5:
+            break
 
     report.finalize()
