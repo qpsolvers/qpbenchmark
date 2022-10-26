@@ -25,6 +25,10 @@ from qpsolvers_benchmark import Problem
 
 
 class TestProblem(unittest.TestCase):
-    def test_load(self):
+    def setUp(self):
         path = os.path.join(os.path.dirname(__file__), "CVXQP1_S.mat")
-        Problem.from_mat_file(path)
+        self.problem = Problem.from_mat_file(path)
+
+    def test_solve(self):
+        primal_solution = self.problem.solve("osqp")
+        self.assertIsNotNone(primal_solution)
