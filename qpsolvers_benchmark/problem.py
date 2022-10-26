@@ -15,6 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Matrix-vector representation of a quadratic program.
+"""
+
 from typing import Union
 
 import numpy as np
@@ -25,14 +29,18 @@ from qpsolvers import solve_qp
 
 class Problem:
 
-    P: Union[np.array, spa.csc_matrix]
-    q: np.array
-    G: Union[np.array, spa.csc_matrix]
-    h: np.array
-    A: Union[np.array, spa.csc_matrix]
-    b: np.array
-    lb: np.array
-    ub: np.array
+    """
+    Quadratic program.
+    """
+
+    P: Union[np.ndarray, spa.csc_matrix]
+    q: np.ndarray
+    G: Union[np.ndarray, spa.csc_matrix]
+    h: np.ndarray
+    A: Union[np.ndarray, spa.csc_matrix]
+    b: np.ndarray
+    lb: np.ndarray
+    ub: np.ndarray
 
     def __init__(self, P, q, G, h, A, b, lb, ub):
         """
