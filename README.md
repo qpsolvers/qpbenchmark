@@ -6,6 +6,7 @@ Benchmark for quadratic programming solvers available in Python.
 
 ...
 
+
 ## Running the benchmark
 
 To run the benchmark on your machine, you will first need to install [qpsolvers](https://github.com/stephane-caron/qpsolvers) along with solvers you want to test. For instance, to install a base set of open source solvers:
@@ -25,6 +26,12 @@ $ python run_benchmark.py
 ### Validation
 
 ...
+
+## Limitations
+
+Here are some known areas of improvement for this benchmark:
+
+- Primal feasibility only: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
 
 ## See also
 
