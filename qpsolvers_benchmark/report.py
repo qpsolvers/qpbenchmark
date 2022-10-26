@@ -16,18 +16,40 @@
 # limitations under the License.
 
 """
-Benchmark for quadratic programming solvers available in Python.
+Benchmark report generator.
 """
 
-__version__ = "0.1.0"
+import datetime
+import platform
 
-from .problem import Problem
-from .report import Report
-from .validation import is_valid_dual_solution, is_valid_primal_solution
+CPU_INFO = platform.processor()
 
-__all__ = [
-    "Problem",
-    "Report",
-    "is_valid_primal_solution",
-    "is_valid_dual_solution",
-]
+try:
+    import cpuinfo
+
+    CPU_INFO = cpuinfo.get_cpu_info()["brand_raw"]
+except ImportError:
+    pass
+
+
+class Report:
+    def __init__(self, fname: str):
+        """
+        Initialize report written to file.
+
+        Args:
+            fname: File to write report to.
+        """
+        self.output = open(fname, "w")
+
+    def start(self):
+        self.output.write(
+            f"""# Benchmark
+
+- Date: {str(datetime.datetime.now(datetime.timezone.utc))}
+- CPU: {CPU_INFO}
+"""
+        )
+
+    def finalize(self):
+        pass
