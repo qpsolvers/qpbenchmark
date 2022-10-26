@@ -46,7 +46,6 @@ def is_valid_primal_solution(problem, x, eps_abs: float) -> bool:
     if primal_error > eps_abs:
         print(f"Error in primal residual: {primal_error} > {eps_abs}")
         return False
-
     return True
 
 

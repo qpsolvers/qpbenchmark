@@ -20,6 +20,7 @@ Matrix-vector representation of a quadratic program.
 """
 
 from typing import Union
+import os
 
 import numpy as np
 import scipy.io as spio
@@ -33,16 +34,17 @@ class Problem:
     Quadratic program.
     """
 
-    P: Union[np.ndarray, spa.csc_matrix]
-    q: np.ndarray
-    G: Union[np.ndarray, spa.csc_matrix]
-    h: np.ndarray
     A: Union[np.ndarray, spa.csc_matrix]
+    G: Union[np.ndarray, spa.csc_matrix]
+    P: Union[np.ndarray, spa.csc_matrix]
     b: np.ndarray
+    h: np.ndarray
     lb: np.ndarray
+    name: str
+    q: np.ndarray
     ub: np.ndarray
 
-    def __init__(self, P, q, G, h, A, b, lb, ub):
+    def __init__(self, P, q, G, h, A, b, lb, ub, name: str):
         """
         Quadratic program in qpsolvers format.
         """
@@ -55,6 +57,7 @@ class Problem:
         self.lb = lb
         self.ub = ub
         self.n = P.shape[0]
+        self.name = name
 
     @staticmethod
     def from_mat_file(path):
@@ -68,6 +71,7 @@ class Problem:
             We assume that matrix files result from calling `sif2mat.m` in
             proxqp_benchmark. In particular, ``A = [sparse(A_c); speye(n)];``.
         """
+        name = os.path.basename(path)
         mat_dict = spio.loadmat(path)
         P = mat_dict["P"].astype(float).tocsc()
         q = mat_dict["q"].T.flatten().astype(float)
@@ -82,7 +86,9 @@ class Problem:
         C = A[:-n]
         l_c = l[:-n]
         u_c = u[:-n]
-        return Problem.from_double_sided_ineq(P, q, C, l_c, u_c, lb, ub)
+        return Problem.from_double_sided_ineq(
+            P, q, C, l_c, u_c, lb, ub, name=name
+        )
 
     @staticmethod
     def from_double_sided_ineq(P, q, C, l, u, lb, ub):
