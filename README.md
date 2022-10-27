@@ -31,10 +31,14 @@ $ python run_benchmark.py
 
 Here are some known areas of improvement for this benchmark:
 
-- Primal feasibility only: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
+- Cold start only: we don't evaluate warm-start performance for now.
+- Dual feasibility: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
+
+Contributions are welcome!
 
 ## See also
 
-- [OSQP paper](https://arxiv.org/pdf/1711.08013.pdf) where the validation process was proposed
+This repository borrows from [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark), which itself follows the methodology laid out by the [OSQP benchmark](https://arxiv.org/pdf/1711.08013.pdf).
+
 - [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks)
 - [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark)
