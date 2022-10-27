@@ -20,6 +20,7 @@ Matrix-vector representation of a quadratic program.
 """
 
 import os
+from time import perf_counter_ns
 from typing import Optional, Union
 
 import numpy as np
@@ -176,18 +177,24 @@ class Problem:
             Primal solution to the quadratic program, or None if it is
             unfeasible.
         """
-        return solve_qp(
-            self.P,
-            self.q,
-            G=self.G,
-            h=self.h,
-            A=self.A,
-            b=self.b,
-            lb=self.lb,
-            ub=self.ub,
-            solver=solver,
-            **kwargs,
-        )
+        start_time = perf_counter_ns()
+        try:
+            solution = solve_qp(
+                self.P,
+                self.q,
+                G=self.G,
+                h=self.h,
+                A=self.A,
+                b=self.b,
+                lb=self.lb,
+                ub=self.ub,
+                solver=solver,
+                **kwargs,
+            )
+        except Exception:
+            solution = None
+        duration_us = (perf_counter_ns() - start_time) / 1000.0
+        return solution, duration_us
 
     def cost_error(self, x: Optional[np.ndarray]) -> Optional[float]:
         """

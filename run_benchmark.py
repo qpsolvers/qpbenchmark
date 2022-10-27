@@ -43,7 +43,8 @@ if __name__ == "__main__":
     solvers = [args.solver] if args.solver is not None else available_solvers
 
     validator = Validator(eps_abs=1e-5)
-    solver_settings = {"osqp": {"eps_abs": 1e-5, "eps_rel": 0.0}}
+    solver_settings = {solver: {} for solver in available_solvers}
+    solver_settings["osqp"] = {"eps_abs": 1e-5, "eps_rel": 0.0}
 
     results = Results("results/data.csv")
 
@@ -63,8 +64,10 @@ if __name__ == "__main__":
             problem = Problem.from_mat_file(fname)
             if problem.name in optimal_costs:
                 problem.optimal_cost = optimal_costs[problem.name]
-            solution = problem.solve(solver=solver, **solver_settings[solver])
-            results.update(problem, solver, solution)
+            solution, duration_us = problem.solve(
+                solver=solver, **solver_settings[solver]
+            )
+            results.update(problem, solver, solution, duration_us)
             problem_number += 1
             if problem_number > 5:
                 break
