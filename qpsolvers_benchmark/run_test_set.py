@@ -21,6 +21,8 @@ Run a given test set.
 
 from typing import Any, Dict, Optional
 
+from qpsolvers import sparse_solvers
+
 from .results import Results
 from .test_sets import TestSet
 
@@ -43,6 +45,8 @@ def run_test_set(
         only_solver: If set, only run that specific solver.
     """
     problem_number = 1
+    if test_set.sparse_only:
+        solver_settings = {solver: solver_settings[solver] for solver in sparse_solvers}
     if only_solver:
         solver_settings = {only_solver: solver_settings[only_solver]}
     for problem in test_set:

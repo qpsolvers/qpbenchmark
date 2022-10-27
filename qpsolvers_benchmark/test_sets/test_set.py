@@ -38,6 +38,12 @@ class TestSet(abc.ABC):
         Full name, used as title for the output test report.
         """
 
+    @abc.abstractproperty
+    def sparse_only(self) -> bool:
+        """
+        If True, test set is restricted to solvers with a sparse matrix API.
+        """
+
     @abc.abstractmethod
     def __iter__(self) -> Iterator[Problem]:
         """

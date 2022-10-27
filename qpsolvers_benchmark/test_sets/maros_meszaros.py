@@ -41,11 +41,15 @@ class MarosMeszaros(TestSet):
         self.optimal_costs = optimal_costs
 
     @property
-    def name(self):
+    def name(self) -> str:
         return "maros_meszaros"
 
     @property
-    def title(self):
+    def sparse_only(self) -> bool:
+        return True
+
+    @property
+    def title(self) -> str:
         return "Maros and Meszaros Convex Quadratic Programming Test Set"
 
     def __iter__(self) -> Iterator[Problem]:
