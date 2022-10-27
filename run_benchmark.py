@@ -23,7 +23,8 @@ from qpsolvers import available_solvers
 from qpsolvers_benchmark import Report, Results, Validator, run_test_set
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
-if __name__ == "__main__":
+
+def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
@@ -37,7 +38,11 @@ if __name__ == "__main__":
         "-s",
         help="Limit tests to a specific solver",
     )
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    args = parse_command_line_arguments()
     solver_settings = {solver: {} for solver in available_solvers}
 
     # Time limit
