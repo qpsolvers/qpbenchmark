@@ -31,14 +31,13 @@ def run_test_set(
     results: Results,
 ) -> None:
     problem_number = 1
-    for solver, settings in solver_settings.items():
-        for problem in test_set:
+    for problem in test_set:
+        for solver, settings in solver_settings.items():
             print(
-                f"Running problem #{problem_number} ({problem.name}) "
-                f"with {solver}..."
+                f"Running problem {problem.name} with {solver}..."
             )
             solution, duration_us = problem.solve(solver=solver, **settings)
             results.update(problem, solver, solution, duration_us)
-            problem_number += 1
-            if problem_number > 5:
-                break
+        problem_number += 1
+        if problem_number > 5:
+            break
