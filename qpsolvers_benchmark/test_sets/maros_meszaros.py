@@ -24,6 +24,8 @@ from typing import Dict
 
 import yaml
 
+from ..problem import Problem
+
 
 class MarosMeszaros:
 
@@ -40,4 +42,8 @@ class MarosMeszaros:
     def __iter__(self):
         for fname in os.listdir(self.data_dir):
             if fname.endswith(".mat"):
-                yield os.path.join(self.data_dir, fname)
+                mat_path = os.path.join(self.data_dir, fname)
+                problem = Problem.from_mat_file(mat_path)
+                if problem.name in self.optimal_costs:
+                    problem.optimal_cost = self.optimal_costs[problem.name]
+                yield problem

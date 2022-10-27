@@ -20,7 +20,7 @@ import os
 
 from qpsolvers import available_solvers
 
-from qpsolvers_benchmark import Problem, Report, Results, Validator
+from qpsolvers_benchmark import Report, Results, Validator
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 if __name__ == "__main__":
@@ -49,15 +49,11 @@ if __name__ == "__main__":
 
     problem_number = 1
     for solver in solvers:
-        for fname in test_set:
-            problem_name = os.path.basename(fname)[:-4]
+        for problem in test_set:
             print(
-                f"Running problem #{problem_number} ({problem_name}) "
+                f"Running problem #{problem_number} ({problem.name}) "
                 f"with {solver}..."
             )
-            problem = Problem.from_mat_file(fname)
-            if problem.name in test_set.optimal_costs:
-                problem.optimal_cost = test_set.optimal_costs[problem.name]
             solution, duration_us = problem.solve(
                 solver=solver, **solver_settings[solver]
             )
