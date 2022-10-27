@@ -44,6 +44,10 @@ class MarosMeszaros(TestSet):
     def name(self):
         return "maros_meszaros"
 
+    @property
+    def title(self):
+        return "Maros and Meszaros Convex Quadratic Programming Test Set"
+
     def __iter__(self) -> Iterator[Problem]:
         for fname in os.listdir(self.data_dir):
             if fname.endswith(".mat"):

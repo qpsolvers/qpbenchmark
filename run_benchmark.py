@@ -50,4 +50,5 @@ if __name__ == "__main__":
     results.write()
 
     report = Report(validator)
+    report.title(test_set.title)
     report.write(results, f"results/{test_set.name}.md")

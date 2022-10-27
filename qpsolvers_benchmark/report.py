@@ -23,7 +23,6 @@ import datetime
 import logging
 import platform
 
-from .utils import check_as_emoji
 from .validator import Validator
 
 try:
@@ -49,10 +48,19 @@ class Report:
         self.datetime = str(datetime.datetime.now(datetime.timezone.utc))
         self.validator = validator
 
+    def title(self, title: str) -> None:
+        """
+        Set report title.
+
+        Args:
+            title: Report title.
+        """
+        self.__title = title
+
     def write(self, results, fname: str) -> None:
         with open(fname, "w") as output:
             output.write(
-                f"""# Benchmark
+                f"""# {self.__title}
 
 - Date: {self.datetime}
 - CPU: {self.cpu_info}

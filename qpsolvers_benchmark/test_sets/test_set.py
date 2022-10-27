@@ -32,6 +32,12 @@ class TestSet(abc.ABC):
         Name of the test set.
         """
 
+    @abc.abstractproperty
+    def title(self) -> str:
+        """
+        Full name, used as title for the output test report.
+        """
+
     @abc.abstractmethod
     def __iter__(self) -> Iterator[Problem]:
         """
