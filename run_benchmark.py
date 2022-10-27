@@ -28,12 +28,16 @@ if __name__ == "__main__":
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument(
+        "--problem",
+        "-p",
+        help="Limit tests to a specific problem",
+    )
+    parser.add_argument(
         "--solver",
         "-s",
-        help="Only test a specific solver",
+        help="Limit tests to a specific solver",
     )
     args = parser.parse_args()
-    solvers = [args.solver] if args.solver is not None else available_solvers
     solver_settings = {solver: {} for solver in available_solvers}
 
     validator = Validator(eps_abs=1e-5)
@@ -46,7 +50,7 @@ if __name__ == "__main__":
     )
 
     results = Results(f"results/{test_set.name}.csv")
-    run_test_set(test_set, solver_settings, results)
+    run_test_set(test_set, solver_settings, results, only_problem=args.problem, only_solver=args.solver)
     results.write()
 
     report = Report(validator)

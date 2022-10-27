@@ -19,7 +19,7 @@
 Run a given test set.
 """
 
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from .results import Results
 from .test_sets import TestSet
@@ -29,13 +29,27 @@ def run_test_set(
     test_set: TestSet,
     solver_settings: Dict[str, Dict[str, Any]],
     results: Results,
+    only_problem: Optional[str] = None,
+    only_solver: Optional[str] = None,
 ) -> None:
+    """
+    Run a given test set.
+
+    Args:
+        test_set: Test set to run.
+        solver_settings: Keyword arguments for each solver.
+        results: Results instance to write to.
+        only_problem: If set, only run that specific problem in the test set.
+        only_solver: If set, only run that specific solver.
+    """
     problem_number = 1
+    if only_solver:
+        solver_settings = {only_solver: solver_settings[only_solver]}
     for problem in test_set:
+        if only_problem and problem.name != only_problem:
+            continue
         for solver, settings in solver_settings.items():
-            print(
-                f"Running problem {problem.name} with {solver}..."
-            )
+            print(f"Running problem {problem.name} with {solver}...")
             solution, duration_us = problem.solve(solver=solver, **settings)
             results.update(problem, solver, solution, duration_us)
         problem_number += 1
