@@ -23,6 +23,7 @@ import datetime
 import logging
 import platform
 
+from .utils import bool_as_emoji
 from .validator import Validator
 
 try:
@@ -79,6 +80,14 @@ class Report:
                     ]
                 )
             )
+
             output.write("\n\n")
-            output.write("## Results\n\n")
-            results.df.to_markdown(buf=output, index=False)
+            output.write("## Finding solutions\n\n")
+            found_table = results.found_df.to_markdown(index=True)
+            found_table = found_table.replace(
+                "[False]", bool_as_emoji(False) + " " * 5
+            )
+            found_table = found_table.replace(
+                "[True]", bool_as_emoji(True) + " " * 5
+            )
+            output.write(found_table)

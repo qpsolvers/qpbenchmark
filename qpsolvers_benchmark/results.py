@@ -41,24 +41,27 @@ class Results:
         )
         if os.path.exists(csv_path):
             df = pandas.concat([df, pandas.read_csv(csv_path)])
-        self.df = df
+        self.__df = df
         self.csv_path = csv_path
+        self.__found = {}
 
     def write(self):
-        self.df.to_csv(self.csv_path, index=False)
+        self.__df.to_csv(self.csv_path, index=False)
 
     def update(
         self, problem: Problem, solver: str, solution, duration_us: float
     ):
-        self.df = self.df.drop(
-            self.df.index[
-                (self.df["problem"] == problem.name)
-                & (self.df["solver"] == solver)
+        found = solution is not None
+        self.update_found(problem.name, solver, found)
+        self.__df = self.__df.drop(
+            self.__df.index[
+                (self.__df["problem"] == problem.name)
+                & (self.__df["solver"] == solver)
             ]
         )
-        self.df = pandas.concat(
+        self.__df = pandas.concat(
             [
-                self.df,
+                self.__df,
                 pandas.DataFrame(
                     {
                         "problem": [problem.name],
@@ -70,4 +73,23 @@ class Results:
                     }
                 ),
             ],
+            ignore_index=True,
         )
+
+    def update_found(self, problem: str, solver: str, found: bool):
+        if solver not in self.__found:
+            self.__found[solver] = {}
+        if problem not in self.__found[solver]:
+            self.__found[solver][problem] = []
+        self.__found[solver][problem].append(found)
+
+    @property
+    def found_df(self):
+        found_summary = {
+            solver: {
+                problem: [all(outcomes)]
+                for problem, outcomes in self.__found[solver].items()
+            }
+            for solver in self.__found
+        }
+        return pandas.DataFrame.from_dict(found_summary)

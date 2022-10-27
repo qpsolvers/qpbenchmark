@@ -37,9 +37,7 @@ def run_test_set(
                 f"Running problem #{problem_number} ({problem.name}) "
                 f"with {solver}..."
             )
-            solution, duration_us = problem.solve(
-                solver=solver, **solver_settings[solver]
-            )
+            solution, duration_us = problem.solve(solver=solver, **settings)
             results.update(problem, solver, solution, duration_us)
             problem_number += 1
             if problem_number > 5:
