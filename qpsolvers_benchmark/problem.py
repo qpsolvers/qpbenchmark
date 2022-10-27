@@ -191,7 +191,8 @@ class Problem:
                 solver=solver,
                 **kwargs,
             )
-        except Exception:
+        except Exception as e:
+            print(f"Caught solver exception: {e}")
             solution = None
         duration_us = (perf_counter_ns() - start_time) / 1000.0
         return solution, duration_us
