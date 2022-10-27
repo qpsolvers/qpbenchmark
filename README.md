@@ -4,8 +4,9 @@ Benchmark for quadratic programming solvers available in Python.
 
 ## Results
 
-...
-
+| Test set | Description |
+|----------|-------------|
+| [Maros-Meszaros](results/maros_meszaros.md) | Problems designed to be difficult, some of them with non-strictly p.s.d. Hessians. For sparse solvers only. |
 
 ## Running the benchmark
 
