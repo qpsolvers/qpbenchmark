@@ -40,6 +40,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     solver_settings = {solver: {} for solver in available_solvers}
 
+    # Time limit
+    solver_settings["highs"]["time_limit"] = 10.0
+
     validator = Validator(eps_abs=1e-5)
     solver_settings["osqp"] = {"eps_abs": 1e-5, "eps_rel": 0.0}
 
@@ -50,7 +53,13 @@ if __name__ == "__main__":
     )
 
     results = Results(f"results/{test_set.name}.csv")
-    run_test_set(test_set, solver_settings, results, only_problem=args.problem, only_solver=args.solver)
+    run_test_set(
+        test_set,
+        solver_settings,
+        results,
+        only_problem=args.problem,
+        only_solver=args.solver,
+    )
     results.write()
 
     report = Report(validator)
