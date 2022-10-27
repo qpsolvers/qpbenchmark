@@ -57,5 +57,5 @@ def run_test_set(
             solution, duration_us = problem.solve(solver=solver, **settings)
             results.update(problem, solver, solution, duration_us)
         problem_number += 1
-        if problem_number > 5:
+        if problem_number > 1:
             break

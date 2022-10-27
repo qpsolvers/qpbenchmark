@@ -74,20 +74,13 @@ class Results:
             ignore_index=True,
         )
 
-    def update_found(self, problem: str, solver: str, found: bool):
-        if solver not in self.__found:
-            self.__found[solver] = {}
-        if problem not in self.__found[solver]:
-            self.__found[solver][problem] = []
-        self.__found[solver][problem].append(found)
-
-    @property
-    def found_df(self):
-        found_summary = {
-            solver: {
-                problem: [all(outcomes)]
-                for problem, outcomes in self.__found[solver].items()
-            }
-            for solver in self.__found
+    def build_found_df(self):
+        problems = set(self.df["problem"].to_list())
+        solvers = set(self.df["solver"].to_list())
+        found = {
+            solver: {problem: None for problem in problems}
+            for solver in solvers
         }
-        return pandas.DataFrame.from_dict(found_summary)
+        for row in self.df.to_dict(orient="records"):
+            found[row["solver"]][row["problem"]] = row["found"]
+        return pandas.DataFrame.from_dict(found)

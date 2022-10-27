@@ -83,11 +83,13 @@ class Report:
 
             output.write("\n\n")
             output.write("## Finding solutions\n\n")
-            found_table = results.found_df.to_markdown(index=True)
+
+            found_df = results.build_found_df()
+            found_table = found_df.to_markdown(index=True)
             found_table = found_table.replace(
-                "[False]", bool_as_emoji(False) + " " * 5
+                "False", bool_as_emoji(False) + " " * 3
             )
             found_table = found_table.replace(
-                "[True]", bool_as_emoji(True) + " " * 5
+                "True", bool_as_emoji(True) + " " * 3
             )
             output.write(found_table)
