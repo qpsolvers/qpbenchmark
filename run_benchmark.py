@@ -20,7 +20,7 @@ import os
 
 from qpsolvers import available_solvers
 
-from qpsolvers_benchmark import Report, Results, Validator
+from qpsolvers_benchmark import Report, Results, Validator, run_test_set
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 if __name__ == "__main__":
@@ -34,12 +34,10 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     solvers = [args.solver] if args.solver is not None else available_solvers
+    solver_settings = {solver: {} for solver in available_solvers}
 
     validator = Validator(eps_abs=1e-5)
-    solver_settings = {solver: {} for solver in available_solvers}
     solver_settings["osqp"] = {"eps_abs": 1e-5, "eps_rel": 0.0}
-
-    results = Results("results/data.csv")
 
     test_set = MarosMeszaros(
         data_dir=os.path.join(
@@ -47,21 +45,9 @@ if __name__ == "__main__":
         )
     )
 
-    problem_number = 1
-    for solver in solvers:
-        for problem in test_set:
-            print(
-                f"Running problem #{problem_number} ({problem.name}) "
-                f"with {solver}..."
-            )
-            solution, duration_us = problem.solve(
-                solver=solver, **solver_settings[solver]
-            )
-            results.update(problem, solver, solution, duration_us)
-            problem_number += 1
-            if problem_number > 5:
-                break
-
+    results = Results(f"results/{test_set.name}.csv")
+    run_test_set(test_set, solver_settings, results)
     results.write()
+
     report = Report(validator)
-    report.write(results, "results/README.md")
+    report.write(results, f"results/{test_set.name}.md")
