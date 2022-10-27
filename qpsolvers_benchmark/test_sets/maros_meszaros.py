@@ -20,14 +20,15 @@ Maros-Meszaros test set.
 """
 
 import os.path
-from typing import Dict
+from typing import Dict, Iterator
 
 import yaml
 
 from ..problem import Problem
+from .test_set import TestSet
 
 
-class MarosMeszaros:
+class MarosMeszaros(TestSet):
 
     data_dir: str
     optimal_costs: Dict[str, float]
@@ -39,7 +40,11 @@ class MarosMeszaros:
         self.data_dir = data_dir
         self.optimal_costs = optimal_costs
 
-    def __iter__(self):
+    @property
+    def name(self):
+        return "maros_meszaros"
+
+    def __iter__(self) -> Iterator[Problem]:
         for fname in os.listdir(self.data_dir):
             if fname.endswith(".mat"):
                 mat_path = os.path.join(self.data_dir, fname)

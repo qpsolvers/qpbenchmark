@@ -24,6 +24,7 @@ __version__ = "0.1.0"
 from .problem import Problem
 from .report import Report
 from .results import Results
+from .run_test_set import run_test_set
 from .validator import Validator
 
 __all__ = [
@@ -31,4 +32,5 @@ __all__ = [
     "Report",
     "Results",
     "Validator",
+    "run_test_set",
 ]

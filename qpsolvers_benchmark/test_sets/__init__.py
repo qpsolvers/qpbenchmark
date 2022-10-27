@@ -20,7 +20,9 @@ Test sets.
 """
 
 from .maros_meszaros import MarosMeszaros
+from .test_set import TestSet
 
 __all__ = [
     "MarosMeszaros",
+    "TestSet",
 ]
