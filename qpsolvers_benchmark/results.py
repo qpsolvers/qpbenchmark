@@ -41,27 +41,25 @@ class Results:
         )
         if os.path.exists(csv_path):
             df = pandas.concat([df, pandas.read_csv(csv_path)])
-        self.__df = df
+        self.df = df
         self.csv_path = csv_path
         self.__found = {}
 
     def write(self):
-        self.__df.to_csv(self.csv_path, index=False)
+        self.df.to_csv(self.csv_path, index=False)
 
     def update(
         self, problem: Problem, solver: str, solution, duration_us: float
     ):
-        found = solution is not None
-        self.update_found(problem.name, solver, found)
-        self.__df = self.__df.drop(
-            self.__df.index[
-                (self.__df["problem"] == problem.name)
-                & (self.__df["solver"] == solver)
+        self.df = self.df.drop(
+            self.df.index[
+                (self.df["problem"] == problem.name)
+                & (self.df["solver"] == solver)
             ]
         )
-        self.__df = pandas.concat(
+        self.df = pandas.concat(
             [
-                self.__df,
+                self.df,
                 pandas.DataFrame(
                     {
                         "problem": [problem.name],
