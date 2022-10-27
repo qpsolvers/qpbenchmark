@@ -18,17 +18,10 @@
 import argparse
 import os
 
-import yaml
 from qpsolvers import available_solvers
 
 from qpsolvers_benchmark import Problem, Report, Results, Validator
-
-
-def list_mat_files(data_dir):
-    for fname in os.listdir(data_dir):
-        if fname.endswith(".mat"):
-            yield os.path.join(mm_dir, fname)
-
+from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -48,22 +41,23 @@ if __name__ == "__main__":
 
     results = Results("results/data.csv")
 
-    mm_dir = os.path.join(os.path.dirname(__file__), "data", "maros_meszaros")
-    with open(os.path.join(mm_dir, "OPTCOSTS.yaml"), "r") as fh:
-        file_dict = yaml.load(fh)
-        optimal_costs = {key: float(value) for key, value in file_dict.items()}
+    test_set = MarosMeszaros(
+        data_dir=os.path.join(
+            os.path.dirname(__file__), "data", "maros_meszaros"
+        )
+    )
 
     problem_number = 1
     for solver in solvers:
-        for fname in list_mat_files(mm_dir):
+        for fname in test_set:
             problem_name = os.path.basename(fname)[:-4]
             print(
                 f"Running problem #{problem_number} ({problem_name}) "
                 f"with {solver}..."
             )
             problem = Problem.from_mat_file(fname)
-            if problem.name in optimal_costs:
-                problem.optimal_cost = optimal_costs[problem.name]
+            if problem.name in test_set.optimal_costs:
+                problem.optimal_cost = test_set.optimal_costs[problem.name]
             solution, duration_us = problem.solve(
                 solver=solver, **solver_settings[solver]
             )
