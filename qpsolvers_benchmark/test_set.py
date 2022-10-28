@@ -99,9 +99,7 @@ class TestSet(abc.ABC):
                 continue
             for solver, settings in solver_settings.items():
                 if problem.name == "HUESTIS" and solver == "proxqp":
-                    # TODO(scaron): report this issue
-                    print("Skipping known segmentation fault")
-                    continue
+                    print("Caution: known segmentation fault")
                 print(f"Running problem {problem.name} with {solver}...")
                 solution, duration_us = problem.solve(
                     solver=solver, **settings
