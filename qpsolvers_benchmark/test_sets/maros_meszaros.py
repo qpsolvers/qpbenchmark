@@ -67,9 +67,8 @@ class MarosMeszaros(TestSet):
     def write_report(self) -> None:
         date = str(datetime.datetime.now(datetime.timezone.utc))
         cpu_info = get_cpu_info()
-        found_df = self.results.build_found_df()
-        found_summary_df = self.results.build_found_summary_df()
 
+        found_df = self.results.build_found_df()
         found_table = found_df.to_markdown(index=True)
         found_table = found_table.replace(
             "False", bool_as_emoji(False) + " " * 3

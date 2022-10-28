@@ -21,9 +21,11 @@ Test case results.
 
 import os.path
 
+import numpy as np
 import pandas
 
 from .problem import Problem
+from .utils import shgeom
 
 
 class Results:
@@ -55,7 +57,6 @@ class Results:
         self.df = df
         self.csv_path = csv_path
         self.__found_df = None
-        self.__found_summary_df = None
 
     def write(self) -> None:
         """
@@ -116,11 +117,11 @@ class Results:
         self.__found_df = pandas.DataFrame.from_dict(found)
         return self.__found_df
 
-    def build_found_summary_df(self) -> pandas.DataFrame:
+    def build_success_rate_df(self) -> pandas.DataFrame:
         found_df = self.__found_df
         solvers = list(found_df)
         # problems = found_df.index.tolist()
-        self.__found_summary_df = pandas.DataFrame(
+        return pandas.DataFrame(
             {
                 "Success rate (%)": {
                     solver: 100.0 * found_df[solver].astype(float).mean()
