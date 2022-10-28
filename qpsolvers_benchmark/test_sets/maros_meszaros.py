@@ -43,7 +43,11 @@ class MarosMeszaros(TestSet):
     def sparse_only(self) -> bool:
         return True
 
-    def __init__(self, data_dir: str, results_dir: str):
+    def __init__(
+        self,
+        data_dir: str,
+        results_dir: str,
+    ):
         super().__init__(data_dir, results_dir)
         with open(os.path.join(data_dir, "OPTCOSTS.yaml"), "r") as fh:
             file_dict = yaml.load(fh)
