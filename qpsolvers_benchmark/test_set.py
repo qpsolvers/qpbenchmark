@@ -27,6 +27,7 @@ from qpsolvers import sparse_solvers
 
 from .problem import Problem
 from .results import Results
+from .spdlog import logging
 
 
 class TestSet(abc.ABC):

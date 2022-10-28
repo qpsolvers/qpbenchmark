@@ -20,7 +20,7 @@ Utility functions.
 """
 
 import platform
-import logging
+from .spdlog import logging
 
 try:
     import cpuinfo
