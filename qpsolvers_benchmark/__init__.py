@@ -22,11 +22,9 @@ Benchmark for quadratic programming solvers available in Python.
 __version__ = "0.1.0"
 
 from .problem import Problem
-from .results import Results
-from .run_test_set import run_test_set
+from .test_set import TestSet
 
 __all__ = [
     "Problem",
-    "Results",
-    "run_test_set",
+    "TestSet",
 ]

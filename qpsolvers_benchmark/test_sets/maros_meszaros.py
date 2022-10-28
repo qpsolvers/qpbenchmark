@@ -26,9 +26,8 @@ from typing import Dict, Iterator
 import yaml
 
 from ..problem import Problem
-from ..results import Results
+from ..test_set import TestSet
 from ..utils import bool_as_emoji, get_cpu_info
-from .test_set import TestSet
 
 
 def build_found_table(results):
@@ -52,7 +51,8 @@ class MarosMeszaros(TestSet):
     def sparse_only(self) -> bool:
         return True
 
-    def __init__(self, data_dir: str):
+    def __init__(self, data_dir: str, results_dir: str):
+        super().__init__(data_dir, results_dir)
         with open(os.path.join(data_dir, "OPTCOSTS.yaml"), "r") as fh:
             file_dict = yaml.load(fh)
             optimal_costs = {k: float(v) for k, v in file_dict.items()}
@@ -68,11 +68,11 @@ class MarosMeszaros(TestSet):
                     problem.optimal_cost = self.optimal_costs[problem.name]
                 yield problem
 
-    def write_report(self, path: str, results: Results) -> None:
+    def write_report(self) -> None:
         date = str(datetime.datetime.now(datetime.timezone.utc))
         cpu_info = get_cpu_info()
-        found_table = build_found_table(results)
-        with open(path, "w") as fh:
+        found_table = build_found_table(self.results)
+        with open(self.report_path, "w") as fh:
             fh.write(
                 f"""# Maros and Meszaros Convex Quadratic Programming Test Set
 
@@ -82,4 +82,5 @@ class MarosMeszaros(TestSet):
 ## Finding solutions
 
 {found_table}
-""")
+"""
+            )

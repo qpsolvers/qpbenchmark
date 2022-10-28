@@ -20,7 +20,6 @@ import os
 
 from qpsolvers import available_solvers
 
-from qpsolvers_benchmark import Results, run_test_set
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 
@@ -62,16 +61,14 @@ if __name__ == "__main__":
     test_set = MarosMeszaros(
         data_dir=os.path.join(
             os.path.dirname(__file__), "data", "maros_meszaros"
-        )
+        ),
+        results_dir=os.path.join(os.path.dirname(__file__), "results"),
     )
 
-    results = Results(f"results/{test_set.name}.csv")
-    run_test_set(
-        test_set,
+    test_set.run(
         solver_settings,
-        results,
         only_problem=args.problem,
         only_solver=args.solver,
     )
-    results.write()
-    test_set.write_report(f"results/{test_set.name}.md", results)
+    test_set.write_results()
+    test_set.write_report()
