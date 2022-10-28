@@ -82,7 +82,9 @@ class MarosMeszaros(TestSet):
         success_rate_table = success_rate_table.replace(" 100    ", " **100**")
 
         geometric_mean_df = self.results.build_geometric_mean_df()
-        geometric_mean_table = geometric_mean_df.to_markdown(index=True)
+        geometric_mean_table = geometric_mean_df.to_markdown(
+            index=True, floatfmt=".1f"
+        )
 
         with open(self.report_path, "w") as fh:
             fh.write(
@@ -93,7 +95,7 @@ class MarosMeszaros(TestSet):
 
 ## Success rate
 
-Let's first look at the precentage of problems each solver is able to solve:
+Precentage of problems each solver is able to solve:
 
 {success_rate_table}
 

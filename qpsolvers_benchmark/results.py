@@ -144,13 +144,13 @@ class Results:
                 ]
             )
             means[solver] = shgeom(durations)
-        print(f"{means=}")
         best_mean = np.min(list(means.values()))
-        print(f"{best_mean=}")
-        return pandas.DataFrame(
+        label = "Shifted geometric mean"
+        mean_df = pandas.DataFrame(
             {
-                "Normalized shifted geometric mean": {
+                label: {
                     solver: means[solver] / best_mean for solver in solvers
                 }
             }
         )
+        return mean_df.sort_values(by=label)
