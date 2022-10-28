@@ -20,7 +20,7 @@ import os
 
 from qpsolvers import available_solvers
 
-from qpsolvers_benchmark import Report, Results, Validator, run_test_set
+from qpsolvers_benchmark import Report, Results, run_test_set
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 
@@ -57,7 +57,6 @@ if __name__ == "__main__":
     solver_settings["osqp"]["time_limit"] = args.time_limit
     solver_settings["scs"]["time_limit_secs"] = args.time_limit
 
-    validator = Validator(eps_abs=1e-5)
     solver_settings["osqp"] = {"eps_abs": 1e-5, "eps_rel": 0.0}
 
     test_set = MarosMeszaros(
@@ -76,6 +75,6 @@ if __name__ == "__main__":
     )
     results.write()
 
-    report = Report(validator)
+    report = Report()
     report.title(test_set.title)
     report.write(results, f"results/{test_set.name}.md")

@@ -43,7 +43,6 @@ class Results:
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         self.df = df
         self.csv_path = csv_path
-        self.__found = {}
 
     def write(self):
         self.df.to_csv(self.csv_path, index=False)

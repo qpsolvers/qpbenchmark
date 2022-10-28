@@ -24,7 +24,6 @@ import logging
 import platform
 
 from .utils import bool_as_emoji
-from .validator import Validator
 
 try:
     import cpuinfo
@@ -34,7 +33,7 @@ except ImportError:
 
 
 class Report:
-    def __init__(self, validator: Validator):
+    def __init__(self):
         """
         Initialize report written to file.
 
@@ -47,7 +46,6 @@ class Report:
             else cpuinfo.get_cpu_info()["brand_raw"]
         )
         self.datetime = str(datetime.datetime.now(datetime.timezone.utc))
-        self.validator = validator
 
     def title(self, title: str) -> None:
         """
@@ -65,20 +63,7 @@ class Report:
 
 - Date: {self.datetime}
 - CPU: {self.cpu_info}
-
-## Validation parameters
-
-| Name | Value |
-|------|-------|
 """
-            )
-            output.write(
-                "\n".join(
-                    [
-                        f"| ``{name}`` | {value} |"
-                        for name, value in self.validator.list_params()
-                    ]
-                )
             )
 
             output.write("\n\n")
