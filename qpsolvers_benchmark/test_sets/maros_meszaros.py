@@ -19,26 +19,30 @@
 Maros-Meszaros test set.
 """
 
+import datetime
 import os.path
 from typing import Dict, Iterator
 
 import yaml
 
 from ..problem import Problem
+from ..results import Results
+from ..utils import bool_as_emoji, get_cpu_info
 from .test_set import TestSet
+
+
+def build_found_table(results):
+    found_df = results.build_found_df()
+    found_table = found_df.to_markdown(index=True)
+    found_table = found_table.replace("False", bool_as_emoji(False) + " " * 3)
+    found_table = found_table.replace("True", bool_as_emoji(True) + " " * 3)
+    return found_table
 
 
 class MarosMeszaros(TestSet):
 
     data_dir: str
     optimal_costs: Dict[str, float]
-
-    def __init__(self, data_dir: str):
-        with open(os.path.join(data_dir, "OPTCOSTS.yaml"), "r") as fh:
-            file_dict = yaml.load(fh)
-            optimal_costs = {k: float(v) for k, v in file_dict.items()}
-        self.data_dir = data_dir
-        self.optimal_costs = optimal_costs
 
     @property
     def name(self) -> str:
@@ -48,9 +52,12 @@ class MarosMeszaros(TestSet):
     def sparse_only(self) -> bool:
         return True
 
-    @property
-    def title(self) -> str:
-        return "Maros and Meszaros Convex Quadratic Programming Test Set"
+    def __init__(self, data_dir: str):
+        with open(os.path.join(data_dir, "OPTCOSTS.yaml"), "r") as fh:
+            file_dict = yaml.load(fh)
+            optimal_costs = {k: float(v) for k, v in file_dict.items()}
+        self.data_dir = data_dir
+        self.optimal_costs = optimal_costs
 
     def __iter__(self) -> Iterator[Problem]:
         for fname in os.listdir(self.data_dir):
@@ -60,3 +67,19 @@ class MarosMeszaros(TestSet):
                 if problem.name in self.optimal_costs:
                     problem.optimal_cost = self.optimal_costs[problem.name]
                 yield problem
+
+    def write_report(self, path: str, results: Results) -> None:
+        date = str(datetime.datetime.now(datetime.timezone.utc))
+        cpu_info = get_cpu_info()
+        found_table = build_found_table(results)
+        with open(path, "w") as fh:
+            fh.write(
+                f"""# Maros and Meszaros Convex Quadratic Programming Test Set
+
+- Date: {date}
+- CPU: {cpu_info}
+
+## Finding solutions
+
+{found_table}
+""")

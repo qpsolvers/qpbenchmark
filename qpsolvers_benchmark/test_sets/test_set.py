@@ -26,6 +26,12 @@ from ..problem import Problem
 
 
 class TestSet(abc.ABC):
+    @abc.abstractmethod
+    def __iter__(self) -> Iterator[Problem]:
+        """
+        Yield test problems one by one.
+        """
+
     @abc.abstractproperty
     def name(self) -> str:
         """
@@ -33,19 +39,7 @@ class TestSet(abc.ABC):
         """
 
     @abc.abstractproperty
-    def title(self) -> str:
-        """
-        Full name, used as title for the output test report.
-        """
-
-    @abc.abstractproperty
     def sparse_only(self) -> bool:
         """
         If True, test set is restricted to solvers with a sparse matrix API.
-        """
-
-    @abc.abstractmethod
-    def __iter__(self) -> Iterator[Problem]:
-        """
-        Yield test test problems one by one.
         """

@@ -19,5 +19,23 @@
 Utility functions.
 """
 
+import platform
+import logging
+
+try:
+    import cpuinfo
+except ImportError:
+    cpuinfo = None
+    logging.warn("Run ``pip install py-cpuinfo`` for more accurate CPU info")
+
+
 def bool_as_emoji(b: bool):
     return "\U00002714" if b else "\U0000274C"
+
+
+def get_cpu_info():
+    return (
+        platform.processor()
+        if cpuinfo is None
+        else cpuinfo.get_cpu_info()["brand_raw"]
+    )

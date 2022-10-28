@@ -20,7 +20,7 @@ import os
 
 from qpsolvers import available_solvers
 
-from qpsolvers_benchmark import Report, Results, run_test_set
+from qpsolvers_benchmark import Results, run_test_set
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 
@@ -74,7 +74,4 @@ if __name__ == "__main__":
         only_solver=args.solver,
     )
     results.write()
-
-    report = Report()
-    report.title(test_set.title)
-    report.write(results, f"results/{test_set.name}.md")
+    test_set.write_report(f"results/{test_set.name}.md", results)
