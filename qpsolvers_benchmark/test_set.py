@@ -57,10 +57,24 @@ class TestSet(abc.ABC):
         Write report files to results directory.
         """
 
-    def __init__(self, data_dir: str, results_dir: str):
+    def __init__(
+        self,
+        data_dir: str,
+        results_dir: str,
+        solver_settings: Dict[str, Dict[str, Any]],
+    ):
+        """
+        Initialize test set.
+
+        Args:
+            data_dir: Path to data directory.
+            results_dir: Path to results directory.
+            solver_settings: Keyword arguments for each solver.
+        """
         results = Results(os.path.join(results_dir, f"{self.name}.csv"))
         self.results = results
         self.results_dir = results_dir
+        self.solver_settings = solver_settings
 
     @property
     def report_path(self) -> str:
@@ -68,7 +82,6 @@ class TestSet(abc.ABC):
 
     def run(
         self,
-        solver_settings: Dict[str, Dict[str, Any]],
         only_problem: Optional[str] = None,
         only_solver: Optional[str] = None,
     ) -> None:
@@ -76,11 +89,11 @@ class TestSet(abc.ABC):
         Run test set.
 
         Args:
-            solver_settings: Keyword arguments for each solver.
             only_problem: If set, only run that specific problem in the set.
             only_solver: If set, only run that specific solver.
         """
         problem_number = 1
+        solver_settings = self.solver_settings
         if self.sparse_only:
             solver_settings = {
                 solver: solver_settings[solver] for solver in sparse_solvers

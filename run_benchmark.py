@@ -63,10 +63,10 @@ if __name__ == "__main__":
             os.path.dirname(__file__), "data", "maros_meszaros"
         ),
         results_dir=os.path.join(os.path.dirname(__file__), "results"),
+        solver_settings=solver_settings,
     )
 
     test_set.run(
-        solver_settings,
         only_problem=args.problem,
         only_solver=args.solver,
     )
