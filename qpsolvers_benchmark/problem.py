@@ -20,7 +20,7 @@ Matrix-vector representation of a quadratic program.
 """
 
 import os
-from time import perf_counter_ns
+from time import perf_counter
 from typing import Optional, Union
 
 import numpy as np
@@ -177,7 +177,7 @@ class Problem:
             Primal solution to the quadratic program, or None if it is
             unfeasible.
         """
-        start_time = perf_counter_ns()
+        start_time = perf_counter()
         try:
             solution = solve_qp(
                 self.P,
@@ -194,8 +194,8 @@ class Problem:
         except Exception as e:
             print(f"Caught solver exception: {e}")
             solution = None
-        duration_us = (perf_counter_ns() - start_time) / 1000.0
-        return solution, duration_us
+        duration = (perf_counter() - start_time)
+        return solution, duration
 
     def cost_error(self, x: Optional[np.ndarray]) -> Optional[float]:
         """

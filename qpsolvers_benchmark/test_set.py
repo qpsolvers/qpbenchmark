@@ -121,10 +121,10 @@ class TestSet(abc.ABC):
                         self.results.update(problem, solver, None, 0.0)
                         continue
                 logging.info(f"Solving {problem.name} with {solver}...")
-                solution, duration_us = problem.solve(
+                solution, duration = problem.solve(
                     solver=solver, **settings
                 )
-                self.results.update(problem, solver, solution, duration_us)
+                self.results.update(problem, solver, solution, duration)
             problem_number += 1
             if problem_number > 1:
                 pass

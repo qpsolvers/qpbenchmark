@@ -46,7 +46,7 @@ class Results:
             columns=[
                 "problem",
                 "solver",
-                "duration_us",
+                "duration",
                 "found",
                 "cost_error",
                 "primal_error",
@@ -65,7 +65,7 @@ class Results:
         self.df.to_csv(self.csv_path, index=False)
 
     def update(
-        self, problem: Problem, solver: str, solution, duration_us: float
+        self, problem: Problem, solver: str, solution, duration: float
     ) -> None:
         """
         Update entry for a given (problem, solver) pair.
@@ -74,7 +74,7 @@ class Results:
             problem: Problem solved.
             solver: Solver name.
             solution: Solution found by the solver.
-            duration_us: Duration the solver took, in microseconds.
+            duration: Duration the solver took, in seconds.
         """
         self.df = self.df.drop(
             self.df.index[
@@ -89,7 +89,7 @@ class Results:
                     {
                         "problem": [problem.name],
                         "solver": [solver],
-                        "duration_us": [duration_us],
+                        "duration": [duration],
                         "found": [solution is not None],
                         "cost_error": [problem.cost_error(solution)],
                         "primal_error": [problem.primal_error(solution)],
@@ -135,16 +135,15 @@ class Results:
         means = {solver: 1e20 for solver in solvers}
         for solver in solvers:
             solver_df = self.df[self.df["solver"] == solver]
-            duration_us = np.array(
+            durations = np.array(
                 [
-                    solver_df.at[i, "duration_us"]
+                    solver_df.at[i, "duration"]
                     if solver_df.at[i, "found"]
                     else time_limit
                     for i in solver_df.index
                 ]
             )
-            print(f"duration_us[{solver}] = {duration_us}")
-            means[solver] = shgeom(duration_us)
+            means[solver] = shgeom(durations)
         print(f"{means=}")
         best_mean = np.min(list(means.values()))
         print(f"{best_mean=}")
