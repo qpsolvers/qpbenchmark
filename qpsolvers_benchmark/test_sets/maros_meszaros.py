@@ -77,10 +77,12 @@ class MarosMeszaros(TestSet):
             "True", bool_as_emoji(True) + " " * 3
         )
 
-        found_summary_table = found_summary_df.to_markdown(index=True)
-        found_summary_table = found_summary_table.replace(
-            " 100    ", " **100**"
-        )
+        success_rate_df = self.results.build_success_rate_df()
+        success_rate_table = success_rate_df.to_markdown(index=True)
+        success_rate_table = success_rate_table.replace(" 100    ", " **100**")
+
+        geometric_mean_df = self.results.build_geometric_mean_df()
+        geometric_mean_table = geometric_mean_df.to_markdown(index=True)
 
         with open(self.report_path, "w") as fh:
             fh.write(
@@ -91,12 +93,21 @@ class MarosMeszaros(TestSet):
 
 ## Success rate
 
-Since this benchmark is made of difficult problems, we first look at the
-precentage of problems each solver is able to solve:
+Let's first look at the precentage of problems each solver is able to solve:
 
-{found_summary_table}
+{success_rate_table}
 
-### Details
+## Shifted geometric mean
+
+The shifted geometric mean shows the factor at which a given solver is slower
+than the fastest one over the test set. It is commonly used in [benchmarks for
+optimization software](http://plato.asu.edu/bench.html).
+
+{geometric_mean_table}
+
+## Details
+
+### Success
 
 {found_table}
 """
