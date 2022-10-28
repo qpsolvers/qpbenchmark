@@ -129,4 +129,29 @@ class Results:
                 }
             }
         )
-        return self.__found_summary_df
+
+    def build_geometric_mean_df(self, time_limit=10.0) -> pandas.DataFrame:
+        solvers = set(self.df["solver"].to_list())
+        means = {solver: 1e20 for solver in solvers}
+        for solver in solvers:
+            solver_df = self.df[self.df["solver"] == solver]
+            duration_us = np.array(
+                [
+                    solver_df.at[i, "duration_us"]
+                    if solver_df.at[i, "found"]
+                    else time_limit
+                    for i in solver_df.index
+                ]
+            )
+            print(f"duration_us[{solver}] = {duration_us}")
+            means[solver] = shgeom(duration_us)
+        print(f"{means=}")
+        best_mean = np.min(list(means.values()))
+        print(f"{best_mean=}")
+        return pandas.DataFrame(
+            {
+                "Normalized shifted geometric mean": {
+                    solver: means[solver] / best_mean for solver in solvers
+                }
+            }
+        )
