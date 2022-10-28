@@ -115,8 +115,8 @@ class TestSet(abc.ABC):
                         logging.warn("Skipping UNREPORTED issue")
                         self.results.update(problem, solver, None, 0.0)
                         continue
-                    # another segfault, potentially same issue as QGFRDXPN
-                    if problem.name == "LISWET3":
+                    # other segfaults, potentially the same issue as HUESTIS
+                    if problem.name in ["LISWET3", "STADAT3"]:
                         logging.warn("Skipping UNREPORTED issue")
                         self.results.update(problem, solver, None, 0.0)
                         continue
