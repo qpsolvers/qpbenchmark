@@ -49,6 +49,7 @@ def parse_command_line_arguments():
 if __name__ == "__main__":
     args = parse_command_line_arguments()
     solver_settings = {solver: {} for solver in available_solvers}
+    solver_settings.update({"gurobi": {}, "highs": {}, "osqp": {}, "scs": {}})
 
     # Time limit
     solver_settings["gurobi"]["time_limit"] = args.time_limit
