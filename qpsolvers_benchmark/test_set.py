@@ -57,11 +57,7 @@ class TestSet(abc.ABC):
         Write report files to results directory.
         """
 
-    def __init__(
-        self,
-        data_dir: str,
-        results_dir: str,
-    ):
+    def __init__( self, data_dir: str, results_dir: str):
         """
         Initialize test set.
 
@@ -109,7 +105,7 @@ class TestSet(abc.ABC):
                 self.results.update(problem, solver, solution, duration_us)
             problem_number += 1
             if problem_number > 1:
-                break
+                pass
 
     def write_results(self) -> None:
         """
