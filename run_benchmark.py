@@ -38,6 +38,12 @@ def parse_command_line_arguments():
         "-s",
         help="Limit tests to a specific solver",
     )
+    parser.add_argument(
+        "--time-limit",
+        default=10.0,
+        type=float,
+        help="Maximum time a solver may take to solve one problem, in seconds",
+    )
     return parser.parse_args()
 
 
@@ -46,7 +52,10 @@ if __name__ == "__main__":
     solver_settings = {solver: {} for solver in available_solvers}
 
     # Time limit
-    solver_settings["highs"]["time_limit"] = 10.0
+    solver_settings["gurobi"]["time_limit"] = args.time_limit
+    solver_settings["highs"]["time_limit"] = args.time_limit
+    solver_settings["osqp"]["time_limit"] = args.time_limit
+    solver_settings["scs"]["time_limit_secs"] = args.time_limit
 
     validator = Validator(eps_abs=1e-5)
     solver_settings["osqp"] = {"eps_abs": 1e-5, "eps_rel": 0.0}
