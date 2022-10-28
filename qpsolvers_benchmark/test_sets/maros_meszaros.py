@@ -79,7 +79,7 @@ class MarosMeszaros(TestSet):
         )
 
         found_summary_table = found_summary_df.to_markdown(index=True)
-        found_summary_table = found_summary_table.replace(" 100 ", " **100** ")
+        found_summary_table = found_summary_table.replace(" 100    ", " **100**")
 
         with open(self.report_path, "w") as fh:
             fh.write(

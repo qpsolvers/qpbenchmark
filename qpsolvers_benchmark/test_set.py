@@ -103,10 +103,17 @@ class TestSet(abc.ABC):
                     # https://github.com/Simple-Robotics/proxsuite/issues/62
                     if problem.name == "HUESTIS":
                         logging.warn("Skipping reported issue")
+                        self.results.update(problem, solver, None, 0.0)
                         continue
                     # https://github.com/Simple-Robotics/proxsuite/issues/63
                     if problem.name == "QGFRDXPN":
                         logging.warn("Skipping reported issue")
+                        self.results.update(problem, solver, None, 0.0)
+                        continue
+                    # not reported yet, but let's wait for the others
+                    if problem.name == "STADAT1":
+                        logging.warn("Skipping UNREPORTED issue")
+                        self.results.update(problem, solver, None, 0.0)
                         continue
                 logging.info(f"Solving {problem.name} with {solver}...")
                 solution, duration_us = problem.solve(

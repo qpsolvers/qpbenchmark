@@ -22,12 +22,6 @@ Then, run the benchmark by:
 $ python run_benchmark.py
 ```
 
-## Design
-
-### Validation
-
-...
-
 ## Limitations
 
 Here are some known areas of improvement for this benchmark:
