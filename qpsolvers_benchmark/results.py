@@ -16,7 +16,7 @@
 # limitations under the License.
 
 """
-Benchmark results.
+Test case results.
 """
 
 import os.path
@@ -27,7 +27,18 @@ from .problem import Problem
 
 
 class Results:
+
+    """
+    Test case results.
+    """
+
     def __init__(self, csv_path: str):
+        """
+        Initialize results.
+
+        Args:
+            csv_path: Persistent CSV file to load previous results from.
+        """
         df = pandas.DataFrame(
             [],
             columns=[
@@ -44,12 +55,24 @@ class Results:
         self.df = df
         self.csv_path = csv_path
 
-    def write(self):
+    def write(self) -> None:
+        """
+        Write results to their CSV file for persistence.
+        """
         self.df.to_csv(self.csv_path, index=False)
 
     def update(
         self, problem: Problem, solver: str, solution, duration_us: float
-    ):
+    ) -> None:
+        """
+        Update entry for a given (problem, solver) pair.
+
+        Args:
+            problem: Problem solved.
+            solver: Solver name.
+            solution: Solution found by the solver.
+            duration_us: Duration the solver took, in microseconds.
+        """
         self.df = self.df.drop(
             self.df.index[
                 (self.df["problem"] == problem.name)
@@ -73,7 +96,13 @@ class Results:
             ignore_index=True,
         )
 
-    def build_found_df(self):
+    def build_found_df(self) -> pandas.DataFrame:
+        """
+        Build the (solver, problem) found table.
+
+        Returns:
+            Found table data frame.
+        """
         problems = set(self.df["problem"].to_list())
         solvers = set(self.df["solver"].to_list())
         found = {
