@@ -99,9 +99,16 @@ class TestSet(abc.ABC):
             if only_problem and problem.name != only_problem:
                 continue
             for solver, settings in solver_settings.items():
-                if problem.name == "HUESTIS" and solver == "proxqp":
-                    print("Caution: known segmentation fault")
-                print(f"Running problem {problem.name} with {solver}...")
+                if solver == "proxqp":
+                    # https://github.com/Simple-Robotics/proxsuite/issues/62
+                    if problem.name == "HUESTIS":
+                        logging.warn("Skipping reported issue")
+                        continue
+                    # https://github.com/Simple-Robotics/proxsuite/issues/63
+                    if problem.name == "QGFRDXPN":
+                        logging.warn("Skipping reported issue")
+                        continue
+                logging.info(f"Solving {problem.name} with {solver}...")
                 solution, duration_us = problem.solve(
                     solver=solver, **settings
                 )
