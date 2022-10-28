@@ -54,6 +54,8 @@ class Results:
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         self.df = df
         self.csv_path = csv_path
+        self.__found_df = None
+        self.__found_summary_df = None
 
     def write(self) -> None:
         """
@@ -111,4 +113,19 @@ class Results:
         }
         for row in self.df.to_dict(orient="records"):
             found[row["solver"]][row["problem"]] = row["found"]
-        return pandas.DataFrame.from_dict(found)
+        self.__found_df = pandas.DataFrame.from_dict(found)
+        return self.__found_df
+
+    def build_found_summary_df(self) -> pandas.DataFrame:
+        found_df = self.__found_df
+        solvers = list(found_df)
+        # problems = found_df.index.tolist()
+        self.__found_summary_df = pandas.DataFrame(
+            {
+                "Success rate (%)": {
+                    solver: 100.0 * found_df[solver].astype(float).mean()
+                    for solver in solvers
+                }
+            }
+        )
+        return self.__found_summary_df

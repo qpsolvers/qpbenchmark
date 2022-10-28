@@ -30,14 +30,6 @@ from ..test_set import TestSet
 from ..utils import bool_as_emoji, get_cpu_info
 
 
-def build_found_table(results):
-    found_df = results.build_found_df()
-    found_table = found_df.to_markdown(index=True)
-    found_table = found_table.replace("False", bool_as_emoji(False) + " " * 3)
-    found_table = found_table.replace("True", bool_as_emoji(True) + " " * 3)
-    return found_table
-
-
 class MarosMeszaros(TestSet):
 
     data_dir: str
@@ -71,7 +63,20 @@ class MarosMeszaros(TestSet):
     def write_report(self) -> None:
         date = str(datetime.datetime.now(datetime.timezone.utc))
         cpu_info = get_cpu_info()
-        found_table = build_found_table(self.results)
+        found_df = self.results.build_found_df()
+        found_summary_df = self.results.build_found_summary_df()
+
+        found_table = found_df.to_markdown(index=True)
+        found_table = found_table.replace(
+            "False", bool_as_emoji(False) + " " * 3
+        )
+        found_table = found_table.replace(
+            "True", bool_as_emoji(True) + " " * 3
+        )
+
+        found_summary_table = found_summary_df.to_markdown(index=True)
+        found_summary_table = found_summary_table.replace(" 100 ", " **100** ")
+
         with open(self.report_path, "w") as fh:
             fh.write(
                 f"""# Maros and Meszaros Convex Quadratic Programming Test Set
@@ -79,7 +84,14 @@ class MarosMeszaros(TestSet):
 - Date: {date}
 - CPU: {cpu_info}
 
-## Finding solutions
+## Success rate
+
+Since this is a benchmark of difficult problems, we first look at how many
+problems each solver is able to solve:
+
+{found_summary_table}
+
+### Details
 
 {found_table}
 """
