@@ -79,7 +79,9 @@ class MarosMeszaros(TestSet):
         )
 
         found_summary_table = found_summary_df.to_markdown(index=True)
-        found_summary_table = found_summary_table.replace(" 100    ", " **100**")
+        found_summary_table = found_summary_table.replace(
+            " 100    ", " **100**"
+        )
 
         with open(self.report_path, "w") as fh:
             fh.write(
@@ -90,8 +92,8 @@ class MarosMeszaros(TestSet):
 
 ## Success rate
 
-Since this is a benchmark of difficult problems, we first look at how many
-problems each solver is able to solve:
+Since this benchmark is made of difficult problems, we first look at the
+precentage of problems each solver is able to solve:
 
 {found_summary_table}
 

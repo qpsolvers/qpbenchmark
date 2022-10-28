@@ -115,6 +115,11 @@ class TestSet(abc.ABC):
                         logging.warn("Skipping UNREPORTED issue")
                         self.results.update(problem, solver, None, 0.0)
                         continue
+                    # another segfault, potentially same issue as QGFRDXPN
+                    if problem.name == "LISWET3":
+                        logging.warn("Skipping UNREPORTED issue")
+                        self.results.update(problem, solver, None, 0.0)
+                        continue
                 logging.info(f"Solving {problem.name} with {solver}...")
                 solution, duration_us = problem.solve(
                     solver=solver, **settings
