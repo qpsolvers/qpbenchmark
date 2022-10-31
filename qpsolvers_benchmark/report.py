@@ -75,8 +75,7 @@ class Report:
 
 - Date: {self.date}
 - CPU: {self.cpu_info}
-
-## Solvers
+- Solvers:
 
 {self.get_solvers_table()}
 
