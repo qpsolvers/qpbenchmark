@@ -168,6 +168,27 @@ class Problem:
             r=r,
         )
 
+    def to_dense(self):
+        """
+        Return dense copy.
+
+        Returns:
+            Dense copy of the present problem.
+        """
+        return Problem(
+            self.P.toarray(),
+            self.q,
+            self.G.toarray(),
+            self.h,
+            self.A.toarray(),
+            self.b,
+            self.lb,
+            self.ub,
+            self.name,
+            self.optimal_cost,
+            self.r,
+        )
+
     def constraints_as_double_sided_ineq(self):
         """
         Get problem constraints as double-sided inequalities.
