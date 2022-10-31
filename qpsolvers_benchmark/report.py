@@ -21,14 +21,15 @@ Report written from test set results.
 
 import datetime
 
-from .spdlog import logging
-from .utils import get_cpu_info
 from .results import Results
 from .solver_settings import SolverSettings
+from .spdlog import logging
+from .utils import get_cpu_info
 
 
 class Report:
     def __init__(self, results: Results, solver_settings: SolverSettings):
+        self.solver_settings = solver_settings
         self.results = results
 
     def write(self, path: str) -> None:
@@ -49,7 +50,7 @@ class Report:
             index=True, floatfmt=".1f"
         )
 
-        with open(self.report_path, "w") as fh:
+        with open(path, "w") as fh:
             fh.write(
                 f"""# Maros and Meszaros Convex Quadratic Programming Test Set
 
@@ -99,4 +100,4 @@ Rows are solvers and columns are solver settings.
 """
             )
 
-        logging.info(f"Wrote report to {self.report_path}")
+        logging.info(f"Wrote report to {path}")

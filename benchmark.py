@@ -18,16 +18,16 @@
 import argparse
 import os
 
-from qpsolvers_benchmark.results import Results
+from qpsolvers_benchmark import Report, Results, SolverSettings
+from qpsolvers_benchmark.test_sets import MarosMeszaros
+
 
 def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument(
-        "test_set",
-        choices=["maros_meszaros"],
-        help="Test set to run",
+        "command", choices=["run", "report"], help="Benchmark action to run"
     )
     parser.add_argument(
         "--problem",
@@ -38,6 +38,12 @@ def parse_command_line_arguments():
         "--solver",
         "-s",
         help="Limit tests to a specific solver",
+    )
+    parser.add_argument(
+        "--test-set",
+        choices=["maros_meszaros"],
+        default="maros_meszaros",
+        help="Test set to run",
     )
     parser.add_argument(
         "--time-limit",
@@ -51,12 +57,43 @@ def parse_command_line_arguments():
         action="store_true",
         help="Turn on verbose solver outputs",
     )
+    parser.add_argument
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_command_line_arguments()
 
+    solver_settings = {
+        "default": SolverSettings(
+            time_limit=args.time_limit, verbose=args.verbose
+        ),
+        # "low_accuracy": SolverSettings(
+        #     time_limit=args.time_limit,
+        #     eps_abs=1e-3,
+        #     eps_rel=0.0,
+        # ),
+        # "high_accuracy": SolverSettings(
+        #     time_limit=args.time_limit,
+        #     eps_abs=1e-8,
+        #     eps_rel=0.0,
+        # ),
+    }
+
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    test_set = MarosMeszaros(
+        data_dir=os.path.join(data_dir, "maros_meszaros"),
+        solver_settings=solver_settings,
+    )
+
     results_dir = os.path.join(os.path.dirname(__file__), "results")
     results = Results(os.path.join(results_dir, f"{args.test_set}.csv"))
-    report_path = os.path.join(results_dir, f"{args.test_set}.md")
+
+    if args.command == "run":
+        test_set.run(
+            results, only_problem=args.problem, only_solver=args.solver
+        )
+        results.write()
+    else:  # args.command == "report"
+        report = Report(results, solver_settings)
+        report.write(os.path.join(results_dir, f"{args.test_set}.md"))
