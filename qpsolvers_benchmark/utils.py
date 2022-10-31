@@ -87,9 +87,17 @@ def get_solver_versions():
             HIGHS_VERSION_PATCH,
         )
 
-        versions["highs"] = (f"{HIGHS_VERSION_MAJOR}"
-        f".{HIGHS_VERSION_MINOR}"
-        f".{HIGHS_VERSION_PATCH}")
+        versions["highs"] = (
+            f"{HIGHS_VERSION_MAJOR}"
+            f".{HIGHS_VERSION_MINOR}"
+            f".{HIGHS_VERSION_PATCH}"
+        )
+    except ImportError:
+        pass
+    try:
+        from osqp import OSQP
+
+        versions["osqp"] = f"{OSQP().version()}"
     except ImportError:
         pass
     try:
