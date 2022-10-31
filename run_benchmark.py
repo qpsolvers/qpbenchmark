@@ -18,13 +18,18 @@
 import argparse
 import os
 
-from qpsolvers_benchmark import SolverSettings
+from qpsolvers_benchmark import Results, SolverSettings
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 
 def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
+    )
+    parser.add_argument(
+        "test_set",
+        choices=["maros_meszaros"],
+        help="Test set to run",
     )
     parser.add_argument(
         "--problem",
@@ -70,14 +75,14 @@ if __name__ == "__main__":
         # ),
     }
 
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
     test_set = MarosMeszaros(
-        data_dir=os.path.join(
-            os.path.dirname(__file__), "data", "maros_meszaros"
-        ),
-        results_dir=os.path.join(os.path.dirname(__file__), "results"),
+        data_dir=os.path.join(data_dir, "maros_meszaros"),
         solver_settings=solver_settings,
     )
 
-    test_set.run(only_problem=args.problem, only_solver=args.solver)
-    test_set.write_results()
-    test_set.write_report()
+    results_dir = os.path.join(os.path.dirname(__file__), "results")
+    results = Results(os.path.join( results_dir, f"{args.test_set}.csv"))
+
+    test_set.run(results, only_problem=args.problem, only_solver=args.solver)
+    results.write()

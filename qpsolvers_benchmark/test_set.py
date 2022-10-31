@@ -20,7 +20,6 @@ Base class for test sets.
 """
 
 import abc
-import os.path
 from typing import Dict, Iterator, Optional
 
 from qpsolvers import available_solvers, sparse_solvers
@@ -53,16 +52,9 @@ class TestSet(abc.ABC):
         If True, test set is restricted to solvers with a sparse matrix API.
         """
 
-    @abc.abstractmethod
-    def write_report(self) -> None:
-        """
-        Write report files to results directory.
-        """
-
     def __init__(
         self,
         data_dir: str,
-        results_dir: str,
         solver_settings: Dict[str, SolverSettings],
     ):
         """
@@ -70,22 +62,15 @@ class TestSet(abc.ABC):
 
         Args:
             data_dir: Path to data directory.
-            results_dir: Path to results directory.
             solver_settings: Keyword arguments for each solver.
         """
-        results = Results(os.path.join(results_dir, f"{self.name}.csv"))
         solvers = sparse_solvers if self.sparse_only else available_solvers
-        self.results = results
-        self.results_dir = results_dir
         self.solvers = solvers
         self.solver_settings = solver_settings
 
-    @property
-    def report_path(self) -> str:
-        return os.path.join(self.results_dir, f"{self.name}.md")
-
     def run(
         self,
+        results: Results,
         only_problem: Optional[str] = None,
         only_solver: Optional[str] = None,
     ) -> None:
@@ -93,6 +78,7 @@ class TestSet(abc.ABC):
         Run test set.
 
         Args:
+            results: Results instance to write to.
             only_problem: If set, only run that specific problem in the set.
             only_solver: If set, only run that specific solver.
         """
@@ -112,7 +98,7 @@ class TestSet(abc.ABC):
                         # https://github.com/Simple-Robotics/proxsuite/issues/62
                         if problem.name == "HUESTIS":
                             logging.warn("Skipping reported issue")
-                            self.results.update(*failure)
+                            results.update(*failure)
                             continue
                         # other segfaults, potentially same issue as HUESTIS
                         elif problem.name in [
@@ -147,12 +133,12 @@ class TestSet(abc.ABC):
                             "YAO",
                         ]:
                             logging.warn("Skipping UNREPORTED issue")
-                            self.results.update(*failure)
+                            results.update(*failure)
                             continue
                         # https://github.com/Simple-Robotics/proxsuite/issues/63
                         elif problem.name == "QGFRDXPN":
                             logging.warn("Skipping reported issue")
-                            self.results.update(*failure)
+                            results.update(*failure)
                             continue
                         # other hangs (> 10 min, no solution)
                         elif problem.name in [
@@ -165,25 +151,25 @@ class TestSet(abc.ABC):
                             "EXDATA",
                         ]:
                             logging.warn("Skipping UNREPORTED issue")
-                            self.results.update(*failure)
+                            results.update(*failure)
                             continue
                     elif solver == "highs":
                         failure = problem, solver, settings, None, 0.0
                         # not reported yet
                         if problem.name == "AUG2DC":
                             logging.warn("Skipping UNREPORTED issue")
-                            self.results.update(*failure)
+                            results.update(*failure)
                             continue
                     elif solver == "cvxopt":
                         failure = problem, solver, settings, None, 0.0
                         # hangs (> 15 min), not reported yet
                         if problem.name in ["CVXQP3_L", "CONT-300"]:
                             logging.warn("Skipping UNREPORTED issue")
-                            self.results.update(*failure)
+                            results.update(*failure)
                             continue
                     kwargs = self.solver_settings[settings][solver]
                     solution, runtime = problem.solve(solver, **kwargs)
-                    self.results.update(
+                    results.update(
                         problem, solver, settings, solution, runtime
                     )
             nb_done += 1
@@ -191,9 +177,3 @@ class TestSet(abc.ABC):
             f"Solved {nb_done} problems with {len(solvers)} solvers "
             f"and {len(self.solver_settings)} settings per solver"
         )
-
-    def write_results(self) -> None:
-        """
-        Write persistent results to a CSV file in the results directory.
-        """
-        self.results.write()
