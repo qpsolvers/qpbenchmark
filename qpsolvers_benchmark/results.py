@@ -137,27 +137,51 @@ class Results:
         success_rate_df.reindex(columns=sorted(all_settings))
         return success_rate_df.sort_index()
 
-    def build_geometric_mean_df(self, time_limit=10.0) -> pandas.DataFrame:
+    def build_geometric_mean_df(
+        self, time_limits: Dict[str, float]
+    ) -> pandas.DataFrame:
+        """
+        Compute the shifted geometric mean data frame.
+
+        Args:
+            time_limits: Time limits for each solver setting.
+
+        Note:
+            Similarly to the OSQP and ProxQP benchmarks, a solver that fails to
+            solve a given problem is reported as having spent maximum
+            computation time on it.
+
+        Returns:
+            Shifted geometric mean data frame.
+        """
         solvers = set(self.df["solver"].to_list())
-        means = {solver: 1e20 for solver in solvers}
-        for solver in solvers:
-            solver_df = self.df[self.df["solver"] == solver]
-            durations = np.array(
-                [
-                    solver_df.at[i, "duration"]
-                    if solver_df.at[i, "found"]
-                    else time_limit
-                    for i in solver_df.index
+        all_settings = set(self.df["settings"].to_list())
+
+        def mean_for_settings(settings):
+            means = {solver: 1e20 for solver in solvers}
+            for solver in solvers:
+                solver_df = self.df[
+                    (self.df["solver"] == solver)
+                    & (self.df["settings"] == settings)
                 ]
-            )
-            means[solver] = shgeom(durations)
-        best_mean = np.min(list(means.values()))
-        label = "Shifted geometric mean"
-        mean_df = pandas.DataFrame(
+                runtimes = np.array(
+                    [
+                        solver_df.at[i, "runtime"]
+                        if solver_df.at[i, "found"]
+                        else time_limits[settings]
+                        for i in solver_df.index
+                    ]
+                )
+                means[solver] = shgeom(runtimes)
+            best_mean = np.min(list(means.values()))
+            return {solver: means[solver] / best_mean for solver in solvers}
+
+        geometric_mean_df = pandas.DataFrame(
             {
-                label: {
-                    solver: means[solver] / best_mean for solver in solvers
-                }
+                settings: mean_for_settings(settings)
+                for settings in all_settings
+                if settings in time_limits
             }
         )
-        return mean_df.sort_values(by=label)
+        geometric_mean_df.reindex(columns=sorted(all_settings))
+        return geometric_mean_df.sort_index()
