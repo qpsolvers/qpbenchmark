@@ -38,7 +38,7 @@ def parse_command_line_arguments():
     )
     parser.add_argument(
         "--time-limit",
-        default=10.0,
+        default=1000.0,
         type=float,
         help="Maximum time a solver may take to solve one problem, in seconds",
     )
