@@ -106,4 +106,10 @@ def get_solver_versions():
         versions["proxqp"] = proxsuite.__version__
     except ImportError:
         pass
+    try:
+        import scs
+
+        versions["scs"] = scs.__version__
+    except ImportError:
+        pass
     return versions
