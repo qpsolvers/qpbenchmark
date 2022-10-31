@@ -78,12 +78,24 @@ def get_solver_versions():
         import cvxopt
 
         versions["cvxopt"] = cvxopt.__version__
-    except Exception:
+    except ImportError:
+        pass
+    try:
+        from highspy import (
+            HIGHS_VERSION_MAJOR,
+            HIGHS_VERSION_MINOR,
+            HIGHS_VERSION_PATCH,
+        )
+
+        versions["highs"] = (f"{HIGHS_VERSION_MAJOR}"
+        f".{HIGHS_VERSION_MINOR}"
+        f".{HIGHS_VERSION_PATCH}")
+    except ImportError:
         pass
     try:
         import proxsuite
 
         versions["proxqp"] = proxsuite.__version__
-    except Exception:
+    except ImportError:
         pass
     return versions
