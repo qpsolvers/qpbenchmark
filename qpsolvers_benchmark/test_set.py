@@ -127,6 +127,13 @@ class TestSet(abc.ABC):
                             continue
                         # other hangs (> 10 min, no solution)
                         elif problem.name in [
+                            "BOYD1",
+                            "CONT-100",
+                            "CONT-101",
+                            "CONT-200",
+                            "CONT-201",
+                            "CONT-300",
+                            "EXDATA",
                         ]:
                             logging.warn("Skipping UNREPORTED issue")
                             self.results.update(*failure)
