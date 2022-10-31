@@ -47,8 +47,9 @@ class MarosMeszaros(TestSet):
         self,
         data_dir: str,
         results_dir: str,
+        solver_settings: Dict[str, SolverSettings],
     ):
-        super().__init__(data_dir, results_dir)
+        super().__init__(data_dir, results_dir, solver_settings)
         with open(os.path.join(data_dir, "OPTCOSTS.yaml"), "r") as fh:
             file_dict = yaml.load(fh)
             optimal_costs = {k: float(v) for k, v in file_dict.items()}
