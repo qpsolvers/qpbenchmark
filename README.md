@@ -1,4 +1,4 @@
-# qpsolvers benchmark
+# QP solvers benchmark
 
 [![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/stephane-caron/qpsolvers_benchmark/tree/master/CONTRIBUTING.md)
 
