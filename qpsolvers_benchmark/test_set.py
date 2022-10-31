@@ -116,6 +116,35 @@ class TestSet(abc.ABC):
                             continue
                         # other segfaults, potentially same issue as HUESTIS
                         elif problem.name in [
+                            "AUG2D",
+                            "AUG2DC",
+                            "AUG2DCQP",
+                            "AUG2DQP",
+                            "BOYD2",
+                            "CVXQP1_L",
+                            "CVXQP2_L",
+                            "CVXQP3_L",
+                            "DTOC3",
+                            "LISWET1",
+                            "LISWET10",
+                            "LISWET11",
+                            "LISWET12",
+                            "LISWET2",
+                            "LISWET3",
+                            "LISWET4",
+                            "LISWET5",
+                            "LISWET6",
+                            "LISWET7",
+                            "LISWET8",
+                            "LISWET9",
+                            "POWELL20",
+                            "QSHIP08L",
+                            "QSHIP12L",
+                            "STADAT1",
+                            "STADAT2",
+                            "STADAT3",
+                            "UBH1",
+                            "YAO",
                         ]:
                             logging.warn("Skipping UNREPORTED issue")
                             self.results.update(*failure)
