@@ -25,6 +25,13 @@ The Maros-Meszaros test set contains difficult problems, some of them large, spa
 
 Check out the [full report](results/maros_meszaros.md) for definitions and details.
 
+## Limitations
+
+Here are some known areas of improvement for this benchmark:
+
+- Cold start only: we don't evaluate warm-start performance for now.
+- Dual feasibility: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
+
 ## Running the benchmark
 
 To run the benchmark on your machine, you will first need to install [qpsolvers](https://github.com/stephane-caron/qpsolvers) along with the QP solvers you want to test. For instance, to install open source solvers:
@@ -38,13 +45,6 @@ Then, run the benchmark by:
 ```console
 $ python run_benchmark.py
 ```
-
-## Limitations
-
-Here are some known areas of improvement for this benchmark:
-
-- Cold start only: we don't evaluate warm-start performance for now.
-- Dual feasibility: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
 
 ## See also
 
