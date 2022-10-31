@@ -71,15 +71,9 @@ class TestSet(abc.ABC):
         Report title.
         """
 
-    def __init__(
-        self,
-        data_dir: str,
-    ):
+    def __init__(self):
         """
         Initialize test set.
-
-        Args:
-            data_dir: Path to data directory.
         """
         solvers = sparse_solvers if self.sparse_only else available_solvers
         self.solvers = solvers

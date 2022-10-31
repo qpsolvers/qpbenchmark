@@ -19,12 +19,17 @@ import argparse
 import os
 
 from qpsolvers_benchmark import Report, Results, SolverSettings
-from qpsolvers_benchmark.test_sets import MarosMeszaros
+from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
 
 
 def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
+    )
+    parser.add_argument(
+        "test_set",
+        choices=["maros_meszaros", "maros_meszaros_dense"],
+        help="Test set to run",
     )
     parser.add_argument(
         "--problem",
@@ -43,12 +48,6 @@ def parse_command_line_arguments():
         help="Limit tests to a specific solver",
     )
     parser.add_argument(
-        "--test-set",
-        choices=["maros_meszaros"],
-        default="maros_meszaros",
-        help="Test set to run",
-    )
-    parser.add_argument(
         "--verbose",
         "-v",
         action="store_true",
@@ -62,9 +61,12 @@ if __name__ == "__main__":
     args = parse_command_line_arguments()
 
     data_dir = os.path.join(os.path.dirname(__file__), "data")
-    test_set = MarosMeszaros(
-        data_dir=os.path.join(data_dir, args.test_set),
-    )
+
+    TestClass = {
+        "maros_meszaros": MarosMeszaros,
+        "maros_meszaros_dense": MarosMeszarosDense,
+    }[args.test_set]
+    test_set = TestClass(data_dir=os.path.join(data_dir))
 
     solver_settings = {
         "default": SolverSettings(

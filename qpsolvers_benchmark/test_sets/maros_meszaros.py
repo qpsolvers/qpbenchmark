@@ -51,14 +51,13 @@ class MarosMeszaros(TestSet):
 
     @property
     def title(self) -> str:
-        return "Maros and Meszaros Convex Quadratic Programming Test Set"
+        return "Maros-Meszaros test set"
 
-    def __init__(
-        self,
-        data_dir: str,
-    ):
-        super().__init__(data_dir)
-        with open(os.path.join(data_dir, "OPTCOSTS.yaml"), "r") as fh:
+    def __init__(self, data_dir: str):
+        super().__init__()
+        data_dir = os.path.join(data_dir, "maros_meszaros")
+        cost_path = os.path.join(data_dir, "OPTCOSTS.yaml")
+        with open(cost_path, "r") as fh:
             file_dict = yaml.load(fh, Loader=yaml.SafeLoader)
             optimal_costs = {k: float(v) for k, v in file_dict.items()}
         self.data_dir = data_dir
