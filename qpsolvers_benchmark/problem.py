@@ -194,8 +194,8 @@ class Problem:
         except Exception as e:
             print(f"Caught solver exception: {e}")
             solution = None
-        duration = perf_counter() - start_time
-        return solution, duration
+        runtime = perf_counter() - start_time
+        return solution, runtime
 
     def cost_error(self, x: Optional[np.ndarray]) -> Optional[float]:
         """

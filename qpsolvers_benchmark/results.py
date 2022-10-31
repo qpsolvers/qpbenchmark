@@ -74,7 +74,7 @@ class Results:
             problem: Problem solved.
             solver: Solver name.
             solution: Solution found by the solver.
-            duration: Duration the solver took, in seconds.
+            runtime: Duration the solver took, in seconds.
         """
         self.df = self.df.drop(
             self.df.index[
