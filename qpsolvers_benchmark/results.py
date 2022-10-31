@@ -67,6 +67,13 @@ class Results:
         logging.info(f"Test set results written to {self.csv_path}")
         self.df.to_csv(self.csv_path, index=False)
 
+    def has(self, problem: Problem, solver: str, settings: str) -> bool:
+        return (
+            (self.df["problem"] == problem.name)
+            & (self.df["solver"] == solver)
+            & (self.df["settings"] == settings)
+        ).any()
+
     def update(
         self,
         problem: Problem,

@@ -101,6 +101,16 @@ class TestSet(abc.ABC):
                 continue
             for solver in solvers:
                 for settings in self.solver_settings:
+                    if skip_solver_issue(problem, solver, settings):
+                        failure = problem, solver, settings, None, 0.0
+                        results.update(*failure)
+                        continue
+                    if results.has(problem, solver, settings):
+                        logging.info(
+                            f"{problem.name} already solved by {solver} "
+                            f"with {settings} settings..."
+                        )
+                        continue
                     logging.info(
                         f"Solving {problem.name} by {solver} "
                         f"with {settings} settings..."
