@@ -29,7 +29,7 @@ Here are some known areas of improvement for this benchmark:
 - Cold start only: we don't evaluate warm-start performance for now.
 - Dual feasibility: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
 
-Contributions are welcome!
+Contributions [are welcome](CONTRIBUTING.md)!
 
 ## See also
 
