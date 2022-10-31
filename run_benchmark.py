@@ -27,12 +27,15 @@ def parse_command_line_arguments():
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument(
-        "command", choices=["run", "report"], help="Benchmark action to run"
-    )
-    parser.add_argument(
         "--problem",
         "-p",
         help="Limit tests to a specific problem",
+    )
+    parser.add_argument(
+        "--report-only",
+        action="store_true",
+        default=False,
+        help="Only write the output report from saved test set results",
     )
     parser.add_argument(
         "--solver",
@@ -89,11 +92,11 @@ if __name__ == "__main__":
     results_dir = os.path.join(os.path.dirname(__file__), "results")
     results = Results(os.path.join(results_dir, f"{args.test_set}.csv"))
 
-    if args.command == "run":
+    if not args.report_only:
         test_set.run(
             results, only_problem=args.problem, only_solver=args.solver
         )
         results.write()
-    else:  # args.command == "report"
-        report = Report(results, solver_settings)
-        report.write(os.path.join(results_dir, f"{args.test_set}.md"))
+
+    report = Report(test_set, results)
+    report.write(os.path.join(results_dir, f"{args.test_set}.md"))
