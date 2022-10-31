@@ -1,8 +1,9 @@
 # Maros and Meszaros Convex Quadratic Programming Test Set
 
-- Date: 2022-10-31 12:45:20.551707+00:00
+- Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
+- Date: 2022-10-31 13:37:31.665893+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Solvers:
+- Solver versions:
 
 | solver   | version   |
 |:---------|:----------|
@@ -19,6 +20,7 @@ Precentage of problems each solver is able to solve:
 |        |   default |
 |:-------|----------:|
 | cvxopt |   15.942  |
+| highs  |    0      |
 | osqp   |   64.4928 |
 | proxqp |   72.4638 |
 | scs    |   54.3478 |
@@ -50,6 +52,7 @@ geometric mean close to one:
 |        |   default |
 |:-------|----------:|
 | cvxopt |      16.4 |
+| highs  |      29.6 |
 | osqp   |       1.3 |
 | proxqp |       1.0 |
 | scs    |       3.1 |

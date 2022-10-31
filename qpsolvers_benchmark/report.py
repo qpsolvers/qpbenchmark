@@ -90,10 +90,9 @@ Rows are solvers and columns are solver settings.
 
 ## Computation time
 
-We compare solver computation times using the shifted geometric mean.
-
-**Intuition:** a solver with a shifted geometric mean of Y is Y times slower
-than the best solver over the test set.
+We compare solver computation times using the **shifted geometric mean**. A
+solver with a shifted geometric mean of Y is Y times slower than the best
+solver over the test set.
 
 ### Details
 

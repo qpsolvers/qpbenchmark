@@ -19,10 +19,21 @@
 Some solvers fail on some problems. Make sure we handle and report those.
 """
 
+from .problem import Problem
 from .spdlog import logging
 
 
-def skip_solver_issue(problem, solver, settings):
+def skip_solver_issue(problem: Problem, solver: str) -> bool:
+    """
+    Check whether a solver is known to fail at solving a given problem.
+
+    Args:
+        problem: Problem to solve.
+        solver: QP solver.
+
+    Returns:
+        True if solver is known to fail at solving the problem.
+    """
     if solver == "proxqp":
         # https://github.com/Simple-Robotics/proxsuite/issues/62
         if problem.name == "HUESTIS":

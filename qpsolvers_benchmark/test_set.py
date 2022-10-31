@@ -102,7 +102,7 @@ class TestSet(abc.ABC):
                 continue
             for solver in solvers:
                 for settings in self.solver_settings:
-                    if skip_solver_issue(problem, solver, settings):
+                    if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
