@@ -21,9 +21,9 @@ Base class for test sets.
 
 import abc
 import os.path
-from typing import Any, Dict, Iterator, Optional
+from typing import Dict, Iterator, Optional
 
-from qpsolvers import sparse_solvers
+from qpsolvers import available_solvers, sparse_solvers
 
 from .problem import Problem
 from .results import Results
@@ -96,46 +96,65 @@ class TestSet(abc.ABC):
             only_problem: If set, only run that specific problem in the set.
             only_solver: If set, only run that specific solver.
         """
-        problem_number = 1
-        if self.sparse_only:
-            solver_settings = {
-                solver: solver_settings[solver] for solver in sparse_solvers
-            }
-        if only_solver:
-            solver_settings = {only_solver: solver_settings[only_solver]}
+        nb_done = 0
+        solvers = [only_solver] if only_solver else self.solvers
         for problem in self:
             if only_problem and problem.name != only_problem:
                 continue
-            for solver, settings in solver_settings.items():
-                if solver == "proxqp":
-                    # https://github.com/Simple-Robotics/proxsuite/issues/62
-                    if problem.name == "HUESTIS":
-                        logging.warn("Skipping reported issue")
-                        self.results.update(problem, solver, None, 0.0)
-                        continue
-                    # https://github.com/Simple-Robotics/proxsuite/issues/63
-                    if problem.name == "QGFRDXPN":
-                        logging.warn("Skipping reported issue")
-                        self.results.update(problem, solver, None, 0.0)
-                        continue
-                    # not reported yet, but let's wait for the others
-                    if problem.name == "STADAT1":
-                        logging.warn("Skipping UNREPORTED issue")
-                        self.results.update(problem, solver, None, 0.0)
-                        continue
-                    # other segfaults, potentially the same issue as HUESTIS
-                    if problem.name in ["LISWET3", "STADAT3"]:
-                        logging.warn("Skipping UNREPORTED issue")
-                        self.results.update(problem, solver, None, 0.0)
-                        continue
-                logging.info(f"Solving {problem.name} with {solver}...")
-                solution, duration = problem.solve(
-                    solver=solver, **settings
-                )
-                self.results.update(problem, solver, solution, duration)
-            problem_number += 1
-            if problem_number > 1:
-                pass
+            for solver in solvers:
+                for settings in self.solver_settings:
+                    logging.info(
+                        f"Solving {problem.name} by {solver} "
+                        f"with {settings} settings..."
+                    )
+                    if solver == "proxqp":
+                        failure = problem, solver, settings, None, 0.0
+                        # https://github.com/Simple-Robotics/proxsuite/issues/62
+                        if problem.name == "HUESTIS":
+                            logging.warn("Skipping reported issue")
+                            self.results.update(*failure)
+                            continue
+                        # other segfaults, potentially same issue as HUESTIS
+                        elif problem.name in [
+                        ]:
+                            logging.warn("Skipping UNREPORTED issue")
+                            self.results.update(*failure)
+                            continue
+                        # https://github.com/Simple-Robotics/proxsuite/issues/63
+                        elif problem.name == "QGFRDXPN":
+                            logging.warn("Skipping reported issue")
+                            self.results.update(*failure)
+                            continue
+                        # other hangs (> 10 min, no solution)
+                        elif problem.name in [
+                        ]:
+                            logging.warn("Skipping UNREPORTED issue")
+                            self.results.update(*failure)
+                            continue
+                    elif solver == "highs":
+                        failure = problem, solver, settings, None, 0.0
+                        # not reported yet
+                        if problem.name == "AUG2DC":
+                            logging.warn("Skipping UNREPORTED issue")
+                            self.results.update(*failure)
+                            continue
+                    elif solver == "cvxopt":
+                        failure = problem, solver, settings, None, 0.0
+                        # hangs (> 15 min), not reported yet
+                        if problem.name in ["CVXQP3_L", "CONT-300"]:
+                            logging.warn("Skipping UNREPORTED issue")
+                            self.results.update(*failure)
+                            continue
+                    kwargs = self.solver_settings[settings][solver]
+                    solution, runtime = problem.solve(solver, **kwargs)
+                    self.results.update(
+                        problem, solver, settings, solution, runtime
+                    )
+            nb_done += 1
+        logging.info(
+            f"Solved {nb_done} problems with {len(solvers)} solvers "
+            f"and {len(self.solver_settings)} settings per solver"
+        )
 
     def write_results(self) -> None:
         """
