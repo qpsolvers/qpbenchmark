@@ -49,12 +49,6 @@ def parse_command_line_arguments():
         help="Test set to run",
     )
     parser.add_argument(
-        "--time-limit",
-        default=1000.0,
-        type=float,
-        help="Maximum time a solver may take to solve one problem, in seconds",
-    )
-    parser.add_argument(
         "--verbose",
         "-v",
         action="store_true",
@@ -67,36 +61,38 @@ def parse_command_line_arguments():
 if __name__ == "__main__":
     args = parse_command_line_arguments()
 
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    test_set = MarosMeszaros(
+        data_dir=os.path.join(data_dir, args.test_set),
+    )
+
     solver_settings = {
         "default": SolverSettings(
-            time_limit=args.time_limit, verbose=args.verbose
+            time_limit=test_set.time_limit, verbose=args.verbose
         ),
         # "low_accuracy": SolverSettings(
-        #     time_limit=args.time_limit,
+        #     time_limit=test_set.time_limit,
         #     eps_abs=1e-3,
         #     eps_rel=0.0,
         # ),
         # "high_accuracy": SolverSettings(
-        #     time_limit=args.time_limit,
+        #     time_limit=test_set.time_limit,
         #     eps_abs=1e-8,
         #     eps_rel=0.0,
         # ),
     }
-
-    data_dir = os.path.join(os.path.dirname(__file__), "data")
-    test_set = MarosMeszaros(
-        data_dir=os.path.join(data_dir, "maros_meszaros"),
-        solver_settings=solver_settings,
-    )
 
     results_dir = os.path.join(os.path.dirname(__file__), "results")
     results = Results(os.path.join(results_dir, f"{args.test_set}.csv"))
 
     if not args.report_only:
         test_set.run(
-            results, only_problem=args.problem, only_solver=args.solver
+            solver_settings,
+            results,
+            only_problem=args.problem,
+            only_solver=args.solver,
         )
         results.write()
 
-    report = Report(test_set, results)
+    report = Report(test_set, solver_settings, results)
     report.write(os.path.join(results_dir, f"{args.test_set}.md"))

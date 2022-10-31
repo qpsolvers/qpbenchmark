@@ -60,6 +60,12 @@ class TestSet(abc.ABC):
         """
 
     @abc.abstractproperty
+    def time_limit(self) -> float:
+        """
+        Runtime limit in seconds.
+        """
+
+    @abc.abstractproperty
     def title(self) -> str:
         """
         Report title.
@@ -68,21 +74,19 @@ class TestSet(abc.ABC):
     def __init__(
         self,
         data_dir: str,
-        solver_settings: Dict[str, SolverSettings],
     ):
         """
         Initialize test set.
 
         Args:
             data_dir: Path to data directory.
-            solver_settings: Keyword arguments for each solver.
         """
         solvers = sparse_solvers if self.sparse_only else available_solvers
         self.solvers = solvers
-        self.solver_settings = solver_settings
 
     def run(
         self,
+        solver_settings: Dict[str, SolverSettings],
         results: Results,
         only_problem: Optional[str] = None,
         only_solver: Optional[str] = None,
@@ -101,7 +105,7 @@ class TestSet(abc.ABC):
             if only_problem and problem.name != only_problem:
                 continue
             for solver in solvers:
-                for settings in self.solver_settings:
+                for settings in solver_settings:
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
@@ -116,7 +120,7 @@ class TestSet(abc.ABC):
                         f"Solving {problem.name} by {solver} "
                         f"with {settings} settings..."
                     )
-                    kwargs = self.solver_settings[settings][solver]
+                    kwargs = solver_settings[settings][solver]
                     solution, runtime = problem.solve(solver, **kwargs)
                     results.update(
                         problem, solver, settings, solution, runtime

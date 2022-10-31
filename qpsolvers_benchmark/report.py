@@ -20,20 +20,28 @@ Report written from test set results.
 """
 
 import datetime
+from typing import Dict
 
 import pandas
 
 from .results import Results
+from .solver_settings import SolverSettings
 from .spdlog import logging
 from .test_set import TestSet
 from .utils import get_cpu_info, get_solver_versions
 
 
 class Report:
-    def __init__(self, test_set: TestSet, results: Results):
+    def __init__(
+        self,
+        test_set: TestSet,
+        solver_settings: Dict[str, SolverSettings],
+        results: Results,
+    ):
         self.cpu_info = get_cpu_info()
         self.date = str(datetime.datetime.now(datetime.timezone.utc))
         self.results = results
+        self.solver_settings = solver_settings
         self.test_set = test_set
 
     def get_solvers_table(self):
@@ -59,7 +67,7 @@ class Report:
         geometric_mean_df = self.results.build_geometric_mean_df(
             time_limits={
                 key: settings.time_limit
-                for key, settings in self.test_set.solver_settings.items()
+                for key, settings in self.solver_settings.items()
             }
         )
         geometric_mean_table = geometric_mean_df.to_markdown(

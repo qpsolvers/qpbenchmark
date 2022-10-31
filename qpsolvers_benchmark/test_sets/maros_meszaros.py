@@ -25,7 +25,6 @@ from typing import Dict, Iterator
 import yaml
 
 from ..problem import Problem
-from ..solver_settings import SolverSettings
 from ..test_set import TestSet
 
 
@@ -47,15 +46,18 @@ class MarosMeszaros(TestSet):
         return True
 
     @property
+    def time_limit(self) -> float:
+        return 1000.0
+
+    @property
     def title(self) -> str:
         return "Maros and Meszaros Convex Quadratic Programming Test Set"
 
     def __init__(
         self,
         data_dir: str,
-        solver_settings: Dict[str, SolverSettings],
     ):
-        super().__init__(data_dir, solver_settings)
+        super().__init__(data_dir)
         with open(os.path.join(data_dir, "OPTCOSTS.yaml"), "r") as fh:
             file_dict = yaml.load(fh, Loader=yaml.SafeLoader)
             optimal_costs = {k: float(v) for k, v in file_dict.items()}
