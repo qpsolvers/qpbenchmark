@@ -21,25 +21,41 @@ Report written from test set results.
 
 import datetime
 
+import pandas
+
 from .results import Results
 from .solver_settings import SolverSettings
 from .spdlog import logging
-from .utils import get_cpu_info
+from .utils import get_cpu_info, get_solver_versions
 
 
 class Report:
     def __init__(self, results: Results, solver_settings: SolverSettings):
-        self.solver_settings = solver_settings
+        self.cpu_info = get_cpu_info()
+        self.date = str(datetime.datetime.now(datetime.timezone.utc))
         self.results = results
+        self.solver_settings = solver_settings
 
-    def write(self, path: str) -> None:
-        date = str(datetime.datetime.now(datetime.timezone.utc))
-        cpu_info = get_cpu_info()
+    def get_solvers_table(self):
+        versions = get_solver_versions()
+        versions_df = pandas.DataFrame(
+            {
+                "solver": list(versions.keys()),
+                "version": list(versions.values()),
+            },
+        )
+        versions_df = versions_df.set_index("solver")
+        versions_df = versions_df.sort_index()
+        versions_table = versions_df.to_markdown(index=True)
+        return versions_table
 
+    def get_success_rate_table(self):
         success_rate_df = self.results.build_success_rate_df()
         success_rate_table = success_rate_df.to_markdown(index=True)
         success_rate_table = success_rate_table.replace(" 100    ", " **100**")
+        return success_rate_table
 
+    def get_geometric_mean_table(self):
         geometric_mean_df = self.results.build_geometric_mean_df(
             time_limits={
                 key: settings.time_limit
@@ -49,19 +65,26 @@ class Report:
         geometric_mean_table = geometric_mean_df.to_markdown(
             index=True, floatfmt=".1f"
         )
+        return geometric_mean_table
+
+    def write(self, path: str) -> None:
 
         with open(path, "w") as fh:
             fh.write(
                 f"""# Maros and Meszaros Convex Quadratic Programming Test Set
 
-- Date: {date}
-- CPU: {cpu_info}
+- Date: {self.date}
+- CPU: {self.cpu_info}
+
+## Solvers
+
+{self.get_solvers_table()}
 
 ## Success rate
 
 Precentage of problems each solver is able to solve:
 
-{success_rate_table}
+{self.get_success_rate_table()}
 
 Rows are solvers and columns are solver settings.
 
@@ -87,7 +110,7 @@ geometric mean close to one:
 
 ### Results
 
-{geometric_mean_table}
+{self.get_geometric_mean_table()}
 
 Rows are solvers and columns are solver settings.
 

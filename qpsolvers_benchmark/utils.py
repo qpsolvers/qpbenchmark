@@ -23,6 +23,7 @@ import platform
 
 import numpy as np
 
+from .known_solvers import KNOWN_SOLVERS
 from .spdlog import logging
 
 try:
@@ -69,3 +70,20 @@ def get_cpu_info():
         if cpuinfo is None
         else cpuinfo.get_cpu_info()["brand_raw"]
     )
+
+
+def get_solver_versions():
+    versions = {solver: None for solver in KNOWN_SOLVERS}
+    try:
+        import cvxopt
+
+        versions["cvxopt"] = cvxopt.__version__
+    except Exception:
+        pass
+    try:
+        import proxsuite
+
+        versions["proxqp"] = proxsuite.__version__
+    except Exception:
+        pass
+    return versions
