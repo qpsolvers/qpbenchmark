@@ -18,8 +18,7 @@
 import argparse
 import os
 
-from qpsolvers import available_solvers
-
+from qpsolvers_benchmark import SolverSettings
 from qpsolvers_benchmark.test_sets import MarosMeszaros
 
 
@@ -43,33 +42,42 @@ def parse_command_line_arguments():
         type=float,
         help="Maximum time a solver may take to solve one problem, in seconds",
     )
+    parser.add_argument(
+        "--verbose",
+        "-v",
+        action="store_true",
+        help="Turn on verbose solver outputs",
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_command_line_arguments()
-    solver_settings = {solver: {} for solver in available_solvers}
-    solver_settings.update({"gurobi": {}, "highs": {}, "osqp": {}, "scs": {}})
 
-    # Time limit
-    solver_settings["gurobi"]["time_limit"] = args.time_limit
-    solver_settings["highs"]["time_limit"] = args.time_limit
-    solver_settings["osqp"]["time_limit"] = args.time_limit
-    solver_settings["scs"]["time_limit_secs"] = args.time_limit
-
-    solver_settings["osqp"] = {"eps_abs": 1e-5, "eps_rel": 0.0}
+    solver_settings = {
+        "default": SolverSettings(
+            time_limit=args.time_limit, verbose=args.verbose
+        ),
+        # "low_accuracy": SolverSettings(
+        #     time_limit=args.time_limit,
+        #     eps_abs=1e-3,
+        #     eps_rel=0.0,
+        # ),
+        # "high_accuracy": SolverSettings(
+        #     time_limit=args.time_limit,
+        #     eps_abs=1e-8,
+        #     eps_rel=0.0,
+        # ),
+    }
 
     test_set = MarosMeszaros(
         data_dir=os.path.join(
             os.path.dirname(__file__), "data", "maros_meszaros"
         ),
         results_dir=os.path.join(os.path.dirname(__file__), "results"),
+        solver_settings=solver_settings,
     )
 
-    test_set.run(
-        solver_settings=solver_settings,
-        only_problem=args.problem,
-        only_solver=args.solver,
-    )
+    test_set.run(only_problem=args.problem, only_solver=args.solver)
     test_set.write_results()
     test_set.write_report()
