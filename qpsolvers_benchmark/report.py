@@ -105,7 +105,10 @@ The shifted geometric mean is a slowdown factor compared to the best solver
 over the whole test set. It has the advantage of being compromised by neither
 large outliers (as opposed to the arithmetic mean) nor by small outliers (in
 contrast to the geometric geometric mean). The best solvers have a shifted
-geometric mean close to one:
+geometric mean close to one.
+
+As in the OSQP and ProxQP benchmarks, we assume a solver's run time is at the
+time limit when it fails to solve a problem.
 
 ### Results
 
