@@ -94,6 +94,9 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
         elif problem.name == "STADAT1":
             # https://github.com/ERGO-Code/HiGHS/issues/995
             return True
+        elif problem.name == "AUG2D":
+            # takes more than 40 min to solve
+            return True
     elif solver == "cvxopt":
         # hangs (> 15 min), not reported yet
         if problem.name in ["CVXQP3_L", "CONT-300"]:
