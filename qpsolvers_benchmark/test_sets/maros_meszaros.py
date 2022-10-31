@@ -114,3 +114,5 @@ optimization software](http://plato.asu.edu/bench.html).
 {found_table}
 """
             )
+
+        logging.info(f"Wrote report to {self.report_path}")
