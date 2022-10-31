@@ -59,7 +59,6 @@ class Results:
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         self.df = df
         self.csv_path = csv_path
-        self.__found_df = None
 
     def write(self) -> None:
         """
@@ -111,36 +110,32 @@ class Results:
             ignore_index=True,
         )
 
-    def build_found_df(self) -> pandas.DataFrame:
+    def build_success_rate_df(self) -> pandas.DataFrame:
         """
-        Build the (solver, problem) found table.
+        Build the success rate data frame.
 
         Returns:
-            Found table data frame.
+            Success rate data frame.
         """
-        problems = set(self.df["problem"].to_list())
         solvers = set(self.df["solver"].to_list())
-        found = {
-            solver: {problem: None for problem in problems}
-            for solver in solvers
-        }
-        for row in self.df.to_dict(orient="records"):
-            found[row["solver"]][row["problem"]] = row["found"]
-        self.__found_df = pandas.DataFrame.from_dict(found)
-        return self.__found_df
-
-    def build_success_rate_df(self) -> pandas.DataFrame:
-        found_df = self.__found_df
-        solvers = list(found_df)
-        # problems = found_df.index.tolist()
-        return pandas.DataFrame(
+        all_settings = set(self.df["settings"].to_list())
+        success_rate_df = pandas.DataFrame(
             {
-                "Success rate (%)": {
-                    solver: 100.0 * found_df[solver].astype(float).mean()
+                settings: {
+                    solver: 100.0
+                    * self.df[
+                        (self.df["settings"] == settings)
+                        & (self.df["solver"] == solver)
+                    ]["found"]
+                    .astype(float)
+                    .mean()
                     for solver in solvers
                 }
+                for settings in all_settings
             }
         )
+        success_rate_df.reindex(columns=sorted(all_settings))
+        return success_rate_df.sort_index()
 
     def build_geometric_mean_df(self, time_limit=10.0) -> pandas.DataFrame:
         solvers = set(self.df["solver"].to_list())
