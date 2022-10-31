@@ -35,12 +35,20 @@ class MarosMeszaros(TestSet):
     optimal_costs: Dict[str, float]
 
     @property
+    def maintainer(self) -> str:
+        return "stephane-caron"
+
+    @property
     def name(self) -> str:
         return "maros_meszaros"
 
     @property
     def sparse_only(self) -> bool:
         return True
+
+    @property
+    def title(self) -> str:
+        return "Maros and Meszaros Convex Quadratic Programming Test Set"
 
     def __init__(
         self,

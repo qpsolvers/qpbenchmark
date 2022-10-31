@@ -41,6 +41,12 @@ class TestSet(abc.ABC):
         """
 
     @abc.abstractproperty
+    def maintainer(self) -> str:
+        """
+        GitHub username of test set maintainer.
+        """
+
+    @abc.abstractproperty
     def name(self) -> str:
         """
         Name of the test set.
@@ -50,6 +56,12 @@ class TestSet(abc.ABC):
     def sparse_only(self) -> bool:
         """
         If True, test set is restricted to solvers with a sparse matrix API.
+        """
+
+    @abc.abstractproperty
+    def title(self) -> str:
+        """
+        Report title.
         """
 
     def __init__(
