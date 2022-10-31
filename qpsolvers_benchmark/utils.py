@@ -23,7 +23,6 @@ import platform
 
 import numpy as np
 
-from .known_solvers import KNOWN_SOLVERS
 from .spdlog import logging
 
 try:
@@ -73,7 +72,7 @@ def get_cpu_info():
 
 
 def get_solver_versions():
-    versions = {solver: None for solver in KNOWN_SOLVERS}
+    versions = {}
     try:
         import cvxopt
 

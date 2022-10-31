@@ -19,9 +19,18 @@
 Solver settings.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Set
 
-from .known_solvers import KNOWN_SOLVERS
+KNOWN_SOLVERS: Set[str] = set(
+    [
+        "cvxopt",
+        "gurobi",
+        "highs",
+        "osqp",
+        "proxqp",
+        "scs",
+    ]
+)
 
 
 class SolverSettings:
