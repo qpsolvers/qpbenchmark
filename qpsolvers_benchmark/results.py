@@ -20,11 +20,13 @@ Test case results.
 """
 
 import os.path
+from typing import Dict, Optional
 
 import numpy as np
 import pandas
 
 from .problem import Problem
+from .spdlog import logging
 from .utils import shgeom
 
 
@@ -46,7 +48,8 @@ class Results:
             columns=[
                 "problem",
                 "solver",
-                "duration",
+                "settings",
+                "runtime",
                 "found",
                 "cost_error",
                 "primal_error",
@@ -65,7 +68,12 @@ class Results:
         self.df.to_csv(self.csv_path, index=False)
 
     def update(
-        self, problem: Problem, solver: str, solution, duration: float
+        self,
+        problem: Problem,
+        solver: str,
+        settings: str,
+        solution: Optional[np.ndarray],
+        runtime: float,
     ) -> None:
         """
         Update entry for a given (problem, solver) pair.
@@ -73,6 +81,7 @@ class Results:
         Args:
             problem: Problem solved.
             solver: Solver name.
+            settings: Solver settings.
             solution: Solution found by the solver.
             runtime: Duration the solver took, in seconds.
         """
@@ -80,6 +89,7 @@ class Results:
             self.df.index[
                 (self.df["problem"] == problem.name)
                 & (self.df["solver"] == solver)
+                & (self.df["settings"] == settings)
             ]
         )
         self.df = pandas.concat(
@@ -89,7 +99,8 @@ class Results:
                     {
                         "problem": [problem.name],
                         "solver": [solver],
-                        "duration": [duration],
+                        "settings": [settings],
+                        "runtime": [runtime],
                         "found": [solution is not None],
                         "cost_error": [problem.cost_error(solution)],
                         "primal_error": [problem.primal_error(solution)],
