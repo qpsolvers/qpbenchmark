@@ -49,5 +49,8 @@ class MarosMeszarosDense(MarosMeszaros):
         for problem in super().__iter__():
             nb_variables = problem.nb_variables
             nb_constraints = problem.nb_constraints
-            if nb_variables <= 1000 and nb_constraints <= 1000:
+            if nb_variables <= 1000 and nb_constraints <= 1050:
+                # We count 1050 rather than 1000 constraints to account for
+                # conversion differences with proxqp_benchmark. With this
+                # threshold, the dense subset has exactly 62 problems.
                 yield problem.to_dense()
