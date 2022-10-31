@@ -81,6 +81,20 @@ class Problem:
         self.r = r
         self.ub = ub
 
+    @property
+    def nb_variables(self) -> int:
+        """
+        Number of optimization variables.
+        """
+        return self.P.shape[0]
+
+    @property
+    def nb_constraints(self) -> int:
+        """
+        Number of inequality and equality constraints.
+        """
+        return self.G.shape[0] + self.A.shape[0] + self.lb.shape[0]
+
     @staticmethod
     def from_mat_file(path):
         """
