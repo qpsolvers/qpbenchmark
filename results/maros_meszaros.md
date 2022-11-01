@@ -1,8 +1,9 @@
 # Maros-Meszaros test set
 
 - Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 10:42:08.056978+00:00
+- Date: 2022-11-01 10:47:17.061734+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
+- Time limit: 1000.0 seconds
 - Solver versions:
 
 | solver   | version   |
@@ -38,7 +39,7 @@ Precentage of problems each solver is able to solve:
 |        |   default |
 |:-------|----------:|
 | cvxopt |        16 |
-| highs  |        60 |
+| highs  |        61 |
 | osqp   |        64 |
 | proxqp |        72 |
 | scs    |        54 |
@@ -57,7 +58,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 |        |   default |
 |:-------|----------:|
 | cvxopt |      16.4 |
-| highs  |       2.0 |
+| highs  |       1.9 |
 | osqp   |       1.3 |
 | proxqp |       1.0 |
 | scs    |       3.1 |
@@ -78,7 +79,7 @@ Shifted geometric mean of solver primal errors (1.0 is the best):
 |        |   default |
 |:-------|----------:|
 | cvxopt |      18.5 |
-| highs  |       2.1 |
+| highs  |       2.0 |
 | osqp   |       1.8 |
 | proxqp |       1.0 |
 | scs    |     548.2 |

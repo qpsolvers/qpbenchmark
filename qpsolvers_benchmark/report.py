@@ -96,6 +96,7 @@ class Report:
 - Maintainer: [@{maintainer}](https://github.com/{maintainer}/)
 - Date: {self.date}
 - CPU: {self.cpu_info}
+- Time limit: {self.test_set.time_limit} seconds
 - Solver versions:
 
 {self.get_solvers_table()}
