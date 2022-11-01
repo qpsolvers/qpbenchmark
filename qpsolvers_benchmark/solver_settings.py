@@ -83,6 +83,7 @@ class SolverSettings:
             self.__settings["osqp"]["eps_abs"] = self.eps_abs
             self.__settings["proxqp"]["eps_abs"] = self.eps_abs
             self.__settings["qpswift"]["ABSTOL"] = self.eps_abs
+            self.__settings["cvxopt"]["abstol"] = self.eps_abs
         if self.eps_rel is not None:
             self.__settings["osqp"]["eps_rel"] = self.eps_rel
             self.__settings["proxqp"]["eps_rel"] = self.eps_abs

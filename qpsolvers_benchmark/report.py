@@ -77,7 +77,7 @@ class Report:
 - Maintainer: [@{maintainer}](https://github.com/{maintainer}/)
 - Time limit: {self.test_set.time_limit} seconds
 
-Solver versions:
+Solvers:
 
 {self.get_solvers_table()}
 
