@@ -72,11 +72,12 @@ class Report:
             fh.write(
                 f"""# {self.test_set.title}
 
-- Maintainer: [@{maintainer}](https://github.com/{maintainer}/)
-- Date: {self.date}
 - CPU: {self.cpu_info}
+- Date: {self.date}
+- Maintainer: [@{maintainer}](https://github.com/{maintainer}/)
 - Time limit: {self.test_set.time_limit} seconds
-- Solver versions:
+
+Solver versions:
 
 {self.get_solvers_table()}
 

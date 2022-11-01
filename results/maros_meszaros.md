@@ -1,10 +1,11 @@
 # Maros-Meszaros test set
 
-- Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 14:01:26.674454+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
+- Date: 2022-11-01 15:25:02.991992+00:00
+- Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
 - Time limit: 1000.0 seconds
-- Solver versions:
+
+Solver versions:
 
 | solver   | version     |
 |:---------|:------------|
