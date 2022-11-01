@@ -83,6 +83,7 @@ class TestSet(abc.ABC):
         solver_settings: Dict[str, SolverSettings],
         results: Results,
         only_problem: Optional[str] = None,
+        only_settings: Optional[str] = None,
         only_solver: Optional[str] = None,
     ) -> None:
         """
@@ -91,15 +92,18 @@ class TestSet(abc.ABC):
         Args:
             results: Results instance to write to.
             only_problem: If set, only run that specific problem in the set.
+            only_settings: If set, only run with these solver settings.
             only_solver: If set, only run that specific solver.
         """
         nb_called = 0
-        solvers = [only_solver] if only_solver else self.solvers
+        run_solvers = [only_solver] if only_solver else self.solvers
+        all_settings = solver_settings.keys()
+        run_settings = [only_settings] if only_settings else all_settings
         for problem in self:
             if only_problem and problem.name != only_problem:
                 continue
-            for solver in solvers:
-                for settings in solver_settings:
+            for solver in run_solvers:
+                for settings in run_settings:
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)

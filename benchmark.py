@@ -41,12 +41,14 @@ def parse_command_line_arguments():
     )
     parser.add_argument(
         "--problem",
-        "-p",
         help="Limit tests to a specific problem",
     )
     parser.add_argument(
+        "--settings",
+        help="Limit tests to a specific group of solver settings",
+    )
+    parser.add_argument(
         "--solver",
-        "-s",
         help="Limit tests to a specific solver",
     )
     parser.add_argument(
@@ -89,6 +91,7 @@ if __name__ == "__main__":
             solver_settings,
             results,
             only_problem=args.problem,
+            only_settings=args.settings,
             only_solver=args.solver,
         )
         results.write()
