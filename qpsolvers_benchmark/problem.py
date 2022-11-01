@@ -214,7 +214,7 @@ class Problem:
         """
         # Don't time matrix conversions for solvers that require sparse inputs
         P, G, A = self.P, self.G, self.A
-        if solver in ["highs", "scs"]:
+        if solver in ["highs", "osqp", "scs"]:
             P = spa.csc_matrix(P) if isinstance(P, np.ndarray) else P
             G = spa.csc_matrix(G) if isinstance(G, np.ndarray) else G
             A = spa.csc_matrix(A) if isinstance(A, np.ndarray) else A
