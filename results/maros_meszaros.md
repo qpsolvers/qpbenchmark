@@ -1,7 +1,7 @@
 # Maros-Meszaros test set
 
 - Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 09:23:52.856115+00:00
+- Date: 2022-11-01 10:07:30.763328+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
 - Solver versions:
 
@@ -20,7 +20,7 @@ Precentage of problems each solver is able to solve:
 |        |   default |
 |:-------|----------:|
 | cvxopt |   15.942  |
-| highs  |   59.434  |
+| highs  |   59.4595 |
 | osqp   |   64.4928 |
 | proxqp |   72.4638 |
 | scs    |   54.3478 |
