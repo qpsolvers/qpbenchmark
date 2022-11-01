@@ -18,6 +18,8 @@
 import argparse
 import os
 
+import IPython
+
 from qpsolvers_benchmark import Report, Results, SolverSettings
 from qpsolvers_benchmark.spdlog import logging
 from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
@@ -93,9 +95,9 @@ if __name__ == "__main__":
 
     if args.command == "eval":
         df = results.df
-        logging.info(
-            "Results are ready in `results` with a pandas DataFrame in `df`"
-        )
+        logging.info("Check out `results` and the pandas DataFrame `df`")
+        if not IPython.get_ipython():
+            IPython.embed()
 
     if args.command in ["report", "run"]:
         report = Report(test_set, solver_settings, results)
