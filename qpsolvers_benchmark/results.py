@@ -20,7 +20,7 @@ Test case results.
 """
 
 import os.path
-from typing import Dict, Optional
+from typing import Optional
 
 import numpy as np
 import pandas
@@ -127,24 +127,28 @@ class Results:
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-        return pandas.DataFrame(
-            {
-                settings: {
-                    solver: 100.0
-                    * self.df[
-                        (self.df["settings"] == settings)
-                        & (self.df["solver"] == solver)
-                    ]["found"]
-                    .astype(float)
-                    .mean()
-                    for solver in solvers
+        return (
+            pandas.DataFrame(
+                {
+                    settings: {
+                        solver: 100.0
+                        * self.df[
+                            (self.df["settings"] == settings)
+                            & (self.df["solver"] == solver)
+                        ]["found"]
+                        .astype(float)
+                        .mean()
+                        for solver in solvers
+                    }
+                    for settings in all_settings
                 }
-                for settings in all_settings
-            }
-        ).reindex(columns=sorted(all_settings)).sort_index()
+            )
+            .reindex(columns=sorted(all_settings))
+            .sort_index()
+        )
 
     def build_shifted_geometric_mean_df(
-        self, column: str, shift: float, not_found_value: Dict[str, float]
+        self, column: str, shift: float, not_found_value: float
     ) -> pandas.DataFrame:
         """
         Compute the shifted geometric mean of a results column.
@@ -152,9 +156,9 @@ class Results:
         Args:
             column: Name of the column to average.
             shift: Shift of the shifted geometric mean.
-            not_found_value: Value to apply, for each setting, when a solver
-                has not found a solution. For instance, time limits are used
-                for the runtime of a solver that fails to solve a problem.
+            not_found_value: Value to apply when a solver has not found a
+                solution. For instance, time limits are used for the runtime of
+                a solver that fails to solve a problem.
 
         Returns:
             Shifted geometric mean of the prescribed column.
@@ -173,7 +177,7 @@ class Results:
                     [
                         solver_df.at[i, column]
                         if solver_df.at[i, "found"]
-                        else not_found_value[settings]
+                        else not_found_value
                         for i in solver_df.index
                     ]
                 )
@@ -186,7 +190,6 @@ class Results:
                 {
                     settings: mean_for_settings(settings)
                     for settings in all_settings
-                    if settings in not_found_value
                 }
             )
             .reindex(columns=sorted(all_settings))
