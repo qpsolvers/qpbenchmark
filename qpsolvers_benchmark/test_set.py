@@ -96,14 +96,21 @@ class TestSet(abc.ABC):
             only_solver: If set, only run that specific solver.
         """
         nb_called = 0
-        run_solvers = [only_solver] if only_solver else self.solvers
-        all_settings = solver_settings.keys()
-        run_settings = [only_settings] if only_settings else all_settings
+        filtered_solvers = [
+            solver
+            for solver in self.solvers
+            if only_solver is None or solver == only_solver
+        ]
+        filtered_settings = [
+            settings
+            for settings in solver_settings.keys()
+            if only_settings is None or settings == only_settings
+        ]
         for problem in self:
             if only_problem and problem.name != only_problem:
                 continue
-            for solver in run_solvers:
-                for settings in run_settings:
+            for solver in filtered_solvers:
+                for settings in filtered_settings:
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
