@@ -65,30 +65,9 @@ class Report:
         success_rate_table = success_rate_table.replace(" 100    ", " **100**")
         return success_rate_table
 
-    def get_runtime_shgeom_table(self, shift: float):
-        runtime_df = self.results.build_shifted_geometric_mean_df(
-            column="runtime",
-            shift=shift,
-            not_found_value={
-                key: settings.time_limit
-                for key, settings in self.solver_settings.items()
-            },
-        )
-        return runtime_df.to_markdown(index=True, floatfmt=".1f")
-
-    def get_primal_error_shgeom_table(self, shift: float):
-        error_df = self.results.build_shifted_geometric_mean_df(
-            column="primal_error",
-            shift=shift,
-            not_found_value={
-                key: settings.time_limit
-                for key, settings in self.solver_settings.items()
-            },
-        )
-        return error_df.to_markdown(index=True, floatfmt=".1f")
-
     def write(self, path: str) -> None:
         maintainer = self.test_set.maintainer
+        primal_not_found_value = 1.0
         with open(path, "w") as fh:
             fh.write(
                 f"""# {self.test_set.title}
@@ -136,7 +115,11 @@ the test set.
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
-{self.get_runtime_shgeom_table(shift=10.0)}
+{self.results.build_shifted_geometric_mean_df(
+    column="runtime",
+    shift=10.0,
+    not_found_value=self.test_set.time_limit,
+).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
@@ -151,10 +134,15 @@ over the whole test set.
 
 Shifted geometric mean of solver primal errors (1.0 is the best):
 
-{self.get_primal_error_shgeom_table(shift=10.0)}
+{self.results.build_shifted_geometric_mean_df(
+    column="primal_error",
+    shift=10.0,
+    not_found_value=primal_not_found_value,
+).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal error of 1.0.
+solver that fails to find a solution receives a primal error of
+{primal_not_found_value}.
 
 ### Cost errors
 
