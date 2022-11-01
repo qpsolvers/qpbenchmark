@@ -1,7 +1,7 @@
 # Maros-Meszaros test set
 
 - Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 10:47:42.770383+00:00
+- Date: 2022-11-01 11:38:46.517446+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
 - Time limit: 1000.0 seconds
 - Solver versions:
@@ -58,7 +58,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 |        |   default |
 |:-------|----------:|
 | cvxopt |      16.4 |
-| highs  |       1.9 |
+| highs  |       1.8 |
 | osqp   |       1.3 |
 | proxqp |       1.0 |
 | scs    |       3.1 |
