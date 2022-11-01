@@ -65,6 +65,7 @@ class Results:
         Write results to their CSV file for persistence.
         """
         logging.info(f"Test set results written to {self.csv_path}")
+        self.df = self.df.sort_values(by=["problem", "solver", "settings"])
         self.df.to_csv(self.csv_path, index=False)
 
     def has(self, problem: Problem, solver: str, settings: str) -> bool:
