@@ -212,14 +212,20 @@ class Problem:
             Primal solution to the quadratic program, or None if it is
             unfeasible.
         """
+        # Don't time matrix conversions for solvers that require sparse inputs
+        P, G, A = self.P, self.G, self.A
+        if solver in ["highs", "scs"]:
+            P = spa.csc_matrix(P) if isinstance(P, np.ndarray) else P
+            G = spa.csc_matrix(G) if isinstance(G, np.ndarray) else G
+            A = spa.csc_matrix(A) if isinstance(A, np.ndarray) else A
         start_time = perf_counter()
         try:
             solution = solve_qp(
-                self.P,
+                P,
                 self.q,
-                G=self.G,
+                G=G,
                 h=self.h,
-                A=self.A,
+                A=A,
                 b=self.b,
                 lb=self.lb,
                 ub=self.ub,
