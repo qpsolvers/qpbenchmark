@@ -44,6 +44,12 @@ def parse_command_line_arguments():
         help="Limit tests to a specific problem",
     )
     parser.add_argument(
+        "--rerun",
+        default=False,
+        action="store_true",
+        help="Rerun test set even on problems with a saved result",
+    )
+    parser.add_argument(
         "--settings",
         help="Limit tests to a specific group of solver settings",
     )
@@ -95,6 +101,7 @@ if __name__ == "__main__":
             only_problem=args.problem,
             only_settings=args.settings,
             only_solver=args.solver,
+            rerun=args.rerun,
         )
         results.write()
 

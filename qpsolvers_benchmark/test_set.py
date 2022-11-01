@@ -85,6 +85,7 @@ class TestSet(abc.ABC):
         only_problem: Optional[str] = None,
         only_settings: Optional[str] = None,
         only_solver: Optional[str] = None,
+        rerun: bool = False,
     ) -> None:
         """
         Run test set.
@@ -119,7 +120,7 @@ class TestSet(abc.ABC):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
-                    if results.has(problem, solver, settings):
+                    if not rerun and results.has(problem, solver, settings):
                         logging.info(
                             f"{problem.name} already solved by {solver} "
                             f"with {settings} settings..."
