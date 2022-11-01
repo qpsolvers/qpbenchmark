@@ -127,7 +127,7 @@ class Results:
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-        success_rate_df = pandas.DataFrame(
+        return pandas.DataFrame(
             {
                 settings: {
                     solver: 100.0
@@ -141,9 +141,7 @@ class Results:
                 }
                 for settings in all_settings
             }
-        )
-        success_rate_df.reindex(columns=sorted(all_settings))
-        return success_rate_df.sort_index()
+        ).reindex(columns=sorted(all_settings)).sort_index()
 
     def build_shifted_geometric_mean_df(
         self, column: str, shift: float, not_found_value: Dict[str, float]
@@ -183,12 +181,14 @@ class Results:
             best_mean = np.min(list(means.values()))
             return {solver: means[solver] / best_mean for solver in solvers}
 
-        geometric_mean_df = pandas.DataFrame(
-            {
-                settings: mean_for_settings(settings)
-                for settings in all_settings
-                if settings in not_found_value
-            }
+        return (
+            pandas.DataFrame(
+                {
+                    settings: mean_for_settings(settings)
+                    for settings in all_settings
+                    if settings in not_found_value
+                }
+            )
+            .reindex(columns=sorted(all_settings))
+            .sort_index()
         )
-        geometric_mean_df.reindex(columns=sorted(all_settings))
-        return geometric_mean_df.sort_index()
