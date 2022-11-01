@@ -65,19 +65,27 @@ class Report:
         success_rate_table = success_rate_table.replace(" 100    ", " **100**")
         return success_rate_table
 
-    def get_runtime_shgeom_table(self):
-        geometric_mean_df = self.results.build_shifted_geometric_mean_df(
+    def get_runtime_shgeom_table(self, shift: float):
+        runtime_df = self.results.build_shifted_geometric_mean_df(
             column="runtime",
-            shift=10.0,
+            shift=shift,
             not_found_value={
                 key: settings.time_limit
                 for key, settings in self.solver_settings.items()
             },
         )
-        geometric_mean_table = geometric_mean_df.to_markdown(
-            index=True, floatfmt=".1f"
+        return runtime_df.to_markdown(index=True, floatfmt=".1f")
+
+    def get_primal_error_shgeom_table(self, shift: float):
+        error_df = self.results.build_shifted_geometric_mean_df(
+            column="primal_error",
+            shift=shift,
+            not_found_value={
+                key: settings.time_limit
+                for key, settings in self.solver_settings.items()
+            },
         )
-        return geometric_mean_table
+        return error_df.to_markdown(index=True, floatfmt=".1f")
 
     def write(self, path: str) -> None:
         maintainer = self.test_set.maintainer
@@ -124,16 +132,31 @@ time limit when it fails to solve a problem.
 
 ### Results
 
-{self.get_runtime_shgeom_table()}
+Shifted geometric mean of solver computation times for each setting:
 
-Rows are solvers and columns are solver settings.
+{self.get_runtime_shgeom_table(shift=10.0)}
 
-## Precision
+Rows are solvers and columns are solver settings. The shift is $sh = 10$.
+
+## Accuracy
+
+### Primal error
+
+The primal error measures the maximum (equality and inequality) constraint
+violation in the solution returned by a solver. As with runtimes, we use the
+shifted geometric mean of primal errors to aggregate the metric over the whole
+test set.
+
+Shifted geometric mean of solver primal errors for each setting:
+
+{self.get_primal_error_shgeom_table(shift=10.0)}
+
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
+solver that fails to find a solution receives a primal error of 1.
 
 ### Cost errors
 
-### Constraint errors
-
+...
 """
             )
         logging.info(f"Wrote report to {path}")
