@@ -1,7 +1,7 @@
 # Maros-Meszaros test set
 
 - Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 10:47:17.061734+00:00
+- Date: 2022-11-01 10:47:42.770383+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
 - Time limit: 1000.0 seconds
 - Solver versions:
