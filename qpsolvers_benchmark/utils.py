@@ -36,7 +36,7 @@ def bool_as_emoji(b: bool):
     return "\U00002714" if b else "\U0000274C"
 
 
-def shgeom(v: np.ndarray, sh: float = 10.0) -> float:
+def shgeom(v: np.ndarray, sh: float) -> float:
     """
     `Shifted geometric mean <http://plato.asu.edu/ftp/shgeom.html>`_.
 

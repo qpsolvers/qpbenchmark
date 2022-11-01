@@ -144,14 +144,18 @@ class Results:
         success_rate_df.reindex(columns=sorted(all_settings))
         return success_rate_df.sort_index()
 
-    def build_geometric_mean_df(
-        self, time_limits: Dict[str, float]
+    def build_shifted_geometric_mean_df(
+        self, column: str, shift: float, not_found_value: Dict[str, float]
     ) -> pandas.DataFrame:
         """
         Compute the shifted geometric mean data frame.
 
         Args:
-            time_limits: Time limits for each solver setting.
+            column: Name of the column to average.
+            shift: Shift of the shifted geometric mean.
+            not_found_value: Value to apply, for each setting, when a solver
+                has not found a solution. For instance, time limits are used
+                for the runtime of a solver that fails to solve a problem.
 
         Note:
             Similarly to the OSQP and ProxQP benchmarks, a solver that fails to
@@ -165,21 +169,21 @@ class Results:
         all_settings = set(self.df["settings"].to_list())
 
         def mean_for_settings(settings):
-            means = {solver: 1e20 for solver in solvers}
+            means = {}
             for solver in solvers:
                 solver_df = self.df[
                     (self.df["solver"] == solver)
                     & (self.df["settings"] == settings)
                 ]
-                runtimes = np.array(
+                column_values = np.array(
                     [
-                        solver_df.at[i, "runtime"]
+                        solver_df.at[i, column]
                         if solver_df.at[i, "found"]
-                        else time_limits[settings]
+                        else not_found_value[settings]
                         for i in solver_df.index
                     ]
                 )
-                means[solver] = shgeom(runtimes)
+                means[solver] = shgeom(column_values, shift)
             best_mean = np.min(list(means.values()))
             return {solver: means[solver] / best_mean for solver in solvers}
 
@@ -187,7 +191,7 @@ class Results:
             {
                 settings: mean_for_settings(settings)
                 for settings in all_settings
-                if settings in time_limits
+                if settings in not_found_value
             }
         )
         geometric_mean_df.reindex(columns=sorted(all_settings))

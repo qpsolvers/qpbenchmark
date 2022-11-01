@@ -63,12 +63,14 @@ class Report:
         success_rate_table = success_rate_table.replace(" 100    ", " **100**")
         return success_rate_table
 
-    def get_geometric_mean_table(self):
-        geometric_mean_df = self.results.build_geometric_mean_df(
-            time_limits={
+    def get_runtime_shgeom_table(self):
+        geometric_mean_df = self.results.build_shifted_geometric_mean_df(
+            column="runtime",
+            shift=10.0,
+            not_found_value={
                 key: settings.time_limit
                 for key, settings in self.solver_settings.items()
-            }
+            },
         )
         geometric_mean_table = geometric_mean_df.to_markdown(
             index=True, floatfmt=".1f"
@@ -120,7 +122,7 @@ time limit when it fails to solve a problem.
 
 ### Results
 
-{self.get_geometric_mean_table()}
+{self.get_runtime_shgeom_table()}
 
 Rows are solvers and columns are solver settings.
 
