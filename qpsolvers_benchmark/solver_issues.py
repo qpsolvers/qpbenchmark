@@ -105,6 +105,11 @@ def skip_solver_timeout(
         problem: Problem to solve.
         solver: QP solver.
 
+    Note:
+        This function only checks for timeouts that the solvers are not able to
+        handle by themselves, e.g. for those who provide a time limit
+        parameter.
+
     Returns:
         True if `solver` is known to take more than `time_limit` seconds on
         `problem`.
