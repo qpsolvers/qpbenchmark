@@ -9,6 +9,22 @@ Benchmark for quadratic programming (QP) solvers available in Python. It contain
 
 This benchmark aims to help us compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). New test sets are [also welcome](CONTRIBUTING.md). Feel free to add one that better represents the family of problems you are working on.
 
+## Solvers
+
+| Solver | Keyword | Type | License | Warm-start |
+| ------ | ------- | ---- | ------- |------------|
+| [CVXOPT](http://cvxopt.org/) | ``cvxopt`` | Dense | GPL-3.0 | ✔️ |
+| [ECOS](https://web.stanford.edu/~boyd/papers/ecos.html) | ``ecos`` | Sparse | GPL-3.0 | ✖️ |
+| [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Sparse | Commercial | ✖️ |
+| [HiGHS](https://highs.dev/) | ``highs`` | Sparse | MIT | ✖️ |
+| [MOSEK](https://mosek.com/) | ``mosek`` | Sparse | Commercial | ✔️ |
+| [OSQP](https://osqp.org/) | ``osqp`` | Sparse | Apache-2.0 | ✔️ |
+| [ProxQP](https://github.com/Simple-Robotics/proxsuite) | ``proxqp`` | Dense & Sparse | BSD-2-Clause | ✔️ |
+| [qpOASES](https://github.com/coin-or/qpOASES) | ``qpoases`` | Dense | LGPL-2.1 | ➖ |
+| [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Sparse | GPL-3.0 | ✖️ |
+| [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Dense | GPL-2.0 | ✖️ |
+| [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Sparse | MIT | ✔️ |
+
 ## Results
 
 Check out the full reports for each test set in the [results](results) directory.
