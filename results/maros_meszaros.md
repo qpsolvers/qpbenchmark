@@ -1,7 +1,7 @@
 # Maros-Meszaros test set
 
 - Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 10:07:30.763328+00:00
+- Date: 2022-11-01 10:28:23.687963+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
 - Solver versions:
 
@@ -19,11 +19,11 @@ Precentage of problems each solver is able to solve:
 
 |        |   default |
 |:-------|----------:|
-| cvxopt |   15.942  |
-| highs  |   59.4595 |
-| osqp   |   64.4928 |
-| proxqp |   72.4638 |
-| scs    |   54.3478 |
+| cvxopt |        16 |
+| highs  |        59 |
+| osqp   |        64 |
+| proxqp |        72 |
+| scs    |        54 |
 
 Rows are solvers and columns are solver settings.
 
@@ -51,19 +51,40 @@ time limit when it fails to solve a problem.
 
 ### Results
 
+Shifted geometric mean of solver computation times for each setting:
+
 |        |   default |
 |:-------|----------:|
 | cvxopt |      16.4 |
-| highs  |       2.0 |
+| highs  |       2.1 |
 | osqp   |       1.3 |
 | proxqp |       1.0 |
 | scs    |       3.1 |
 
-Rows are solvers and columns are solver settings.
+Rows are solvers and columns are solver settings. The shift is $sh = 10$.
 
-## Precision
+## Accuracy
+
+### Primal error
+
+The primal error measures the maximum (equality and inequality) constraint
+violation in the solution returned by a solver. As with runtimes, we use the
+shifted geometric mean of primal errors to aggregate the metric over the whole
+test set.
+
+Shifted geometric mean of solver primal errors for each setting:
+
+|        |   default |
+|:-------|----------:|
+| cvxopt |      18.5 |
+| highs  |       2.2 |
+| osqp   |       1.8 |
+| proxqp |       1.0 |
+| scs    |     548.2 |
+
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
+solver that fails to find a solution receives a primal error of 1.
 
 ### Cost errors
 
-### Constraint errors
-
+...
