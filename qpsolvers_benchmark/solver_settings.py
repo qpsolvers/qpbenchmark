@@ -81,9 +81,11 @@ class SolverSettings:
         """
         if self.eps_abs is not None:
             self.__settings["osqp"]["eps_abs"] = self.eps_abs
+            self.__settings["proxqp"]["eps_abs"] = self.eps_abs
             self.__settings["qpswift"]["ABSTOL"] = self.eps_abs
         if self.eps_rel is not None:
             self.__settings["osqp"]["eps_rel"] = self.eps_rel
+            self.__settings["proxqp"]["eps_rel"] = self.eps_abs
             self.__settings["qpswift"]["RELTOL"] = self.eps_abs
 
     def apply_verbosity(self) -> None:
