@@ -19,6 +19,7 @@ import argparse
 import os
 
 from qpsolvers_benchmark import Report, Results, SolverSettings
+from qpsolvers_benchmark.spdlog import logging
 from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
 
 
@@ -27,20 +28,19 @@ def parse_command_line_arguments():
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument(
+        "command",
+        choices=["run", "eval", "report"],
+        help="Run test set? Evaluate its results? Write its report?",
+    )
+    parser.add_argument(
         "test_set",
         choices=["maros_meszaros", "maros_meszaros_dense"],
-        help="Test set to run",
+        help="Test set to execute command on",
     )
     parser.add_argument(
         "--problem",
         "-p",
         help="Limit tests to a specific problem",
-    )
-    parser.add_argument(
-        "--report-only",
-        action="store_true",
-        default=False,
-        help="Only write the output report from saved test set results",
     )
     parser.add_argument(
         "--solver",
@@ -72,11 +72,6 @@ if __name__ == "__main__":
         "default": SolverSettings(
             time_limit=test_set.time_limit, verbose=args.verbose
         ),
-        # "low_accuracy": SolverSettings(
-        #     time_limit=test_set.time_limit,
-        #     eps_abs=1e-3,
-        #     eps_rel=0.0,
-        # ),
         # "high_accuracy": SolverSettings(
         #     time_limit=test_set.time_limit,
         #     eps_abs=1e-8,
@@ -87,7 +82,7 @@ if __name__ == "__main__":
     results_dir = os.path.join(os.path.dirname(__file__), "results")
     results = Results(os.path.join(results_dir, f"{args.test_set}.csv"))
 
-    if not args.report_only:
+    if args.command == "run":
         test_set.run(
             solver_settings,
             results,
@@ -96,5 +91,12 @@ if __name__ == "__main__":
         )
         results.write()
 
-    report = Report(test_set, solver_settings, results)
-    report.write(os.path.join(results_dir, f"{args.test_set}.md"))
+    if args.command == "eval":
+        df = results.df
+        logging.info(
+            "Results are ready in `results` with a pandas DataFrame in `df`"
+        )
+
+    if args.command in ["report", "run"]:
+        report = Report(test_set, solver_settings, results)
+        report.write(os.path.join(results_dir, f"{args.test_set}.md"))
