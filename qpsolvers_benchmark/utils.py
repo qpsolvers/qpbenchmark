@@ -59,7 +59,7 @@ def shgeom(v: np.ndarray, sh: float) -> float:
         arithmetic means) nor by very small outliers (in contrast to geometric
         means)."
     """
-    assert (v > 0.0).all() and sh >= 1.0
+    assert (v >= 0.0).all() and sh >= 1.0
     return np.exp(np.sum(np.log(v + sh)) / len(v)) - sh
 
 

@@ -148,7 +148,7 @@ class Results:
         self, column: str, shift: float, not_found_value: Dict[str, float]
     ) -> pandas.DataFrame:
         """
-        Compute the shifted geometric mean data frame.
+        Compute the shifted geometric mean of a results column.
 
         Args:
             column: Name of the column to average.
@@ -157,13 +157,8 @@ class Results:
                 has not found a solution. For instance, time limits are used
                 for the runtime of a solver that fails to solve a problem.
 
-        Note:
-            Similarly to the OSQP and ProxQP benchmarks, a solver that fails to
-            solve a given problem is reported as having spent maximum
-            computation time on it.
-
         Returns:
-            Shifted geometric mean data frame.
+            Shifted geometric mean of the prescribed column.
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
