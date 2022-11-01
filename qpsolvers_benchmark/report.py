@@ -45,7 +45,7 @@ class Report:
         self.test_set = test_set
 
     def get_solvers_table(self):
-        versions = get_solver_versions()
+        versions = get_solver_versions(self.test_set.solvers)
         versions_df = pandas.DataFrame(
             {
                 "solver": list(versions.keys()),

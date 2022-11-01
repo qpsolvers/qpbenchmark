@@ -20,6 +20,8 @@ Utility functions.
 """
 
 import platform
+from importlib import metadata
+from typing import Set
 
 import numpy as np
 
@@ -71,44 +73,25 @@ def get_cpu_info():
     )
 
 
-def get_solver_versions():
-    versions = {}
-    try:
-        import cvxopt
+def get_solver_versions(solvers: Set[str]):
+    """
+    Get version numbers for a given set of solvers.
 
-        versions["cvxopt"] = cvxopt.__version__
-    except ImportError:
-        pass
-    try:
-        from highspy import (
-            HIGHS_VERSION_MAJOR,
-            HIGHS_VERSION_MINOR,
-            HIGHS_VERSION_PATCH,
-        )
+    Args:
+        solvers: Names of solvers to get the version of.
 
-        versions["highs"] = (
-            f"{HIGHS_VERSION_MAJOR}"
-            f".{HIGHS_VERSION_MINOR}"
-            f".{HIGHS_VERSION_PATCH}"
-        )
-    except ImportError:
-        pass
-    try:
-        from osqp import OSQP
-
-        versions["osqp"] = f"{OSQP().version()}"
-    except ImportError:
-        pass
-    try:
-        import proxsuite
-
-        versions["proxqp"] = proxsuite.__version__
-    except ImportError:
-        pass
-    try:
-        import scs
-
-        versions["scs"] = scs.__version__
-    except ImportError:
-        pass
+    Returns:
+        Dictionary mapping solver names to their versions.
+    """
+    package_name = {solver: solver for solver in solvers}
+    package_name.update(
+        {
+            "highs": "highspy",
+            "proxqp": "proxsuite",
+        }
+    )
+    versions = {
+        solver: metadata.version(package)
+        for solver, package in package_name.items()
+    }
     return versions
