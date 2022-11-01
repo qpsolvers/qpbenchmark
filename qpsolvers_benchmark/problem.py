@@ -177,11 +177,11 @@ class Problem:
             Dense copy of the present problem.
         """
         return Problem(
-            self.P.toarray(),
+            self.P.toarray().astype(float),
             self.q,
-            self.G.toarray(),
+            self.G.toarray().astype(float),
             self.h,
-            self.A.toarray(),
+            self.A.toarray().astype(float),
             self.b,
             self.lb,
             self.ub,
