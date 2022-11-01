@@ -28,6 +28,7 @@ import scipy.io as spio
 import scipy.sparse as spa
 from numpy import linalg
 from qpsolvers import solve_qp
+from .spdlog import logging
 
 
 class Problem:
@@ -233,7 +234,7 @@ class Problem:
                 **kwargs,
             )
         except Exception as e:
-            print(f"Caught solver exception: {e}")
+            logging.warn(f"Caught solver exception: {e}")
             solution = None
         runtime = perf_counter() - start_time
         return solution, runtime
