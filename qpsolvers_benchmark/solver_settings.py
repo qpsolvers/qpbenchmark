@@ -29,6 +29,7 @@ KNOWN_SOLVERS: Set[str] = set(
         "osqp",
         "proxqp",
         "qpswift",
+        "quadprog",
         "scs",
     ]
 )
