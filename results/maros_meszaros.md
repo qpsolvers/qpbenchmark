@@ -1,18 +1,18 @@
 # Maros-Meszaros test set
 
 - Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 11:38:46.517446+00:00
+- Date: 2022-11-01 14:01:26.674454+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
 - Time limit: 1000.0 seconds
 - Solver versions:
 
-| solver   | version   |
-|:---------|:----------|
-| cvxopt   | 1.3.0     |
-| highs    | 1.2.2     |
-| osqp     | 0.6.2     |
-| proxqp   | 0.2.2     |
-| scs      | 3.2.0     |
+| solver   | version     |
+|:---------|:------------|
+| cvxopt   | 1.3.0       |
+| highs    | 1.1.2.dev3  |
+| osqp     | 0.6.2.post0 |
+| proxqp   | 0.2.2       |
+| scs      | 3.2.0       |
 
 ## Metrics
 
