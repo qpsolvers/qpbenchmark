@@ -74,13 +74,15 @@ if __name__ == "__main__":
 
     solver_settings = {
         "default": SolverSettings(
-            time_limit=test_set.time_limit, verbose=args.verbose
+            time_limit=test_set.time_limit,
+            verbose=args.verbose,
         ),
-        # "high_accuracy": SolverSettings(
-        #     time_limit=test_set.time_limit,
-        #     eps_abs=1e-8,
-        #     eps_rel=0.0,
-        # ),
+        "high_accuracy": SolverSettings(
+            time_limit=test_set.time_limit,
+            eps_abs=1e-9,
+            eps_rel=0.0,
+            verbose=args.verbose,
+        ),
     }
 
     results_dir = os.path.join(os.path.dirname(__file__), "results")
