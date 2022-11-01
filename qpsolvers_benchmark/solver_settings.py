@@ -28,6 +28,7 @@ KNOWN_SOLVERS: Set[str] = set(
         "highs",
         "osqp",
         "proxqp",
+        "qpswift",
         "scs",
     ]
 )
@@ -48,38 +49,45 @@ class SolverSettings:
     ):
         self.eps_abs = eps_abs
         self.eps_rel = eps_rel
-        self.settings: Dict[str, Dict[str, Any]] = {
-            solver: {} for solver in KNOWN_SOLVERS
-        }
         self.time_limit = time_limit
         self.verbose = verbose
         #
-        self.set_time_limits()
-        self.set_tolerances()
-        self.set_verbosity()
+        self.__settings: Dict[str, Dict[str, Any]] = {
+            solver: {} for solver in KNOWN_SOLVERS
+        }
+        self.apply_time_limits()
+        self.apply_tolerances()
+        self.apply_verbosity()
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
         try:
-            return self.settings[solver]
+            return self.__settings[solver]
         except KeyError as e:
             raise KeyError(f"unknown solver {str(e)}") from e
 
-    def set_time_limits(self):
-        self.settings["gurobi"]["time_limit"] = self.time_limit
-        self.settings["highs"]["time_limit"] = self.time_limit
-        self.settings["osqp"]["time_limit"] = self.time_limit
-        self.settings["scs"]["time_limit_secs"] = self.time_limit
+    def apply_time_limits(self) -> None:
+        """
+        Apply time limits to all solvers.
+        """
+        self.__settings["gurobi"]["time_limit"] = self.time_limit
+        self.__settings["highs"]["time_limit"] = self.time_limit
+        self.__settings["osqp"]["time_limit"] = self.time_limit
+        self.__settings["scs"]["time_limit_secs"] = self.time_limit
 
-    def set_tolerances(self):
+    def apply_tolerances(self) -> None:
+        """
+        Apply absolute and relative tolerances to all solvers.
+        """
         if self.eps_abs is not None:
-            self.settings["osqp"]["eps_abs"] = self.eps_abs
+            self.__settings["osqp"]["eps_abs"] = self.eps_abs
+            self.__settings["qpswift"]["ABSTOL"] = self.eps_abs
         if self.eps_rel is not None:
-            self.settings["osqp"]["eps_rel"] = self.eps_rel
+            self.__settings["osqp"]["eps_rel"] = self.eps_rel
+            self.__settings["qpswift"]["RELTOL"] = self.eps_abs
 
-    def set_verbosity(self):
-        self.settings["cvxopt"]["verbose"] = self.verbose
-        self.settings["gurobi"]["verbose"] = self.verbose
-        self.settings["highs"]["verbose"] = self.verbose
-        self.settings["osqp"]["verbose"] = self.verbose
-        self.settings["proxqp"]["verbose"] = self.verbose
-        self.settings["scs"]["verbose"] = self.verbose
+    def apply_verbosity(self) -> None:
+        """
+        Apply verbosity settings to all solvers.
+        """
+        for solver in KNOWN_SOLVERS:
+            self.__settings[solver]["verbose"] = self.verbose
