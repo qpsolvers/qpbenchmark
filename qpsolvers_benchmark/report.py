@@ -100,7 +100,25 @@ class Report:
 
 {self.get_solvers_table()}
 
-## Success rate
+## Metrics
+
+### Shifted geometric mean
+
+For each metric (computation time, solution accuracy, ...), every problem in
+the test set produces a different ranking of solvers. To aggregate those
+rankings into a single metric over the whole test set, we use the shifted
+geometric mean, which is a standard to aggregate computation times in
+[benchmarks for optimization software](http://plato.asu.edu/bench.html).
+
+The shifted geometric mean is a slowdown/loss factor compared to the best
+solver over the whole test set. It has the advantage of being compromised by
+neither large outliers (as opposed to the arithmetic mean) nor by small
+outliers (in contrast to the geometric geometric mean). The best solvers have a
+shifted geometric mean close to one.
+
+## Results
+
+### Success rate
 
 Precentage of problems each solver is able to solve:
 
@@ -108,51 +126,34 @@ Precentage of problems each solver is able to solve:
 
 Rows are solvers and columns are solver settings.
 
-## Computation time
+### Computation time
 
-We compare solver computation times using the **shifted geometric mean**. A
-solver with a shifted geometric mean of Y is Y times slower than the best
-solver over the test set.
+We compare solver computation times over the whole test set using the [shifted
+geometric mean](#shifted-geometric-mean). Intuitively, a solver with a
+shifted-geometric-mean runtime of Y is Y times slower than the best solver over
+the test set.
 
-### Details
-
-There is a different ranking of solver runtimes for each problem in the test
-set. To aggregate those rankings into a single metric over the whole test set,
-we use the shifted geometric mean, which is a standard in [benchmarks for
-optimization software](http://plato.asu.edu/bench.html).
-
-The shifted geometric mean is a slowdown factor compared to the best solver
-over the whole test set. It has the advantage of being compromised by neither
-large outliers (as opposed to the arithmetic mean) nor by small outliers (in
-contrast to the geometric geometric mean). The best solvers have a shifted
-geometric mean close to one.
-
-As in the OSQP and ProxQP benchmarks, we assume a solver's run time is at the
-time limit when it fails to solve a problem.
-
-### Results
-
-Shifted geometric mean of solver computation times for each setting:
+Shifted geometric mean of solver computation times (1.0 is the best):
 
 {self.get_runtime_shgeom_table(shift=10.0)}
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$.
-
-## Accuracy
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
+the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
+limit when it fails to solve a problem.
 
 ### Primal error
 
 The primal error measures the maximum (equality and inequality) constraint
 violation in the solution returned by a solver. As with runtimes, we use the
-shifted geometric mean of primal errors to aggregate the metric over the whole
-test set.
+[shifted geometric mean](#shifted-geometric-mean) to aggregate primal errors
+over the whole test set.
 
-Shifted geometric mean of solver primal errors for each setting:
+Shifted geometric mean of solver primal errors (1.0 is the best):
 
 {self.get_primal_error_shgeom_table(shift=10.0)}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal error of 1.
+solver that fails to find a solution receives a primal error of 1.0.
 
 ### Cost errors
 
