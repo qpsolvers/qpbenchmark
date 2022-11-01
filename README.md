@@ -16,12 +16,13 @@ Check out the full reports for each test set in the [results](results) directory
 
 The Maros-Meszaros test set contains difficult problems, some of them large, sparse, ill-conditioned or with non-strictly p.s.d. Hessian matrices. For sparse solvers only.
 
-| Solver | Success rate (%) | Slower than best (×) |
-|:-------|-----------------:|---------------------:|
-| cvxopt | 15.9 | 16.4 |
-| osqp   | 64.4 | 1.3 |
-| proxqp | 72.4 | 1.0 |
-| scs    | 54.3 | 3.1 |
+| Solver | Success rate (%) | Runtime (× slower than best) | Primal error |
+|:-------|-----------------:|-----------------------------:|-------------:|
+| cvxopt | 16 | 16.4 |  18.5 |
+| highs  | 61 |  1.8 |   2.0 |
+| osqp   | 64 |  1.3 |   1.8 |
+| proxqp | 72 |  1.0 |   1.0 |
+| scs    | 54 |  3.1 | 548.2 |
 
 Check out the [full report](results/maros_meszaros.md) for definitions and details.
 
