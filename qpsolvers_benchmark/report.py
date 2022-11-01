@@ -59,7 +59,9 @@ class Report:
 
     def get_success_rate_table(self):
         success_rate_df = self.results.build_success_rate_df()
-        success_rate_table = success_rate_df.to_markdown(index=True)
+        success_rate_table = success_rate_df.to_markdown(
+            index=True, floatfmt=".0f"
+        )
         success_rate_table = success_rate_table.replace(" 100    ", " **100**")
         return success_rate_table
 
