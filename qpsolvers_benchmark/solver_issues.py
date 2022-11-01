@@ -88,18 +88,45 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
             logging.warn("Skipping UNREPORTED issue")
             return True
     elif solver == "highs":
-        if problem.name == "AUG2DC":
-            # https://github.com/ERGO-Code/HiGHS/issues/992
-            return True
-        elif problem.name == "STADAT1":
+        if problem.name == "STADAT1":
             # https://github.com/ERGO-Code/HiGHS/issues/995
             return True
-        elif problem.name == "AUG2D":
-            # takes more than 40 min to solve
-            return True
-    elif solver == "cvxopt":
-        # hangs (> 15 min), not reported yet
-        if problem.name in ["CVXQP3_L", "CONT-300"]:
-            logging.warn("Skipping UNREPORTED issue")
-            return True
+    return False
+
+
+def skip_solver_timeout(
+    time_limit: float, problem: Problem, solver: str
+) -> bool:
+    """
+    Skip known solver timeouts.
+
+    Args:
+        time_limit: Time limit in seconds.
+        problem: Problem to solve.
+        solver: QP solver.
+
+    Returns:
+        True if `solver` is known to take more than `time_limit` seconds on
+        `problem`.
+    """
+    minutes = 60.0
+    known_timeouts = {
+        "cvxopt": {
+            "CVXQP3_L": 20 * minutes,
+            "CONT-300": 20 * minutes,
+        },
+        "highs": {
+            # AUG2DC: https://github.com/ERGO-Code/HiGHS/issues/992
+            "AUG2DC": 40 * minutes,
+            "AUG2D": 40 * minutes,
+            "CONT-300": 30 * minutes,
+        },
+    }
+    if solver in known_timeouts and problem.name in known_timeouts[solver]:
+        timeout = known_timeouts[solver][problem.name]
+        logging.info(
+            f"Skipping {problem.name} for {solver} as it is known "
+            f"to take {timeout} > {time_limit} seconds"
+        )
+        return timeout > time_limit
     return False

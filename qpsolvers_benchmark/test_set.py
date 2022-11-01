@@ -26,7 +26,7 @@ from qpsolvers import available_solvers, sparse_solvers
 
 from .problem import Problem
 from .results import Results
-from .solver_issues import skip_solver_issue
+from .solver_issues import skip_solver_issue, skip_solver_timeout
 from .solver_settings import SolverSettings
 from .spdlog import logging
 
@@ -101,6 +101,10 @@ class TestSet(abc.ABC):
             for solver in solvers:
                 for settings in solver_settings:
                     if skip_solver_issue(problem, solver):
+                        failure = problem, solver, settings, None, 0.0
+                        results.update(*failure)
+                        continue
+                    if skip_solver_timeout(self.time_limit, problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
