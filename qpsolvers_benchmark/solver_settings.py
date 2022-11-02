@@ -26,6 +26,7 @@ import numpy as np
 KNOWN_SOLVERS: Set[str] = set(
     [
         "cvxopt",
+        "ecos",
         "gurobi",
         "highs",
         "osqp",
@@ -111,6 +112,7 @@ class SolverSettings:
         if eps_abs is None:
             return
         self.__settings["cvxopt"]["feastol"] = eps_abs
+        self.__settings["ecos"]["feastol"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
         self.__settings["proxqp"]["eps_abs"] = eps_abs
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
