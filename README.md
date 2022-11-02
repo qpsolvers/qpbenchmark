@@ -13,7 +13,7 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 
 | Solver | Keyword | Algorithm | Matrices | License |
 | ------ | ------- | --------- | -------- | ------- |
-| [CVXOPT](http://cvxopt.org/) | ``cvxopt`` | | Dense | GPL-3.0 |
+| [CVXOPT](http://cvxopt.org/) | ``cvxopt`` | Interior point | Dense | GPL-3.0 |
 | [ECOS](https://web.stanford.edu/~boyd/papers/ecos.html) | ``ecos`` | | Sparse | GPL-3.0 |
 | [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Interior point | Sparse | Commercial |
 | [HiGHS](https://highs.dev/) | ``highs`` | Active set | Sparse | MIT |
