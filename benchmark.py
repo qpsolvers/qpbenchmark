@@ -101,6 +101,12 @@ if __name__ == "__main__":
         ),
     }
 
+    if args.settings and args.settings not in solver_settings:
+        raise ValueError(
+            f"settings '{args.settings}' not in the list of available "
+            f"settings for this benchmark: {list(solver_settings.keys())}"
+        )
+
     results_dir = os.path.join(os.path.dirname(__file__), "results")
     results = Results(os.path.join(results_dir, f"{args.test_set}.csv"))
 
