@@ -106,7 +106,7 @@ class SolverSettings:
 
     def apply_tolerances(self) -> None:
         """
-        Apply absolute tolerance to all solvers.
+        Apply absolute tolerance, disable relative tolerance for all solvers.
         """
         eps_abs = self.absolute_tolerance
         if eps_abs is None:
@@ -114,8 +114,11 @@ class SolverSettings:
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
+        self.__settings["osqp"]["eps_rel"] = 0.0
         self.__settings["proxqp"]["eps_abs"] = eps_abs
+        self.__settings["proxqp"]["eps_rel"] = 0.0
         self.__settings["scs"]["eps_abs"] = eps_abs
+        self.__settings["scs"]["eps_rel"] = 0.0
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
 
     def apply_verbosity(self) -> None:
