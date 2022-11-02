@@ -40,14 +40,16 @@ def parse_command_line_arguments():
         help="Test set to execute command on",
     )
     parser.add_argument(
+        "--verbose",
+        "-v",
+        action="store_true",
+        help="Turn on verbose solver outputs",
+    )
+
+    # Filtering
+    parser.add_argument(
         "--problem",
         help="Limit tests to a specific problem",
-    )
-    parser.add_argument(
-        "--rerun",
-        default=False,
-        action="store_true",
-        help="Rerun test set even on problems with a saved result",
     )
     parser.add_argument(
         "--settings",
@@ -57,12 +59,21 @@ def parse_command_line_arguments():
         "--solver",
         help="Limit tests to a specific solver",
     )
+
+    # Rerun
     parser.add_argument(
-        "--verbose",
-        "-v",
+        "--rerun",
+        default=False,
         action="store_true",
-        help="Turn on verbose solver outputs",
+        help="Rerun test set even on problems with a saved result",
     )
+    parser.add_argument(
+        "--include-timeouts",
+        default=False,
+        action="store_true",
+        help="Also include timeouts when re-running test set",
+    )
+
     parser.add_argument
     return parser.parse_args()
 
@@ -101,6 +112,7 @@ if __name__ == "__main__":
             only_settings=args.settings,
             only_solver=args.solver,
             rerun=args.rerun,
+            include_timeouts=args.include_timeouts,
         )
         results.write()
 

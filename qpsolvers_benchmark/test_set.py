@@ -22,7 +22,7 @@ Base class for test sets.
 import abc
 from typing import Dict, Iterator, Optional
 
-from qpsolvers import available_solvers, sparse_solvers
+import qpsolvers
 
 from .problem import Problem
 from .results import Results
@@ -75,8 +75,9 @@ class TestSet(abc.ABC):
         """
         Initialize test set.
         """
-        solvers = sparse_solvers if self.sparse_only else available_solvers
-        self.solvers = solvers
+        self.solvers = (
+            qpsolvers.sparse_solvers if self.sparse_only else qpsolvers.available_solvers
+        )
 
     def run(
         self,
@@ -86,6 +87,7 @@ class TestSet(abc.ABC):
         only_settings: Optional[str] = None,
         only_solver: Optional[str] = None,
         rerun: bool = False,
+        include_timeouts: bool = False,
     ) -> None:
         """
         Run test set.
@@ -120,12 +122,21 @@ class TestSet(abc.ABC):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
-                    if not rerun and results.has(problem, solver, settings):
-                        logging.info(
-                            f"{problem.name} already solved by {solver} "
-                            f"with {settings} settings..."
-                        )
-                        continue
+                    if results.has(problem, solver, settings):
+                        if not rerun:
+                            logging.info(
+                                f"{problem.name} already solved by {solver} "
+                                f"with {settings} settings..."
+                            )
+                            continue
+                        elif not include_timeouts and results.is_timeout(
+                            problem, solver, settings, self.time_limit
+                        ):
+                            logging.warn(
+                                f"Skipping {problem.name} with {solver} and "
+                                f"{settings} settings as a known timeout..."
+                            )
+                            continue
                     logging.info(
                         f"Solving {problem.name} by {solver} "
                         f"with {settings} settings..."

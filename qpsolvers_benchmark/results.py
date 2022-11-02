@@ -75,6 +75,19 @@ class Results:
             & (self.df["settings"] == settings)
         ).any()
 
+    def is_timeout(
+        self, problem: Problem, solver: str, settings: str, time_limit: float
+    ) -> bool:
+        """
+        Check whether a particular result was a timeout.
+        """
+        runtime = self.df[
+            (self.df["problem"] == problem.name)
+            & (self.df["solver"] == solver)
+            & (self.df["settings"] == settings)
+        ]["runtime"].iat[0]
+        return runtime > 0.99 * time_limit
+
     def update(
         self,
         problem: Problem,
