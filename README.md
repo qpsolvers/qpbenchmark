@@ -70,11 +70,13 @@ To run *e.g.* the Maros-Meszaros test set, call:
 python benchmark.py run maros_meszaros
 ```
 
-Replace ``maros_meszaros`` with the name of the test set you want to run. You can also run sub-parts
+Replace ``maros_meszaros`` with the name of the test set you want to run. You can also run only a specified solver, problem or set of solver settings, for instance:
 
 ```console
-python benchmark.py run maros_meszaros_dense --solver proxqp --problem LASER
+python benchmark.py run maros_meszaros_dense --solver proxqp --settings default
 ```
+
+Check out ``python benchmark.py --help`` for details.
 
 ## See also
 
