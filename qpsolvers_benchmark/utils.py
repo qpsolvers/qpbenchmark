@@ -90,8 +90,10 @@ def get_solver_versions(solvers: Set[str]):
             "proxqp": "proxsuite",
         }
     )
-    versions = {
-        solver: metadata.version(package)
-        for solver, package in package_name.items()
-    }
+    versions = {}
+    for solver, package in package_name.items():
+        try:
+            versions[solver] = metadata.version(package)
+        except metadata.PackageNotFoundError:
+            continue
     return versions
