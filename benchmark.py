@@ -18,8 +18,6 @@
 import argparse
 import os
 
-import IPython
-
 from qpsolvers_benchmark import Report, Results, SolverSettings
 from qpsolvers_benchmark.spdlog import logging
 from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
@@ -119,8 +117,15 @@ if __name__ == "__main__":
     if args.command == "eval":
         df = results.df
         logging.info("Check out `results` and the pandas DataFrame `df`")
-        if not IPython.get_ipython():
-            IPython.embed()
+        try:
+            import IPython
+
+            if not IPython.get_ipython():
+                IPython.embed()
+        except ImportError:
+            logging.error(
+                "IPython not found, assuming we are in interactive mode"
+            )
 
     if args.command in ["report", "run"]:
         report = Report(test_set, solver_settings, results)
