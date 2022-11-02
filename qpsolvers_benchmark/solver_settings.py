@@ -21,6 +21,8 @@ Solver settings.
 
 from typing import Any, Dict, Optional, Set
 
+import numpy as np
+
 KNOWN_SOLVERS: Set[str] = set(
     [
         "cvxopt",
@@ -39,17 +41,43 @@ class SolverSettings:
 
     """
     Apply general settings to multiple solvers at once.
+
+    Attributes:
+        absolute_tolerance: Absolute tolerance on primal and dual residuals.
+
+    The primal residual of a solution :math:`(x, y, z)` consists of
+    :math:`r_{prim,eq} = A x - b` and :math:`r_{prim,ineq} = \\max(0, G x -
+    h)`. The overall primal residual is the maximum of these two.
+
+    The dual residual is :math:`r_{dual} = P x + q + A^T y + G^T z`.
+
+    Hence, when we ask for an absolute tolerance :math:`\\epsilon_{abs}` on
+    residuals, we want the solver to find an approximation of the optimum such
+    that:
+
+    .. math::
+
+        \\begin{align}
+        \\| P x + g + A^T y + C^T z \\|_\\infty & \\leq \\epsilon_{abs} \\\\
+        \\| A x - b \\|_\\infty & \\leq \\epsilon_{abs} \\\\
+        \\| \\max(0, G x - h) \\|_\\infty & \\leq \\epsilon_{abs}
+        \\end{align}
+
+    Note:
+        The tolerance on the primal residual is called "feasibility tolerance"
+        by some solvers, for instance CVXOPT and ECOS.
     """
+
+    absolute_tolerance: float
+    time_limit: float
 
     def __init__(
         self,
         time_limit: float,
         verbose: bool,
-        eps_abs: Optional[float] = None,
-        eps_rel: Optional[float] = None,
+        absolute_tolerance: Optional[float] = None,
     ):
-        self.eps_abs = eps_abs
-        self.eps_rel = eps_rel
+        self.absolute_tolerance = absolute_tolerance
         self.time_limit = time_limit
         self.verbose = verbose
         #
@@ -77,18 +105,15 @@ class SolverSettings:
 
     def apply_tolerances(self) -> None:
         """
-        Apply absolute and relative tolerances to all solvers.
+        Apply absolute tolerance to all solvers.
         """
-        if self.eps_abs is not None:
-            self.__settings["cvxopt"]["abstol"] = self.eps_abs
-            self.__settings["osqp"]["eps_abs"] = self.eps_abs
-            self.__settings["proxqp"]["eps_abs"] = self.eps_abs
-            self.__settings["qpswift"]["ABSTOL"] = self.eps_abs
-        if self.eps_rel is not None:
-            self.__settings["cvxopt"]["reltol"] = self.eps_rel
-            self.__settings["osqp"]["eps_rel"] = self.eps_rel
-            self.__settings["proxqp"]["eps_rel"] = self.eps_rel
-            self.__settings["qpswift"]["RELTOL"] = self.eps_rel
+        eps_abs = self.absolute_tolerance
+        if eps_abs is None:
+            return
+        self.__settings["cvxopt"]["feastol"] = eps_abs
+        self.__settings["osqp"]["eps_abs"] = eps_abs
+        self.__settings["proxqp"]["eps_abs"] = eps_abs
+        self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
 
     def apply_verbosity(self) -> None:
         """

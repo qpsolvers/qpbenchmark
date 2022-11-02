@@ -85,8 +85,7 @@ if __name__ == "__main__":
         ),
         "high_accuracy": SolverSettings(
             time_limit=test_set.time_limit,
-            eps_abs=1e-9,
-            eps_rel=0.0,
+            absolute_tolerance=1e-9,
             verbose=args.verbose,
         ),
     }
