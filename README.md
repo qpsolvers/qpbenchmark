@@ -23,7 +23,7 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 | [qpOASES](https://github.com/coin-or/qpOASES) | ``qpoases`` | Active set | Dense | LGPL-2.1 |
 | [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Interior point | Sparse | GPL-3.0 |
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Active set | Dense | GPL-2.0 |
-| [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | | Sparse | MIT |
+| [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Augmented Lagrangian | Sparse | MIT |
 
 ## Results
 
