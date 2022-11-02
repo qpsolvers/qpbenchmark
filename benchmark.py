@@ -78,6 +78,8 @@ def parse_command_line_arguments():
 
 if __name__ == "__main__":
     args = parse_command_line_arguments()
+    args.settings = args.settings.lower() if args.settings else None
+    args.solver = args.solver.lower() if args.solver else None
 
     data_dir = os.path.join(os.path.dirname(__file__), "data")
 
