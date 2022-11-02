@@ -19,10 +19,9 @@
 Maros-Meszaros test set.
 """
 
+import json
 import os.path
 from typing import Dict, Iterator
-
-import yaml
 
 from ..problem import Problem
 from ..test_set import TestSet
@@ -56,9 +55,9 @@ class MarosMeszaros(TestSet):
     def __init__(self, data_dir: str):
         super().__init__()
         data_dir = os.path.join(data_dir, "maros_meszaros")
-        cost_path = os.path.join(data_dir, "OPTCOSTS.yaml")
+        cost_path = os.path.join(data_dir, "OPTCOSTS.json")
         with open(cost_path, "r") as fh:
-            file_dict = yaml.load(fh, Loader=yaml.SafeLoader)
+            file_dict = json.load(fh)
             optimal_costs = {k: float(v) for k, v in file_dict.items()}
         self.data_dir = data_dir
         self.optimal_costs = optimal_costs
