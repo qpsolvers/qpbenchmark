@@ -11,8 +11,8 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 
 ## Solvers
 
-| Solver | Keyword | Matrix API | License |
-|--------|---------|------------|---------|
+| Solver | Keyword | Matrices | License |
+| ------ | ------- | -------- | ------- |
 | [CVXOPT](http://cvxopt.org/) | ``cvxopt`` | Dense | GPL-3.0 |
 | [ECOS](https://web.stanford.edu/~boyd/papers/ecos.html) | ``ecos`` | Sparse | GPL-3.0 |
 | [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Sparse | Commercial |
