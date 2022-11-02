@@ -61,13 +61,19 @@ Here are some known areas of improvement for this benchmark:
 To run the benchmark on your machine, you will first need to install [qpsolvers](https://github.com/stephane-caron/qpsolvers) along with the QP solvers you want to test. For instance, to install open source solvers:
 
 ```console
-$ pip install qpsolvers[open_source_solvers]
+pip install qpsolvers[open_source_solvers]
 ```
 
-Then, run the benchmark by:
+To run *e.g.* the Maros-Meszaros test set, call:
 
 ```console
-$ python run_benchmark.py
+python benchmark.py run maros_meszaros
+```
+
+Replace ``maros_meszaros`` with the name of the test set you want to run. You can also run sub-parts
+
+```console
+python benchmark.py run maros_meszaros_dense --solver proxqp --problem LASER
 ```
 
 ## See also
