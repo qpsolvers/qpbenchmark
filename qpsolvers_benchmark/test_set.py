@@ -23,6 +23,7 @@ import abc
 from typing import Dict, Iterator, Optional
 
 import qpsolvers
+from qpsolvers.exceptions import SolverNotFound
 
 from .problem import Problem
 from .results import Results
@@ -76,7 +77,9 @@ class TestSet(abc.ABC):
         Initialize test set.
         """
         self.solvers = (
-            qpsolvers.sparse_solvers if self.sparse_only else qpsolvers.available_solvers
+            qpsolvers.sparse_solvers
+            if self.sparse_only
+            else qpsolvers.available_solvers
         )
 
     def run(
@@ -99,6 +102,11 @@ class TestSet(abc.ABC):
             only_solver: If set, only run that specific solver.
         """
         nb_called = 0
+        if only_solver and only_solver not in self.solvers:
+            raise SolverNotFound(
+                f"solver '{only_solver}' not in the list of "
+                f"available solvers for this test set: {self.solvers}"
+            )
         filtered_solvers = [
             solver
             for solver in self.solvers
