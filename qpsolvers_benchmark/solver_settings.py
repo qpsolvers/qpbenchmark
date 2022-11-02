@@ -115,6 +115,7 @@ class SolverSettings:
         self.__settings["ecos"]["feastol"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
         self.__settings["proxqp"]["eps_abs"] = eps_abs
+        self.__settings["scs"]["eps_abs"] = eps_abs
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
 
     def apply_verbosity(self) -> None:
