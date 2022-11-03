@@ -80,7 +80,6 @@ Check out ``python benchmark.py --help`` for details.
 
 ## See also
 
-This repository borrows from [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark), which follows the methodology laid out by the [OSQP benchmark](https://arxiv.org/pdf/1711.08013.pdf).
-
-- [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks)
-- [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark)
+- [Optimality conditions and numerical tolerances in QP solvers](https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html): note written while figuring out the ``high_accuracy`` settings of this benchmark.
+- [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks): benchmark of QP solvers available in C++.
+- [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark): benchmark examples for the ProxQP solver.
