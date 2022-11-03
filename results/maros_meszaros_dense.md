@@ -1,14 +1,16 @@
 # Maros-Meszaros dense subset
 
-- Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Date: 2022-11-01 14:11:27.599335+00:00
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
+- Date: 2022-11-03 15:34:44.975597+00:00
+- Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
 - Time limit: 1000.0 seconds
-- Solver versions:
+
+Solvers:
 
 | solver   | version     |
 |:---------|:------------|
 | cvxopt   | 1.3.0       |
+| ecos     | 2.0.10      |
 | highs    | 1.1.2.dev3  |
 | osqp     | 0.6.2.post0 |
 | proxqp   | 0.2.2       |
@@ -40,9 +42,14 @@ Precentage of problems each solver is able to solve:
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| proxqp   |       100 |             100 |
-| qpswift  |        15 |              15 |
-| quadprog |        34 |              34 |
+| cvxopt   |        15 |             nan |
+| ecos     |         8 |             nan |
+| highs    |        76 |              33 |
+| osqp     |        66 |             nan |
+| proxqp   |       100 |             nan |
+| qpswift  |        15 |             nan |
+| quadprog |        34 |             nan |
+| scs      |        56 |             nan |
 
 Rows are solvers and columns are solver settings.
 
@@ -57,9 +64,14 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| proxqp   |       1.0 |             1.0 |
-| qpswift  |     966.9 |           985.0 |
-| quadprog |     397.6 |           405.0 |
+| cvxopt   |    1126.6 |             nan |
+| ecos     |    1549.0 |             nan |
+| highs    |      47.5 |             nan |
+| osqp     |      87.1 |             nan |
+| proxqp   |       1.0 |             nan |
+| qpswift  |    1126.4 |             nan |
+| quadprog |     463.2 |             nan |
+| scs      |     168.0 |             nan |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
@@ -74,14 +86,20 @@ over the whole test set.
 
 Shifted geometric mean of solver primal errors (1.0 is the best):
 
-|          |        default |   high_accuracy |
-|:---------|---------------:|----------------:|
-| proxqp   |            1.0 |             1.0 |
-| qpswift  | 310579143117.6 |  310579143117.5 |
-| quadprog | 127705916193.7 |  127705916193.7 |
+|          |       default |   high_accuracy |
+|:---------|--------------:|----------------:|
+| cvxopt   |     1265879.8 |             nan |
+| ecos     |     1371636.4 |             nan |
+| highs    |      344202.0 |             nan |
+| osqp     |      798784.5 |             nan |
+| proxqp   |           1.0 |             nan |
+| qpswift  |     1265879.8 |             nan |
+| quadprog |      978548.1 |             nan |
+| scs      | 11712300201.7 |             nan |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal error of 1.0.
+solver that fails to find a solution receives a primal error of
+1.0.
 
 ### Cost errors
 
