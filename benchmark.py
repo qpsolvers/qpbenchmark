@@ -108,7 +108,7 @@ if __name__ == "__main__":
         )
 
     results_dir = os.path.join(os.path.dirname(__file__), "results")
-    results = Results(os.path.join(results_dir, f"{args.test_set}.csv"))
+    results = Results(results_dir, args.test_set)
 
     if args.command == "run":
         test_set.run(
