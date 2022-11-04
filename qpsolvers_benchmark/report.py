@@ -23,6 +23,7 @@ import datetime
 from typing import Dict
 
 import pandas
+import qpsolvers
 
 from .results import Results
 from .solver_settings import SolverSettings
@@ -76,6 +77,7 @@ class Report:
 - Date: {self.date}
 - Maintainer: [@{maintainer}](https://github.com/{maintainer}/)
 - Time limit: {self.test_set.time_limit} seconds
+- qpsolvers version: {qpsolvers.__version__}
 
 Solvers:
 
