@@ -93,6 +93,21 @@ class TestSet(abc.ABC):
             )
         self.solvers = known_solvers
 
+    def get_problem(self, name: str) -> Optional[Problem]:
+        """
+        Get a specific test set problem.
+
+        Args:
+            name: Problem name.
+
+        Returns:
+            Problem if found, None otherwise.
+        """
+        for problem in self:
+            if problem.name == name:
+                return problem
+        return None
+
     def run(
         self,
         solver_settings: Dict[str, SolverSettings],

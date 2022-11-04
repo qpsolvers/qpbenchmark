@@ -123,8 +123,12 @@ if __name__ == "__main__":
         results.write()
 
     if args.command == "eval":
+        logging.info("Check out `results` for the full results data")
         df = results.df
-        logging.info("Check out `results` and the pandas DataFrame `df`")
+        logging.info("Check out `df` for results as a pandas DataFrame")
+        if args.problem:
+            problem = test_set.get_problem(args.problem)
+            logging.info(f"Check out `problem` for the {args.problem} problem")
         try:
             import IPython
 
