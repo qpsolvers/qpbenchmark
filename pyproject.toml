@@ -26,6 +26,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 dependencies = [
+    "pandas >=1.4.3",
     "qpsolvers >=2.5.0",
 ]
 keywords = ["quadratic programming", "benchmark", "solvers", "numerical optimization"]
