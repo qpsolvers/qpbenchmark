@@ -37,3 +37,6 @@ Changelog = "https://github.com/stephane-caron/qpsolvers_benchmark/blob/master/C
 
 [tool.black]
 line-length = 79
+
+[tool.flit.sdist]
+exclude = ["data", "results"]
