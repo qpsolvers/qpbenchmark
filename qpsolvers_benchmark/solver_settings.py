@@ -22,6 +22,7 @@ Solver settings.
 from typing import Any, Dict, Optional, Set
 
 import numpy as np
+from .spdlog import logging
 
 KNOWN_SOLVERS: Set[str] = set(
     [
@@ -90,10 +91,10 @@ class SolverSettings:
         self.apply_verbosity()
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
-        try:
-            return self.__settings[solver]
-        except KeyError as e:
-            raise KeyError(f"unknown solver {str(e)}") from e
+        if solver not in self.__settings:
+            logging.warn(f"Unknown solver {solver}, returning empty settings")
+            return {}
+        return self.__settings[solver]
 
     def apply_time_limits(self) -> None:
         """
