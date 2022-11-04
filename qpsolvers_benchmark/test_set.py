@@ -76,11 +76,22 @@ class TestSet(abc.ABC):
         """
         Initialize test set.
         """
-        self.solvers = (
+        candidate_solvers = set(
             qpsolvers.sparse_solvers
             if self.sparse_only
             else qpsolvers.available_solvers
         )
+        known_solvers = set(
+            solver
+            for solver in candidate_solvers
+            if SolverSettings.is_known_solver(solver)
+        )
+        for solver in candidate_solvers - known_solvers:
+            logging.warn(
+                f"Solver '{solver}' is available but skipped "
+                "as its settings are unknown"
+            )
+        self.solvers = known_solvers
 
     def run(
         self,

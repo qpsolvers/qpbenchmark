@@ -22,21 +22,6 @@ Solver settings.
 from typing import Any, Dict, Optional, Set
 
 import numpy as np
-from .spdlog import logging
-
-KNOWN_SOLVERS: Set[str] = set(
-    [
-        "cvxopt",
-        "ecos",
-        "gurobi",
-        "highs",
-        "osqp",
-        "proxqp",
-        "qpswift",
-        "quadprog",
-        "scs",
-    ]
-)
 
 
 class SolverSettings:
@@ -73,6 +58,24 @@ class SolverSettings:
     absolute_tolerance: float
     time_limit: float
 
+    KNOWN_SOLVERS: Set[str] = set(
+        [
+            "cvxopt",
+            "ecos",
+            "gurobi",
+            "highs",
+            "osqp",
+            "proxqp",
+            "qpswift",
+            "quadprog",
+            "scs",
+        ]
+    )
+
+    @classmethod
+    def is_known_solver(cls, solver: str):
+        return solver in cls.KNOWN_SOLVERS
+
     def __init__(
         self,
         time_limit: float,
@@ -84,16 +87,13 @@ class SolverSettings:
         self.verbose = verbose
         #
         self.__settings: Dict[str, Dict[str, Any]] = {
-            solver: {} for solver in KNOWN_SOLVERS
+            solver: {} for solver in self.KNOWN_SOLVERS
         }
         self.apply_time_limits()
         self.apply_tolerances()
         self.apply_verbosity()
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
-        if solver not in self.__settings:
-            logging.warn(f"Unknown solver {solver}, returning empty settings")
-            return {}
         return self.__settings[solver]
 
     def apply_time_limits(self) -> None:
@@ -128,5 +128,5 @@ class SolverSettings:
         """
         Apply verbosity settings to all solvers.
         """
-        for solver in KNOWN_SOLVERS:
+        for solver in self.KNOWN_SOLVERS:
             self.__settings[solver]["verbose"] = self.verbose
