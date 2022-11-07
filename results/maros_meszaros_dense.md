@@ -2,37 +2,31 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 07:23:16.481602+00:00
+- Date: 2022-11-07 08:11:55.324772+00:00
 
 ## Settings
 
-| package   | version     |
-|:----------|:------------|
-| cvxopt    | 1.3.0       |
-| ecos      | 2.0.10      |
-| highs     | 1.1.2.dev3  |
-| osqp      | 0.6.2.post0 |
-| proxqp    | 0.2.4       |
-| qpsolvers | 2.5.0       |
-| qpswift   | 1.0.0       |
-| quadprog  | 0.1.11      |
-| scs       | 3.2.0       |
+| name               | default   |   high_accuracy |
+|:-------------------|:----------|----------------:|
+| absolute_tolerance | -         |           1e-09 |
+| cost_error_limit   | 1000.0    |        1000     |
+| primal_error_limit | 1.0       |           1     |
+| time_limit         | 1000.0    |        1000     |
 
 ## Metrics
 
-### Shifted geometric mean
-
-For each metric (computation time, solution accuracy, ...), every problem in
-the test set produces a different ranking of solvers. To aggregate those
-rankings into a single metric over the whole test set, we use the shifted
-geometric mean, which is a standard to aggregate computation times in
-[benchmarks for optimization software](http://plato.asu.edu/bench.html).
+For each metric (computation time, primal error, cost error, ...), every
+problem in the test set produces a different ranking of solvers. To aggregate
+those rankings into a single metric over the whole test set, we use the
+**shifted geometric mean**, which is a standard to aggregate computation times
+in [benchmarks for optimization software](http://plato.asu.edu/bench.html).
 
 The shifted geometric mean is a slowdown/loss factor compared to the best
-solver over the whole test set. It has the advantage of being compromised by
-neither large outliers (as opposed to the arithmetic mean) nor by small
-outliers (in contrast to the geometric geometric mean). The best solvers have a
-shifted geometric mean close to one.
+solver over the whole test set. Hence, the best solvers for a given metric have
+a shifted geometric mean close to one. This mean has the advantage of being
+compromised by neither large outliers (as opposed to the arithmetic mean) nor
+by small outliers (in contrast to the geometric geometric mean). Check out the
+[references](#see-also) below for more information.
 
 ## Results
 
@@ -80,11 +74,8 @@ limit when it fails to solve a problem.
 ### Primal error
 
 The primal error measures the maximum (equality and inequality) constraint
-violation in the solution returned by a solver. As with runtimes, we use the
-[shifted geometric mean](#shifted-geometric-mean) to aggregate primal errors
-over the whole test set.
-
-Shifted geometric mean of solver primal errors (1.0 is the best):
+violation in the solution returned by a solver. Here are the shifted geometric
+means of solver primal errors (1.0 is the best):
 
 |          |       default |    high_accuracy |
 |:---------|--------------:|-----------------:|
@@ -99,13 +90,46 @@ Shifted geometric mean of solver primal errors (1.0 is the best):
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
-maximum allowed primal error.
+[primal error limit](#settings).
 
 ### Cost errors
 
-...
+The cost error measures the difference between the known optimal objective and
+the objective at the solution returned by a solver. Here are the shifted
+geometric means of solver cost errors (1.0 is the best):
 
-### See also
+|          |     default |   high_accuracy |
+|:---------|------------:|----------------:|
+| cvxopt   |      1037.8 |          1591.7 |
+| ecos     |      1426.8 |          2188.4 |
+| highs    |        42.5 |            65.1 |
+| osqp     |       123.9 |           258.1 |
+| proxqp   |         1.0 |             1.0 |
+| qpswift  |      1037.8 |          1591.7 |
+| quadprog |       426.7 |           654.5 |
+| scs      | 410691408.3 |     629922619.7 |
+
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
+solver that fails to find a solution receives a cost error equal to the [cost
+error limit](#settings).
+
+## Package versions
+
+Versions of all relevant packages used when running this test set:
+
+| package   | version     |
+|:----------|:------------|
+| cvxopt    | 1.3.0       |
+| ecos      | 2.0.10      |
+| highs     | 1.1.2.dev3  |
+| osqp      | 0.6.2.post0 |
+| proxqp    | 0.2.4       |
+| qpsolvers | 2.5.0       |
+| qpswift   | 1.0.0       |
+| quadprog  | 0.1.11      |
+| scs       | 3.2.0       |
+
+## See also
 
 - [How not to lie with statistics: the correct way to summarize benchmark
   results](https://www.cse.unsw.edu.au/~cs9242/18/papers/Fleming_Wallace_86.pdf):
