@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 10:49:21.842658+00:00
+- Date: 2022-11-07 11:44:48.553852+00:00
 
 ## Settings
 
@@ -57,6 +57,7 @@ Precentage of problems each solver is able to solve:
 | highs    |        76 |              76 |
 | osqp     |        66 |              53 |
 | proxqp   |       100 |             100 |
+| qpoases  |        97 |              97 |
 | qpswift  |        15 |              15 |
 | quadprog |        34 |              34 |
 | scs      |        56 |              56 |
@@ -79,6 +80,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | highs    |      47.5 |            45.6 |
 | osqp     |      87.1 |           175.3 |
 | proxqp   |       1.0 |             1.0 |
+| qpoases  |       8.7 |             8.4 |
 | qpswift  |    1126.4 |          1080.4 |
 | quadprog |     463.2 |           444.2 |
 | scs      |     168.0 |           162.2 |
@@ -100,6 +102,7 @@ means of solver primal errors (1.0 is the best):
 | highs    |      344202.0 |     1186783808.0 |
 | osqp     |      798784.5 |     2400713695.4 |
 | proxqp   |           1.0 |              1.0 |
+| qpoases  |    21485508.8 |    74080487390.4 |
 | qpswift  |     1265879.8 |     4364662336.8 |
 | quadprog |      978548.1 |     3373963557.3 |
 | scs      | 11712300201.7 | 40383163869509.6 |
@@ -121,6 +124,7 @@ geometric means of solver cost errors (1.0 is the best):
 | highs    |        42.5 |            65.1 |
 | osqp     |       123.9 |           258.1 |
 | proxqp   |         1.0 |             1.0 |
+| qpoases  |       255.7 |           392.2 |
 | qpswift  |      1037.8 |          1591.7 |
 | quadprog |       426.7 |           654.5 |
 | scs      | 410691408.3 |     629922619.7 |
@@ -140,7 +144,8 @@ Versions of all relevant packages used when running this test set:
 | highs     | 1.1.2.dev3  |
 | osqp      | 0.6.2.post0 |
 | proxqp    | 0.2.4       |
-| qpsolvers | 2.5.0       |
+| qpoases   | 3.2.0       |
+| qpsolvers | 2.5.1rc0    |
 | qpswift   | 1.0.0       |
 | quadprog  | 0.1.11      |
 | scs       | 3.2.0       |
