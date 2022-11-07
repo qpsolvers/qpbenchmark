@@ -21,7 +21,7 @@ Maros-Meszaros test set.
 
 import json
 import os.path
-from typing import Dict, Iterator
+from typing import Dict, Iterator, List
 
 from ..problem import Problem
 from ..solver_settings import SolverSettings
@@ -47,12 +47,8 @@ class MarosMeszaros(TestSet):
         }
 
     @property
-    def maintainer(self) -> str:
-        return "stephane-caron"
-
-    @property
-    def name(self) -> str:
-        return "maros_meszaros"
+    def maintainers(self) -> List[str]:
+        return ["stephane-caron"]
 
     @property
     def sparse_only(self) -> bool:

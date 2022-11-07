@@ -19,7 +19,7 @@
 Dense subset of the Maros-Meszaros test set.
 """
 
-from typing import Iterator
+from typing import Iterator, List
 
 from ..problem import Problem
 from .maros_meszaros import MarosMeszaros
@@ -27,8 +27,8 @@ from .maros_meszaros import MarosMeszaros
 
 class MarosMeszarosDense(MarosMeszaros):
     @property
-    def name(self) -> str:
-        return "maros_meszaros_dense"
+    def maintainers(self) -> List[str]:
+        return ["stephane-caron"]
 
     @property
     def sparse_only(self) -> bool:

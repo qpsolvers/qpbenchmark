@@ -65,7 +65,10 @@ class Report:
         return success_rate_table
 
     def write(self, path: str) -> None:
-        maintainer = self.test_set.maintainer
+        maintainers = "\n".join(
+            f"- Maintainer: [@{maintainer}](https://github.com/{maintainer}/)"
+            for maintainer in self.test_set.maintainers
+        )
         primal_not_found_value = 1.0
         with open(path, "w") as fh:
             fh.write(
@@ -73,7 +76,7 @@ class Report:
 
 - CPU: {self.cpu_info}
 - Date: {self.date}
-- Maintainer: [@{maintainer}](https://github.com/{maintainer}/)
+{maintainers}
 
 ## Settings
 

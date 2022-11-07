@@ -20,7 +20,7 @@ Base class for test sets.
 """
 
 import abc
-from typing import Dict, Iterator, Optional
+from typing import Dict, Iterator, List, Optional
 
 import qpsolvers
 from qpsolvers.exceptions import SolverNotFound
@@ -49,15 +49,9 @@ class TestSet(abc.ABC):
         """
 
     @abc.abstractproperty
-    def maintainer(self) -> str:
+    def maintainers(self) -> List[str]:
         """
-        GitHub username of test set maintainer.
-        """
-
-    @abc.abstractproperty
-    def name(self) -> str:
-        """
-        Name of the test set.
+        GitHub usernames of test set maintainers.
         """
 
     @abc.abstractproperty

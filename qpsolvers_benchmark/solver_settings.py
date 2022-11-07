@@ -84,8 +84,8 @@ class SolverSettings:
         absolute_tolerance: Optional[float] = None,
     ):
         self.absolute_tolerance = absolute_tolerance
-        self.time_limit = time_limit
         self.primal_residual_limit = primal_residual_limit
+        self.time_limit = time_limit
         self.verbose = verbose
         #
         self.__settings: Dict[str, Dict[str, Any]] = {
