@@ -200,7 +200,7 @@ class TestSet(abc.ABC):
                                 f"{settings} settings as a known timeout..."
                             )
                             continue
-                    logging.debug(
+                    logging.info(
                         f"Solving {problem.name} by {solver} "
                         f"with {settings} settings..."
                     )
