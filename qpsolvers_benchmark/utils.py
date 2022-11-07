@@ -31,7 +31,9 @@ try:
     import cpuinfo
 except ImportError:
     cpuinfo = None
-    logging.warning("Run ``pip install py-cpuinfo`` for more accurate CPU info")
+    logging.warning(
+        "Run ``pip install py-cpuinfo`` for more accurate CPU info"
+    )
 
 
 def bool_as_emoji(b: bool):
@@ -96,4 +98,9 @@ def get_solver_versions(solvers: Set[str]):
             versions[solver] = metadata.version(package)
         except metadata.PackageNotFoundError:
             continue
+    if "qpoases" in solvers and "qpoases" not in versions:
+        # Repository: https://github.com/stephane-caron/qpOASES
+        # Commit: 11363a25cf4eab579c287e78bcb17273f314a2e0
+        # Install: https://scaron.info/doc/qpsolvers/installation.html#qpoases
+        versions["qpoases"] = "3.2.0"
     return versions
