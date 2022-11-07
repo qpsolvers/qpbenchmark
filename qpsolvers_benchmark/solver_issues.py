@@ -115,30 +115,17 @@ def skip_solver_timeout(
         `problem`.
     """
     minutes = 60.0
-    known_timeouts = {
-        "cvxopt": {
-            "CVXQP3_L": 20 * minutes,
-            "CONT-300": 20 * minutes,
-        },
-        "highs": {
-            # AUG2DC: https://github.com/ERGO-Code/HiGHS/issues/992
-            "AUG2DC": 40 * minutes,
-            "AUG2D": 40 * minutes,
-            "CONT-300": 30 * minutes,
-        },
-    }
-
-    # Previous version
-    if solver in known_timeouts and problem.name in known_timeouts[solver]:
-        timeout = known_timeouts[solver][problem.name]
-        logging.info(
-            f"Skipping {problem.name} for {solver} as it is known "
-            f"to take {timeout} > {time_limit} seconds"
-        )
-        return timeout > time_limit
-
-    # Next version
     known_timeout_settings = {
+        ("AUG2D", "highs", "default"): 40 * minutes,
+        ("AUG2D", "highs", "high_accuracy"): 40 * minutes,
+        ("AUG2DC", "highs", "default"): 40 * minutes,
+        ("AUG2DC", "highs", "high_accuracy"): 40 * minutes,
+        ("CONT-300", "cvxopt", "default"): 20 * minutes,
+        ("CONT-300", "cvxopt", "high_accuracy"): 20 * minutes,
+        ("CONT-300", "highs", "default"): 30 * minutes,
+        ("CONT-300", "highs", "high_accuracy"): 30 * minutes,
+        ("CVXQP3_L", "cvxopt", "default"): 20 * minutes,
+        ("CVXQP3_L", "cvxopt", "high_accuracy"): 20 * minutes,
     }
     if (problem.name, solver, settings) in known_timeout_settings:
         timeout = known_timeout_settings[(problem.name, solver, settings)]
@@ -147,5 +134,4 @@ def skip_solver_timeout(
             "is known to take more than 1000 seconds..."
         )
         return timeout > time_limit
-
     return False
