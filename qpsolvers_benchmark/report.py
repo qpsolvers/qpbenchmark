@@ -20,10 +20,10 @@ Report written from test set results.
 """
 
 import datetime
+from importlib import metadata
 from typing import Dict
 
 import pandas
-import qpsolvers
 
 from .results import Results
 from .solver_settings import SolverSettings
@@ -45,15 +45,17 @@ class Report:
         self.solver_settings = solver_settings
         self.test_set = test_set
 
-    def get_solvers_table(self):
+    def get_versions_table(self):
         versions = get_solver_versions(self.test_set.solvers)
+        packages = ["qpsolvers"]
+        versions.update({pkg: metadata.version(pkg) for pkg in packages})
         versions_df = pandas.DataFrame(
             {
-                "solver": list(versions.keys()),
+                "package": list(versions.keys()),
                 "version": list(versions.values()),
             },
         )
-        versions_df = versions_df.set_index("solver")
+        versions_df = versions_df.set_index("package")
         versions_df = versions_df.sort_index()
         versions_table = versions_df.to_markdown(index=True)
         return versions_table
@@ -76,12 +78,10 @@ class Report:
 - CPU: {self.cpu_info}
 - Date: {self.date}
 - Maintainer: [@{maintainer}](https://github.com/{maintainer}/)
-- Time limit: {self.test_set.time_limit} seconds
-- qpsolvers version: {qpsolvers.__version__}
 
-Solvers:
+## Settings
 
-{self.get_solvers_table()}
+{self.get_versions_table()}
 
 ## Metrics
 
