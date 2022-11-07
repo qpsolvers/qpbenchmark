@@ -57,15 +57,23 @@ Here are some known areas of improvement for this benchmark:
 - Dual feasibility: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
 - TODO: any measure of the mean value of data is misleading when there is large variance. We should provide some low and high estimates (min and max, or 5% and 95% percentiles) along with geometric means.
 
-## Running the benchmark
+## Installation
 
-First, install the benchmark and QP solvers by:
+Install all required dependencies by:
 
 ```console
-pip install qpsolvers_benchmark[solvers]
+pip install qpsolvers_benchmark
 ```
 
-Omit ``[solvers]`` if you are only interested in running the benchmark with the solvers already installed on your system. Then, to run for instance the Maros-Meszaros test set, call:
+By default, the benchmark will run with any supported solver installed on your system. You can install all supported open-source solvers at once by:
+
+```console
+pip install qpsolvers_benchmark[open_source_solvers]
+```
+
+## Running the benchmark
+
+Let's run for instance the Maros-Meszaros test set:
 
 ```console
 python benchmark.py run maros_meszaros
@@ -78,6 +86,12 @@ python benchmark.py run maros_meszaros_dense --solver proxqp --settings default
 ```
 
 Check out ``python benchmark.py --help`` for details.
+
+## 🏗️ Upcoming changes
+
+This benchmark is under active development. Expect the following upcoming changes:
+
+- Make solver settings specific to each test set
 
 ## See also
 
