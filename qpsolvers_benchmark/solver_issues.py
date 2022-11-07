@@ -129,9 +129,10 @@ def skip_solver_timeout(
     }
     if (problem.name, solver, settings) in known_timeout_settings:
         timeout = known_timeout_settings[(problem.name, solver, settings)]
-        logging.warning(
-            f"Problem {problem.name} with {solver} and settings {settings} "
-            "is known to take more than 1000 seconds..."
-        )
-        return timeout > time_limit
+        if timeout > time_limit:
+            logging.warning(
+                f"Skipping {problem.name} with {solver} at {settings} "
+                f"as it is known to take {timeout} > {time_limit} seconds..."
+            )
+            return True
     return False
