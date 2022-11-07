@@ -79,11 +79,13 @@ class SolverSettings:
     def __init__(
         self,
         time_limit: float,
-        verbose: bool,
+        primal_residual_limit: float,
+        verbose: bool = False,
         absolute_tolerance: Optional[float] = None,
     ):
         self.absolute_tolerance = absolute_tolerance
         self.time_limit = time_limit
+        self.primal_residual_limit = primal_residual_limit
         self.verbose = verbose
         #
         self.__settings: Dict[str, Dict[str, Any]] = {

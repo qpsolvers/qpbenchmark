@@ -21,12 +21,10 @@ Report written from test set results.
 
 import datetime
 from importlib import metadata
-from typing import Dict
 
 import pandas
 
 from .results import Results
-from .solver_settings import SolverSettings
 from .spdlog import logging
 from .test_set import TestSet
 from .utils import get_cpu_info, get_solver_versions
@@ -36,13 +34,11 @@ class Report:
     def __init__(
         self,
         test_set: TestSet,
-        solver_settings: Dict[str, SolverSettings],
         results: Results,
     ):
         self.cpu_info = get_cpu_info()
         self.date = str(datetime.datetime.now(datetime.timezone.utc))
         self.results = results
-        self.solver_settings = solver_settings
         self.test_set = test_set
 
     def get_versions_table(self):
@@ -121,7 +117,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="runtime",
     shift=10.0,
-    not_found_value=self.test_set.time_limit,
+    not_found_value=self.test_set.get_time_limits(),
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
@@ -140,7 +136,7 @@ Shifted geometric mean of solver primal errors (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="primal_error",
     shift=10.0,
-    not_found_value=primal_not_found_value,
+    not_found_value=self.test_set.get_primal_residual_limits(),
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A

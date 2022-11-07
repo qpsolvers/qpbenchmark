@@ -18,7 +18,7 @@
 import argparse
 import os
 
-from qpsolvers_benchmark import Report, Results, SolverSettings
+from qpsolvers_benchmark import Report, Results
 from qpsolvers_benchmark.spdlog import logging
 from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
 
@@ -129,18 +129,6 @@ if __name__ == "__main__":
 
     data_dir = os.path.join(os.path.dirname(__file__), "data")
 
-    solver_settings = {
-        "default": SolverSettings(
-            time_limit=1000.0,
-            verbose=args.verbose,
-        ),
-        "high_accuracy": SolverSettings(
-            time_limit=1000.0,
-            absolute_tolerance=1e-9,
-            verbose=args.verbose,
-        ),
-    }
-
     if args.command == "check_results":
         results_file = args.results_file
     else:
@@ -156,14 +144,7 @@ if __name__ == "__main__":
     if args.command == "run":
         args.solver = args.solver.lower() if args.solver else None
         args.settings = args.settings.lower() if args.settings else None
-        if args.settings and args.settings not in solver_settings:
-            raise ValueError(
-                f"settings '{args.settings}' not in the list of available "
-                f"settings for this benchmark: {list(solver_settings.keys())}"
-            )
-
         test_set.run(
-            solver_settings,
             results,
             only_problem=args.problem,
             only_settings=args.settings,
@@ -191,5 +172,5 @@ if __name__ == "__main__":
             )
 
     if args.command in ["report", "run"]:
-        report = Report(test_set, solver_settings, results)
+        report = Report(test_set, results)
         report.write(os.path.join(results_dir, f"{args.test_set}.md"))
