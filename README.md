@@ -87,14 +87,6 @@ python benchmark.py run maros_meszaros_dense --solver proxqp --settings default
 
 Check out ``python benchmark.py --help`` for details.
 
-## 🏗️ Upcoming changes
-
-This benchmark is under active development. Expect the following upcoming changes:
-
-- Make solver settings specific to each test set
-- Don't count qpsolvers matrix build times in solver times
-- Solver settings as a complete solver / parameter name table in the report
-
 ## See also
 
 - [Optimality conditions and numerical tolerances in QP solvers](https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html): note written while figuring out the ``high_accuracy`` settings of this benchmark.
