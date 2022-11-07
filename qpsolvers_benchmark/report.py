@@ -33,9 +33,11 @@ from .utils import get_cpu_info, get_solver_versions
 class Report:
     def __init__(
         self,
+        author: str,
         test_set: TestSet,
         results: Results,
     ):
+        self.author = author
         self.cpu_info = get_cpu_info()
         self.date = str(datetime.datetime.now(datetime.timezone.utc))
         self.results = results
@@ -65,18 +67,13 @@ class Report:
         return success_rate_table
 
     def write(self, path: str) -> None:
-        maintainers = "\n".join(
-            f"- Maintainer: [@{maintainer}](https://github.com/{maintainer}/)"
-            for maintainer in self.test_set.maintainers
-        )
-        primal_not_found_value = 1.0
         with open(path, "w") as fh:
             fh.write(
                 f"""# {self.test_set.title}
 
+- Author: [@{self.author}](https://github.com/{self.author}/)
 - CPU: {self.cpu_info}
 - Date: {self.date}
-{maintainers}
 
 ## Settings
 
@@ -143,8 +140,8 @@ Shifted geometric mean of solver primal errors (1.0 is the best):
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal error of
-{primal_not_found_value}.
+solver that fails to find a solution receives a primal error equal to the
+maximum allowed primal error.
 
 ### Cost errors
 

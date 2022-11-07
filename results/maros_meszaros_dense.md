@@ -1,8 +1,8 @@
 # Maros-Meszaros dense subset
 
+- Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 06:48:49.028055+00:00
-- Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
+- Date: 2022-11-07 07:23:16.481602+00:00
 
 ## Settings
 
@@ -98,8 +98,8 @@ Shifted geometric mean of solver primal errors (1.0 is the best):
 | scs      | 11712300201.7 | 40383163869509.6 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal error of
-1.0.
+solver that fails to find a solution receives a primal error equal to the
+maximum allowed primal error.
 
 ### Cost errors
 

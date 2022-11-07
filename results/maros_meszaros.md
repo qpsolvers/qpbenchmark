@@ -1,11 +1,10 @@
 # Maros-Meszaros test set
 
+- Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 06:34:43.695521+00:00
-- Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- qpsolvers version: 2.5.0
+- Date: 2022-11-07 07:23:25.881078+00:00
 
-Solvers:
+## Settings
 
 | package   | version     |
 |:----------|:------------|
@@ -87,8 +86,8 @@ Shifted geometric mean of solver primal errors (1.0 is the best):
 | scs    |    6680.3 |          6501.7 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal error of
-1.0.
+solver that fails to find a solution receives a primal error equal to the
+maximum allowed primal error.
 
 ### Cost errors
 

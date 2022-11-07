@@ -21,7 +21,7 @@ Maros-Meszaros test set.
 
 import json
 import os.path
-from typing import Dict, Iterator, List
+from typing import Dict, Iterator
 
 from ..problem import Problem
 from ..solver_settings import SolverSettings
@@ -45,10 +45,6 @@ class MarosMeszaros(TestSet):
                 primal_residual_limit=1.0,
             ),
         }
-
-    @property
-    def maintainers(self) -> List[str]:
-        return ["stephane-caron"]
 
     @property
     def sparse_only(self) -> bool:

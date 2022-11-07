@@ -20,7 +20,7 @@ Base class for test sets.
 """
 
 import abc
-from typing import Dict, Iterator, List, Optional
+from typing import Dict, Iterator, Optional
 
 import qpsolvers
 from qpsolvers.exceptions import SolverNotFound
@@ -46,12 +46,6 @@ class TestSet(abc.ABC):
     def get_solver_settings(self) -> Dict[str, SolverSettings]:
         """
         Get solver settings for the test set.
-        """
-
-    @abc.abstractproperty
-    def maintainers(self) -> List[str]:
-        """
-        GitHub usernames of test set maintainers.
         """
 
     @abc.abstractproperty

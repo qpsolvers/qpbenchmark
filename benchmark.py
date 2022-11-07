@@ -172,5 +172,7 @@ if __name__ == "__main__":
             )
 
     if args.command in ["report", "run"]:
-        report = Report(test_set, results)
+        logging.info("Writing the overall report...")
+        author = input("GitHub username to write in the report? ")
+        report = Report(author, test_set, results)
         report.write(os.path.join(results_dir, f"{args.test_set}.md"))
