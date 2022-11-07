@@ -31,7 +31,7 @@ Check out the full reports for each test set in the [results](results) directory
 
 ### Maros-Meszaros
 
-The Maros-Meszaros test set contains difficult problems, some of them large, sparse, ill-conditioned or with non-strictly p.s.d. Hessian matrices. For sparse solvers only.
+The Maros-Meszaros test set contains difficult problems, some of them large, sparse, ill-conditioned or not strictly convex. For sparse solvers only.
 
 | Solver | Success rate (%) | Runtime (× slower than best) | Primal error |
 |:-------|-----------------:|-----------------------------:|-------------:|
@@ -55,6 +55,7 @@ Here are some known areas of improvement for this benchmark:
 
 - Cold start only: we don't evaluate warm-start performance for now.
 - Dual feasibility: we don't check the dual multipliers that solvers compute internally, as the API for them is not yet unified.
+- TODO: any measure of the mean value of data is misleading when there is large variance. We should provide some low and high estimates (min and max, or 5% and 95% percentiles) along with geometric means.
 
 ## Running the benchmark
 
