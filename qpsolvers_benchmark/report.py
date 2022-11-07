@@ -31,15 +31,24 @@ from .utils import get_cpu_info, get_solver_versions
 
 
 class Report:
+
+    author: str
+    cpu_info: str
+    date: str
+    results: Results
+    test_set: TestSet
+
     def __init__(
         self,
         author: str,
         test_set: TestSet,
         results: Results,
     ):
+        cpu_info = get_cpu_info()
+        date = str(datetime.datetime.now(datetime.timezone.utc))
         self.author = author
-        self.cpu_info = get_cpu_info()
-        self.date = str(datetime.datetime.now(datetime.timezone.utc))
+        self.cpu_info = cpu_info
+        self.date = date
         self.results = results
         self.test_set = test_set
 

@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 10:47:37.009958+00:00
+- Date: 2022-11-07 11:34:58.075526+00:00
 
 ## Settings
 
@@ -127,7 +127,7 @@ Versions of all relevant packages used when running this test set:
 | highs     | 1.1.2.dev3  |
 | osqp      | 0.6.2.post0 |
 | proxqp    | 0.2.4       |
-| qpsolvers | 2.5.0       |
+| qpsolvers | 2.5.1rc0    |
 | scs       | 3.2.0       |
 
 ## See also
