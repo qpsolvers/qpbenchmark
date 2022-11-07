@@ -107,6 +107,7 @@ class SolverSettings:
         self.__settings["gurobi"]["time_limit"] = self.time_limit
         self.__settings["highs"]["time_limit"] = self.time_limit
         self.__settings["osqp"]["time_limit"] = self.time_limit
+        self.__settings["qpoases"]["time_limit"] = self.time_limit
         self.__settings["scs"]["time_limit_secs"] = self.time_limit
 
     def apply_tolerances(self) -> None:
