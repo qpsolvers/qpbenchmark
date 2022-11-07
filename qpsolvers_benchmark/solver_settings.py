@@ -27,32 +27,7 @@ import numpy as np
 class SolverSettings:
 
     """
-    Apply general settings to multiple solvers at once.
-
-    Attributes:
-        absolute_tolerance: Absolute tolerance on primal and dual residuals.
-
-    The primal residual of a solution :math:`(x, y, z)` consists of
-    :math:`r_{prim,eq} = A x - b` and :math:`r_{prim,ineq} = \\max(0, G x -
-    h)`. The overall primal residual is the maximum of these two.
-
-    The dual residual is :math:`r_{dual} = P x + q + A^T y + G^T z`.
-
-    Hence, when we ask for an absolute tolerance :math:`\\epsilon_{abs}` on
-    residuals, we want the solver to find an approximation of the optimum such
-    that:
-
-    .. math::
-
-        \\begin{align}
-        \\| P x + g + A^T y + C^T z \\|_\\infty & \\leq \\epsilon_{abs} \\\\
-        \\| A x - b \\|_\\infty & \\leq \\epsilon_{abs} \\\\
-        \\| \\max(0, G x - h) \\|_\\infty & \\leq \\epsilon_{abs}
-        \\end{align}
-
-    Note:
-        The tolerance on the primal residual is called "feasibility tolerance"
-        by some solvers, for instance CVXOPT and ECOS.
+    Apply settings to multiple solvers at once.
     """
 
     IMPLEMENTED_SOLVERS: Set[str] = set(
@@ -102,6 +77,30 @@ class SolverSettings:
 
         Args:
             eps_abs: Absolute primal feasibility tolerance.
+
+        Notes:
+            The primal residual of a solution :math:`(x, y, z)` consists of
+            :math:`r_{prim,eq} = A x - b` and :math:`r_{prim,ineq} = \\max(0, G
+            x - h)`. The overall primal residual is the maximum of these two.
+            The dual residual is :math:`r_{dual} = P x + q + A^T y + G^T z`.
+            Hence, when we ask for an absolute tolerance
+            :math:`\\epsilon_{abs}` on residuals, we want the solver to find an
+            approximation of the optimum such that:
+
+            .. math::
+
+                \\begin{align}
+                \\| P x + g + A^T y + C^T z \\|_\\infty
+                & \\leq \\epsilon_{abs} \\\\
+                \\| A x - b \\|_\\infty & \\leq \\epsilon_{abs} \\\\
+                \\| \\max(0, G x - h) \\|_\\infty & \\leq \\epsilon_{abs}
+                \\end{align}
+
+            The tolerance on the primal residual is called "feasibility
+            tolerance" by some solvers, for instance CVXOPT and ECOS.
+            See `this note
+            <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
+            for details.
         """
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
@@ -143,7 +142,7 @@ class SolverSettings:
         for solver in self.__settings:
             yield solver
 
-    def get(self, solver:str, param: str, default: str):
+    def get(self, solver: str, param: str, default: str):
         if solver not in self.__settings:
             return default
         return self.__settings[solver].get(param, default)
