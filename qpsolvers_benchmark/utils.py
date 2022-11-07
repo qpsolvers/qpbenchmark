@@ -31,7 +31,7 @@ try:
     import cpuinfo
 except ImportError:
     cpuinfo = None
-    logging.warn("Run ``pip install py-cpuinfo`` for more accurate CPU info")
+    logging.warning("Run ``pip install py-cpuinfo`` for more accurate CPU info")
 
 
 def bool_as_emoji(b: bool):

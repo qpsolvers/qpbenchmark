@@ -75,7 +75,7 @@ class TestSet(abc.ABC):
             if SolverSettings.is_known_solver(solver)
         )
         for solver in candidate_solvers - known_solvers:
-            logging.warn(
+            logging.warning(
                 f"Solver '{solver}' is available but skipped "
                 "as its settings are unknown"
             )

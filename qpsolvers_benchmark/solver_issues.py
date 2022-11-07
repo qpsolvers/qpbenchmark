@@ -70,7 +70,7 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
             "UBH1",
             "YAO",
         ]:
-            logging.warn("Skipping UNREPORTED issue")
+            logging.warning("Skipping UNREPORTED issue")
             return True
         # https://github.com/Simple-Robotics/proxsuite/issues/63
         elif problem.name == "QGFRDXPN":
@@ -85,7 +85,7 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
             "CONT-300",
             "EXDATA",
         ]:
-            logging.warn("Skipping UNREPORTED issue")
+            logging.warning("Skipping UNREPORTED issue")
             return True
     elif solver == "highs":
         if problem.name == "STADAT1":

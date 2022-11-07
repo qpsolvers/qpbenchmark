@@ -93,6 +93,7 @@ This benchmark is under active development. Expect the following upcoming change
 
 - Make solver settings specific to each test set
 - Don't count qpsolvers matrix build times in solver times
+- Solver settings as a complete solver / parameter name table in the report
 
 ## See also
 

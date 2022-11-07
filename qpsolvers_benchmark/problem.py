@@ -235,7 +235,7 @@ class Problem:
                 **kwargs,
             )
         except Exception as e:
-            logging.warn(f"Caught solver exception: {e}")
+            logging.warning(f"Caught solver exception: {e}")
             solution = None
         runtime = perf_counter() - start_time
         return solution, runtime
