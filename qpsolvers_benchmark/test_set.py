@@ -181,7 +181,9 @@ class TestSet(abc.ABC):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
-                    if skip_solver_timeout(self.time_limit, problem, solver):
+                    if skip_solver_timeout(
+                        self.time_limit, problem, solver, settings
+                    ):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
@@ -197,7 +199,7 @@ class TestSet(abc.ABC):
                         ):
                             logging.info(
                                 f"Skipping {problem.name} with {solver} and "
-                                f"{settings} settings as a known timeout..."
+                                f"{settings} settings as a previous timeout..."
                             )
                             continue
                     logging.info(

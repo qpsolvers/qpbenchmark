@@ -95,7 +95,7 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
 
 
 def skip_solver_timeout(
-    time_limit: float, problem: Problem, solver: str
+    time_limit: float, problem: Problem, solver: str, settings: str
 ) -> bool:
     """
     Skip known solver timeouts.
@@ -127,6 +127,8 @@ def skip_solver_timeout(
             "CONT-300": 30 * minutes,
         },
     }
+
+    # Previous version
     if solver in known_timeouts and problem.name in known_timeouts[solver]:
         timeout = known_timeouts[solver][problem.name]
         logging.info(
@@ -134,4 +136,16 @@ def skip_solver_timeout(
             f"to take {timeout} > {time_limit} seconds"
         )
         return timeout > time_limit
+
+    # Next version
+    known_timeout_settings = {
+    }
+    if (problem.name, solver, settings) in known_timeout_settings:
+        timeout = known_timeout_settings[(problem.name, solver, settings)]
+        logging.warning(
+            f"Problem {problem.name} with {solver} and settings {settings} "
+            "is known to take more than 1000 seconds..."
+        )
+        return timeout > time_limit
+
     return False
