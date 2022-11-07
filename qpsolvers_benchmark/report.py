@@ -106,8 +106,6 @@ class Report:
 
 {self.get_settings_table()}
 
-{self.get_versions_table()}
-
 ## Metrics
 
 ### Shifted geometric mean
@@ -176,7 +174,13 @@ maximum allowed primal error.
 
 ...
 
-### See also
+## Package versions
+
+Versions of all relevant packages used when running this test set:
+
+{self.get_versions_table()}
+
+## See also
 
 - [How not to lie with statistics: the correct way to summarize benchmark
   results](https://www.cse.unsw.edu.au/~cs9242/18/papers/Fleming_Wallace_86.pdf):

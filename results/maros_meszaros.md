@@ -2,18 +2,15 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 07:23:25.881078+00:00
+- Date: 2022-11-07 07:38:22.612931+00:00
 
 ## Settings
 
-| package   | version     |
-|:----------|:------------|
-| cvxopt    | 1.3.0       |
-| highs     | 1.1.2.dev3  |
-| osqp      | 0.6.2.post0 |
-| proxqp    | 0.2.4       |
-| qpsolvers | 2.5.0       |
-| scs       | 3.2.0       |
+| name                  | default   |   high_accuracy |
+|:----------------------|:----------|----------------:|
+| absolute_tolerance    | -         |           1e-09 |
+| primal_residual_limit | 1.0       |           1     |
+| time_limit            | 1000.0    |        1000     |
 
 ## Metrics
 
@@ -93,7 +90,20 @@ maximum allowed primal error.
 
 ...
 
-### See also
+## Package versions
+
+Versions of all relevant packages used when running this test set:
+
+| package   | version     |
+|:----------|:------------|
+| cvxopt    | 1.3.0       |
+| highs     | 1.1.2.dev3  |
+| osqp      | 0.6.2.post0 |
+| proxqp    | 0.2.4       |
+| qpsolvers | 2.5.0       |
+| scs       | 3.2.0       |
+
+## See also
 
 - [How not to lie with statistics: the correct way to summarize benchmark
   results](https://www.cse.unsw.edu.au/~cs9242/18/papers/Fleming_Wallace_86.pdf):
