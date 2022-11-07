@@ -42,6 +42,12 @@ class TestSet(abc.ABC):
         Yield test problems one by one.
         """
 
+    @abc.abstractmethod
+    def get_solver_settings(self) -> Dict[str, SolverSettings]:
+        """
+        Get solver settings for the test set.
+        """
+
     @abc.abstractproperty
     def maintainer(self) -> str:
         """
@@ -85,6 +91,7 @@ class TestSet(abc.ABC):
                 f"Solver '{solver}' is available but skipped "
                 "as its settings are unknown"
             )
+        self.solver_settings = self.get_solver_settings()
         self.solvers = known_solvers
 
     def get_problem(self, name: str) -> Optional[Problem]:
@@ -128,7 +135,6 @@ class TestSet(abc.ABC):
 
     def run(
         self,
-        solver_settings: Dict[str, SolverSettings],
         results: Results,
         only_problem: Optional[str] = None,
         only_settings: Optional[str] = None,
@@ -144,13 +150,20 @@ class TestSet(abc.ABC):
             only_problem: If set, only run that specific problem in the set.
             only_settings: If set, only run with these solver settings.
             only_solver: If set, only run that specific solver.
+            rerun: If set, rerun instances that already have a result.
+            include_timeouts: If set, also rerun known timeouts.
         """
-        nb_called = 0
+        if only_settings and only_settings not in self.solver_settings:
+            raise ValueError(
+                f"settings '{only_settings}' not in the list of settings "
+                f"for this test set: {list(self.solver_settings.keys())}"
+            )
         if only_solver and only_solver not in self.solvers:
             raise SolverNotFound(
                 f"solver '{only_solver}' not in the list of "
                 f"available solvers for this test set: {self.solvers}"
             )
+
         filtered_solvers = [
             solver
             for solver in self.solvers
@@ -158,15 +171,17 @@ class TestSet(abc.ABC):
         ]
         filtered_settings = [
             settings
-            for settings in solver_settings.keys()
+            for settings in self.solver_settings.keys()
             if only_settings is None or settings == only_settings
         ]
+
+        nb_called = 0
         for problem in self:
             if only_problem and problem.name != only_problem:
                 continue
             for solver in filtered_solvers:
                 for settings in filtered_settings:
-                    time_limit = solver_settings[settings].time_limit
+                    time_limit = self.solver_settings[settings].time_limit
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
@@ -194,7 +209,7 @@ class TestSet(abc.ABC):
                         f"Solving {problem.name} by {solver} "
                         f"with {settings} settings..."
                     )
-                    kwargs = solver_settings[settings][solver]
+                    kwargs = self.solver_settings[settings][solver]
                     solution, runtime = problem.solve(solver, **kwargs)
                     results.update(
                         problem, solver, settings, solution, runtime

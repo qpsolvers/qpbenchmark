@@ -24,6 +24,7 @@ import os.path
 from typing import Dict, Iterator
 
 from ..problem import Problem
+from ..solver_settings import SolverSettings
 from ..test_set import TestSet
 
 
@@ -31,6 +32,19 @@ class MarosMeszaros(TestSet):
 
     data_dir: str
     optimal_costs: Dict[str, float]
+
+    def get_solver_settings(self) -> Dict[str, SolverSettings]:
+        return {
+            "default": SolverSettings(
+                time_limit=1000.0,
+                primal_residual_limit=1.0,
+            ),
+            "high_accuracy": SolverSettings(
+                time_limit=1000.0,
+                absolute_tolerance=1e-9,
+                primal_residual_limit=1.0,
+            ),
+        }
 
     @property
     def maintainer(self) -> str:
