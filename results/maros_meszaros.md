@@ -2,16 +2,32 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 08:11:47.661135+00:00
+- Date: 2022-11-07 10:47:37.009958+00:00
 
 ## Settings
 
-| name               | default   |   high_accuracy |
-|:-------------------|:----------|----------------:|
-| absolute_tolerance | -         |           1e-09 |
-| cost_error_limit   | 1000.0    |        1000     |
-| primal_error_limit | 1.0       |           1     |
-| time_limit         | 1000.0    |        1000     |
+- Cost error limit: 1000.0
+- Primal error limit: 1.0
+- Time limit: 1000.0 seconds
+
+| solver   | parameter                        | default   |   high_accuracy |
+|:---------|:---------------------------------|:----------|----------------:|
+| cvxopt   | ``feastol``                      | -         |     1e-09       |
+| ecos     | ``feastol``                      | -         |     1e-09       |
+| gurobi   | ``time_limit``                   | 1000.0    |  1000           |
+| highs    | ``dual_feasibility_tolerance``   | -         |     1e-09       |
+| highs    | ``primal_feasibility_tolerance`` | -         |     1e-09       |
+| highs    | ``time_limit``                   | 1000.0    |  1000           |
+| osqp     | ``eps_abs``                      | -         |     1e-09       |
+| osqp     | ``eps_rel``                      | -         |     0           |
+| osqp     | ``time_limit``                   | 1000.0    |  1000           |
+| proxqp   | ``eps_abs``                      | -         |     1e-09       |
+| proxqp   | ``eps_rel``                      | -         |     0           |
+| qpoases  | ``time_limit``                   | 1000.0    |  1000           |
+| qpswift  | ``RELTOL``                       | -         |     1.73205e-09 |
+| scs      | ``eps_abs``                      | -         |     1e-09       |
+| scs      | ``eps_rel``                      | -         |     0           |
+| scs      | ``time_limit_secs``              | 1000.0    |  1000           |
 
 ## Metrics
 

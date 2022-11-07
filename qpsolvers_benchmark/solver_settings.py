@@ -19,7 +19,7 @@
 Solver settings.
 """
 
-from typing import Any, Dict, Optional, Set
+from typing import Any, Dict, Iterator, Optional, Set
 
 import numpy as np
 
@@ -55,10 +55,7 @@ class SolverSettings:
         by some solvers, for instance CVXOPT and ECOS.
     """
 
-    absolute_tolerance: float
-    time_limit: float
-
-    KNOWN_SOLVERS: Set[str] = set(
+    IMPLEMENTED_SOLVERS: Set[str] = set(
         [
             "cvxopt",
             "ecos",
@@ -66,6 +63,7 @@ class SolverSettings:
             "highs",
             "osqp",
             "proxqp",
+            "qpoases",
             "qpswift",
             "quadprog",
             "scs",
@@ -73,50 +71,38 @@ class SolverSettings:
     )
 
     @classmethod
-    def is_known_solver(cls, solver: str):
-        return solver in cls.KNOWN_SOLVERS
+    def is_implemented(cls, solver: str):
+        """
+        Check whether a solver is implemented by this class.
+        """
+        return solver in cls.IMPLEMENTED_SOLVERS
 
     def __init__(
         self,
-        time_limit: float,
-        cost_error_limit: float,
-        primal_error_limit: float,
-        verbose: bool = False,
         absolute_tolerance: Optional[float] = None,
+        time_limit: Optional[float] = None,
+        verbose: Optional[bool] = None,
     ):
-        self.absolute_tolerance = absolute_tolerance
-        self.cost_error_limit = cost_error_limit
-        self.primal_error_limit = primal_error_limit
-        self.time_limit = time_limit
-        self.verbose = verbose
-        #
         self.__settings: Dict[str, Dict[str, Any]] = {
-            solver: {} for solver in self.KNOWN_SOLVERS
+            solver: {} for solver in self.IMPLEMENTED_SOLVERS
         }
-        self.apply_time_limits()
-        self.apply_tolerances()
-        self.apply_verbosity()
+        if absolute_tolerance is not None:
+            self.apply_absolute_tolerance(absolute_tolerance)
+        if time_limit is not None:
+            self.apply_time_limit(time_limit)
+        if verbose is not None:
+            self.apply_verbosity(verbose)
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
         return self.__settings[solver]
 
-    def apply_time_limits(self) -> None:
-        """
-        Apply time limits to all solvers.
-        """
-        self.__settings["gurobi"]["time_limit"] = self.time_limit
-        self.__settings["highs"]["time_limit"] = self.time_limit
-        self.__settings["osqp"]["time_limit"] = self.time_limit
-        self.__settings["qpoases"]["time_limit"] = self.time_limit
-        self.__settings["scs"]["time_limit_secs"] = self.time_limit
-
-    def apply_tolerances(self) -> None:
+    def apply_absolute_tolerance(self, eps_abs: float) -> None:
         """
         Apply absolute tolerance, disable relative tolerance for all solvers.
+
+        Args:
+            eps_abs: Absolute primal feasibility tolerance.
         """
-        eps_abs = self.absolute_tolerance
-        if eps_abs is None:
-            return
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
         self.__settings["highs"]["dual_feasibility_tolerance"] = eps_abs
@@ -129,9 +115,35 @@ class SolverSettings:
         self.__settings["scs"]["eps_abs"] = eps_abs
         self.__settings["scs"]["eps_rel"] = 0.0
 
-    def apply_verbosity(self) -> None:
+    def apply_time_limit(self, time_limit: float) -> None:
+        """
+        Apply time limits to all solvers.
+
+        Args:
+            time_limit: Time limit in seconds.
+        """
+        self.__settings["gurobi"]["time_limit"] = time_limit
+        self.__settings["highs"]["time_limit"] = time_limit
+        self.__settings["osqp"]["time_limit"] = time_limit
+        self.__settings["qpoases"]["time_limit"] = time_limit
+        self.__settings["scs"]["time_limit_secs"] = time_limit
+
+    def apply_verbosity(self, verbose: bool) -> None:
         """
         Apply verbosity settings to all solvers.
+
+        Args:
+            verbose: Verbosity boolean.
         """
-        for solver in self.KNOWN_SOLVERS:
-            self.__settings[solver]["verbose"] = self.verbose
+        for solver in self.IMPLEMENTED_SOLVERS:
+            self.__settings[solver]["verbose"] = verbose
+
+    @property
+    def solvers(self) -> Iterator[str]:
+        for solver in self.__settings:
+            yield solver
+
+    def get(self, solver:str, param: str, default: str):
+        if solver not in self.__settings:
+            return default
+        return self.__settings[solver].get(param, default)

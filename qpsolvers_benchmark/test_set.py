@@ -34,7 +34,10 @@ from .spdlog import logging
 
 class TestSet(abc.ABC):
 
-    results: Results
+    cost_error_limit: float
+    primal_error_limit: float
+    solver_settings: Dict[str, SolverSettings]
+    time_limit: float
 
     @abc.abstractmethod
     def __iter__(self) -> Iterator[Problem]:
@@ -43,9 +46,9 @@ class TestSet(abc.ABC):
         """
 
     @abc.abstractmethod
-    def get_solver_settings(self) -> Dict[str, SolverSettings]:
+    def define_settings(self):
         """
-        Get solver settings for the test set.
+        Define test-set and solver settings.
         """
 
     @abc.abstractproperty
@@ -69,18 +72,23 @@ class TestSet(abc.ABC):
             if self.sparse_only
             else qpsolvers.available_solvers
         )
-        known_solvers = set(
+        solvers = set(
             solver
             for solver in candidate_solvers
-            if SolverSettings.is_known_solver(solver)
+            if SolverSettings.is_implemented(solver)
         )
-        for solver in candidate_solvers - known_solvers:
+        for solver in candidate_solvers - solvers:
             logging.warning(
                 f"Solver '{solver}' is available but skipped "
                 "as its settings are unknown"
             )
-        self.solver_settings = self.get_solver_settings()
-        self.solvers = known_solvers
+        self.cost_error_limit = 0.0
+        self.primal_error_limit = 0.0
+        self.solver_settings = {}
+        self.solvers = solvers
+        self.time_limit = 0.0
+        #
+        self.define_settings()
 
     def get_problem(self, name: str) -> Optional[Problem]:
         """
@@ -118,18 +126,6 @@ class TestSet(abc.ABC):
         """
         return {
             name: settings.primal_error_limit
-            for name, settings in self.solver_settings.items()
-        }
-
-    def get_time_limits(self) -> Dict[str, float]:
-        """
-        Get time limits for each settings.
-
-        Returns:
-            Dictionary from settings name to time limit.
-        """
-        return {
-            name: settings.time_limit
             for name, settings in self.solver_settings.items()
         }
 
@@ -181,12 +177,11 @@ class TestSet(abc.ABC):
                 continue
             for solver in filtered_solvers:
                 for settings in filtered_settings:
-                    time_limit = self.solver_settings[settings].time_limit
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
-                    if skip_solver_timeout(time_limit, problem, solver):
+                    if skip_solver_timeout(self.time_limit, problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
@@ -198,7 +193,7 @@ class TestSet(abc.ABC):
                             )
                             continue
                         elif not include_timeouts and results.is_timeout(
-                            problem, solver, settings, time_limit
+                            problem, solver, settings, self.time_limit
                         ):
                             logging.info(
                                 f"Skipping {problem.name} with {solver} and "

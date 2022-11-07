@@ -20,7 +20,7 @@ Test case results.
 """
 
 import os.path
-from typing import Dict, Optional
+from typing import Optional
 
 import numpy as np
 import pandas
@@ -162,7 +162,7 @@ class Results:
         )
 
     def build_shifted_geometric_mean_df(
-        self, column: str, shift: float, not_found_value: Dict[str, float]
+        self, column: str, shift: float, not_found_value: float
     ) -> pandas.DataFrame:
         """
         Compute the shifted geometric mean of a results column.
@@ -193,7 +193,7 @@ class Results:
                     [
                         abs(solver_df.at[i, column])  # abs() for cost error
                         if solver_df.at[i, "found"]
-                        else not_found_value[settings]
+                        else not_found_value
                         for i in solver_df.index
                     ]
                 )

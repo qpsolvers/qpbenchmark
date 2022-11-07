@@ -27,7 +27,7 @@ import pandas
 from .results import Results
 from .spdlog import logging
 from .test_set import TestSet
-from .utils import dash_for_none, get_cpu_info, get_solver_versions
+from .utils import get_cpu_info, get_solver_versions
 
 
 class Report:
@@ -43,34 +43,38 @@ class Report:
         self.results = results
         self.test_set = test_set
 
-    def get_settings_table(self):
+    def get_solver_settings_table(self):
         solver_settings = self.test_set.solver_settings
-        table = {
-            "name": [
-                "absolute_tolerance",
-                "cost_error_limit",
-                "primal_error_limit",
-                "time_limit",
-            ]
-        }
-        table.update(
-            {
-                name: map(
-                    dash_for_none,
-                    [
-                        settings.absolute_tolerance,
-                        settings.cost_error_limit,
-                        settings.primal_error_limit,
-                        settings.time_limit,
-                    ],
-                )
-                for name, settings in solver_settings.items()
-            }
+        names = list(solver_settings.keys())
+        df = pandas.DataFrame(
+            [],
+            columns=["solver", "parameter"] + names,
         )
-        settings_df = pandas.DataFrame(table)
-        settings_df = settings_df.set_index("name")
-        settings_df = settings_df.sort_index()
-        return settings_df.to_markdown(index=True)
+        keys = set()
+        for name, settings in solver_settings.items():
+            for solver in settings.solvers:
+                for param in settings[solver]:
+                    keys |= {(solver, param)}
+        for solver, param in keys:
+            row = {
+                "solver": [solver],
+                "parameter": [f"``{param}``"],
+            }
+            row.update(
+                {
+                    name: [solver_settings[name].get(solver, param, "-")]
+                    for name in names
+                }
+            )
+            df = pandas.concat(
+                [
+                    df,
+                    pandas.DataFrame(row),
+                ],
+                ignore_index=True,
+            )
+        df = df.sort_values(by=["solver", "parameter"])
+        return df.to_markdown(index=False)
 
     def get_versions_table(self):
         versions = get_solver_versions(self.test_set.solvers)
@@ -106,7 +110,11 @@ class Report:
 
 ## Settings
 
-{self.get_settings_table()}
+- Cost error limit: {self.test_set.cost_error_limit}
+- Primal error limit: {self.test_set.primal_error_limit}
+- Time limit: {self.test_set.time_limit} seconds
+
+{self.get_solver_settings_table()}
 
 ## Metrics
 
@@ -145,7 +153,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="runtime",
     shift=10.0,
-    not_found_value=self.test_set.get_time_limits(),
+    not_found_value=self.test_set.time_limit,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
@@ -161,7 +169,7 @@ means of solver primal errors (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="primal_error",
     shift=10.0,
-    not_found_value=self.test_set.get_primal_error_limits(),
+    not_found_value=self.test_set.primal_error_limit,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
@@ -177,7 +185,7 @@ geometric means of solver cost errors (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="cost_error",
     shift=10.0,
-    not_found_value=self.test_set.get_cost_error_limits(),
+    not_found_value=self.test_set.cost_error_limit,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
