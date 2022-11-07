@@ -45,10 +45,6 @@ class MarosMeszaros(TestSet):
         return True
 
     @property
-    def time_limit(self) -> float:
-        return 1000.0
-
-    @property
     def title(self) -> str:
         return "Maros-Meszaros test set"
 

@@ -36,17 +36,13 @@ class Results:
     Test case results.
     """
 
-    def __init__(self, results_dir: str, test_set: str):
+    def __init__(self, csv_path: str):
         """
         Initialize results.
 
         Args:
-            results_dir: Directory where results CSV files are stored.
-            test_set: Name of the test set.
+            csv_path: Path to the results CSV file.
         """
-        draft_path = os.path.join(results_dir, f"{test_set}_draft.csv")
-        final_path = os.path.join(results_dir, f"{test_set}.csv")
-        load_path = draft_path if os.path.exists(draft_path) else final_path
         df = pandas.DataFrame(
             [],
             columns=[
@@ -59,20 +55,19 @@ class Results:
                 "primal_error",
             ],
         )
-        if os.path.exists(load_path):
-            logging.info(f"Loading existing results from {load_path}")
-            df = pandas.concat([df, pandas.read_csv(load_path)])
+        if os.path.exists(csv_path):
+            logging.info(f"Loading existing results from {csv_path}")
+            df = pandas.concat([df, pandas.read_csv(csv_path)])
+        self.csv_path = csv_path
         self.df = df
-        self.load_path = load_path
-        self.save_path = draft_path
 
     def write(self) -> None:
         """
         Write results to their CSV file for persistence.
         """
-        logging.info(f"Test set results written to {self.save_path}")
+        logging.info(f"Test set results written to {self.csv_path}")
         self.df = self.df.sort_values(by=["problem", "solver", "settings"])
-        self.df.to_csv(self.save_path, index=False)
+        self.df.to_csv(self.csv_path, index=False)
 
     def has(self, problem: Problem, solver: str, settings: str) -> bool:
         return (

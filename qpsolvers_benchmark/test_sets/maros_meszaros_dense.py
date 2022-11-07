@@ -35,10 +35,6 @@ class MarosMeszarosDense(MarosMeszaros):
         return False
 
     @property
-    def time_limit(self) -> float:
-        return 1000.0
-
-    @property
     def title(self) -> str:
         return "Maros-Meszaros dense subset"
 

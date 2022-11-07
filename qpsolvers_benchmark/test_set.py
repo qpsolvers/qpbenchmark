@@ -61,12 +61,6 @@ class TestSet(abc.ABC):
         """
 
     @abc.abstractproperty
-    def time_limit(self) -> float:
-        """
-        Runtime limit in seconds.
-        """
-
-    @abc.abstractproperty
     def title(self) -> str:
         """
         Report title.
@@ -148,11 +142,12 @@ class TestSet(abc.ABC):
                 continue
             for solver in filtered_solvers:
                 for settings in filtered_settings:
+                    time_limit = solver_settings[settings].time_limit
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
-                    if skip_solver_timeout(self.time_limit, problem, solver):
+                    if skip_solver_timeout(time_limit, problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
@@ -164,7 +159,7 @@ class TestSet(abc.ABC):
                             )
                             continue
                         elif not include_timeouts and results.is_timeout(
-                            problem, solver, settings, self.time_limit
+                            problem, solver, settings, time_limit
                         ):
                             logging.warn(
                                 f"Skipping {problem.name} with {solver} and "
