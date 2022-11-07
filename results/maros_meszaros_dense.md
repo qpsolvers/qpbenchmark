@@ -1,23 +1,22 @@
 # Maros-Meszaros dense subset
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-04 11:28:17.461236+00:00
+- Date: 2022-11-07 06:48:49.028055+00:00
 - Maintainer: [@stephane-caron](https://github.com/stephane-caron/)
-- Time limit: 1000.0 seconds
-- qpsolvers version: 2.5.0
 
-Solvers:
+## Settings
 
-| solver   | version     |
-|:---------|:------------|
-| cvxopt   | 1.3.0       |
-| ecos     | 2.0.10      |
-| highs    | 1.1.2.dev3  |
-| osqp     | 0.6.2.post0 |
-| proxqp   | 0.2.4       |
-| qpswift  | 1.0.0       |
-| quadprog | 0.1.11      |
-| scs      | 3.2.0       |
+| package   | version     |
+|:----------|:------------|
+| cvxopt    | 1.3.0       |
+| ecos      | 2.0.10      |
+| highs     | 1.1.2.dev3  |
+| osqp      | 0.6.2.post0 |
+| proxqp    | 0.2.4       |
+| qpsolvers | 2.5.0       |
+| qpswift   | 1.0.0       |
+| quadprog  | 0.1.11      |
+| scs       | 3.2.0       |
 
 ## Metrics
 
@@ -105,3 +104,9 @@ solver that fails to find a solution receives a primal error of
 ### Cost errors
 
 ...
+
+### See also
+
+- [How not to lie with statistics: the correct way to summarize benchmark
+  results](https://www.cse.unsw.edu.au/~cs9242/18/papers/Fleming_Wallace_86.pdf):
+  why geometric means should always be used to summarize normalized results.
