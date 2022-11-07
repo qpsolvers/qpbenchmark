@@ -161,6 +161,8 @@ if __name__ == "__main__":
         logging.info("Check out `results` for the full results data")
         df = results.df
         logging.info("Check out `df` for results as a pandas DataFrame")
+
+    if args.command in ["check_problem", "check_results"]:
         try:
             import IPython
 
