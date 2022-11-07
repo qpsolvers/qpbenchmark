@@ -124,6 +124,8 @@ def parse_command_line_arguments():
 
 if __name__ == "__main__":
     args = parse_command_line_arguments()
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
 
     data_dir = os.path.join(os.path.dirname(__file__), "data")
 

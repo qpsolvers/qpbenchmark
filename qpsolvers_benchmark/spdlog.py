@@ -34,12 +34,13 @@ class SpdlogFormatter(logging.Formatter):
     BOLD_WHITE: str = "\033[37;1m"
     BOLD_YELLOW: str = "\033[33;1m"
     GREEN: str = "\033[32m"
+    MAGENTA: str = "\033[35m"
     ON_RED: str = "\033[41m"
     RESET: str = "\033[0m"
 
     LEVEL_FORMAT: Dict[Any, str] = {
         logging.CRITICAL: f"[{ON_RED}{BOLD_WHITE}critical{RESET}]",
-        logging.DEBUG: "[debug]",
+        logging.DEBUG: f"[{MAGENTA}debug{RESET}]",
         logging.ERROR: f"[{BOLD_RED}error{RESET}]",
         logging.INFO: f"[{GREEN}info{RESET}]",
         logging.WARNING: f"[{BOLD_YELLOW}warning{RESET}]",
@@ -62,7 +63,6 @@ handler.setLevel(logging.DEBUG)
 handler.setFormatter(SpdlogFormatter())
 logger.addHandler(handler)
 logging.basicConfig(level=logging.INFO)
-
 
 
 __all__ = [
