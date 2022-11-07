@@ -1,5 +1,6 @@
 *.pyc
 *.pyo
+.DS_Store
 .coverage
 .ropeproject
 .tox

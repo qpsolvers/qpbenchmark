@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
     data_dir = os.path.join(os.path.dirname(__file__), "data")
 
-    if args.command == "check_results":
+    if args.command in ["check_results", "report"]:
         results_file = args.results_file
     else:
         results_dir = os.path.join(os.path.dirname(__file__), "results")
@@ -175,4 +175,5 @@ if __name__ == "__main__":
         logging.info("Writing the overall report...")
         author = input("GitHub username to write in the report? ")
         report = Report(author, test_set, results)
-        report.write(os.path.join(results_dir, f"{args.test_set}.md"))
+        md_path = results.csv_path.replace(".csv", ".md")
+        report.write(md_path)
