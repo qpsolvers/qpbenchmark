@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 11:44:48.553852+00:00
+- Date: 2022-11-07 13:57:22.250381+00:00
 
 ## Settings
 
@@ -60,7 +60,7 @@ Precentage of problems each solver is able to solve:
 | qpoases  |        97 |              97 |
 | qpswift  |        15 |              15 |
 | quadprog |        34 |              34 |
-| scs      |        56 |              56 |
+| scs      |        29 |              27 |
 
 Rows are solvers and columns are solver settings.
 
@@ -83,7 +83,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | qpoases  |       8.7 |             8.4 |
 | qpswift  |    1126.4 |          1080.4 |
 | quadprog |     463.2 |           444.2 |
-| scs      |     168.0 |           162.2 |
+| scs      |     591.8 |           615.7 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
@@ -105,7 +105,7 @@ means of solver primal errors (1.0 is the best):
 | qpoases  |    21485508.8 |    74080487390.4 |
 | qpswift  |     1265879.8 |     4364662336.8 |
 | quadprog |      978548.1 |     3373963557.3 |
-| scs      | 11712300201.7 | 40383163869509.6 |
+| scs      |     1058316.2 |     3732182439.9 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
@@ -127,7 +127,7 @@ geometric means of solver cost errors (1.0 is the best):
 | qpoases  |       255.7 |           392.2 |
 | qpswift  |      1037.8 |          1591.7 |
 | quadprog |       426.7 |           654.5 |
-| scs      | 410691408.3 |     629922619.7 |
+| scs      |       547.5 |           906.9 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
@@ -145,7 +145,7 @@ Versions of all relevant packages used when running this test set:
 | osqp      | 0.6.2.post0 |
 | proxqp    | 0.2.4       |
 | qpoases   | 3.2.0       |
-| qpsolvers | 2.5.1rc0    |
+| qpsolvers | 2.6.0rc0    |
 | qpswift   | 1.0.0       |
 | quadprog  | 0.1.11      |
 | scs       | 3.2.0       |
