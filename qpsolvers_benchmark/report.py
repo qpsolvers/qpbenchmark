@@ -150,6 +150,12 @@ solver that fails to find a solution receives a primal error of
 ### Cost errors
 
 ...
+
+### See also
+
+- [How not to lie with statistics: the correct way to summarize benchmark
+  results](https://www.cse.unsw.edu.au/~cs9242/18/papers/Fleming_Wallace_86.pdf):
+  why geometric means should always be used to summarize normalized results.
 """
             )
         logging.info(f"Wrote report to {path}")
