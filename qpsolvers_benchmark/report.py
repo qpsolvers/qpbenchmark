@@ -47,9 +47,10 @@ class Report:
         solver_settings = self.test_set.solver_settings
         table = {
             "name": [
-                "time_limit",
-                "primal_residual_limit",
                 "absolute_tolerance",
+                "cost_error_limit",
+                "primal_error_limit",
+                "time_limit",
             ]
         }
         table.update(
@@ -57,9 +58,10 @@ class Report:
                 name: map(
                     dash_for_none,
                     [
-                        settings.time_limit,
-                        settings.primal_residual_limit,
                         settings.absolute_tolerance,
+                        settings.cost_error_limit,
+                        settings.primal_error_limit,
+                        settings.time_limit,
                     ],
                 )
                 for name, settings in solver_settings.items()
@@ -108,19 +110,18 @@ class Report:
 
 ## Metrics
 
-### Shifted geometric mean
-
-For each metric (computation time, solution accuracy, ...), every problem in
-the test set produces a different ranking of solvers. To aggregate those
-rankings into a single metric over the whole test set, we use the shifted
-geometric mean, which is a standard to aggregate computation times in
-[benchmarks for optimization software](http://plato.asu.edu/bench.html).
+For each metric (computation time, primal error, cost error, ...), every
+problem in the test set produces a different ranking of solvers. To aggregate
+those rankings into a single metric over the whole test set, we use the
+**shifted geometric mean**, which is a standard to aggregate computation times
+in [benchmarks for optimization software](http://plato.asu.edu/bench.html).
 
 The shifted geometric mean is a slowdown/loss factor compared to the best
-solver over the whole test set. It has the advantage of being compromised by
-neither large outliers (as opposed to the arithmetic mean) nor by small
-outliers (in contrast to the geometric geometric mean). The best solvers have a
-shifted geometric mean close to one.
+solver over the whole test set. Hence, the best solvers for a given metric have
+a shifted geometric mean close to one. This mean has the advantage of being
+compromised by neither large outliers (as opposed to the arithmetic mean) nor
+by small outliers (in contrast to the geometric geometric mean). Check out the
+[references](#see-also) below for more information.
 
 ## Results
 
@@ -154,25 +155,34 @@ limit when it fails to solve a problem.
 ### Primal error
 
 The primal error measures the maximum (equality and inequality) constraint
-violation in the solution returned by a solver. As with runtimes, we use the
-[shifted geometric mean](#shifted-geometric-mean) to aggregate primal errors
-over the whole test set.
-
-Shifted geometric mean of solver primal errors (1.0 is the best):
+violation in the solution returned by a solver. Here are the shifted geometric
+means of solver primal errors (1.0 is the best):
 
 {self.results.build_shifted_geometric_mean_df(
     column="primal_error",
     shift=10.0,
-    not_found_value=self.test_set.get_primal_residual_limits(),
+    not_found_value=self.test_set.get_primal_error_limits(),
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
-maximum allowed primal error.
+[primal error limit](#settings).
 
 ### Cost errors
 
-...
+The cost error measures the difference between the known optimal objective and
+the objective at the solution returned by a solver. Here are the shifted
+geometric means of solver cost errors (1.0 is the best):
+
+{self.results.build_shifted_geometric_mean_df(
+    column="cost_error",
+    shift=10.0,
+    not_found_value=self.test_set.get_cost_error_limits(),
+).to_markdown(index=True, floatfmt=".1f")}
+
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
+solver that fails to find a solution receives a cost error equal to the [cost
+error limit](#settings).
 
 ## Package versions
 

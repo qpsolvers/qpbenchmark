@@ -258,7 +258,7 @@ class Problem:
 
     def primal_error(self, x: Optional[np.ndarray]) -> Optional[float]:
         """
-        Compute primal error for a given (primal) solution.
+        Compute primal residual for a given (primal) solution.
 
         Args:
             x: Primal solution.
@@ -275,12 +275,12 @@ class Problem:
             return None
         C, l, u = self.constraints_as_double_sided_ineq()
         C_x = C.dot(x)
-        primal_residual = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
-        return linalg.norm(primal_residual, np.inf)
+        p = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
+        return linalg.norm(p, np.inf)
 
     def dual_error(self, x, y) -> Optional[float]:
         """
-        Compute dual error for a set of dual multipliers at a primal solution.
+        Compute dual residual for a pair of primal-dual solutions.
 
         Args:
             x: Primal solution.
@@ -292,9 +292,9 @@ class Problem:
         Note:
             This function is adapted from `is_qp_solution_optimal` in
             proxqp_benchmark. The original function included the relative
-            tolerance parameter specified in the OSQP paper, set to zero.
+            tolerance parameter specified in the OSQP paper, set to zero here.
         """
         P, q = self.P, self.q
         C, _, _ = self.constraints_as_double_sided_ineq()
-        dual_residual = P.dot(x) + q + C.T.dot(y)
-        return linalg.norm(dual_residual, np.inf)
+        d = P.dot(x) + q + C.T.dot(y)
+        return linalg.norm(d, np.inf)
