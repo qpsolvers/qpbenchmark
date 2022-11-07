@@ -153,7 +153,7 @@ class TestSet(abc.ABC):
                         continue
                     if results.has(problem, solver, settings):
                         if not rerun:
-                            logging.info(
+                            logging.debug(
                                 f"{problem.name} already solved by {solver} "
                                 f"with {settings} settings..."
                             )
@@ -161,12 +161,12 @@ class TestSet(abc.ABC):
                         elif not include_timeouts and results.is_timeout(
                             problem, solver, settings, time_limit
                         ):
-                            logging.warn(
+                            logging.info(
                                 f"Skipping {problem.name} with {solver} and "
                                 f"{settings} settings as a known timeout..."
                             )
                             continue
-                    logging.info(
+                    logging.debug(
                         f"Solving {problem.name} by {solver} "
                         f"with {settings} settings..."
                     )

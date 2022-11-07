@@ -28,6 +28,7 @@ import scipy.io as spio
 import scipy.sparse as spa
 from numpy import linalg
 from qpsolvers import solve_qp
+
 from .spdlog import logging
 
 

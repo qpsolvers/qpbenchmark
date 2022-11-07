@@ -92,6 +92,7 @@ Check out ``python benchmark.py --help`` for details.
 This benchmark is under active development. Expect the following upcoming changes:
 
 - Make solver settings specific to each test set
+- Don't count qpsolvers matrix build times in solver times
 
 ## See also
 
