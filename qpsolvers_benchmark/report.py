@@ -27,7 +27,7 @@ import pandas
 from .results import Results
 from .spdlog import logging
 from .test_set import TestSet
-from .utils import get_cpu_info, get_solver_versions
+from .utils import dash_for_none, get_cpu_info, get_solver_versions
 
 
 class Report:
@@ -42,6 +42,33 @@ class Report:
         self.date = str(datetime.datetime.now(datetime.timezone.utc))
         self.results = results
         self.test_set = test_set
+
+    def get_settings_table(self):
+        solver_settings = self.test_set.solver_settings
+        table = {
+            "name": [
+                "time_limit",
+                "primal_residual_limit",
+                "absolute_tolerance",
+            ]
+        }
+        table.update(
+            {
+                name: map(
+                    dash_for_none,
+                    [
+                        settings.time_limit,
+                        settings.primal_residual_limit,
+                        settings.absolute_tolerance,
+                    ],
+                )
+                for name, settings in solver_settings.items()
+            }
+        )
+        settings_df = pandas.DataFrame(table)
+        settings_df = settings_df.set_index("name")
+        settings_df = settings_df.sort_index()
+        return settings_df.to_markdown(index=True)
 
     def get_versions_table(self):
         versions = get_solver_versions(self.test_set.solvers)
@@ -76,6 +103,8 @@ class Report:
 - Date: {self.date}
 
 ## Settings
+
+{self.get_settings_table()}
 
 {self.get_versions_table()}
 
