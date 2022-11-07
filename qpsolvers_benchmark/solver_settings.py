@@ -79,12 +79,14 @@ class SolverSettings:
     def __init__(
         self,
         time_limit: float,
-        primal_residual_limit: float,
+        cost_error_limit: float,
+        primal_error_limit: float,
         verbose: bool = False,
         absolute_tolerance: Optional[float] = None,
     ):
         self.absolute_tolerance = absolute_tolerance
-        self.primal_residual_limit = primal_residual_limit
+        self.cost_error_limit = cost_error_limit
+        self.primal_error_limit = primal_error_limit
         self.time_limit = time_limit
         self.verbose = verbose
         #

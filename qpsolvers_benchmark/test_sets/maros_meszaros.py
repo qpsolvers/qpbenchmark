@@ -37,12 +37,14 @@ class MarosMeszaros(TestSet):
         return {
             "default": SolverSettings(
                 time_limit=1000.0,
-                primal_residual_limit=1.0,
+                cost_error_limit=1000.0,
+                primal_error_limit=1.0,
             ),
             "high_accuracy": SolverSettings(
                 time_limit=1000.0,
                 absolute_tolerance=1e-9,
-                primal_residual_limit=1.0,
+                cost_error_limit=1000.0,
+                primal_error_limit=1.0,
             ),
         }
 

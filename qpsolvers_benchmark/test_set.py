@@ -97,6 +97,30 @@ class TestSet(abc.ABC):
                 return problem
         return None
 
+    def get_cost_error_limits(self) -> Dict[str, float]:
+        """
+        Get cost error limits for each settings.
+
+        Returns:
+            Dictionary from settings name to cost error limit.
+        """
+        return {
+            name: settings.cost_error_limit
+            for name, settings in self.solver_settings.items()
+        }
+
+    def get_primal_error_limits(self) -> Dict[str, float]:
+        """
+        Get primal error limits for each settings.
+
+        Returns:
+            Dictionary from settings name to primal residual limit.
+        """
+        return {
+            name: settings.primal_error_limit
+            for name, settings in self.solver_settings.items()
+        }
+
     def get_time_limits(self) -> Dict[str, float]:
         """
         Get time limits for each settings.
@@ -106,18 +130,6 @@ class TestSet(abc.ABC):
         """
         return {
             name: settings.time_limit
-            for name, settings in self.solver_settings.items()
-        }
-
-    def get_primal_residual_limits(self) -> Dict[str, float]:
-        """
-        Get primal residual limits for each settings.
-
-        Returns:
-            Dictionary from settings name to primal residual limit.
-        """
-        return {
-            name: settings.primal_residual_limit
             for name, settings in self.solver_settings.items()
         }
 
