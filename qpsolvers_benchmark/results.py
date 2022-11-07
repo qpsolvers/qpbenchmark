@@ -20,7 +20,7 @@ Test case results.
 """
 
 import os.path
-from typing import Optional, Dict
+from typing import Dict, Optional
 
 import numpy as np
 import pandas
@@ -187,9 +187,11 @@ class Results:
                     (self.df["solver"] == solver)
                     & (self.df["settings"] == settings)
                 ]
+                # Cost errors can be negative because of primal errors. We
+                # count that as errors as well using absolute values.
                 column_values = np.array(
                     [
-                        solver_df.at[i, column]
+                        abs(solver_df.at[i, column])  # abs() for cost error
                         if solver_df.at[i, "found"]
                         else not_found_value[settings]
                         for i in solver_df.index
