@@ -28,22 +28,26 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 ## Metrics
 
 - **Success rate:** percentage of problems a solver is able to solve on a given test set.
-- **Primal error:** ...
-- **Cost error:** ...
+- **Computation time:** time a solver takes to solve a given problem.
+- **Primal error:** maximum error on equality and inequality constraints at the returned solution.
+- **Cost error:** difference between the solution cost and the known optimal cost.
 
 ### Shifted geometric mean
 
-For each metric (computation time, primal error, cost error, ...), every
-problem in the test set produces a different ranking of solvers. To aggregate
-those rankings into a single metric over the whole test set, we use the
-**shifted geometric mean**, which is a standard to aggregate computation times
-in [benchmarks for optimization software](http://plato.asu.edu/bench.html).
+Problem-specific metrics (computation time, primal error, cost error) produce a
+different ranking of solvers for each problem. To aggregate those rankings into
+a single metric over the whole test set, we use the **shifted geometric mean**,
+which is a standard to aggregate computation times in [benchmarks for
+optimization software](http://plato.asu.edu/bench.html). This mean has the
+advantage of being compromised by neither large outliers (as opposed to the
+arithmetic mean) nor by small outliers (in contrast to the geometric geometric
+mean). Check out the [references](#see-also) below for further details.
 
-The shifted geometric mean is a slowdown/loss factor compared to the best
-solver over the whole test set. This mean has the advantage of being
-compromised by neither large outliers (as opposed to the arithmetic mean) nor
-by small outliers (in contrast to the geometric geometric mean). Check out the
-[references](#see-also) below for further details.
+Here are some intuitive interpretations:
+
+- **Computation time:** a solver with a shifted geometric mean $Y$ is $Y$ times slower than the best solver over the test set.
+- **Primal error:** a solver with a shifted geometric mean $Y$ is $Y$ times less precise on constraints than the best solver over the test set.
+- **Cost error:** a solver witha shifted geometric mean $Y$ is $Y$ times less precise on the optimal cost than the best solver over the test set.
 
 ## Results
 
