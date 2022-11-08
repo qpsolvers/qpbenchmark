@@ -71,7 +71,7 @@ class Report:
             }
             row.update(
                 {
-                    name: [solver_settings[name].get(solver, param, "-")]
+                    name: [solver_settings[name].get_param(solver, param, "-")]
                     for name in names
                 }
             )

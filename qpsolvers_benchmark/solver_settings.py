@@ -19,7 +19,7 @@
 Solver settings.
 """
 
-from typing import Any, Dict, Iterator, Optional, Set
+from typing import Any, Dict, Iterator, Set
 
 import numpy as np
 
@@ -52,24 +52,43 @@ class SolverSettings:
         """
         return solver in cls.IMPLEMENTED_SOLVERS
 
-    def __init__(
-        self,
-        absolute_tolerance: Optional[float] = None,
-        time_limit: Optional[float] = None,
-        verbose: Optional[bool] = None,
-    ):
+    def __init__(self, time_limit: float):
+        """
+        Initialize settings.
+
+        Args:
+            time_limit: Time limit in seconds.
+        """
         self.__settings: Dict[str, Dict[str, Any]] = {
             solver: {} for solver in self.IMPLEMENTED_SOLVERS
         }
-        if absolute_tolerance is not None:
-            self.apply_absolute_tolerance(absolute_tolerance)
-        if time_limit is not None:
-            self.apply_time_limit(time_limit)
-        if verbose is not None:
-            self.apply_verbosity(verbose)
+        #
+        self.__apply_time_limit(time_limit)
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
+        """
+        Get settings dictionary of a given solver.
+
+        Args:
+            solver: Name of the QP solver.
+
+        Returns:
+            Dictionary of custom solver settings.
+        """
         return self.__settings[solver]
+
+    def __apply_time_limit(self, time_limit: float) -> None:
+        """
+        Apply time limits to all solvers.
+
+        Args:
+            time_limit: Time limit in seconds.
+        """
+        self.__settings["gurobi"]["time_limit"] = time_limit
+        self.__settings["highs"]["time_limit"] = time_limit
+        self.__settings["osqp"]["time_limit"] = time_limit
+        self.__settings["qpoases"]["time_limit"] = time_limit
+        self.__settings["scs"]["time_limit_secs"] = time_limit
 
     def apply_absolute_tolerance(self, eps_abs: float) -> None:
         """
@@ -114,19 +133,6 @@ class SolverSettings:
         self.__settings["scs"]["eps_abs"] = eps_abs
         self.__settings["scs"]["eps_rel"] = 0.0
 
-    def apply_time_limit(self, time_limit: float) -> None:
-        """
-        Apply time limits to all solvers.
-
-        Args:
-            time_limit: Time limit in seconds.
-        """
-        self.__settings["gurobi"]["time_limit"] = time_limit
-        self.__settings["highs"]["time_limit"] = time_limit
-        self.__settings["osqp"]["time_limit"] = time_limit
-        self.__settings["qpoases"]["time_limit"] = time_limit
-        self.__settings["scs"]["time_limit_secs"] = time_limit
-
     def apply_verbosity(self, verbose: bool) -> None:
         """
         Apply verbosity settings to all solvers.
@@ -142,7 +148,10 @@ class SolverSettings:
         for solver in self.__settings:
             yield solver
 
-    def get(self, solver: str, param: str, default: str):
+    def get_param(self, solver: str, param: str, default: str) -> Any:
         if solver not in self.__settings:
             return default
         return self.__settings[solver].get(param, default)
+
+    def set_param(self, solver: str, param: str, value: Any) -> None:
+        self.__settings[solver][param] = value
