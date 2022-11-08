@@ -34,8 +34,8 @@ from .spdlog import logging
 
 class TestSet(abc.ABC):
 
-    cost_error_limit: float
-    primal_error_limit: float
+    cost_tolerance: float
+    primal_tolerance: float
     solver_settings: Dict[str, SolverSettings]
     time_limit: float
 
@@ -82,8 +82,8 @@ class TestSet(abc.ABC):
                 f"Solver '{solver}' is available but skipped "
                 "as its settings are unknown"
             )
-        self.cost_error_limit = 0.0
-        self.primal_error_limit = 0.0
+        self.cost_tolerance = 0.0
+        self.primal_tolerance = 0.0
         self.solver_settings = {}
         self.solvers = solvers
         self.time_limit = 0.0
@@ -104,30 +104,6 @@ class TestSet(abc.ABC):
             if problem.name == name:
                 return problem
         return None
-
-    def get_cost_error_limits(self) -> Dict[str, float]:
-        """
-        Get cost error limits for each settings.
-
-        Returns:
-            Dictionary from settings name to cost error limit.
-        """
-        return {
-            name: settings.cost_error_limit
-            for name, settings in self.solver_settings.items()
-        }
-
-    def get_primal_error_limits(self) -> Dict[str, float]:
-        """
-        Get primal error limits for each settings.
-
-        Returns:
-            Dictionary from settings name to primal residual limit.
-        """
-        return {
-            name: settings.primal_error_limit
-            for name, settings in self.solver_settings.items()
-        }
 
     def run(
         self,

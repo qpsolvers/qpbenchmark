@@ -34,8 +34,8 @@ class MarosMeszaros(TestSet):
     optimal_costs: Dict[str, float]
 
     def define_settings(self) -> Dict[str, SolverSettings]:
-        self.primal_error_limit = 1.0
-        self.cost_error_limit = 1000.0
+        self.cost_tolerance = 1000.0
+        self.primal_tolerance = 1.0
         self.time_limit = 1000.0  # [s]
         self.solver_settings = {
             "default": SolverSettings(

@@ -119,8 +119,8 @@ class Report:
 
 ## Settings
 
-- Cost error limit: {self.test_set.cost_error_limit}
-- Primal error limit: {self.test_set.primal_error_limit}
+- Cost tolerance: {self.test_set.cost_tolerance}
+- Primal tolerance: {self.test_set.primal_tolerance}
 - Time limit: {self.test_set.time_limit} seconds
 
 {self.get_solver_settings_table()}
@@ -178,12 +178,12 @@ means of solver primal errors (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="primal_error",
     shift=10.0,
-    not_found_value=self.test_set.primal_error_limit,
+    not_found_value=self.test_set.primal_tolerance,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
-[primal error limit](#settings).
+[primal tolerance](#settings).
 
 ### Cost errors
 
@@ -194,12 +194,12 @@ geometric means of solver cost errors (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="cost_error",
     shift=10.0,
-    not_found_value=self.test_set.cost_error_limit,
+    not_found_value=self.test_set.cost_tolerance,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
-error limit](#settings).
+tolerance](#settings).
 
 ## Package versions
 
