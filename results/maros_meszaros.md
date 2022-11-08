@@ -102,8 +102,13 @@ limit when it fails to solve a problem.
 ### Primal error
 
 The primal error measures the maximum (equality and inequality) constraint
-violation in the solution returned by a solver. Here are the shifted geometric
-means of solver primal errors (1.0 is the best):
+violation in the solution returned by a solver. We use the shifted geometric
+mean to compare solver primal errors over the whole test set. Intuitively, a
+solver with a shifted-geometric-mean primal error of Y is Y times less precise
+on constraints than the best solver over the test set. See
+[Metrics](README.md#metrics) for details.
+
+Shifted geometric means of solver primal errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
@@ -115,13 +120,18 @@ means of solver primal errors (1.0 is the best):
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
-[primal error limit](#settings).
+[primal tolerance](#settings).
 
 ### Cost errors
 
 The cost error measures the difference between the known optimal objective and
-the objective at the solution returned by a solver. Here are the shifted
-geometric means of solver cost errors (1.0 is the best):
+the objective at the solution returned by a solver. We use the shifted
+geometric mean to compare solver cost errors over the whole test set.
+Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times
+less precise on the optimal cost than the best solver over the test set. See
+[Metrics](README.md#metrics) for details.
+
+Shifted geometric means of solver cost errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
@@ -133,23 +143,4 @@ geometric means of solver cost errors (1.0 is the best):
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
-error limit](#settings).
-
-## Package versions
-
-Versions of all relevant packages used when running this test set:
-
-| package   | version     |
-|:----------|:------------|
-| cvxopt    | 1.3.0       |
-| highs     | 1.1.2.dev3  |
-| osqp      | 0.6.2.post0 |
-| proxqp    | 0.2.4       |
-| qpsolvers | 2.5.1rc0    |
-| scs       | 3.2.0       |
-
-## See also
-
-- [How not to lie with statistics: the correct way to summarize benchmark
-  results](https://www.cse.unsw.edu.au/~cs9242/18/papers/Fleming_Wallace_86.pdf):
-  why geometric means should always be used to summarize normalized results.
+tolerance](#settings).
