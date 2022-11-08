@@ -122,6 +122,10 @@ def parse_command_line_arguments():
         "--solver",
         help="limit run to a specific solver",
     )
+    parser_run.add_argument(
+        "--author",
+        help="author field in the post-run report",
+    )
 
     return parser.parse_args()
 
