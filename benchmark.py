@@ -131,6 +131,8 @@ if __name__ == "__main__":
 
     if args.command in ["check_results", "report"]:
         results_file = args.results_file
+        if not os.path.exists(results_file):
+            raise FileNotFoundError(f"results file '{results_file}' not found")
     else:
         results_dir = os.path.join(os.path.dirname(__file__), "results")
         results_file = os.path.join(results_dir, f"{args.test_set}.csv")
