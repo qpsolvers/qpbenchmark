@@ -80,20 +80,20 @@ checks:
 
 ### Computation time
 
-We compare solver computation times over the whole test set using the [shifted
-geometric mean](#shifted-geometric-mean). Intuitively, a solver with a
-shifted-geometric-mean runtime of Y is Y times slower than the best solver over
-the test set.
+We compare solver computation times over the whole test set using the shifted
+geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of
+Y is Y times slower than the best solver over the test set. See
+[Metrics](README.md#metrics) for details.
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |      16.8 |            16.6 |
-| highs  |       1.9 |             1.9 |
-| osqp   |       1.3 |             5.6 |
+| cvxopt |      22.6 |            19.4 |
+| highs  |       2.5 |             2.2 |
+| osqp   |       1.8 |             6.6 |
 | proxqp |       1.0 |             1.0 |
-| scs    |       3.2 |             4.1 |
+| scs    |       4.3 |             4.8 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
