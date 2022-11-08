@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-08 16:39:40.260070+00:00
+- Date: 2022-11-08 16:45:32.024002+00:00
 
 ## Solvers
 
@@ -58,12 +58,25 @@ Precentage of problems each solver is able to solve:
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
 | cvxopt |        16 |              16 |
-| highs  |        61 |              61 |
-| osqp   |        64 |              36 |
-| proxqp |        85 |              78 |
-| scs    |        54 |              53 |
+| highs  |        60 |              60 |
+| osqp   |        58 |              36 |
+| proxqp |        81 |              76 |
+| scs    |        33 |              31 |
 
-Rows are solvers and columns are solver settings.
+Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
+that a solver successfully solved a problem when (1) it returned with a success
+status and (2) its solution is within cost and primal error
+[tolerances](#settings). Here is a summary of the frequency at which solvers
+returned success (1) but the corresponding solution did not pass tolerance
+checks:
+
+|        |   default |   high_accuracy |
+|:-------|----------:|----------------:|
+| cvxopt |       100 |             100 |
+| highs  |        99 |              99 |
+| osqp   |        93 |             100 |
+| proxqp |        96 |              99 |
+| scs    |        78 |              78 |
 
 ### Computation time
 
