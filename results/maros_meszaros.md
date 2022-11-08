@@ -25,22 +25,18 @@ All solvers were called via
 
 | solver   | parameter                        | default   |   high_accuracy |
 |:---------|:---------------------------------|:----------|----------------:|
-| cvxopt   | ``feastol``                      | -         |     1e-09       |
-| ecos     | ``feastol``                      | -         |     1e-09       |
-| gurobi   | ``time_limit``                   | 1000.0    |  1000           |
-| highs    | ``dual_feasibility_tolerance``   | -         |     1e-09       |
-| highs    | ``primal_feasibility_tolerance`` | -         |     1e-09       |
-| highs    | ``time_limit``                   | 1000.0    |  1000           |
-| osqp     | ``eps_abs``                      | -         |     1e-09       |
-| osqp     | ``eps_rel``                      | -         |     0           |
-| osqp     | ``time_limit``                   | 1000.0    |  1000           |
-| proxqp   | ``eps_abs``                      | -         |     1e-09       |
-| proxqp   | ``eps_rel``                      | -         |     0           |
-| qpoases  | ``time_limit``                   | 1000.0    |  1000           |
-| qpswift  | ``RELTOL``                       | -         |     1.73205e-09 |
-| scs      | ``eps_abs``                      | -         |     1e-09       |
-| scs      | ``eps_rel``                      | -         |     0           |
-| scs      | ``time_limit_secs``              | 1000.0    |  1000           |
+| cvxopt   | ``feastol``                      | -         |           1e-09 |
+| highs    | ``dual_feasibility_tolerance``   | -         |           1e-09 |
+| highs    | ``primal_feasibility_tolerance`` | -         |           1e-09 |
+| highs    | ``time_limit``                   | 1000.0    |        1000     |
+| osqp     | ``eps_abs``                      | -         |           1e-09 |
+| osqp     | ``eps_rel``                      | -         |           0     |
+| osqp     | ``time_limit``                   | 1000.0    |        1000     |
+| proxqp   | ``eps_abs``                      | -         |           1e-09 |
+| proxqp   | ``eps_rel``                      | -         |           0     |
+| scs      | ``eps_abs``                      | -         |           1e-09 |
+| scs      | ``eps_rel``                      | -         |           0     |
+| scs      | ``time_limit_secs``              | 1000.0    |        1000     |
 
 ## Metrics
 

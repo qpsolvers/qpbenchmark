@@ -62,6 +62,9 @@ class Report:
         keys = set()
         for name, settings in solver_settings.items():
             for solver in settings.solvers:
+                if solver not in self.test_set.solvers:
+                    # Skip solvers that are configured but not in test set
+                    continue
                 for param in settings[solver]:
                     keys |= {(solver, param)}
         for solver, param in keys:
