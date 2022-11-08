@@ -159,15 +159,15 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| cvxopt   |    1037.8 |          1591.7 |
-| ecos     |    1426.8 |          2188.4 |
-| highs    |      42.5 |            65.1 |
-| osqp     |     123.9 |           258.1 |
+| cvxopt   |     945.1 |          1591.8 |
+| ecos     |    1299.3 |          2188.5 |
+| highs    |      38.7 |            65.1 |
+| osqp     |     655.2 |           258.1 |
 | proxqp   |       1.0 |             1.0 |
-| qpoases  |     255.7 |           392.2 |
-| qpswift  |    1037.8 |          1591.7 |
-| quadprog |     426.7 |           654.5 |
-| scs      |     547.5 |           906.9 |
+| qpoases  |     214.3 |           360.9 |
+| qpswift  |     945.1 |          1591.8 |
+| quadprog |     388.6 |           654.5 |
+| scs      |     498.6 |           906.9 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
