@@ -172,10 +172,10 @@ class Problem:
 
     def to_dense(self):
         """
-        Return dense copy.
+        Return dense version.
 
         Returns:
-            Dense copy of the present problem.
+            Dense version of the present problem.
         """
         return Problem(
             self.P.toarray().astype(float),
@@ -258,18 +258,22 @@ class Problem:
 
     def primal_error(self, x: Optional[np.ndarray]) -> Optional[float]:
         """
-        Compute primal residual for a given (primal) solution.
+        Compute the primal residual for a given vector.
 
         Args:
-            x: Primal solution.
+            x: Primal candidate.
 
         Returns:
-            Primal error, i.e. the largest constraint violation.
+            Primal residual, i.e. the largest constraint violation.
 
-        Note:
+        Notes:
             This function is adapted from `is_qp_solution_optimal` in
             proxqp_benchmark. The original function included the relative
             tolerance parameter specified in the OSQP paper, set to zero.
+
+            See `Optimality conditions and numerical tolerances in QP solvers
+            <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
+            for a primer on residuals.
         """
         if x is None:
             return None
@@ -289,10 +293,14 @@ class Problem:
         Returns:
             True if and only if (x, y) is a valid primal-dual solution.
 
-        Note:
+        Notes:
             This function is adapted from `is_qp_solution_optimal` in
             proxqp_benchmark. The original function included the relative
             tolerance parameter specified in the OSQP paper, set to zero here.
+
+            See `Optimality conditions and numerical tolerances in QP solvers
+            <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
+            for a primer on residuals.
         """
         P, q = self.P, self.q
         C, _, _ = self.constraints_as_double_sided_ineq()
