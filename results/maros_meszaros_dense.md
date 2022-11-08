@@ -130,17 +130,17 @@ on constraints than the best solver over the test set. See
 
 Shifted geometric means of solver primal errors (1.0 is the best):
 
-|          |    default |   high_accuracy |
-|:---------|-----------:|----------------:|
-| cvxopt   |  1265879.8 |    4364662336.9 |
-| ecos     |  1371636.4 |    4729303555.6 |
-| highs    |   344202.0 |    1186783808.0 |
-| osqp     |   798784.5 |    2400713695.4 |
-| proxqp   |        1.0 |             1.0 |
-| qpoases  | 21485508.8 |   74080487390.4 |
-| qpswift  |  1265879.8 |    4364662336.8 |
-| quadprog |   978548.1 |    3373963557.3 |
-| scs      |  1058316.2 |    3732182439.9 |
+|          |   default |   high_accuracy |
+|:---------|----------:|----------------:|
+| cvxopt   |  527043.5 |    4394430787.5 |
+| ecos     |  571074.8 |    4761558980.4 |
+| highs    |  143307.0 |    1194878068.7 |
+| osqp     | 9053101.1 |    2417087362.5 |
+| proxqp   |       1.0 |             1.0 |
+| qpoases  | 8920845.0 |   74381031642.9 |
+| qpswift  |  527043.5 |    4394430787.2 |
+| quadprog |  407414.2 |    3396975112.1 |
+| scs      |  440625.3 |    3757637166.7 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
