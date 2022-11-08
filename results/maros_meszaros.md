@@ -2,17 +2,17 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-08 16:45:32.024002+00:00
+- Date: 2022-11-08 17:04:31.323081+00:00
 
 ## Solvers
 
-| package   | version     |
-|:----------|:------------|
-| cvxopt    | 1.3.0       |
-| highs     | 1.1.2.dev3  |
-| osqp      | 0.6.2.post0 |
-| proxqp    | 0.2.5       |
-| scs       | 3.2.0       |
+| solver   | version     |
+|:---------|:------------|
+| cvxopt   | 1.3.0       |
+| highs    | 1.1.2.dev3  |
+| osqp     | 0.6.2.post0 |
+| proxqp   | 0.2.5       |
+| scs      | 3.2.0       |
 
 All solvers were called via
 [qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc1.

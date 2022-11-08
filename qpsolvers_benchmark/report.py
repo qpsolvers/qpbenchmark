@@ -92,11 +92,11 @@ class Report:
         versions = get_solver_versions(self.test_set.solvers)
         versions_df = pandas.DataFrame(
             {
-                "package": list(versions.keys()),
+                "solver": list(versions.keys()),
                 "version": list(versions.values()),
             },
         )
-        versions_df = versions_df.set_index("package")
+        versions_df = versions_df.set_index("solver")
         versions_df = versions_df.sort_index()
         versions_table = versions_df.to_markdown(index=True)
         return versions_table
