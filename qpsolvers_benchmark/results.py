@@ -20,7 +20,7 @@ Test case results.
 """
 
 import os.path
-from typing import Optional
+from typing import Optional, Tuple
 
 import numpy as np
 import pandas
@@ -132,24 +132,31 @@ class Results:
             ignore_index=True,
         )
 
-    def build_success_rate_df(self) -> pandas.DataFrame:
+    def build_success_frames(
+        self, cost_tolerance: float, primal_tolerance: float
+    ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """
-        Build the success rate data frame.
+        Build the success-rate and solve-is-success data frames.
 
         Returns:
-            Success rate data frame.
+            Success-rate and solve-is-success data frames.
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-        return (
+        df = self.df.assign(
+            valid=lambda x: x.found
+            & (abs(x.cost_error) < cost_tolerance)
+            & (x.primal_error < primal_tolerance)
+        )
+        success_rate_df = (
             pandas.DataFrame(
                 {
                     settings: {
                         solver: 100.0
-                        * self.df[
-                            (self.df["settings"] == settings)
-                            & (self.df["solver"] == solver)
-                        ]["found"]
+                        * df[
+                            (df["settings"] == settings)
+                            & (df["solver"] == solver)
+                        ]["valid"]
                         .astype(float)
                         .mean()
                         for solver in solvers
@@ -160,6 +167,32 @@ class Results:
             .reindex(columns=sorted(all_settings))
             .sort_index()
         )
+        solve_is_success_df = (
+            pandas.DataFrame(
+                {
+                    settings: {
+                        solver: 100.0
+                        * (
+                            df[
+                                (df["settings"] == settings)
+                                & (df["solver"] == solver)
+                            ]["found"]
+                            == df[
+                                (df["settings"] == settings)
+                                & (df["solver"] == solver)
+                            ]["valid"]
+                        )
+                        .astype(float)
+                        .mean()
+                        for solver in solvers
+                    }
+                    for settings in all_settings
+                }
+            )
+            .reindex(columns=sorted(all_settings))
+            .sort_index()
+        )
+        return success_rate_df, solve_is_success_df
 
     def build_shifted_geometric_mean_df(
         self, column: str, shift: float, not_found_value: float

@@ -100,15 +100,16 @@ class Report:
         versions_table = versions_df.to_markdown(index=True)
         return versions_table
 
-    def get_success_rate_table(self):
-        success_rate_df = self.results.build_success_rate_df()
+    def write(self, path: str) -> None:
+        success_rate_df, solve_is_success_df = self.results.build_success_frames(
+            self.test_set.cost_tolerance, self.test_set.primal_tolerance
+        )
         success_rate_table = success_rate_df.to_markdown(
             index=True, floatfmt=".0f"
         )
-        success_rate_table = success_rate_table.replace(" 100    ", " **100**")
-        return success_rate_table
-
-    def write(self, path: str) -> None:
+        solve_is_success_table = solve_is_success_df.to_markdown(
+            index=True, floatfmt=".0f"
+        )
         with open(path, "w") as fh:
             fh.write(
                 f"""# {self.test_set.title}
@@ -146,9 +147,15 @@ by small outliers (in contrast to the geometric geometric mean). Check out the
 
 Precentage of problems each solver is able to solve:
 
-{self.get_success_rate_table()}
+{success_rate_table}
 
-Rows are solvers and columns are solver settings.
+Rows are solvers and columns are solver settings. We consider that a solver
+successfully solved a problem when (1) it returned with a success status and
+(2) its solution is within cost and primal error [tolerances](#settings). Here
+is a summary of the frequency at which solvers returned success (1) but the
+corresponding solution did not pass tolerance checks:
+
+{solve_is_success_table}
 
 ### Computation time
 
