@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-08 17:05:05.667461+00:00
+- Date: 2022-11-08 18:33:13.323571+00:00
 
 ## Solvers
 
@@ -39,6 +39,7 @@ All solvers were called via
 | osqp     | ``time_limit``                   | 1000.0    |  1000           |
 | proxqp   | ``eps_abs``                      | -         |     1e-09       |
 | proxqp   | ``eps_rel``                      | -         |     0           |
+| qpoases  | ``termination_tolerance``        | -         |     1e-07       |
 | qpoases  | ``time_limit``                   | 1000.0    |  1000           |
 | qpswift  | ``RELTOL``                       | -         |     1.73205e-09 |
 | scs      | ``eps_abs``                      | -         |     1e-09       |
@@ -67,9 +68,9 @@ Precentage of problems each solver is able to solve:
 | cvxopt   |        15 |              15 |
 | ecos     |         8 |               8 |
 | highs    |        76 |              76 |
-| osqp     |        64 |              53 |
+| osqp     |        68 |              53 |
 | proxqp   |       100 |             100 |
-| qpoases  |        75 |              75 |
+| qpoases  |        76 |              76 |
 | qpswift  |        15 |              15 |
 | quadprog |        34 |              34 |
 | scs      |        29 |              27 |
@@ -86,7 +87,7 @@ checks:
 | cvxopt   |       100 |             100 |
 | ecos     |       100 |             100 |
 | highs    |       100 |             100 |
-| osqp     |        98 |             100 |
+| osqp     |        75 |             100 |
 | proxqp   |       100 |             100 |
 | qpoases  |        78 |              78 |
 | qpswift  |       100 |             100 |
