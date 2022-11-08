@@ -85,10 +85,8 @@ class Report:
         df = df.sort_values(by=["solver", "parameter"])
         return df.to_markdown(index=False)
 
-    def get_versions_table(self):
+    def get_solver_versions_table(self):
         versions = get_solver_versions(self.test_set.solvers)
-        packages = ["qpsolvers"]
-        versions.update({pkg: metadata.version(pkg) for pkg in packages})
         versions_df = pandas.DataFrame(
             {
                 "package": list(versions.keys()),
@@ -101,7 +99,11 @@ class Report:
         return versions_table
 
     def write(self, path: str) -> None:
-        success_rate_df, solve_is_success_df = self.results.build_success_frames(
+        qpsolvers_version = metadata.version("qpsolvers")
+        (
+            success_rate_df,
+            solve_is_success_df,
+        ) = self.results.build_success_frames(
             self.test_set.cost_tolerance, self.test_set.primal_tolerance
         )
         success_rate_table = success_rate_df.to_markdown(
@@ -118,6 +120,13 @@ class Report:
 - CPU: {self.cpu_info}
 - Date: {self.date}
 
+## Solvers
+
+{self.get_solver_versions_table()}
+
+All solvers were called via
+[qpsolvers](https://github.com/stephane-caron/qpsolvers) v{qpsolvers_version}.
+
 ## Settings
 
 - Cost tolerance: {self.test_set.cost_tolerance}
@@ -128,18 +137,14 @@ class Report:
 
 ## Metrics
 
-For each metric (computation time, primal error, cost error, ...), every
-problem in the test set produces a different ranking of solvers. To aggregate
-those rankings into a single metric over the whole test set, we use the
-**shifted geometric mean**, which is a standard to aggregate computation times
-in [benchmarks for optimization software](http://plato.asu.edu/bench.html).
+We look at the following statistics:
 
-The shifted geometric mean is a slowdown/loss factor compared to the best
-solver over the whole test set. Hence, the best solvers for a given metric have
-a shifted geometric mean close to one. This mean has the advantage of being
-compromised by neither large outliers (as opposed to the arithmetic mean) nor
-by small outliers (in contrast to the geometric geometric mean). Check out the
-[references](#see-also) below for more information.
+- [Success rate](#success-rate)
+- [Computation time](#computation-time)
+- [Primal error](#primal-error)
+- [Cost error](#cost-error)
+
+They are presented in more detail in [Metrics](README.md#metrics).
 
 ## Results
 
