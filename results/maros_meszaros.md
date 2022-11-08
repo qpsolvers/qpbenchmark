@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-08 16:37:11.158163+00:00
+- Date: 2022-11-08 16:39:40.260070+00:00
 
 ## Solvers
 
@@ -19,8 +19,8 @@ All solvers were called via
 
 ## Settings
 
-- Cost error limit: 1000.0
-- Primal error limit: 1.0
+- Cost tolerance: 1000.0
+- Primal tolerance: 1.0
 - Time limit: 1000.0 seconds
 
 | solver   | parameter                        | default   |   high_accuracy |
@@ -44,18 +44,14 @@ All solvers were called via
 
 ## Metrics
 
-For each metric (computation time, primal error, cost error, ...), every
-problem in the test set produces a different ranking of solvers. To aggregate
-those rankings into a single metric over the whole test set, we use the
-**shifted geometric mean**, which is a standard to aggregate computation times
-in [benchmarks for optimization software](http://plato.asu.edu/bench.html).
+We look at the following statistics:
 
-The shifted geometric mean is a slowdown/loss factor compared to the best
-solver over the whole test set. Hence, the best solvers for a given metric have
-a shifted geometric mean close to one. This mean has the advantage of being
-compromised by neither large outliers (as opposed to the arithmetic mean) nor
-by small outliers (in contrast to the geometric geometric mean). Check out the
-[references](#see-also) below for more information.
+- [Success rate](#success-rate)
+- [Computation time](#computation-time)
+- [Primal error](#primal-error)
+- [Cost error](#cost-error)
+
+They are presented in more detail in [Metrics](README.md#metrics).
 
 ## Results
 
