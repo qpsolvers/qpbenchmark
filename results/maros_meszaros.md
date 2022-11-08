@@ -112,11 +112,11 @@ Shifted geometric means of solver primal errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |       3.1 |             3.1 |
-| highs  |       1.4 |             1.4 |
-| osqp   |       4.5 |             2.4 |
+| cvxopt |       5.7 |             3.9 |
+| highs  |       2.6 |             1.8 |
+| osqp   |       8.1 |             2.9 |
 | proxqp |       1.0 |             1.0 |
-| scs    |    6680.3 |          6501.7 |
+| scs    |   12159.5 |          7989.2 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
