@@ -54,7 +54,7 @@ We look at the following statistics:
 - [Primal error](#primal-error)
 - [Cost error](#cost-error)
 
-They are presented in more detail in [Metrics](README.md#metrics).
+They are presented in more detail in [Metrics](../README.md#metrics).
 
 ## Results
 
@@ -98,7 +98,7 @@ checks:
 We compare solver computation times over the whole test set using the shifted
 geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of
 Y is Y times slower than the best solver over the test set. See
-[Metrics](README.md#metrics) for details.
+[Metrics](../README.md#metrics) for details.
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
@@ -125,7 +125,7 @@ violation in the solution returned by a solver. We use the shifted geometric
 mean to compare solver primal errors over the whole test set. Intuitively, a
 solver with a shifted-geometric-mean primal error of Y is Y times less precise
 on constraints than the best solver over the test set. See
-[Metrics](README.md#metrics) for details.
+[Metrics](../README.md#metrics) for details.
 
 Shifted geometric means of solver primal errors (1.0 is the best):
 
@@ -152,7 +152,7 @@ the objective at the solution returned by a solver. We use the shifted
 geometric mean to compare solver cost errors over the whole test set.
 Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times
 less precise on the optimal cost than the best solver over the test set. See
-[Metrics](README.md#metrics) for details.
+[Metrics](../README.md#metrics) for details.
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
