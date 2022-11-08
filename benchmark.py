@@ -83,6 +83,10 @@ def parse_command_line_arguments():
         "results_file",
         help="path to the corresponding results CSV file",
     )
+    parser_report.add_argument(
+        "--author",
+        help="author field in the report",
+    )
 
     # run
     parser_run = subparsers.add_parser(
@@ -177,7 +181,11 @@ if __name__ == "__main__":
 
     if args.command in ["report", "run"]:
         logging.info("Writing the overall report...")
-        author = input("GitHub username to write in the report? ")
+        author = (
+            args.author
+            if args.author
+            else input("GitHub username to write in the report? ")
+        )
         report = Report(author, test_set, results)
         md_path = results.csv_path.replace(".csv", ".md")
         report.write(md_path)
