@@ -143,12 +143,10 @@ class Results:
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-        df = self.df[
-            (~self.df["cost_error"].isnull())
-            & (~self.df["primal_error"].isnull())
-        ].assign(
+        df = self.df.assign(
             valid=lambda x: x.found
-            & (abs(x.cost_error) < cost_tolerance)
+            & (-cost_tolerance < x.cost_error)
+            & (x.cost_error < cost_tolerance)
             & (x.primal_error < primal_tolerance)
         )
         success_rate_df = (
