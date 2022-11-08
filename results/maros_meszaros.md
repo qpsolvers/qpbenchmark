@@ -135,11 +135,11 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |      15.9 |            16.1 |
-| highs  |       1.9 |             1.9 |
-| osqp   |       3.9 |             6.3 |
+| cvxopt |      24.5 |            19.7 |
+| highs  |       2.9 |             2.3 |
+| osqp   |       6.0 |             7.7 |
 | proxqp |       1.0 |             1.0 |
-| scs    |  241057.5 |        261034.4 |
+| scs    |  371722.0 |        318393.2 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
