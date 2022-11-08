@@ -20,6 +20,7 @@ Base class for test sets.
 """
 
 import abc
+from time import perf_counter
 from typing import Dict, Iterator, Optional
 
 import qpsolvers
@@ -148,6 +149,7 @@ class TestSet(abc.ABC):
         ]
 
         nb_called = 0
+        start_counter = perf_counter()
         for problem in self:
             if only_problem and problem.name != only_problem:
                 continue
@@ -189,4 +191,7 @@ class TestSet(abc.ABC):
                     )
                     results.write()
                     nb_called += 1
+
+        duration = perf_counter() - start_counter
+        logging.info(f"Ran the test set in {duration:.0f} seconds")
         logging.info(f"Made {nb_called} QP solver calls")
