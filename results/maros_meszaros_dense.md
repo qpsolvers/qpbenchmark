@@ -6,8 +6,8 @@
 
 ## Settings
 
-- Cost error limit: 1000.0
-- Primal error limit: 1.0
+- Cost tolerance: 1000.0
+- Primal tolerance: 1.0
 - Time limit: 1000.0 seconds
 
 | solver   | parameter                        | default   |   high_accuracy |
@@ -95,21 +95,21 @@ The primal error measures the maximum (equality and inequality) constraint
 violation in the solution returned by a solver. Here are the shifted geometric
 means of solver primal errors (1.0 is the best):
 
-|          |       default |    high_accuracy |
-|:---------|--------------:|-----------------:|
-| cvxopt   |     1265879.8 |     4364662336.9 |
-| ecos     |     1371636.4 |     4729303555.6 |
-| highs    |      344202.0 |     1186783808.0 |
-| osqp     |      798784.5 |     2400713695.4 |
-| proxqp   |           1.0 |              1.0 |
-| qpoases  |    21485508.8 |    74080487390.4 |
-| qpswift  |     1265879.8 |     4364662336.8 |
-| quadprog |      978548.1 |     3373963557.3 |
-| scs      |     1058316.2 |     3732182439.9 |
+|          |    default |   high_accuracy |
+|:---------|-----------:|----------------:|
+| cvxopt   |  1265879.8 |    4364662336.9 |
+| ecos     |  1371636.4 |    4729303555.6 |
+| highs    |   344202.0 |    1186783808.0 |
+| osqp     |   798784.5 |    2400713695.4 |
+| proxqp   |        1.0 |             1.0 |
+| qpoases  | 21485508.8 |   74080487390.4 |
+| qpswift  |  1265879.8 |    4364662336.8 |
+| quadprog |   978548.1 |    3373963557.3 |
+| scs      |  1058316.2 |    3732182439.9 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
-[primal error limit](#settings).
+[primal tolerance](#settings).
 
 ### Cost errors
 
@@ -117,21 +117,21 @@ The cost error measures the difference between the known optimal objective and
 the objective at the solution returned by a solver. Here are the shifted
 geometric means of solver cost errors (1.0 is the best):
 
-|          |     default |   high_accuracy |
-|:---------|------------:|----------------:|
-| cvxopt   |      1037.8 |          1591.7 |
-| ecos     |      1426.8 |          2188.4 |
-| highs    |        42.5 |            65.1 |
-| osqp     |       123.9 |           258.1 |
-| proxqp   |         1.0 |             1.0 |
-| qpoases  |       255.7 |           392.2 |
-| qpswift  |      1037.8 |          1591.7 |
-| quadprog |       426.7 |           654.5 |
-| scs      |       547.5 |           906.9 |
+|          |   default |   high_accuracy |
+|:---------|----------:|----------------:|
+| cvxopt   |    1037.8 |          1591.7 |
+| ecos     |    1426.8 |          2188.4 |
+| highs    |      42.5 |            65.1 |
+| osqp     |     123.9 |           258.1 |
+| proxqp   |       1.0 |             1.0 |
+| qpoases  |     255.7 |           392.2 |
+| qpswift  |    1037.8 |          1591.7 |
+| quadprog |     426.7 |           654.5 |
+| scs      |     547.5 |           906.9 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
-error limit](#settings).
+tolerance](#settings).
 
 ## Package versions
 
