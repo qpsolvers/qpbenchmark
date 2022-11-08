@@ -25,6 +25,26 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Active set | Dense | GPL-2.0 |
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Augmented Lagrangian | Sparse | MIT |
 
+## Metrics
+
+- **Success rate:** percentage of problems a solver is able to solve on a given test set.
+- **Primal error:** ...
+- **Cost error:** ...
+
+### Shifted geometric mean
+
+For each metric (computation time, primal error, cost error, ...), every
+problem in the test set produces a different ranking of solvers. To aggregate
+those rankings into a single metric over the whole test set, we use the
+**shifted geometric mean**, which is a standard to aggregate computation times
+in [benchmarks for optimization software](http://plato.asu.edu/bench.html).
+
+The shifted geometric mean is a slowdown/loss factor compared to the best
+solver over the whole test set. This mean has the advantage of being
+compromised by neither large outliers (as opposed to the arithmetic mean) nor
+by small outliers (in contrast to the geometric geometric mean). Check out the
+[references](#see-also) below for further details.
+
 ## Results
 
 Check out the full reports for each test set in the [results](results) directory.
