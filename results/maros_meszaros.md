@@ -2,7 +2,20 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-07 11:34:58.075526+00:00
+- Date: 2022-11-08 16:37:11.158163+00:00
+
+## Solvers
+
+| package   | version     |
+|:----------|:------------|
+| cvxopt    | 1.3.0       |
+| highs     | 1.1.2.dev3  |
+| osqp      | 0.6.2.post0 |
+| proxqp    | 0.2.5       |
+| scs       | 3.2.0       |
+
+All solvers were called via
+[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc1.
 
 ## Settings
 
@@ -55,7 +68,7 @@ Precentage of problems each solver is able to solve:
 | cvxopt |        16 |              16 |
 | highs  |        61 |              61 |
 | osqp   |        64 |              36 |
-| proxqp |        72 |              72 |
+| proxqp |        85 |              78 |
 | scs    |        54 |              53 |
 
 Rows are solvers and columns are solver settings.

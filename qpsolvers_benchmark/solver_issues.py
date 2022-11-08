@@ -35,45 +35,8 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
         True if solver is known to fail at solving the problem.
     """
     if solver == "proxqp":
-        # https://github.com/Simple-Robotics/proxsuite/issues/62
-        if problem.name == "HUESTIS":
-            return True
-        # other segfaults, potentially same issue as HUESTIS
-        elif problem.name in [
-            "AUG2D",
-            "AUG2DC",
-            "AUG2DCQP",
-            "AUG2DQP",
-            "BOYD2",
-            "CVXQP1_L",
-            "CVXQP2_L",
-            "CVXQP3_L",
-            "DTOC3",
-            "LISWET1",
-            "LISWET10",
-            "LISWET11",
-            "LISWET12",
-            "LISWET2",
-            "LISWET3",
-            "LISWET4",
-            "LISWET5",
-            "LISWET6",
-            "LISWET7",
-            "LISWET8",
-            "LISWET9",
-            "POWELL20",
-            "QSHIP08L",
-            "QSHIP12L",
-            "STADAT1",
-            "STADAT2",
-            "STADAT3",
-            "UBH1",
-            "YAO",
-        ]:
-            logging.warning("Skipping UNREPORTED issue")
-            return True
         # https://github.com/Simple-Robotics/proxsuite/issues/63
-        elif problem.name == "QGFRDXPN":
+        if problem.name == "QGFRDXPN":
             return True
         # other hangs (> 10 min, no solution)
         elif problem.name in [
@@ -120,12 +83,48 @@ def skip_solver_timeout(
         ("AUG2D", "highs", "high_accuracy"): 40 * minutes,
         ("AUG2DC", "highs", "default"): 40 * minutes,
         ("AUG2DC", "highs", "high_accuracy"): 40 * minutes,
+        ("BOYD2", "proxqp", "default"): 20 * minutes,
+        ("BOYD2", "proxqp", "high_accuracy"): 20 * minutes,
         ("CONT-300", "cvxopt", "default"): 20 * minutes,
         ("CONT-300", "cvxopt", "high_accuracy"): 20 * minutes,
         ("CONT-300", "highs", "default"): 30 * minutes,
         ("CONT-300", "highs", "high_accuracy"): 30 * minutes,
+        ("CVXQP1_L", "proxqp", "default"): 20 * minutes,
+        ("CVXQP1_L", "proxqp", "high_accuracy"): 20 * minutes,
         ("CVXQP3_L", "cvxopt", "default"): 20 * minutes,
         ("CVXQP3_L", "cvxopt", "high_accuracy"): 20 * minutes,
+        ("CVXQP3_L", "proxqp", "default"): 30 * minutes,
+        ("CVXQP3_L", "proxqp", "high_accuracy"): 30 * minutes,
+        ("LISWET1", "proxqp", "default"): 20 * minutes,
+        ("LISWET1", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET10", "proxqp", "default"): 50 * minutes,
+        ("LISWET10", "proxqp", "high_accuracy"): 50 * minutes,
+        ("LISWET11", "proxqp", "high_accuracy"): 40 * minutes,
+        ("LISWET12", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET2", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET3", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET4", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET5", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET6", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET7", "proxqp", "high_accuracy"): 30 * minutes,
+        ("LISWET8", "proxqp", "high_accuracy"): 30 * minutes,
+        ("LISWET9", "proxqp", "high_accuracy"): 30 * minutes,
+        ("POWELL20", "proxqp", "default"): 30 * minutes,
+        ("POWELL20", "proxqp", "high_accuracy"): 30 * minutes,
+        ("QSHIP08L", "proxqp", "default"): 20 * minutes,
+        ("QSHIP08L", "proxqp", "high_accuracy"): 20 * minutes,
+        ("QSHIP12L", "proxqp", "default"): 20 * minutes,
+        ("QSHIP12L", "proxqp", "high_accuracy"): 20 * minutes,
+        ("STADAT1", "proxqp", "default"): 20 * minutes,
+        ("STADAT1", "proxqp", "high_accuracy"): 20 * minutes,
+        ("STADAT2", "proxqp", "default"): 20 * minutes,
+        ("STADAT2", "proxqp", "high_accuracy"): 20 * minutes,
+        ("STADAT3", "proxqp", "default"): 20 * minutes,
+        ("STADAT3", "proxqp", "high_accuracy"): 20 * minutes,
+        ("UBH1", "proxqp", "default"): 20 * minutes,
+        ("UBH1", "proxqp", "high_accuracy"): 20 * minutes,
+        ("YAO", "proxqp", "default"): 20 * minutes,
+        ("YAO", "proxqp", "high_accuracy"): 20 * minutes,
     }
     if (problem.name, solver, settings) in known_timeout_settings:
         timeout = known_timeout_settings[(problem.name, solver, settings)]
