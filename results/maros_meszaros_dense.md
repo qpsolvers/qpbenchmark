@@ -1,7 +1,7 @@
 # Maros-Meszaros dense subset
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-09 10:35:12.952467+00:00
+- Date: 2022-11-09 11:06:22.014553+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Solvers
@@ -23,14 +23,14 @@ All solvers were called via
 
 ## Settings
 
-There are 2 settings: ``default`` and
-``high_accuracy``. They validate solutions using the following tolerances:
+There are 2 settings: **default** and
+**high_accuracy**. They validate solutions using the following tolerances:
 
-| tolerance            |   default |   high_accuracy |
-|:---------------------|----------:|----------------:|
-| ``cost_tolerance``   |      1000 |        1000     |
-| ``primal_tolerance`` |         1 |           1e-09 |
-| ``time_limit``       |      1000 |        1000     |
+| tolerance        |   default |   high_accuracy |
+|:-----------------|----------:|----------------:|
+| ``cost``         |      1000 |        1000     |
+| ``primal``       |         1 |           1e-09 |
+| ``runtime_secs`` |      1000 |        1000     |
 
 Solvers for each group of settings are configured as follows:
 
