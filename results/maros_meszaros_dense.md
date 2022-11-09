@@ -26,11 +26,11 @@ All solvers were called via
 There are 2 settings: **default** and
 **high_accuracy**. They validate solutions using the following tolerances:
 
-| tolerance        |   default |   high_accuracy |
-|:-----------------|----------:|----------------:|
-| ``cost``         |      1000 |        1000     |
-| ``primal``       |         1 |           1e-09 |
-| ``runtime_secs`` |      1000 |        1000     |
+| tolerance   |   default |   high_accuracy |
+|:------------|----------:|----------------:|
+| ``cost``    |      1000 |        1000     |
+| ``primal``  |         1 |           1e-09 |
+| ``runtime`` |      1000 |        1000     |
 
 Solvers for each group of settings are configured as follows:
 
@@ -72,14 +72,14 @@ Precentage of problems each solver is able to solve:
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| cvxopt   |        15 |              15 |
+| cvxopt   |        15 |              14 |
 | ecos     |         8 |               8 |
-| highs    |        76 |              76 |
+| highs    |        76 |              71 |
 | osqp     |        68 |              53 |
 | proxqp   |       100 |             100 |
-| qpoases  |        76 |              76 |
+| qpoases  |        76 |              66 |
 | qpswift  |        15 |              15 |
-| quadprog |        34 |              34 |
+| quadprog |        34 |              29 |
 | scs      |        29 |              27 |
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
@@ -91,14 +91,14 @@ checks:
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| cvxopt   |       100 |             100 |
+| cvxopt   |       100 |              98 |
 | ecos     |       100 |             100 |
-| highs    |       100 |             100 |
+| highs    |       100 |              95 |
 | osqp     |        75 |             100 |
 | proxqp   |       100 |             100 |
-| qpoases  |        78 |              78 |
+| qpoases  |        78 |              68 |
 | qpswift  |       100 |             100 |
-| quadprog |       100 |             100 |
+| quadprog |       100 |              95 |
 | scs      |       100 |             100 |
 
 ### Computation time
@@ -112,15 +112,15 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| cvxopt   |    1627.4 |          1501.0 |
-| ecos     |    2237.3 |          2063.4 |
-| highs    |      68.5 |            63.3 |
-| osqp     |      12.3 |           243.5 |
+| cvxopt   |    1582.0 |          1477.5 |
+| ecos     |    2174.9 |          2031.1 |
+| highs    |      66.6 |            62.3 |
+| osqp     |      12.0 |           239.7 |
 | proxqp   |       1.0 |             1.0 |
-| qpoases  |       9.0 |             8.4 |
-| qpswift  |    1627.1 |          1500.7 |
-| quadprog |     669.0 |           617.0 |
-| scs      |     855.0 |           855.3 |
+| qpoases  |       8.9 |             8.3 |
+| qpswift  |    1581.8 |          1477.2 |
+| quadprog |     650.4 |           607.4 |
+| scs      |     831.1 |           841.9 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
@@ -142,7 +142,7 @@ Shifted geometric means of solver primal errors (1.0 is the best):
 | cvxopt   |  527043.5 |             4.8 |
 | ecos     |  571074.8 |             4.8 |
 | highs    |  143307.0 |             3.2 |
-| osqp     | 7596225.6 |             2.9 |
+| osqp     | 9054749.8 |             2.9 |
 | proxqp   |       1.0 |             1.0 |
 | qpoases  | 8920845.0 |   74176652704.9 |
 | qpswift  |  527043.5 |             4.4 |
@@ -169,7 +169,7 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | cvxopt   |     945.1 |          1591.8 |
 | ecos     |    1299.3 |          2188.5 |
 | highs    |      38.7 |            65.1 |
-| osqp     |     578.2 |           258.1 |
+| osqp     |     679.5 |           258.1 |
 | proxqp   |       1.0 |             1.0 |
 | qpoases  |     214.3 |           360.9 |
 | qpswift  |     945.1 |          1591.8 |
