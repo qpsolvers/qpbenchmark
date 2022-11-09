@@ -10,18 +10,25 @@
 |:---------|:------------|
 | cvxopt   | 1.3.0       |
 | highs    | 1.1.2.dev3  |
-| osqp     | 0.6.2.post0 |
+| osqp     | 0.6.2.post5 |
 | proxqp   | 0.2.5       |
-| scs      | 3.2.0       |
+| scs      | 3.2.2       |
 
 All solvers were called via
 [qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc1.
 
 ## Settings
 
-- Cost tolerance: 1000.0
-- Primal tolerance: 1.0
-- Time limit: 1000.0 seconds
+There are 2 settings: ``default`` and
+``high_accuracy``. They validate solutions using the following tolerances:
+
+| tolerance            |   default |   high_accuracy |
+|:---------------------|----------:|----------------:|
+| ``cost_tolerance``   |      1000 |        1000     |
+| ``primal_tolerance`` |         1 |           1e-09 |
+| ``time_limit``       |      1000 |        1000     |
+
+Solvers for each group of settings are configured as follows:
 
 | solver   | parameter                        | default   |   high_accuracy |
 |:---------|:---------------------------------|:----------|----------------:|
