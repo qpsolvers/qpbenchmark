@@ -205,7 +205,7 @@ status and (2) its solution is within cost and primal error
 returned success (1) but the corresponding solution did not pass tolerance
 checks:
 
-{solve_is_success_table}
+{correct_rate_table}
 
 ### Computation time
 
@@ -219,7 +219,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="runtime",
     shift=10.0,
-    not_found_value=self.test_set.time_limit,
+    not_found_values=time_limits,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
@@ -240,7 +240,7 @@ Shifted geometric means of solver primal errors (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="primal_error",
     shift=10.0,
-    not_found_value=self.test_set.primal_tolerance,
+    not_found_values=primal_tolerances,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
@@ -261,7 +261,7 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 {self.results.build_shifted_geometric_mean_df(
     column="cost_error",
     shift=10.0,
-    not_found_value=self.test_set.cost_tolerance,
+    not_found_values=cost_tolerances,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A

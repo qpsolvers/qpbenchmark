@@ -20,7 +20,7 @@ Test case results.
 """
 
 import os.path
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple
 
 import numpy as np
 import pandas
@@ -136,10 +136,10 @@ class Results:
         self, cost_tolerance: float, primal_tolerance: float
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """
-        Build the success-rate and solve-is-success data frames.
+        Build the success-rate and correctness-rate data frames.
 
         Returns:
-            Success-rate and solve-is-success data frames.
+            Success-rate and correctness-rate data frames.
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
@@ -168,7 +168,7 @@ class Results:
             .reindex(columns=sorted(all_settings))
             .sort_index()
         )
-        solve_is_success_df = (
+        correctness_rate_df = (
             pandas.DataFrame(
                 {
                     settings: {
@@ -193,10 +193,10 @@ class Results:
             .reindex(columns=sorted(all_settings))
             .sort_index()
         )
-        return success_rate_df, solve_is_success_df
+        return success_rate_df, correctness_rate_df
 
     def build_shifted_geometric_mean_df(
-        self, column: str, shift: float, not_found_value: float
+        self, column: str, shift: float, not_found_values: Dict[str, float]
     ) -> pandas.DataFrame:
         """
         Compute the shifted geometric mean of a results column.
@@ -204,9 +204,9 @@ class Results:
         Args:
             column: Name of the column to average.
             shift: Shift of the shifted geometric mean.
-            not_found_value: Value to apply when a solver has not found a
-                solution. For instance, time limits are used for the runtime of
-                a solver that fails to solve a problem.
+            not_found_values: Values to apply when a solver has not found a
+                solution (one per settings). For instance, time limits are used
+                for the runtime of a solver that fails to solve a problem.
 
         Returns:
             Shifted geometric mean of the prescribed column.
@@ -227,7 +227,7 @@ class Results:
                     [
                         abs(solver_df.at[i, column])  # abs() for cost error
                         if solver_df.at[i, "found"]
-                        else not_found_value
+                        else not_found_values[settings]
                         for i in solver_df.index
                     ]
                 )

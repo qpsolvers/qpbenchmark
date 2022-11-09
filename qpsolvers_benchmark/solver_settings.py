@@ -52,17 +52,25 @@ class SolverSettings:
         """
         return solver in cls.IMPLEMENTED_SOLVERS
 
-    def __init__(self, time_limit: float):
+    def __init__(
+        self, cost_tolerance: float, primal_tolerance: float, time_limit: float
+    ):
         """
         Initialize settings.
 
         Args:
+            cost_tolerance: Cost tolerance.
+            primal_tolerance: Primal tolerance.
             time_limit: Time limit in seconds.
         """
+        self.cost_tolerance = cost_tolerance
+        self.primal_tolerance = primal_tolerance
+        self.time_limit = time_limit
         self.__settings: Dict[str, Dict[str, Any]] = {
             solver: {} for solver in self.IMPLEMENTED_SOLVERS
         }
         #
+        self.__apply_primal_tolerance(primal_tolerance)
         self.__apply_time_limit(time_limit)
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
@@ -77,20 +85,7 @@ class SolverSettings:
         """
         return self.__settings[solver]
 
-    def __apply_time_limit(self, time_limit: float) -> None:
-        """
-        Apply time limits to all solvers.
-
-        Args:
-            time_limit: Time limit in seconds.
-        """
-        self.__settings["gurobi"]["time_limit"] = time_limit
-        self.__settings["highs"]["time_limit"] = time_limit
-        self.__settings["osqp"]["time_limit"] = time_limit
-        self.__settings["qpoases"]["time_limit"] = time_limit
-        self.__settings["scs"]["time_limit_secs"] = time_limit
-
-    def apply_absolute_tolerance(self, eps_abs: float) -> None:
+    def __apply_primal_tolerance(self, eps_abs: float) -> None:
         """
         Apply absolute tolerance, disable relative tolerance for all solvers.
 
@@ -133,7 +128,20 @@ class SolverSettings:
         self.__settings["scs"]["eps_abs"] = eps_abs
         self.__settings["scs"]["eps_rel"] = 0.0
 
-    def apply_verbosity(self, verbose: bool) -> None:
+    def __apply_time_limit(self, time_limit: float) -> None:
+        """
+        Apply time limits to all solvers.
+
+        Args:
+            time_limit: Time limit in seconds.
+        """
+        self.__settings["gurobi"]["time_limit"] = time_limit
+        self.__settings["highs"]["time_limit"] = time_limit
+        self.__settings["osqp"]["time_limit"] = time_limit
+        self.__settings["qpoases"]["time_limit"] = time_limit
+        self.__settings["scs"]["time_limit_secs"] = time_limit
+
+    def set_verbosity(self, verbose: bool) -> None:
         """
         Apply verbosity settings to all solvers.
 

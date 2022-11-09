@@ -35,10 +35,7 @@ from .spdlog import logging
 
 class TestSet(abc.ABC):
 
-    cost_tolerance: float
-    primal_tolerance: float
     solver_settings: Dict[str, SolverSettings]
-    time_limit: float
 
     @abc.abstractmethod
     def __iter__(self) -> Iterator[Problem]:
@@ -87,7 +84,6 @@ class TestSet(abc.ABC):
         self.primal_tolerance = 0.0
         self.solver_settings = {}
         self.solvers = solvers
-        self.time_limit = 0.0
         #
         self.define_settings()
 
