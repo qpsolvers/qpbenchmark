@@ -27,12 +27,12 @@ from .maros_meszaros import MarosMeszaros
 
 class MarosMeszarosDense(MarosMeszaros):
     @property
-    def sparse_only(self) -> bool:
-        return False
-
-    @property
     def title(self) -> str:
         return "Maros-Meszaros dense subset"
+
+    @property
+    def sparse_only(self) -> bool:
+        return False
 
     def __init__(self, data_dir: str):
         super().__init__(data_dir)

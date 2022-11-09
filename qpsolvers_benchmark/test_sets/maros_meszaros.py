@@ -34,6 +34,14 @@ class MarosMeszaros(TestSet):
     data_dir: str
     optimal_costs: Dict[str, float]
 
+    @property
+    def title(self) -> str:
+        return "Maros-Meszaros test set"
+
+    @property
+    def sparse_only(self) -> bool:
+        return True
+
     def define_tolerances(self) -> None:
         self.tolerances = {
             "default": Tolerance(
@@ -64,14 +72,6 @@ class MarosMeszaros(TestSet):
             "default": default,
             "high_accuracy": high_accuracy,
         }
-
-    @property
-    def sparse_only(self) -> bool:
-        return True
-
-    @property
-    def title(self) -> str:
-        return "Maros-Meszaros test set"
 
     def __init__(self, data_dir: str):
         super().__init__()

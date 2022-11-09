@@ -33,7 +33,7 @@ class Tolerance:
         Args:
             cost_tolerance: Cost tolerance.
             primal_tolerance: Primal tolerance.
-            time_limit: Time limit in seconds.
+            runtime_secs: Time limit in seconds.
         """
         self.cost = cost
         self.primal = primal

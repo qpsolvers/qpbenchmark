@@ -162,7 +162,7 @@ class TestSet(abc.ABC):
                 continue
             for solver in filtered_solvers:
                 for settings in filtered_settings:
-                    time_limit = self.solver_settings[settings].time_limit
+                    time_limit = self.tolerances[settings].runtime_secs
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
