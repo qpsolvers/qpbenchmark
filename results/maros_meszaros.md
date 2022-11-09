@@ -1,7 +1,7 @@
 # Maros-Meszaros test set
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-09 17:15:24.721091+00:00
+- Date: 2022-11-09 21:45:47.569562+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Solvers
@@ -22,11 +22,11 @@ All solvers were called via
 There are 2 settings: **default** and
 **high_accuracy**. They validate solutions using the following tolerances:
 
-| tolerance        |   default |   high_accuracy |
-|:-----------------|----------:|----------------:|
-| ``cost``         |      1000 |        1000     |
-| ``primal``       |         1 |           1e-09 |
-| ``runtime_secs`` |      1000 |        1000     |
+| tolerance   |   default |   high_accuracy |
+|:------------|----------:|----------------:|
+| ``cost``    |      1000 |        1000     |
+| ``primal``  |         1 |           1e-09 |
+| ``runtime`` |      1000 |        1000     |
 
 Solvers for each group of settings are configured as follows:
 
@@ -64,11 +64,11 @@ Precentage of problems each solver is able to solve:
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |        16 |              16 |
-| highs  |        60 |              60 |
+| cvxopt |        16 |              12 |
+| highs  |        60 |              56 |
 | osqp   |        59 |              36 |
-| proxqp |        81 |              76 |
-| scs    |        33 |              24 |
+| proxqp |        81 |              75 |
+| scs    |        33 |              21 |
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
 that a solver successfully solved a problem when (1) it returned with a success
@@ -79,11 +79,11 @@ checks:
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |       100 |             100 |
-| highs  |        99 |              99 |
+| cvxopt |       100 |              96 |
+| highs  |        99 |              95 |
 | osqp   |        73 |             100 |
-| proxqp |        96 |              99 |
-| scs    |        99 |              99 |
+| proxqp |        96 |              98 |
+| scs    |        99 |              96 |
 
 ### Computation time
 
