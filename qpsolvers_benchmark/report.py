@@ -131,18 +131,28 @@ class Report:
 
     def write(self, path: str) -> None:
         qpsolvers_version = metadata.version("qpsolvers")
-        (
-            success_rate_df,
-            solve_is_success_df,
-        ) = self.results.build_success_frames(
+        cost_tolerances = {
+            name: settings.cost_tolerance
+            for name, settings in self.solver_settings.items()
+        }
+        primal_tolerances = {
+            name: settings.primal_tolerance
+            for name, settings in self.solver_settings.items()
+        }
+        time_limits = {
+            name: settings.time_limit
+            for name, settings in self.solver_settings.items()
+        }
+        success_rate_df, correct_rate_df = self.results.build_success_frames(
             self.test_set.cost_tolerance, self.test_set.primal_tolerance
         )
         success_rate_table = success_rate_df.to_markdown(
             index=True, floatfmt=".0f"
         )
-        solve_is_success_table = solve_is_success_df.to_markdown(
+        correct_rate_table = correct_rate_df.to_markdown(
             index=True, floatfmt=".0f"
         )
+        settings_names = [f"``{x}``" for x in self.solver_settings]
         with open(path, "w") as fh:
             fh.write(
                 f"""# {self.test_set.title}
@@ -160,9 +170,12 @@ All solvers were called via
 
 ## Settings
 
-- Cost tolerance: {self.test_set.cost_tolerance}
-- Primal tolerance: {self.test_set.primal_tolerance}
-- Time limit: {self.test_set.time_limit} seconds
+There are {len(settings_names)} settings: {", ".join(settings_names[:-1])} and
+{settings_names[-1]}. They validate solutions using the following tolerances:
+
+{self.get_tolerances_table()}
+
+Solvers for each group of settings are configured as follows:
 
 {self.get_solver_settings_table()}
 
