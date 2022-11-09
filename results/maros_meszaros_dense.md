@@ -1,7 +1,7 @@
 # Maros-Meszaros dense subset
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-09 09:57:09.508046+00:00
+- Date: 2022-11-09 10:35:12.952467+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Solvers
@@ -11,15 +11,15 @@
 | cvxopt   | 1.3.0       |
 | ecos     | 2.0.10      |
 | highs    | 1.1.2.dev3  |
-| osqp     | 0.6.2.post0 |
+| osqp     | 0.6.2.post5 |
 | proxqp   | 0.2.5       |
 | qpoases  | 3.2.0       |
 | qpswift  | 1.0.0       |
 | quadprog | 0.1.11      |
-| scs      | 3.2.0       |
+| scs      | 3.2.2       |
 
 All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc1.
+[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc2.
 
 ## Settings
 
