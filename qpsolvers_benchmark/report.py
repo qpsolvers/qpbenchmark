@@ -157,9 +157,9 @@ class Report:
             fh.write(
                 f"""# {self.test_set.title}
 
-- Author: [@{self.author}](https://github.com/{self.author}/)
 - CPU: {self.cpu_info}
 - Date: {self.date}
+- Run by: [@{self.author}](https://github.com/{self.author}/)
 
 ## Solvers
 

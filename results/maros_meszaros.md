@@ -1,8 +1,8 @@
 # Maros-Meszaros test set
 
-- Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-09 08:49:59.389915+00:00
+- Date: 2022-11-09 09:57:01.559922+00:00
+- Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Solvers
 

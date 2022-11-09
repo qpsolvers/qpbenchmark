@@ -1,8 +1,8 @@
 # Maros-Meszaros dense subset
 
-- Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-08 18:33:13.323571+00:00
+- Date: 2022-11-09 09:57:09.508046+00:00
+- Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Solvers
 
