@@ -18,8 +18,7 @@
 import argparse
 import os
 
-from qpsolvers_benchmark import Report, Results
-from qpsolvers_benchmark.spdlog import logging
+from qpsolvers_benchmark import Report, Results, logging
 from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
 
 TEST_CLASSES = {
