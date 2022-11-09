@@ -47,22 +47,22 @@ class MarosMeszaros(TestSet):
             "default": Tolerance(
                 cost=1000.0,
                 primal=1.0,
-                runtime_secs=1000.0,
+                runtime=1000.0,
             ),
             "high_accuracy": Tolerance(
                 cost=1000.0,
                 primal=1e-9,
-                runtime_secs=1000.0,
+                runtime=1000.0,
             ),
         }
 
     def define_solver_settings(self) -> None:
         default = SolverSettings()
-        default.set_time_limit(self.tolerances["default"].runtime_secs)
+        default.set_time_limit(self.tolerances["default"].runtime)
 
         high_accuracy = SolverSettings()
         high_accuracy.set_time_limit(
-            self.tolerances["high_accuracy"].runtime_secs
+            self.tolerances["high_accuracy"].runtime
         )
         high_accuracy.set_eps_abs(1e-9)
         high_accuracy.set_eps_rel(0.0)

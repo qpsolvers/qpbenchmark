@@ -24,17 +24,17 @@ class Tolerance:
 
     cost: float
     primal: float
-    runtime_secs: float
+    runtime: float
 
-    def __init__(self, cost: float, primal: float, runtime_secs: float):
+    def __init__(self, cost: float, primal: float, runtime: float):
         """
         Initialize tolerance.
 
         Args:
             cost_tolerance: Cost tolerance.
             primal_tolerance: Primal tolerance.
-            runtime_secs: Time limit in seconds.
+            runtime: Time limit in seconds.
         """
         self.cost = cost
         self.primal = primal
-        self.runtime_secs = runtime_secs
+        self.runtime = runtime

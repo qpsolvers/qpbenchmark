@@ -59,7 +59,7 @@ class Report:
             [],
             columns=["tolerance"] + names,
         )
-        tolerances = ["cost", "primal", "runtime_secs"]
+        tolerances = ["cost", "primal", "runtime"]
         for tolerance in tolerances:
             row = {
                 "tolerance": [f"``{tolerance}``"],
@@ -140,7 +140,7 @@ class Report:
             for name, tolerance in self.test_set.tolerances.items()
         }
         time_limits = {
-            name: tolerance.runtime_secs
+            name: tolerance.runtime
             for name, tolerance in self.test_set.tolerances.items()
         }
         success_rate_df, correct_rate_df = self.results.build_success_frames(
