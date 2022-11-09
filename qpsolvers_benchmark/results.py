@@ -159,7 +159,6 @@ class Results:
             for settings in all_settings
         }
         df = self.df.assign(**validity_columns)
-        print(df)
         success_rate_df = (
             pandas.DataFrame(
                 {

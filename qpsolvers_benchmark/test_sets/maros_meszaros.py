@@ -45,6 +45,8 @@ class MarosMeszaros(TestSet):
             primal_tolerance=1e-9,
             time_limit=1000.0,
         )
+        high_accuracy.set_eps_abs(1e-9)
+        high_accuracy.set_eps_rel(0.0)
         high_accuracy.set_param("qpoases", "termination_tolerance", 1e-7)
 
         self.solver_settings = {

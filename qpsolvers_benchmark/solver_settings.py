@@ -70,8 +70,7 @@ class SolverSettings:
             solver: {} for solver in self.IMPLEMENTED_SOLVERS
         }
         #
-        self.__apply_primal_tolerance(primal_tolerance)
-        self.__apply_time_limit(time_limit)
+        self.set_time_limit(time_limit)
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
         """
@@ -85,9 +84,9 @@ class SolverSettings:
         """
         return self.__settings[solver]
 
-    def __apply_primal_tolerance(self, eps_abs: float) -> None:
+    def set_eps_abs(self, eps_abs: float) -> None:
         """
-        Apply absolute tolerance, disable relative tolerance for all solvers.
+        Set absolute primal tolerances for solvers that support it.
 
         Args:
             eps_abs: Absolute primal feasibility tolerance.
@@ -121,16 +120,24 @@ class SolverSettings:
         self.__settings["highs"]["dual_feasibility_tolerance"] = eps_abs
         self.__settings["highs"]["primal_feasibility_tolerance"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
-        self.__settings["osqp"]["eps_rel"] = 0.0
         self.__settings["proxqp"]["eps_abs"] = eps_abs
-        self.__settings["proxqp"]["eps_rel"] = 0.0
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
         self.__settings["scs"]["eps_abs"] = eps_abs
-        self.__settings["scs"]["eps_rel"] = 0.0
 
-    def __apply_time_limit(self, time_limit: float) -> None:
+    def set_eps_rel(self, eps_rel: float) -> None:
         """
-        Apply time limits to all solvers.
+        Set relative primal tolerances for solvers that support it.
+
+        Args:
+            eps_rel: Relative primal feasibility tolerance.
+        """
+        self.__settings["osqp"]["eps_rel"] = eps_rel
+        self.__settings["proxqp"]["eps_rel"] = eps_rel
+        self.__settings["scs"]["eps_rel"] = eps_rel
+
+    def set_time_limit(self, time_limit: float) -> None:
+        """
+        Apply time limits to all solvers that support it.
 
         Args:
             time_limit: Time limit in seconds.

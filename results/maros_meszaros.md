@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-08 17:04:31.323081+00:00
+- Date: 2022-11-09 08:40:14.248676+00:00
 
 ## Solvers
 
