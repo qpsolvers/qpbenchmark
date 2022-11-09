@@ -27,6 +27,8 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 
 ## Metrics
 
+This benchmark evaluates QP solvers based on the following metrics:
+
 - **Success rate:** percentage of problems a solver is able to solve on a given test set.
 - **Computation time:** time a solver takes to solve a given problem.
 - **Primal error:** maximum error on equality and inequality constraints at the returned solution.
