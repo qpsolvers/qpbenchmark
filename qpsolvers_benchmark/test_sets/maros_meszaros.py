@@ -34,15 +34,19 @@ class MarosMeszaros(TestSet):
     optimal_costs: Dict[str, float]
 
     def define_settings(self) -> Dict[str, SolverSettings]:
-        default = SolverSettings(time_limit=1000.0)
+        default = SolverSettings(
+            cost_tolerance=1000.0,
+            primal_tolerance=1.0,
+            time_limit=1000.0,
+        )
 
-        high_accuracy = SolverSettings(time_limit=1000.0)
-        high_accuracy.apply_absolute_tolerance(1e-9)
+        high_accuracy = SolverSettings(
+            cost_tolerance=1000.0,
+            primal_tolerance=1e-9,
+            time_limit=1000.0,
+        )
         high_accuracy.set_param("qpoases", "termination_tolerance", 1e-7)
 
-        self.cost_tolerance = 1000.0
-        self.primal_tolerance = 1.0
-        self.time_limit = 1000.0  # [s]
         self.solver_settings = {
             "default": default,
             "high_accuracy": high_accuracy,

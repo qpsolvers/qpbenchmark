@@ -133,22 +133,33 @@ class Results:
         )
 
     def build_success_frames(
-        self, cost_tolerance: float, primal_tolerance: float
+        self,
+        cost_tolerances: Dict[str, float],
+        primal_tolerances: Dict[str, float],
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """
         Build the success-rate and correctness-rate data frames.
+
+        Args:
+            cost_tolerances: Cost tolerance for each settings.
+            primal_tolerances: Primal tolerance for each settings.
 
         Returns:
             Success-rate and correctness-rate data frames.
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-        df = self.df.assign(
-            valid=lambda x: x.found
-            & (-cost_tolerance < x.cost_error)
-            & (x.cost_error < cost_tolerance)
-            & (x.primal_error < primal_tolerance)
-        )
+        validity_columns = {
+            f"valid_{settings}": lambda x: (
+                x.found
+                & (-cost_tolerances[settings] < x.cost_error)
+                & (x.cost_error < cost_tolerances[settings])
+                & (x.primal_error < primal_tolerances[settings])
+            )
+            for settings in all_settings
+        }
+        df = self.df.assign(**validity_columns)
+        print(df)
         success_rate_df = (
             pandas.DataFrame(
                 {
@@ -157,7 +168,7 @@ class Results:
                         * df[
                             (df["settings"] == settings)
                             & (df["solver"] == solver)
-                        ]["valid"]
+                        ][f"valid_{settings}"]
                         .astype(float)
                         .mean()
                         for solver in solvers
@@ -181,7 +192,7 @@ class Results:
                             == df[
                                 (df["settings"] == settings)
                                 & (df["solver"] == solver)
-                            ]["valid"]
+                            ][f"valid_{settings}"]
                         )
                         .astype(float)
                         .mean()

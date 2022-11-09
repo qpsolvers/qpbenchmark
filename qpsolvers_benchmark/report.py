@@ -144,7 +144,7 @@ class Report:
             for name, settings in self.solver_settings.items()
         }
         success_rate_df, correct_rate_df = self.results.build_success_frames(
-            self.test_set.cost_tolerance, self.test_set.primal_tolerance
+            cost_tolerances, primal_tolerances
         )
         success_rate_table = success_rate_df.to_markdown(
             index=True, floatfmt=".0f"
