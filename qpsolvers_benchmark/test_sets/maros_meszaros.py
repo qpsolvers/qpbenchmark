@@ -26,6 +26,7 @@ from typing import Dict, Iterator
 from ..problem import Problem
 from ..solver_settings import SolverSettings
 from ..test_set import TestSet
+from ..tolerance import Tolerance
 
 
 class MarosMeszaros(TestSet):
@@ -33,17 +34,27 @@ class MarosMeszaros(TestSet):
     data_dir: str
     optimal_costs: Dict[str, float]
 
-    def define_settings(self) -> Dict[str, SolverSettings]:
-        default = SolverSettings(
-            cost_tolerance=1000.0,
-            primal_tolerance=1.0,
-            time_limit=1000.0,
-        )
+    def define_tolerances(self) -> None:
+        self.tolerances = {
+            "default": Tolerance(
+                cost=1000.0,
+                primal=1.0,
+                runtime_secs=1000.0,
+            ),
+            "high_accuracy": Tolerance(
+                cost=1000.0,
+                primal=1e-9,
+                runtime_secs=1000.0,
+            ),
+        }
 
-        high_accuracy = SolverSettings(
-            cost_tolerance=1000.0,
-            primal_tolerance=1e-9,
-            time_limit=1000.0,
+    def define_solver_settings(self) -> None:
+        default = SolverSettings()
+        default.set_time_limit(self.tolerances["default"].runtime_secs)
+
+        high_accuracy = SolverSettings()
+        high_accuracy.set_time_limit(
+            self.tolerances["high_accuracy"].runtime_secs
         )
         high_accuracy.set_eps_abs(1e-9)
         high_accuracy.set_eps_rel(0.0)

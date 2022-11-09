@@ -52,25 +52,14 @@ class SolverSettings:
         """
         return solver in cls.IMPLEMENTED_SOLVERS
 
-    def __init__(
-        self, cost_tolerance: float, primal_tolerance: float, time_limit: float
-    ):
+    def __init__(self):
         """
         Initialize settings.
-
-        Args:
-            cost_tolerance: Cost tolerance.
-            primal_tolerance: Primal tolerance.
-            time_limit: Time limit in seconds.
         """
-        self.cost_tolerance = cost_tolerance
-        self.primal_tolerance = primal_tolerance
-        self.time_limit = time_limit
         self.__settings: Dict[str, Dict[str, Any]] = {
             solver: {} for solver in self.IMPLEMENTED_SOLVERS
         }
         #
-        self.set_time_limit(time_limit)
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
         """

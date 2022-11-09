@@ -31,11 +31,13 @@ from .results import Results
 from .solver_issues import skip_solver_issue, skip_solver_timeout
 from .solver_settings import SolverSettings
 from .spdlog import logging
+from .tolerance import Tolerance
 
 
 class TestSet(abc.ABC):
 
     solver_settings: Dict[str, SolverSettings]
+    tolerances: Dict[str, Tolerance]
 
     @abc.abstractmethod
     def __iter__(self) -> Iterator[Problem]:
@@ -44,9 +46,15 @@ class TestSet(abc.ABC):
         """
 
     @abc.abstractmethod
-    def define_settings(self):
+    def define_tolerances(self):
         """
-        Define test-set and solver settings.
+        Define validation tolerances.
+        """
+
+    @abc.abstractmethod
+    def define_solver_settings(self):
+        """
+        Define solver settings.
         """
 
     @abc.abstractproperty
@@ -82,8 +90,10 @@ class TestSet(abc.ABC):
             )
         self.solver_settings = {}
         self.solvers = solvers
+        self.tolerances = {}
         #
-        self.define_settings()
+        self.define_tolerances()
+        self.define_solver_settings()
 
     def get_problem(self, name: str) -> Optional[Problem]:
         """
@@ -98,8 +108,10 @@ class TestSet(abc.ABC):
         for problem in self:
             if problem.name == name:
                 return problem
-        raise KeyError(f"problem '{name}' not found "
-                       f"in the {self.__class__.__name__} test set")
+        raise KeyError(
+            f"problem '{name}' not found "
+            f"in the {self.__class__.__name__} test set"
+        )
 
     def run(
         self,

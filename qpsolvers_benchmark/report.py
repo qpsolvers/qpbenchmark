@@ -54,19 +54,19 @@ class Report:
         self.test_set = test_set
 
     def get_tolerances_table(self):
-        names = list(self.solver_settings.keys())
+        names = list(self.test_set.tolerances.keys())
         df = pandas.DataFrame(
             [],
             columns=["tolerance"] + names,
         )
-        tolerances = ["cost_tolerance", "primal_tolerance", "time_limit"]
+        tolerances = ["cost", "primal", "runtime_secs"]
         for tolerance in tolerances:
             row = {
                 "tolerance": [f"``{tolerance}``"],
             }
             row.update(
                 {
-                    name: [self.solver_settings[name].__dict__[tolerance]]
+                    name: [self.test_set.tolerances[name].__dict__[tolerance]]
                     for name in names
                 }
             )
@@ -132,16 +132,16 @@ class Report:
     def write(self, path: str) -> None:
         qpsolvers_version = metadata.version("qpsolvers")
         cost_tolerances = {
-            name: settings.cost_tolerance
-            for name, settings in self.solver_settings.items()
+            name: tolerance.cost
+            for name, tolerance in self.test_set.tolerances.items()
         }
         primal_tolerances = {
-            name: settings.primal_tolerance
-            for name, settings in self.solver_settings.items()
+            name: tolerance.primal
+            for name, tolerance in self.test_set.tolerances.items()
         }
         time_limits = {
-            name: settings.time_limit
-            for name, settings in self.solver_settings.items()
+            name: tolerance.runtime_secs
+            for name, tolerance in self.test_set.tolerances.items()
         }
         success_rate_df, correct_rate_df = self.results.build_success_frames(
             cost_tolerances, primal_tolerances
@@ -152,7 +152,7 @@ class Report:
         correct_rate_table = correct_rate_df.to_markdown(
             index=True, floatfmt=".0f"
         )
-        settings_names = [f"``{x}``" for x in self.solver_settings]
+        settings_names = [f"**{x}**" for x in self.solver_settings]
         with open(path, "w") as fh:
             fh.write(
                 f"""# {self.test_set.title}
