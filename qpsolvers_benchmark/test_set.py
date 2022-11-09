@@ -98,7 +98,8 @@ class TestSet(abc.ABC):
         for problem in self:
             if problem.name == name:
                 return problem
-        return None
+        raise KeyError(f"problem '{name}' not found "
+                       f"in the {self.__class__.__name__} test set")
 
     def run(
         self,
