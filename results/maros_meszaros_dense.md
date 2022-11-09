@@ -112,15 +112,15 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| cvxopt   |    1581.5 |          1466.4 |
-| ecos     |    2174.0 |          2015.9 |
-| highs    |      66.8 |            61.9 |
-| osqp     |      12.0 |           237.9 |
+| cvxopt   |    1627.4 |          1501.0 |
+| ecos     |    2237.3 |          2063.4 |
+| highs    |      68.5 |            63.3 |
+| osqp     |      12.3 |           243.5 |
 | proxqp   |       1.0 |             1.0 |
 | qpoases  |       9.0 |             8.4 |
-| qpswift  |    1581.1 |          1466.1 |
-| quadprog |     650.1 |           602.8 |
-| scs      |     830.9 |           835.6 |
+| qpswift  |    1627.1 |          1500.7 |
+| quadprog |     669.0 |           617.0 |
+| scs      |     855.0 |           855.3 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
