@@ -139,15 +139,15 @@ Shifted geometric means of solver primal errors (1.0 is the best):
 
 |          |   default |   high_accuracy |
 |:---------|----------:|----------------:|
-| cvxopt   |  527043.5 |    4394430787.5 |
-| ecos     |  571074.8 |    4761558980.4 |
-| highs    |  143307.0 |    1194878068.7 |
-| osqp     | 9053101.1 |    2417087362.5 |
+| cvxopt   |  527043.5 |             4.8 |
+| ecos     |  571074.8 |             4.8 |
+| highs    |  143307.0 |             3.2 |
+| osqp     | 7596225.6 |             2.9 |
 | proxqp   |       1.0 |             1.0 |
-| qpoases  | 8920845.0 |   74381031642.9 |
-| qpswift  |  527043.5 |    4394430787.2 |
-| quadprog |  407414.2 |    3396975112.1 |
-| scs      |  440625.3 |    3757637166.7 |
+| qpoases  | 8920845.0 |   74176652704.9 |
+| qpswift  |  527043.5 |             4.4 |
+| quadprog |  407414.2 |             6.7 |
+| scs      |  440625.3 |             3.8 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
