@@ -2,7 +2,7 @@
 
 - Author: [@stephane-caron](https://github.com/stephane-caron/)
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-09 08:40:14.248676+00:00
+- Date: 2022-11-09 08:49:59.389915+00:00
 
 ## Solvers
 
@@ -119,11 +119,11 @@ Shifted geometric means of solver primal errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |       5.7 |             3.9 |
-| highs  |       2.6 |             1.8 |
-| osqp   |       8.1 |             2.9 |
+| cvxopt |       5.7 |             6.2 |
+| highs  |       2.6 |          3510.9 |
+| osqp   |       8.1 |             1.8 |
 | proxqp |       1.0 |             1.0 |
-| scs    |   12159.5 |          7989.2 |
+| scs    |   12159.5 | 4324754706468.7 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
