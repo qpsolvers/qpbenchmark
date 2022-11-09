@@ -149,25 +149,22 @@ class Results:
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-        validity_columns = {
-            f"valid_{settings}": lambda x: (
-                x.found
-                & (-cost_tolerances[settings] < x.cost_error)
-                & (x.cost_error < cost_tolerances[settings])
-                & (x.primal_error < primal_tolerances[settings])
-            )
+        df = self.df
+        found_and_valid = {
+            settings: df["found"]
+            & (df["cost_error"].abs() < cost_tolerances[settings])
+            & (df["primal_error"] < primal_tolerances[settings])
             for settings in all_settings
         }
-        df = self.df.assign(**validity_columns)
         success_rate_df = (
             pandas.DataFrame(
                 {
                     settings: {
                         solver: 100.0
-                        * df[
+                        * found_and_valid[settings][
                             (df["settings"] == settings)
                             & (df["solver"] == solver)
-                        ][f"valid_{settings}"]
+                        ]
                         .astype(float)
                         .mean()
                         for solver in solvers
@@ -188,10 +185,10 @@ class Results:
                                 (df["settings"] == settings)
                                 & (df["solver"] == solver)
                             ]["found"]
-                            == df[
+                            == found_and_valid[settings][
                                 (df["settings"] == settings)
                                 & (df["solver"] == solver)
-                            ][f"valid_{settings}"]
+                            ]
                         )
                         .astype(float)
                         .mean()
