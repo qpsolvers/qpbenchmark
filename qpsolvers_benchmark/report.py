@@ -50,7 +50,35 @@ class Report:
         self.cpu_info = cpu_info
         self.date = date
         self.results = results
+        self.solver_settings = test_set.solver_settings
         self.test_set = test_set
+
+    def get_tolerances_table(self):
+        names = list(self.solver_settings.keys())
+        df = pandas.DataFrame(
+            [],
+            columns=["tolerance"] + names,
+        )
+        tolerances = ["cost_tolerance", "primal_tolerance", "time_limit"]
+        for tolerance in tolerances:
+            row = {
+                "tolerance": [f"``{tolerance}``"],
+            }
+            row.update(
+                {
+                    name: [self.solver_settings[name].__dict__[tolerance]]
+                    for name in names
+                }
+            )
+            df = pandas.concat(
+                [
+                    df,
+                    pandas.DataFrame(row),
+                ],
+                ignore_index=True,
+            )
+        df = df.sort_values(by="tolerance")
+        return df.to_markdown(index=False)
 
     def get_solver_settings_table(self):
         solver_settings = self.test_set.solver_settings
