@@ -80,8 +80,6 @@ class TestSet(abc.ABC):
                 f"Solver '{solver}' is available but skipped "
                 "as its settings are unknown"
             )
-        self.cost_tolerance = 0.0
-        self.primal_tolerance = 0.0
         self.solver_settings = {}
         self.solvers = solvers
         #
@@ -151,12 +149,13 @@ class TestSet(abc.ABC):
                 continue
             for solver in filtered_solvers:
                 for settings in filtered_settings:
+                    time_limit = self.solver_settings[settings].time_limit
                     if skip_solver_issue(problem, solver):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
                         continue
                     if skip_solver_timeout(
-                        self.time_limit, problem, solver, settings
+                        time_limit, problem, solver, settings
                     ):
                         failure = problem, solver, settings, None, 0.0
                         results.update(*failure)
@@ -169,7 +168,7 @@ class TestSet(abc.ABC):
                             )
                             continue
                         elif not include_timeouts and results.is_timeout(
-                            problem, solver, settings, self.time_limit
+                            problem, solver, settings, time_limit
                         ):
                             logging.info(
                                 f"Skipping {problem.name} with {solver} and "
