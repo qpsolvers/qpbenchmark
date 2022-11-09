@@ -23,9 +23,16 @@ All solvers were called via
 
 ## Settings
 
-- Cost tolerance: 1000.0
-- Primal tolerance: 1.0
-- Time limit: 1000.0 seconds
+There are 2 settings: ``default`` and
+``high_accuracy``. They validate solutions using the following tolerances:
+
+| tolerance            |   default |   high_accuracy |
+|:---------------------|----------:|----------------:|
+| ``cost_tolerance``   |      1000 |        1000     |
+| ``primal_tolerance`` |         1 |           1e-09 |
+| ``time_limit``       |      1000 |        1000     |
+
+Solvers for each group of settings are configured as follows:
 
 | solver   | parameter                        | default   |   high_accuracy |
 |:---------|:---------------------------------|:----------|----------------:|
