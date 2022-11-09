@@ -169,7 +169,7 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | cvxopt   |     945.1 |          1591.8 |
 | ecos     |    1299.3 |          2188.5 |
 | highs    |      38.7 |            65.1 |
-| osqp     |     655.2 |           258.1 |
+| osqp     |     578.2 |           258.1 |
 | proxqp   |       1.0 |             1.0 |
 | qpoases  |     214.3 |           360.9 |
 | qpswift  |     945.1 |          1591.8 |
