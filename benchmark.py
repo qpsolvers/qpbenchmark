@@ -130,13 +130,7 @@ def parse_command_line_arguments():
     return parser.parse_args()
 
 
-if __name__ == "__main__":
-    args = parse_command_line_arguments()
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-
-    data_dir = os.path.join(os.path.dirname(__file__), "data")
-
+def find_results_file(args):
     if args.command in ["check_results", "report"]:
         results_file = args.results_file
         if not os.path.exists(results_file):
@@ -144,12 +138,21 @@ if __name__ == "__main__":
     else:
         results_dir = os.path.join(os.path.dirname(__file__), "results")
         results_file = os.path.join(results_dir, f"{args.test_set}.csv")
-    results = Results(results_file)
+    return results_file
+
+
+if __name__ == "__main__":
+    args = parse_command_line_arguments()
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+
+    results = Results(find_results_file(args))
 
     test_set = None
     if args.command in ["check_problem", "report", "run"]:
         TestClass = TEST_CLASSES[args.test_set]
-        test_set = TestClass(data_dir=os.path.join(data_dir))
+        data_dir = os.path.join(os.path.dirname(__file__), "data")
+        test_set = TestClass(data_dir)
 
     if args.command == "run":
         args.solver = args.solver.lower() if args.solver else None
