@@ -149,7 +149,7 @@ class Results:
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-        df = self.df
+        df = self.df.fillna(value=np.nan)  # replace None by NaN for abs()
         found_and_valid = {
             settings: df["found"]
             & (df["cost_error"].abs() < cost_tolerances[settings])
