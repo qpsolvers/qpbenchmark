@@ -61,12 +61,9 @@ class MarosMeszaros(TestSet):
         default.set_time_limit(self.tolerances["default"].runtime)
 
         high_accuracy = SolverSettings()
-        high_accuracy.set_time_limit(
-            self.tolerances["high_accuracy"].runtime
-        )
+        high_accuracy.set_time_limit(self.tolerances["high_accuracy"].runtime)
         high_accuracy.set_eps_abs(1e-9)
         high_accuracy.set_eps_rel(0.0)
-        high_accuracy.set_param("qpoases", "termination_tolerance", 1e-7)
 
         self.solver_settings = {
             "default": default,

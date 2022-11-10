@@ -34,6 +34,12 @@ class MarosMeszarosDense(MarosMeszaros):
     def sparse_only(self) -> bool:
         return False
 
+    def define_solver_settings(self) -> None:
+        super().define_solver_settings()
+        self.solver_settings["high_accuracy"].set_param(
+            "qpoases", "termination_tolerance", 1e-7
+        )
+
     def __init__(self, data_dir: str):
         super().__init__(data_dir)
 
