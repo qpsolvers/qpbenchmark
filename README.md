@@ -8,10 +8,8 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 
 ## Test sets
 
-| Test set | Keyword | Description |
-| -------- | ------- | ----------- |
-| [Maros-Meszaros](#maros-meszaros) | ``maros_meszaros`` | Standard set of difficult problems, some of them with non-strictly p.s.d. Hessians. |
-| [Maros-Meszaros dense](#maros-meszaros-dense) | ``maros_meszaros_dense`` | Subset of Maros-Meszaros problems with size less than 1,000. |
+- [Maros-Meszaros](#maros-meszaros) (``maros_meszaros``): Standard set of difficult problems, some of them with non-strictly p.s.d. Hessians.
+- [Maros-Meszaros dense](#maros-meszaros-dense) (``maros_meszaros_dense``): Subset of Maros-Meszaros problems with size less than 1,000.
 
 ## Solvers
 
