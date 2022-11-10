@@ -8,8 +8,8 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 
 ## Test sets
 
-- [Maros-Meszaros](#maros-meszaros) (``maros_meszaros``): Standard set of difficult problems, some of them with non-strictly p.s.d. Hessians.
-- [Maros-Meszaros dense](#maros-meszaros-dense) (``maros_meszaros_dense``): Subset of Maros-Meszaros problems with size less than 1,000.
+- [Maros-Meszaros](#maros-meszaros) (``maros_meszaros``): Standard set of problems designed to be difficult, some of them large, sparse, ill-conditioned or not strictly convex.
+- [Maros-Meszaros dense](#maros-meszaros-dense) (``maros_meszaros_dense``): Subset of the Maros-Meszaros test set restricted to problems with less than 1,000 optimization variables and 1,000 constraints.
 
 ## Solvers
 
@@ -29,7 +29,7 @@ This benchmark aims to help us compare and select QP solvers. Its methodology is
 
 ## Metrics
 
-This benchmark evaluates QP solvers based on the following metrics:
+We evaluate QP solvers based on the following metrics:
 
 - **Success rate:** percentage of problems a solver is able to solve on a given test set.
 - **Computation time:** time a solver takes to solve a given problem.
@@ -38,13 +38,12 @@ This benchmark evaluates QP solvers based on the following metrics:
 
 ### Shifted geometric mean
 
-Problem-specific metrics (computation time, primal error, cost error) produce a different ranking of solvers for each problem. To aggregate those rankings into a single metric over the whole test set, we use the *shifted geometric mean* (``shgeom``), which is a standard to aggregate computation times in [benchmarks for optimization software](#other-benchmarks). This mean has the advantage of being compromised by neither large outliers (as opposed to the arithmetic mean) nor by small outliers (in contrast to the geometric geometric mean). Check out the [references](#references) below for further details.
+Problem-specific metrics (computation time, primal error, cost error) produce a different ranking of solvers for each problem. To aggregate those rankings into a single metric over the whole test set, we use the *shifted geometric mean* (SGM), which is a standard to aggregate computation times in [benchmarks for optimization software](#other-benchmarks). This mean has the advantage of being compromised by neither large outliers (as opposed to the arithmetic mean) nor by small outliers (in contrast to the geometric geometric mean). Check out the [references](#references) below for further details.
 
 Here are some intuitive interpretations:
 
-- *Computation time:* a solver with a shifted geometric mean $Y$ is $Y$ times slower than the best solver over the test set.
-- *Primal error:* a solver with a shifted geometric mean $Y$ is $Y$ times less precise on constraints than the best solver over the test set.
-- *Cost error:* a solver witha shifted geometric mean $Y$ is $Y$ times less precise on the optimal cost than the best solver over the test set.
+- A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set.
+- A solver with a shifted-geometric-mean primal error $P$ is $P$ times less precise on constraints than the best solver over the test set.
 
 ## Results
 
@@ -52,12 +51,10 @@ Check out the full reports for each test set in the [results](results) directory
 
 ### Maros-Meszaros
 
-The Maros-Meszaros test set contains difficult problems, some of them large, sparse, ill-conditioned or not strictly convex.
-
 Summary of solver performances with their default settings:
 
-| Solver | Success rate (%) | Runtime (shgeom) | Primal error (shgeom) | Cost error (shgeom) |
-|:-------|-----------------:|-----------------:|----------------------:|--------------------:|
+| Solver | Success rate (%) | Runtime (SGM) | Primal error (SGM) | Cost error (SGM) |
+|:-------|-----------------:|--------------:|-------------------:|-----------------:|
 | cvxopt | 16 |    54.0 |     5.7 |    24.5 |
 | highs  | 60 |     6.1 | **2.6** | **2.9** |
 | osqp   | 59 | **1.0** |    52.1 |    26.0 |
@@ -68,12 +65,12 @@ Check out the [full report](results/maros_meszaros.md) for details.
 
 ### Maros-Meszaros dense subset
 
-This is a subset of the Maros-Meszaros test set restricted to problems with less than a 1,000 optimization variables and 1,000 constraints. Note that this subset is *not representative* of the full Maros-Meszaros test set.
+Note that this subset is *not representative* of the full Maros-Meszaros test set.
 
 Summary of solver performances with their default settings:
 
-| Solver | Success rate (%) | Runtime (shgeom) | Primal error (shgeom) | Cost error (shgeom) |
-|:-------|-----------------:|-----------------:|----------------------:|--------------------:|
+| Solver | Success rate (%) | Runtime (SGM) | Primal error (SGM) | Cost error (SGM) |
+|:-------|-----------------:|--------------:|-------------------:|-----------------:|
 | cvxopt   |      15 |  1600 |  530000 |   950 |
 | ecos     |       8 |  2000 |  570000 |  1300 |
 | highs    |      76 |    67 |  140000 |    39 |
@@ -119,7 +116,7 @@ You can also run a specific solver, problem or set of solver settings:
 python benchmark.py run maros_meszaros_dense --solver proxqp --settings default
 ```
 
-Check out ``python benchmark.py --help`` for details.
+Check out ``python benchmark.py --help`` for all available commands and arguments.
 
 ## See also
 
@@ -130,6 +127,6 @@ Check out ``python benchmark.py --help`` for details.
 
 ### Other benchmarks
 
-- [Benchmarks for optimization software](http://plato.asu.edu/bench.html) by Hans Mittelmann. Includes convex QPs over the Maros-Meszaros test set.
+- [Benchmarks for optimization software](http://plato.asu.edu/bench.html) by Hans Mittelmann, which includes reports on the Maros-Meszaros test set.
 - [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks): benchmark of QP solvers available in C++.
 - [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark): benchmark examples for the ProxQP solver.
