@@ -67,14 +67,14 @@ Precentage of problems each solver is able to solve:
 | cvxopt |        16 |              12 |
 | highs  |        60 |              56 |
 | osqp   |        59 |              36 |
-| proxqp |        82 |              77 |
+| proxqp |        81 |              75 |
 | scs    |        33 |              21 |
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
 that a solver successfully solved a problem when (1) it returned with a success
 status and (2) its solution is within cost and primal error
 [tolerances](#settings). The second table below summarizes the frequency at
-which solvers return success (1) but the corresponding solution does not pass
+which solvers return success (1) and the corresponding solution did indeed pass
 tolerance checks.
 
 Percentage of problems where "solved" return codes are correct:
