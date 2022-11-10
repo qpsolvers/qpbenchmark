@@ -130,6 +130,19 @@ class Report:
         return versions_table
 
     def write(self, path: str) -> None:
+        """
+        Write report to a given path.
+
+        Args:
+            path: Path to the Markdown file to write the report to.
+
+        Note:
+            We make sure each table in the report is preceded by a single line
+            title, for instance "Precentage of problems each solver is able to
+            solve:". This comes in handy for ``@@`` anchorage when doing the
+            ``diff`` of two reports.
+        """
+        assert path.endswith(".md")
         qpsolvers_version = metadata.version("qpsolvers")
         cost_tolerances = {
             name: tolerance.cost
@@ -201,9 +214,11 @@ Precentage of problems each solver is able to solve:
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
 that a solver successfully solved a problem when (1) it returned with a success
 status and (2) its solution is within cost and primal error
-[tolerances](#settings). Here is a summary of the frequency at which solvers
-returned success (1) but the corresponding solution did not pass tolerance
-checks:
+[tolerances](#settings). The second table below summarizes the frequency at
+which solvers return success (1) but the corresponding solution does not pass
+tolerance checks.
+
+Percentage of problems where "solved" return codes are correct:
 
 {correct_rate_table}
 
