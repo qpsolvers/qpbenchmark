@@ -34,26 +34,12 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
     Returns:
         True if solver is known to fail at solving the problem.
     """
-    if solver == "proxqp":
+    if solver == "proxqp" and problem.name == "QGFRDXPN":
         # https://github.com/Simple-Robotics/proxsuite/issues/63
-        if problem.name == "QGFRDXPN":
-            return True
-        # other hangs (> 10 min, no solution)
-        elif problem.name in [
-            "BOYD1",
-            "CONT-100",
-            "CONT-101",
-            "CONT-200",
-            "CONT-201",
-            "CONT-300",
-            "EXDATA",
-        ]:
-            logging.warning("Skipping UNREPORTED issue")
-            return True
-    elif solver == "highs":
-        if problem.name == "STADAT1":
-            # https://github.com/ERGO-Code/HiGHS/issues/995
-            return True
+        return True
+    elif solver == "highs" and problem.name == "STADAT1":
+        # https://github.com/ERGO-Code/HiGHS/issues/995
+        return True
     return False
 
 
@@ -83,18 +69,30 @@ def skip_solver_timeout(
         ("AUG2D", "highs", "high_accuracy"): 40 * minutes,
         ("AUG2DC", "highs", "default"): 40 * minutes,
         ("AUG2DC", "highs", "high_accuracy"): 40 * minutes,
+        ("BOYD1", "proxqp", "default"): 30 * minutes,
+        ("BOYD1", "proxqp", "high_accuracy"): 30 * minutes,
         ("BOYD2", "proxqp", "default"): 20 * minutes,
         ("BOYD2", "proxqp", "high_accuracy"): 20 * minutes,
+        ("CONT-101", "proxqp", "default"): 30 * minutes,
+        ("CONT-101", "proxqp", "high_accuracy"): 30 * minutes,
+        ("CONT-200", "proxqp", "default"): 20 * minutes,
+        ("CONT-200", "proxqp", "high_accuracy"): 20 * minutes,
+        ("CONT-201", "proxqp", "default"): 30 * minutes,
+        ("CONT-201", "proxqp", "high_accuracy"): 30 * minutes,
         ("CONT-300", "cvxopt", "default"): 20 * minutes,
         ("CONT-300", "cvxopt", "high_accuracy"): 20 * minutes,
         ("CONT-300", "highs", "default"): 30 * minutes,
         ("CONT-300", "highs", "high_accuracy"): 30 * minutes,
+        ("CONT-300", "proxqp", "default"): 60 * minutes,
+        ("CONT-300", "proxqp", "high_accuracy"): 60 * minutes,
         ("CVXQP1_L", "proxqp", "default"): 20 * minutes,
         ("CVXQP1_L", "proxqp", "high_accuracy"): 20 * minutes,
         ("CVXQP3_L", "cvxopt", "default"): 20 * minutes,
         ("CVXQP3_L", "cvxopt", "high_accuracy"): 20 * minutes,
         ("CVXQP3_L", "proxqp", "default"): 30 * minutes,
         ("CVXQP3_L", "proxqp", "high_accuracy"): 30 * minutes,
+        ("EXDATA", "proxqp", "default"): 30 * minutes,
+        ("EXDATA", "proxqp", "high_accuracy"): 30 * minutes,
         ("LISWET1", "proxqp", "default"): 20 * minutes,
         ("LISWET1", "proxqp", "high_accuracy"): 20 * minutes,
         ("LISWET10", "proxqp", "default"): 50 * minutes,
@@ -115,6 +113,8 @@ def skip_solver_timeout(
         ("QSHIP08L", "proxqp", "high_accuracy"): 20 * minutes,
         ("QSHIP12L", "proxqp", "default"): 20 * minutes,
         ("QSHIP12L", "proxqp", "high_accuracy"): 20 * minutes,
+        ("QGFRDXPN", "proxqp", "default"): 20 * minutes,
+        ("QGFRDXPN", "proxqp", "high_accuracy"): 20 * minutes,
         ("STADAT1", "proxqp", "default"): 20 * minutes,
         ("STADAT1", "proxqp", "high_accuracy"): 20 * minutes,
         ("STADAT2", "proxqp", "default"): 20 * minutes,
