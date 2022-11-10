@@ -191,18 +191,6 @@ class Problem:
             self.r,
         )
 
-    def constraints_as_double_sided_ineq(self):
-        """
-        Get problem constraints as double-sided inequalities.
-
-        Returns:
-            Tuple ``(C, l, u)`` corresponding to ``l <= C x <= u``.
-        """
-        C = spa.vstack([self.G, self.A, spa.eye(self.n)], format="csc")
-        l = np.hstack([np.full(self.h.shape, -np.infty), self.b, self.lb])
-        u = np.hstack([self.h, self.b, self.ub])
-        return C, l, u
-
     def solve(self, solver: str, **kwargs):
         """
         Solve quadratic program.
@@ -277,32 +265,9 @@ class Problem:
         """
         if x is None:
             return None
-        C, l, u = self.constraints_as_double_sided_ineq()
+        C = spa.vstack([self.G, self.A, spa.eye(self.n)], format="csc")
+        l = np.hstack([np.full(self.h.shape, -np.infty), self.b, self.lb])
+        u = np.hstack([self.h, self.b, self.ub])
         C_x = C.dot(x)
         p = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
         return linalg.norm(p, np.inf)
-
-    def dual_error(self, x, y) -> Optional[float]:
-        """
-        Compute dual residual for a pair of primal-dual solutions.
-
-        Args:
-            x: Primal solution.
-            y: Dual solution.
-
-        Returns:
-            True if and only if (x, y) is a valid primal-dual solution.
-
-        Notes:
-            This function is adapted from `is_qp_solution_optimal` in
-            proxqp_benchmark. The original function included the relative
-            tolerance parameter specified in the OSQP paper, set to zero here.
-
-            See `Optimality conditions and numerical tolerances in QP solvers
-            <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
-            for a primer on residuals.
-        """
-        P, q = self.P, self.q
-        C, _, _ = self.constraints_as_double_sided_ineq()
-        d = P.dot(x) + q + C.T.dot(y)
-        return linalg.norm(d, np.inf)
