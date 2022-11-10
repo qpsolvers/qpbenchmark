@@ -98,11 +98,11 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |      54.0 |            19.5 |
-| highs  |       6.1 |             2.2 |
-| osqp   |       1.0 |             6.6 |
-| proxqp |       2.4 |             1.0 |
-| scs    |      23.2 |            14.0 |
+| cvxopt |      54.0 |            20.2 |
+| highs  |       6.1 |             2.3 |
+| osqp   |       1.0 |             6.9 |
+| proxqp |       2.3 |             1.0 |
+| scs    |      23.2 |            14.5 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
@@ -121,11 +121,11 @@ Shifted geometric means of solver primal errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |       5.7 |             6.5 |
-| highs  |       2.6 |          3510.9 |
-| osqp   |      52.1 |             1.8 |
+| cvxopt |       6.3 |             6.7 |
+| highs  |       2.9 |          3613.7 |
+| osqp   |      57.3 |             1.9 |
 | proxqp |       1.0 |             1.0 |
-| scs    |      11.8 |     160597376.4 |
+| scs    |      13.0 |     165298477.2 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
@@ -144,11 +144,11 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |      24.5 |            19.7 |
-| highs  |       2.9 |             2.3 |
-| osqp   |      26.0 |             7.7 |
+| cvxopt |      26.8 |            21.4 |
+| highs  |       3.1 |             2.5 |
+| osqp   |      28.5 |             8.4 |
 | proxqp |       1.0 |             1.0 |
-| scs    |      12.5 |            14.5 |
+| scs    |      13.7 |            15.7 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
