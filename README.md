@@ -4,7 +4,7 @@
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
-This benchmark aims to help us compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). New test sets are [also welcome](CONTRIBUTING.md). Feel free to add one that better represents the kind of problems you are working on.
+The goal of this benchmark is to help us compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). New test sets are [also welcome](CONTRIBUTING.md). Feel free to add one that better represents the kind of problems you are working on.
 
 ## Test sets
 
@@ -43,7 +43,7 @@ Problem-specific metrics (computation time, primal error, cost error) produce a 
 Here are some intuitive interpretations:
 
 - A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set.
-- A solver with a shifted-geometric-mean primal error $P$ is $P$ times less precise on constraints than the best solver over the test set.
+- A solver with a shifted-geometric-mean primal error $P$ is $P$ times less accurate on equality and inequality constraints than the best solver over the test set.
 
 ## Results
 
@@ -55,17 +55,15 @@ Summary of solver performances with their default settings:
 
 | Solver | Success rate (%) | Runtime (SGM) | Primal error (SGM) | Cost error (SGM) |
 |:-------|-----------------:|--------------:|-------------------:|-----------------:|
-| cvxopt | 16 |    54.0 |     5.7 |    24.5 |
-| highs  | 60 |     6.1 | **2.6** | **2.9** |
-| osqp   | 59 | **1.0** |    52.1 |    26.0 |
-| proxqp | 81 | **2.4** | **1.0** | **1.0** |
-| scs    | 33 |    23.2 |    11.8 |    12.5 |
+| cvxopt |     16 |    54.0 |     5.7 |    24.5 |
+| highs  |     60 |     6.1 | **2.6** | **2.9** |
+| osqp   |     59 | **1.0** |    52.1 |    26.0 |
+| proxqp | **81** | **2.4** | **1.0** | **1.0** |
+| scs    |     33 |    23.2 |    11.8 |    12.5 |
 
 Check out the [full report](results/maros_meszaros.md) for details.
 
 ### Maros-Meszaros dense subset
-
-Note that this subset is *not representative* of the full Maros-Meszaros test set.
 
 Summary of solver performances with their default settings:
 
@@ -81,7 +79,7 @@ Summary of solver performances with their default settings:
 | quadprog |      34 |   660 |  410000 |   390 |
 | scs      |      29 |   840 |  440000 |   500 |
 
-Check out the [full report](results/maros_meszaros_dense.md) for details.
+Check out the [full report](results/maros_meszaros_dense.md) for details. Note that this subset is not representative of the full Maros-Meszaros test set.
 
 ## Limitations
 
