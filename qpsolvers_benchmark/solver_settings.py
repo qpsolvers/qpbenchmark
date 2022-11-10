@@ -106,6 +106,7 @@ class SolverSettings:
         """
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
+        self.__settings["gurobi"]["FeasibilityTol"] = eps_abs
         self.__settings["highs"]["dual_feasibility_tolerance"] = eps_abs
         self.__settings["highs"]["primal_feasibility_tolerance"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
@@ -131,7 +132,7 @@ class SolverSettings:
         Args:
             time_limit: Time limit in seconds.
         """
-        self.__settings["gurobi"]["time_limit"] = time_limit
+        self.__settings["gurobi"]["TimeLimit"] = time_limit
         self.__settings["highs"]["time_limit"] = time_limit
         self.__settings["osqp"]["time_limit"] = time_limit
         self.__settings["qpoases"]["time_limit"] = time_limit
