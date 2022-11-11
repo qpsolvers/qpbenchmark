@@ -122,6 +122,15 @@ class Problem:
         n = mat_dict["n"].T.flatten().astype(int)[0]
         m = mat_dict["m"].T.flatten().astype(int)[0]
         assert A.shape == (m, n)
+
+        # Infinity constant is 1e20
+        A[A > +9e19] = +np.inf
+        l[l > +9e19] = +np.inf
+        u[u > +9e19] = +np.inf
+        A[A < -9e19] = -np.inf
+        l[l < -9e19] = -np.inf
+        u[u < -9e19] = -np.inf
+
         lb = l[-n:]
         ub = u[-n:]
         C = A[:-n]
