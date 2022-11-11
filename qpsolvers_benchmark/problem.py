@@ -107,7 +107,8 @@ class Problem:
 
         Notes:
             We assume that matrix files result from calling `sif2mat.m` in
-            proxqp_benchmark. In particular, ``A = [sparse(A_c); speye(n)];``.
+            proxqp_benchmark. In particular, ``A = [sparse(A_c); speye(n)];``
+            and the infinity constant is set to 1e20.
         """
         assert path.endswith(".mat")
         name = os.path.basename(path)[:-4]
