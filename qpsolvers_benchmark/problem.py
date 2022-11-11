@@ -150,7 +150,7 @@ class Problem:
 
         .. code::
 
-            minimize        0.5 x^T P x + q^T x
+            minimize        0.5 x^T P x + q^T x + r
             subject to      l <= C x <= u
                             lb <= x <= ub
 
@@ -162,6 +162,8 @@ class Problem:
             u: Constraint upper bound.
             lb: Box lower bound.
             ub: Box upper bound.
+            name: Problem name.
+            r: Cost offset.
         """
         bounds_are_equal = u - l < 1e-10
 
