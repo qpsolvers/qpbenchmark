@@ -94,6 +94,22 @@ class TestSet(abc.ABC):
         #
         self.define_tolerances()
         self.define_solver_settings()
+        self.check_definitions()
+
+    def check_definitions(self):
+        """
+        Check that settings and tolerance definitions are consistent.
+
+        Raises:
+            ValueError: in case of inconsistency.
+        """
+        tolerances = set(self.tolerances.keys())
+        settings = set(self.solver_settings.keys())
+        if tolerances != settings:
+            logging.error("Settings are not consistent with tolerances")
+            logging.info(f"Settings: {settings}")
+            logging.info(f"Tolerances: {tolerances}")
+            raise ValueError("Settings are not consistent with tolerances")
 
     def get_problem(self, name: str) -> Optional[Problem]:
         """
