@@ -165,7 +165,7 @@ class Report:
         correct_rate_table = correct_rate_df.to_markdown(
             index=True, floatfmt=".0f"
         )
-        settings_names = [f"**{x}**" for x in self.solver_settings]
+        settings_names = [f"*{x}*" for x in self.solver_settings]
         with open(path, "w") as fh:
             fh.write(
                 f"""# {self.test_set.title}
@@ -188,7 +188,7 @@ There are {len(settings_names)} settings: {", ".join(settings_names[:-1])} and
 
 {self.get_tolerances_table()}
 
-Solvers for each group of settings are configured as follows:
+Solvers for each settings are configured as follows:
 
 {self.get_solver_settings_table()}
 
