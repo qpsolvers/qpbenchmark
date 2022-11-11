@@ -172,6 +172,10 @@ class Problem:
         ineq_rows = np.where(np.logical_not(bounds_are_equal))
         G = spa.vstack([C[ineq_rows], -C[ineq_rows]], format="csc")
         h = np.hstack([u[ineq_rows], -l[ineq_rows]])
+        h_finite = h < np.inf
+        if not h_finite.all():
+            G = G[h_finite]
+            h = h[h_finite]
 
         return Problem(P, q, G, h, A, b, lb, ub, name=name, r=r)
 
