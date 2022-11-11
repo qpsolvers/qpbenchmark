@@ -20,12 +20,12 @@ The goal of this benchmark is to help us compare and select QP solvers. Its meth
 | [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Interior point | Sparse | Commercial |
 | [HiGHS](https://highs.dev/) | ``highs`` | Active set | Sparse | MIT |
 | [MOSEK](https://mosek.com/) | ``mosek`` | Interior point | Sparse | Commercial |
-| [OSQP](https://osqp.org/) | ``osqp`` | Augmented Lagrangian | Sparse | Apache-2.0 |
+| [OSQP](https://osqp.org/) | ``osqp`` | Douglas–Rachford| Sparse | Apache-2.0 |
 | [ProxQP](https://github.com/Simple-Robotics/proxsuite) | ``proxqp`` | Augmented Lagrangian | Dense & Sparse | BSD-2-Clause |
 | [qpOASES](https://github.com/coin-or/qpOASES) | ``qpoases`` | Active set | Dense | LGPL-2.1 |
 | [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Interior point | Sparse | GPL-3.0 |
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Active set | Dense | GPL-2.0 |
-| [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Augmented Lagrangian | Sparse | MIT |
+| [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
 
 ## Metrics
 
