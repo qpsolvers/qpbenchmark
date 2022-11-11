@@ -112,6 +112,7 @@ class Problem:
         """
         assert path.endswith(".mat")
         name = os.path.basename(path)[:-4]
+
         mat_dict = spio.loadmat(path)
         P = mat_dict["P"].astype(float).tocsc()
         q = mat_dict["q"].T.flatten().astype(float)
@@ -131,11 +132,13 @@ class Problem:
         l[l < -9e19] = -np.inf
         u[u < -9e19] = -np.inf
 
+        # A = vstack([C, spa.eye(n)])
         lb = l[-n:]
         ub = u[-n:]
         C = A[:-n]
         l_c = l[:-n]
         u_c = u[:-n]
+
         return Problem.from_double_sided_ineq(
             P, q, C, l_c, u_c, lb, ub, name=name, r=r
         )
@@ -161,24 +164,16 @@ class Problem:
             ub: Box upper bound.
         """
         bounds_are_equal = u - l < 1e-10
+
         eq_rows = np.where(bounds_are_equal)
-        eq_matrix = C[eq_rows]
-        eq_vector = u[eq_rows]
+        A = C[eq_rows]
+        b = u[eq_rows]
+
         ineq_rows = np.where(np.logical_not(bounds_are_equal))
-        ineq_matrix = spa.vstack([C[ineq_rows], -C[ineq_rows]], format="csc")
-        ineq_vector = np.hstack([u[ineq_rows], -l[ineq_rows]])
-        return Problem(
-            P,
-            q,
-            ineq_matrix,
-            ineq_vector,
-            eq_matrix,
-            eq_vector,
-            lb,
-            ub,
-            name=name,
-            r=r,
-        )
+        G = spa.vstack([C[ineq_rows], -C[ineq_rows]], format="csc")
+        h = np.hstack([u[ineq_rows], -l[ineq_rows]])
+
+        return Problem(P, q, G, h, A, b, lb, ub, name=name, r=r)
 
     def to_dense(self):
         """
