@@ -36,16 +36,12 @@ class MarosMeszarosDense(MarosMeszaros):
 
     def define_solver_settings(self) -> None:
         super().define_solver_settings()
-        low_accuracy = self.solver_settings["low_accuracy"]
-        high_accuracy = self.solver_settings["high_accuracy"]
 
-        # [qpOASES]
-        # Default termination tolerance in double precision is 1.1105e-09
-        # The solver defines this tolerance in its source code at:
-        # Constants.hpp:50      const real_t EPS = 2.221e-16;
-        # Options.cpp:115       terminationTolerance =  5.0e6 * EPS;
-        low_accuracy.set_param("qpoases", "termination_tolerance", 1e-5)
-        high_accuracy.set_param("qpoases", "termination_tolerance", 1e-7)
+        low_accuracy = self.solver_settings["low_accuracy"]
+        low_accuracy.set_param("qpoases", "predefined_options", "fast")
+
+        high_accuracy = self.solver_settings["high_accuracy"]
+        high_accuracy.set_param("qpoases", "predefined_options", "reliable")
 
     def __init__(self, data_dir: str):
         super().__init__(data_dir)
