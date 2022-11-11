@@ -69,15 +69,15 @@ Summary of solver performances with their default settings:
 
 | Solver | Success rate (%) | Runtime (SGM) | Primal error (SGM) | Cost error (SGM) |
 |:-------|-----------------:|--------------:|-------------------:|-----------------:|
-| cvxopt   |      15 |  1600 |  530000 |   950 |
-| ecos     |       8 |  2000 |  570000 |  1300 |
-| highs    |      76 |    67 |  140000 |    39 |
-| osqp     |      68 |    12 | 5900000 |   480 |
+| cvxopt   |      15 |  1200 |  520000 |   950 |
+| ecos     |       8 |  1700 |  560000 |  1300 |
+| highs    |      76 |    52 |  140000 |    39 |
+| osqp     |      68 |   9.3 | 5800000 |   490 |
 | proxqp   | **100** | **1** |   **1** | **1** |
-| qpoases  |      63 |   130 |  750000 |   110 |
-| qpswift  |      15 |  1600 |  530000 |   950 |
-| quadprog |      34 |   660 |  410000 |   390 |
-| scs      |      29 |   840 |  440000 |   500 |
+| qpoases  |      59 |   120 |  760000 |   140 |
+| qpswift  |      15 |  1200 |  520000 |   960 |
+| quadprog |      34 |   510 |  400000 |   390 |
+| scs      |      80 |   4.7 | 1840000 |    88 |
 
 Check out the [full report](results/maros_meszaros_dense.md) for details. Note that this subset is not representative of the full Maros-Meszaros test set.
 
