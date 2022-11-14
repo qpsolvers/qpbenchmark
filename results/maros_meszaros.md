@@ -1,7 +1,7 @@
 # Maros-Meszaros test set
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-14 08:17:46.261918+00:00
+- Date: 2022-11-14 14:37:47.143076+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Contents
@@ -25,7 +25,7 @@
 | scs      | 3.2.2       |
 
 All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc5.
+[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc6.
 
 ## Settings
 
@@ -66,7 +66,7 @@ Precentage of problems each solver is able to solve:
 | cvxopt |        16 |              12 |
 | highs  |        60 |              56 |
 | osqp   |        59 |              36 |
-| proxqp |        81 |              75 |
+| proxqp |        82 |              76 |
 | scs    |        73 |              43 |
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
@@ -97,10 +97,10 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |      54.0 |            19.5 |
+| cvxopt |      54.0 |            19.7 |
 | highs  |       6.1 |             2.2 |
-| osqp   |       1.0 |             6.6 |
-| proxqp |       2.4 |             1.0 |
+| osqp   |       1.0 |             6.7 |
+| proxqp |       2.3 |             1.0 |
 | scs    |       1.0 |             4.3 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
@@ -120,11 +120,11 @@ Shifted geometric means of solver primal errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |       5.7 |             6.5 |
-| highs  |       2.6 |          3510.9 |
-| osqp   |      52.1 |             1.8 |
+| cvxopt |       6.0 |             6.8 |
+| highs  |       2.7 |          3668.3 |
+| osqp   |      54.8 |             1.9 |
 | proxqp |       1.0 |             1.0 |
-| scs    |      17.8 |             1.7 |
+| scs    |      18.7 |             1.7 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
@@ -143,11 +143,11 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 
 |        |   default |   high_accuracy |
 |:-------|----------:|----------------:|
-| cvxopt |      24.5 |            19.7 |
-| highs  |       2.9 |             2.3 |
-| osqp   |      26.0 |             7.7 |
+| cvxopt |      25.8 |            20.6 |
+| highs  |       3.0 |             2.4 |
+| osqp   |      27.4 |             8.1 |
 | proxqp |       1.0 |             1.0 |
-| scs    |       3.7 |             4.7 |
+| scs    |       3.9 |             4.9 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
