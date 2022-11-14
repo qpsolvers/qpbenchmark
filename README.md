@@ -6,11 +6,6 @@ Benchmark for quadratic programming (QP) solvers available in Python.
 
 The goal of this benchmark is to help us compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). New test sets are [also welcome](CONTRIBUTING.md). Feel free to add one that better represents the kind of problems you are working on.
 
-## Test sets
-
-- [Maros-Meszaros](#maros-meszaros) (``maros_meszaros``): Standard set of problems designed to be difficult, some of them large, sparse, ill-conditioned or not strictly convex.
-- [Maros-Meszaros dense](#maros-meszaros-dense) (``maros_meszaros_dense``): Subset of the Maros-Meszaros test set restricted to problems with less than 1,000 optimization variables and 1,000 constraints.
-
 ## Solvers
 
 | Solver | Keyword | Algorithm | Matrices | License |
@@ -26,6 +21,13 @@ The goal of this benchmark is to help us compare and select QP solvers. Its meth
 | [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Interior point | Sparse | GPL-3.0 |
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Goldfarb-Idnani | Dense | GPL-2.0 |
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
+
+## Results
+
+The benchmark has different test sets that represent different use cases for QP solvers. Click on a test set to go to its results report.
+
+- [Maros-Meszaros](results/maros_meszaros.md) (``maros_meszaros``): Standard set of problems designed to be difficult, some of them large, sparse, ill-conditioned or not strictly convex.
+- [Maros-Meszaros dense](results/maros_meszaros_dense.md) (``maros_meszaros_dense``): Subset of the Maros-Meszaros test set restricted to problems with less than 1,000 optimization variables and 1,000 constraints.
 
 ## Metrics
 
@@ -44,42 +46,6 @@ Here are some intuitive interpretations:
 
 - A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set.
 - A solver with a shifted-geometric-mean primal error $P$ is $P$ times less accurate on equality and inequality constraints than the best solver over the test set.
-
-## Results
-
-Check out the full reports for each test set in the [results](results) directory.
-
-### Maros-Meszaros
-
-Summary of solver performances with their default settings:
-
-| Solver | Success rate (%) | Runtime (SGM) | Primal error (SGM) | Cost error (SGM) |
-|:-------|-----------------:|--------------:|-------------------:|-----------------:|
-| cvxopt |     16 |    54.0 |     5.7 |    24.5 |
-| highs  |     60 |     6.1 | **2.6** | **2.9** |
-| osqp   |     59 | **1.0** |    52.1 |    26.0 |
-| proxqp | **81** | **2.4** | **1.0** | **1.0** |
-| scs    |     33 |    23.2 |    11.8 |    12.5 |
-
-Check out the [full report](results/maros_meszaros.md) for details.
-
-### Maros-Meszaros dense subset
-
-Summary of solver performances with their default settings:
-
-| Solver | Success rate (%) | Runtime (SGM) | Primal error (SGM) | Cost error (SGM) |
-|:-------|-----------------:|--------------:|-------------------:|-----------------:|
-| cvxopt   |      15 |  1200 |  520000 |   950 |
-| ecos     |       8 |  1700 |  560000 |  1300 |
-| highs    |      76 |    52 |  140000 |    39 |
-| osqp     |      68 |   9.3 | 5800000 |   490 |
-| proxqp   | **100** | **1** |   **1** | **1** |
-| qpoases  |      59 |   120 |  760000 |   140 |
-| qpswift  |      15 |  1200 |  520000 |   960 |
-| quadprog |      34 |   510 |  400000 |   390 |
-| scs      |      80 |   4.7 | 1840000 |    88 |
-
-Check out the [full report](results/maros_meszaros_dense.md) for details. Note that this subset is not representative of the full Maros-Meszaros test set.
 
 ## Limitations
 
