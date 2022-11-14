@@ -24,10 +24,12 @@ The goal of this benchmark is to help us compare and select QP solvers. Its meth
 
 ## Results
 
-The benchmark has different test sets that represent different use cases for QP solvers. Click on a test set to go to its results report.
+The benchmark has different test sets that represent different use cases for QP solvers. Click on a test set to check out its report.
 
-- [Maros-Meszaros](results/maros_meszaros.md) (``maros_meszaros``): Standard set of problems designed to be difficult, some of them large, sparse, ill-conditioned or not strictly convex.
-- [Maros-Meszaros dense](results/maros_meszaros_dense.md) (``maros_meszaros_dense``): Subset of the Maros-Meszaros test set restricted to problems with less than 1,000 optimization variables and 1,000 constraints.
+| Test set | Keyword | Description |
+| -------- | ------- | ----------- |
+| [Maros-Meszaros](results/maros_meszaros.md) | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
+| [Maros-Meszaros dense](results/maros_meszaros_dense.md) | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
 
 ## Metrics
 
