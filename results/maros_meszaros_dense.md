@@ -66,14 +66,34 @@ Solvers for each settings are configured as follows:
 
 ## Metrics
 
-We look at the following statistics:
+We evaluate QP solvers based on the following metrics:
 
-- [Success rate](#success-rate)
-- [Computation time](#computation-time)
-- [Primal error](#primal-error)
-- [Cost error](#cost-error)
+- **Success rate:** percentage of problems a solver is able to solve on a given
+  test set.
+- **Computation time:** time a solver takes to solve a given problem.
+- **Primal error:** maximum error on equality and inequality constraints at the
+  returned solution.
+- **Cost error:** difference between the solution cost and the known optimal
+  cost.
 
-They are presented in more detail in [Metrics](../README.md#metrics).
+### Shifted geometric mean
+
+Problem-specific metrics (computation time, primal error, cost error) produce a
+different ranking of solvers for each problem. To aggregate those rankings into
+a single metric over the whole test set, we use the *shifted geometric mean*
+(SGM), which is a standard to aggregate computation times in [benchmarks for
+optimization software](#other-benchmarks). This mean has the advantage of being
+compromised by neither large outliers (as opposed to the arithmetic mean) nor
+by small outliers (in contrast to the geometric geometric mean). Check out the
+[references](#references) below for further details.
+
+Here are some intuitive interpretations:
+
+- A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower
+  than the best solver over the test set.
+- A solver with a shifted-geometric-mean primal error $P$ is $P$ times less
+  accurate on equality and inequality constraints than the best solver over the
+  test set.
 
 ## Results
 
