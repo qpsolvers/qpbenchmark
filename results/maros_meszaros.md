@@ -8,7 +8,6 @@
 
 * [Solvers](#solvers)
 * [Settings](#settings)
-* [Metrics](#metrics)
 * [Results](#results)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
@@ -55,17 +54,6 @@ Solvers for each settings are configured as follows:
 | scs      | ``eps_abs``                      | -         |          0.001 |           1e-09 |
 | scs      | ``eps_rel``                      | -         |          0     |           0     |
 | scs      | ``time_limit_secs``              | 1000.0    |       1000     |        1000     |
-
-## Metrics
-
-We look at the following statistics:
-
-- [Success rate](#success-rate)
-- [Computation time](#computation-time)
-- [Primal error](#primal-error)
-- [Cost error](#cost-error)
-
-They are presented in more detail in [Metrics](../README.md#metrics).
 
 ## Results
 

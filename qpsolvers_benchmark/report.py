@@ -178,7 +178,6 @@ class Report:
 
 * [Solvers](#solvers)
 * [Settings](#settings)
-* [Metrics](#metrics)
 * [Results](#results)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
@@ -202,17 +201,6 @@ There are {len(settings_names)} settings: {", ".join(settings_names[:-1])} and
 Solvers for each settings are configured as follows:
 
 {self.get_solver_settings_table()}
-
-## Metrics
-
-We look at the following statistics:
-
-- [Success rate](#success-rate)
-- [Computation time](#computation-time)
-- [Primal error](#primal-error)
-- [Cost error](#cost-error)
-
-They are presented in more detail in [Metrics](../README.md#metrics).
 
 ## Results
 
