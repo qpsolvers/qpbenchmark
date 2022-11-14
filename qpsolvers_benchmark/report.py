@@ -174,6 +174,17 @@ class Report:
 - Date: {self.date}
 - Run by: [@{self.author}](https://github.com/{self.author}/)
 
+## Contents
+
+* [Solvers](#solvers)
+* [Settings](#settings)
+* [Metrics](#metrics)
+* [Results](#results)
+    * [Success rate](#success-rate)
+    * [Computation time](#computation-time)
+    * [Primal error](#primal-error)
+    * [Cost error](#cost-error)
+
 ## Solvers
 
 {self.get_solver_versions_table()}

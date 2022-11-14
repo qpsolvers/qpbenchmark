@@ -4,6 +4,17 @@
 - Date: 2022-11-11 18:33:07.313923+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
+## Contents
+
+* [Solvers](#solvers)
+* [Settings](#settings)
+* [Metrics](#metrics)
+* [Results](#results)
+    * [Success rate](#success-rate)
+    * [Computation time](#computation-time)
+    * [Primal error](#primal-error)
+    * [Cost error](#cost-error)
+
 ## Solvers
 
 | solver   | version     |
@@ -23,8 +34,8 @@ All solvers were called via
 
 ## Settings
 
-There are 3 settings: **default**, **low_accuracy** and
-**high_accuracy**. They validate solutions using the following tolerances:
+There are 3 settings: *default*, *low_accuracy* and
+*high_accuracy*. They validate solutions using the following tolerances:
 
 | tolerance   |   default |   low_accuracy |   high_accuracy |
 |:------------|----------:|---------------:|----------------:|
@@ -32,7 +43,7 @@ There are 3 settings: **default**, **low_accuracy** and
 | ``primal``  |         1 |          0.001 |           1e-09 |
 | ``runtime`` |      1000 |       1000     |        1000     |
 
-Solvers for each group of settings are configured as follows:
+Solvers for each settings are configured as follows:
 
 | solver   | parameter                        | default   | low_accuracy          | high_accuracy          |
 |:---------|:---------------------------------|:----------|:----------------------|:-----------------------|

@@ -4,6 +4,17 @@
 - Date: 2022-11-14 08:17:46.261918+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
+## Contents
+
+* [Solvers](#solvers)
+* [Settings](#settings)
+* [Metrics](#metrics)
+* [Results](#results)
+    * [Success rate](#success-rate)
+    * [Computation time](#computation-time)
+    * [Primal error](#primal-error)
+    * [Cost error](#cost-error)
+
 ## Solvers
 
 | solver   | version     |
