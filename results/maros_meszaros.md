@@ -1,7 +1,7 @@
 # Maros-Meszaros test set
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-11-09 21:45:47.569562+00:00
+- Date: 2022-11-12 10:32:12.039420+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Solvers
@@ -11,39 +11,39 @@
 | cvxopt   | 1.3.0       |
 | highs    | 1.1.2.dev3  |
 | osqp     | 0.6.2.post5 |
-| proxqp   | 0.2.5       |
+| proxqp   | 0.2.7       |
 | scs      | 3.2.2       |
 
 All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc2.
+[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0rc5.
 
 ## Settings
 
-There are 2 settings: **default** and
-**high_accuracy**. They validate solutions using the following tolerances:
+There are 3 settings: *default*, *low_accuracy* and
+*high_accuracy*. They validate solutions using the following tolerances:
 
-| tolerance   |   default |   high_accuracy |
-|:------------|----------:|----------------:|
-| ``cost``    |      1000 |        1000     |
-| ``primal``  |         1 |           1e-09 |
-| ``runtime`` |      1000 |        1000     |
+| tolerance   |   default |   low_accuracy |   high_accuracy |
+|:------------|----------:|---------------:|----------------:|
+| ``cost``    |      1000 |       1000     |        1000     |
+| ``primal``  |         1 |          0.001 |           1e-09 |
+| ``runtime`` |      1000 |       1000     |        1000     |
 
-Solvers for each group of settings are configured as follows:
+Solvers for each settings are configured as follows:
 
-| solver   | parameter                        | default   |   high_accuracy |
-|:---------|:---------------------------------|:----------|----------------:|
-| cvxopt   | ``feastol``                      | -         |           1e-09 |
-| highs    | ``dual_feasibility_tolerance``   | -         |           1e-09 |
-| highs    | ``primal_feasibility_tolerance`` | -         |           1e-09 |
-| highs    | ``time_limit``                   | 1000.0    |        1000     |
-| osqp     | ``eps_abs``                      | -         |           1e-09 |
-| osqp     | ``eps_rel``                      | -         |           0     |
-| osqp     | ``time_limit``                   | 1000.0    |        1000     |
-| proxqp   | ``eps_abs``                      | -         |           1e-09 |
-| proxqp   | ``eps_rel``                      | -         |           0     |
-| scs      | ``eps_abs``                      | -         |           1e-09 |
-| scs      | ``eps_rel``                      | -         |           0     |
-| scs      | ``time_limit_secs``              | 1000.0    |        1000     |
+| solver   | parameter                        | default   |   low_accuracy |   high_accuracy |
+|:---------|:---------------------------------|:----------|---------------:|----------------:|
+| cvxopt   | ``feastol``                      | -         |          0.001 |           1e-09 |
+| highs    | ``dual_feasibility_tolerance``   | -         |          0.001 |           1e-09 |
+| highs    | ``primal_feasibility_tolerance`` | -         |          0.001 |           1e-09 |
+| highs    | ``time_limit``                   | 1000.0    |       1000     |        1000     |
+| osqp     | ``eps_abs``                      | -         |          0.001 |           1e-09 |
+| osqp     | ``eps_rel``                      | -         |          0     |           0     |
+| osqp     | ``time_limit``                   | 1000.0    |       1000     |        1000     |
+| proxqp   | ``eps_abs``                      | -         |          0.001 |           1e-09 |
+| proxqp   | ``eps_rel``                      | -         |          0     |           0     |
+| scs      | ``eps_abs``                      | -         |          0.001 |           1e-09 |
+| scs      | ``eps_rel``                      | -         |          0     |           0     |
+| scs      | ``time_limit_secs``              | 1000.0    |       1000     |        1000     |
 
 ## Metrics
 
