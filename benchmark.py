@@ -23,6 +23,15 @@ from qpsolvers_benchmark import Report, Results, TestSet, logging
 
 TEST_SETS = ["maros_meszaros", "maros_meszaros_dense"]
 
+TEST_ARGS = {
+    "maros_meszaros": {
+        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
+    },
+    "maros_meszaros_dense": {
+        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
+    },
+}
+
 
 def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
@@ -149,8 +158,7 @@ def load_test_set(name: str) -> TestSet:
     module = import_module(f"qpsolvers_benchmark.test_sets.{name}")
     class_name = name.title().replace("_", "")
     TestClass = getattr(module, class_name)
-    data_dir = os.path.join(os.path.dirname(__file__), "data")
-    return TestClass(data_dir)
+    return TestClass(**TEST_ARGS[name])
 
 
 if __name__ == "__main__":
