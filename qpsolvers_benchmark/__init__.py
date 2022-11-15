@@ -19,14 +19,16 @@
 Benchmark for quadratic programming solvers available in Python.
 """
 
-__version__ = "0.1.0rc3"
+__version__ = "0.1.0rc4"
 
 from .report import Report
 from .results import Results
 from .spdlog import logging
+from .test_set import TestSet
 
 __all__ = [
     "Report",
     "Results",
+    "TestSet",
     "logging",
 ]
