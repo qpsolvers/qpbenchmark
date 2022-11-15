@@ -23,6 +23,7 @@ from qpsolvers_benchmark import Report, Results, TestSet, logging
 
 TEST_SETS = [
     "github_ffa",
+    "inverse_kinematics",
     "maros_meszaros",
     "maros_meszaros_dense",
 ]
