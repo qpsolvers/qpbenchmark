@@ -19,9 +19,11 @@
 Inverse kinematics test set.
 """
 
-import json
-import os.path
-from typing import Iterator
+from copy import deepcopy
+from dataclasses import dataclass
+from typing import Dict, Iterator, List
+
+from qpsolvers import available_solvers
 
 from ..problem import Problem
 from ..solver_settings import SolverSettings
@@ -38,6 +40,10 @@ except ModuleNotFoundError as e:
 
 try:
     import pink
+    from pink import solve_ik
+    from pink.tasks import BodyTask, PostureTask, Task
+    from pink.utils import RateLimiter, custom_configuration_vector
+    from pink.visualization import start_meshcat_visualizer
 except ModuleNotFoundError as e:
     raise ModuleNotFoundError(
         "This test set requires 'pink', "
@@ -45,7 +51,86 @@ except ModuleNotFoundError as e:
     ) from e
 
 
-ROBOT_DESCRIPTIONS = ["upkie_description"]
+@dataclass
+class Scenario:
+    name: str
+    robot_description: str
+    posture: Dict[str, float]
+    tasks: List[Task]
+
+
+SCENARIOS = [
+    Scenario(
+        name="upkie_knee_flexing",
+        robot_description="upkie_description",
+        posture={
+            "left_hip": -0.2,
+            "left_knee": 0.4,
+            "right_hip": 0.2,
+            "right_knee": -0.4,
+        },
+        tasks=[
+            BodyTask(
+                "base",
+                position_cost=1.0,  # [cost] / [m]
+                orientation_cost=1.0,  # [cost] / [rad]
+            ),
+            BodyTask(
+                "left_contact",
+                position_cost=[0.1, 0.0, 0.1],  # [cost] / [m]
+                orientation_cost=0.0,  # [cost] / [rad]
+            ),
+            BodyTask(
+                "right_contact",
+                position_cost=[0.1, 0.0, 0.1],  # [cost] / [m]
+                orientation_cost=0.0,  # [cost] / [rad]
+            ),
+            PostureTask(
+                cost=1e-3,  # [cost] / [rad]
+            ),
+        ],
+    )
+]
+
+
+class Scene:
+    def __init__(self, scenario: Scenario):
+        robot = load_robot_description(scenario.robot_description)
+        posture = custom_configuration_vector(robot, **scenario.posture)
+        tasks = deepcopy(scenario.tasks)
+
+        configuration = pink.apply_configuration(robot, posture)
+        for task in tasks:
+            if isinstance(task, BodyTask):
+                task.set_target_from_configuration(configuration)
+            elif isinstance(task, PostureTask):
+                task.set_target(posture)
+
+        self.configuration = configuration
+        self.robot = robot
+        self.tasks = tasks
+
+    def display(self):
+        viz = start_meshcat_visualizer(self.robot)
+        viz.display(self.configuration.q)
+        rate = RateLimiter(frequency=200.0)
+        dt = rate.period
+        t = 0.0  # [s]
+        while True:
+            # Compute velocity and integrate it into next configuration
+            solver = available_solvers[0]
+            if "quadprog" in available_solvers:
+                solver = "quadprog"
+            velocity = solve_ik(
+                self.configuration, self.tasks, dt, solver=solver
+            )
+            q = self.configuration.integrate(velocity, dt)
+            self.configuration = pink.apply_configuration(self.robot, q)
+
+            # Visualize result at fixed FPS
+            viz.display(q)
+            rate.sleep()
+            t += dt
 
 
 class InverseKinematics(TestSet):
@@ -75,10 +160,6 @@ class InverseKinematics(TestSet):
         }
 
     def __iter__(self) -> Iterator[Problem]:
-        for desc in ROBOT_DESCRIPTIONS:
-            robot = load_robot_description(desc)
-
-            problem = Problem.from_mat_file(mat_path)
-            if problem.name in self.optimal_costs:
-                problem.optimal_cost = self.optimal_costs[problem.name]
-            yield problem
+        for scenario in SCENARIOS:
+            scene = Scene(scenario)
+            scene.display()
