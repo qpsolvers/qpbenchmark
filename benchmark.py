@@ -17,9 +17,9 @@
 
 import argparse
 import os
+from importlib import import_module  # type: ignore
 
-from qpsolvers_benchmark import Report, Results, logging
-from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
+from qpsolvers_benchmark import Report, Results, TestSet, logging
 
 TEST_SETS = ["maros_meszaros", "maros_meszaros_dense"]
 
@@ -136,6 +136,23 @@ def find_results_file(args):
     return results_file
 
 
+def load_test_set(name: str) -> TestSet:
+    """
+    Load a test set.
+
+    Args:
+        name: Name of the test set.
+
+    Returns:
+        Test set.
+    """
+    module = import_module(f"qpsolvers_benchmark.test_sets.{name}")
+    class_name = name.title().replace("_", "")
+    TestClass = getattr(module, class_name)
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    return TestClass(data_dir)
+
+
 if __name__ == "__main__":
     args = parse_command_line_arguments()
     if args.verbose:
@@ -145,9 +162,7 @@ if __name__ == "__main__":
 
     test_set = None
     if args.command in ["check_problem", "report", "run"]:
-        TestClass = TEST_CLASSES[args.test_set]
-        data_dir = os.path.join(os.path.dirname(__file__), "data")
-        test_set = TestClass(data_dir)
+        test_set = load_test_set(args.test_set)
 
     if args.command == "run":
         args.solver = args.solver.lower() if args.solver else None
