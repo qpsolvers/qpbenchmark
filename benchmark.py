@@ -21,7 +21,10 @@ from importlib import import_module  # type: ignore
 
 from qpsolvers_benchmark import Report, Results, TestSet, logging
 
-TEST_SETS = ["maros_meszaros", "maros_meszaros_dense"]
+TEST_SETS = [
+    "maros_meszaros",
+    "maros_meszaros_dense",
+]
 
 TEST_ARGS = {
     "maros_meszaros": {
