@@ -124,8 +124,8 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | scs      |       4.7 |            74.7 |           49.3 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
-the OSQP and ProxQP benchmarks, we assume a solver's run time is at the time
-limit when it fails to solve a problem.
+the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
+limit](#settings) when it fails to solve a problem.
 
 ### Primal error
 
