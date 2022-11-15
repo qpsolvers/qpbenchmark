@@ -21,14 +21,10 @@ import os
 from qpsolvers_benchmark import Report, Results, logging
 from qpsolvers_benchmark.test_sets import MarosMeszaros, MarosMeszarosDense
 
-TEST_CLASSES = {
-    "maros_meszaros": MarosMeszaros,
-    "maros_meszaros_dense": MarosMeszarosDense,
-}
+TEST_SETS = ["maros_meszaros", "maros_meszaros_dense"]
 
 
 def parse_command_line_arguments():
-    test_sets = list(TEST_CLASSES.keys())
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
@@ -50,7 +46,7 @@ def parse_command_line_arguments():
     )
     parser_check_problem.add_argument(
         "test_set",
-        choices=test_sets,
+        choices=TEST_SETS,
         help="test set to get problem from",
     )
     parser_check_problem.add_argument(
@@ -75,7 +71,7 @@ def parse_command_line_arguments():
     )
     parser_report.add_argument(
         "test_set",
-        choices=test_sets,
+        choices=TEST_SETS,
         help="test set to report on",
     )
     parser_report.add_argument(
@@ -94,7 +90,7 @@ def parse_command_line_arguments():
     )
     parser_run.add_argument(
         "test_set",
-        choices=test_sets,
+        choices=TEST_SETS,
         help="test set to execute command on",
     )
     parser_run.add_argument(
