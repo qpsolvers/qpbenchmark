@@ -158,7 +158,8 @@ def load_test_set(name: str) -> TestSet:
     module = import_module(f"qpsolvers_benchmark.test_sets.{name}")
     class_name = name.title().replace("_", "")
     TestClass = getattr(module, class_name)
-    return TestClass(**TEST_ARGS[name])
+    kwargs = TEST_ARGS.get(name, {})
+    return TestClass(**kwargs)
 
 
 if __name__ == "__main__":
