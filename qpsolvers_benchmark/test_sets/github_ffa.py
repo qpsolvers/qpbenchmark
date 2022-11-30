@@ -27,8 +27,8 @@ from ..problem import Problem
 from ..solver_settings import SolverSettings
 from ..test_set import TestSet
 from ..tolerance import Tolerance
-
 from .problems.github_ffa import available_problems
+
 
 class GitHubFFA(TestSet):
     @property
@@ -82,5 +82,5 @@ class GitHubFFA(TestSet):
         super().__init__()
 
     def __iter__(self) -> Iterator[Problem]:
-        for problem in get_wieber2017geometric_problems():
+        for function in get_wieber2017geometric_problems():
             yield problem
