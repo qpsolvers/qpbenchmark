@@ -28,6 +28,7 @@ The benchmark has different test sets that represent different use cases for QP 
 
 | Test set | Keyword | Description |
 | -------- | ------- | ----------- |
+| [GitHub free-for-all](results/github_ffa.md) | ``github_ffa`` | Test set built by the community on GitHub, new problems [are welcome](https://github.com/stephane-caron/qpsolvers_benchmark/issues/new?assignees=&labels=&template=new_problem.md&title=)! |
 | [Maros-Meszaros](results/maros_meszaros.md) | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
 | [Maros-Meszaros dense](results/maros_meszaros_dense.md) | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
 
