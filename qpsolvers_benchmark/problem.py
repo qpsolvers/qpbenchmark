@@ -43,19 +43,20 @@ class Problem:
     Quadratic program.
 
     Attributes:
-        r: Cost offset, used to compare solution cost to a known optimal one.
+        cost_offset: Cost offset, used to compare solution cost to a known
+            optimal one. Defaults to zero.
     """
 
     A: Union[np.ndarray, spa.csc_matrix]
     G: Union[np.ndarray, spa.csc_matrix]
     P: Union[np.ndarray, spa.csc_matrix]
     b: np.ndarray
+    cost_offset: float
     h: np.ndarray
     lb: np.ndarray
     name: str
     optimal_cost: Optional[float]
     q: np.ndarray
-    r: float
     ub: np.ndarray
 
     def __init__(
@@ -70,7 +71,7 @@ class Problem:
         ub: np.ndarray,
         name: str,
         optimal_cost: Optional[float] = None,
-        r: float = 0.0,
+        cost_offset: float = 0.0,
     ):
         """
         Quadratic program in qpsolvers format.
@@ -87,13 +88,13 @@ class Problem:
         self.G = G
         self.P = P
         self.b = b
+        self.cost_offset = cost_offset
         self.h = h
         self.lb = lb
         self.n = P.shape[0]
         self.name = name
         self.optimal_cost = optimal_cost
         self.q = q
-        self.r = r
         self.ub = ub
 
     @property
@@ -153,17 +154,19 @@ class Problem:
         u_c = u[:-n]
 
         return Problem.from_double_sided_ineq(
-            P, q, C, l_c, u_c, lb, ub, name=name, r=r
+            P, q, C, l_c, u_c, lb, ub, name=name, cost_offset=r
         )
 
     @staticmethod
-    def from_double_sided_ineq(P, q, C, l, u, lb, ub, name: str, r: float):
+    def from_double_sided_ineq(
+        P, q, C, l, u, lb, ub, name: str, cost_offset: float = 0.0
+    ):
         """
         Load problem from double-sided inequality format:
 
         .. code::
 
-            minimize        0.5 x^T P x + q^T x + r
+            minimize        0.5 x^T P x + q^T x + cost_offset
             subject to      l <= C x <= u
                             lb <= x <= ub
 
@@ -176,7 +179,7 @@ class Problem:
             lb: Box lower bound.
             ub: Box upper bound.
             name: Problem name.
-            r: Cost offset.
+            cost_offset: Cost offset.
         """
         bounds_are_equal = u - l < 1e-10
 
@@ -192,7 +195,9 @@ class Problem:
             G = G[h_finite]
             h = h[h_finite]
 
-        return Problem(P, q, G, h, A, b, lb, ub, name=name, r=r)
+        return Problem(
+            P, q, G, h, A, b, lb, ub, name=name, cost_offset=cost_offset
+        )
 
     def to_dense(self):
         """
@@ -210,9 +215,9 @@ class Problem:
             self.b,
             self.lb,
             self.ub,
-            self.name,
-            self.optimal_cost,
-            self.r,
+            name=self.name,
+            optimal_cost=self.optimal_cost,
+            cost_offset=self.cost_offset,
         )
 
     def solve(self, solver: str, **kwargs):
@@ -265,7 +270,7 @@ class Problem:
         if x is None or self.optimal_cost is None:
             return None
         P, q = self.P, self.q
-        cost = 0.5 * x.dot(P.dot(x)) + q.dot(x) + self.r
+        cost = 0.5 * x.dot(P.dot(x)) + q.dot(x) + self.cost_offset
         return cost - self.optimal_cost
 
     def primal_error(self, x: Optional[np.ndarray]) -> Optional[float]:
