@@ -15,11 +15,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .wieber2017geometric import get_wieber2017geometric_problems
+from .wieber2017geometric import problems as wieber2017geometric_problems
 
-problems = []
-
+available_problems = []
+available_problems.extend(wieber2017geometric_problems)
 
 __all__ = [
-    "problems",
+    "available_problems",
 ]
