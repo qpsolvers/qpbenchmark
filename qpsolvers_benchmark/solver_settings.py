@@ -106,7 +106,8 @@ class SolverSettings:
         """
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
-        self.__settings["gurobi"]["FeasibilityTol"] = eps_abs
+        self.__settings["gurobi"]["FeasibilityTol"] = eps_abs  # primal
+        self.__settings["gurobi"]["OptimalityTol"] = eps_abs  # dual
         self.__settings["highs"]["dual_feasibility_tolerance"] = eps_abs
         self.__settings["highs"]["primal_feasibility_tolerance"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
