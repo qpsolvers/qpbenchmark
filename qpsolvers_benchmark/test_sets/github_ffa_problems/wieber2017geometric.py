@@ -16,7 +16,7 @@
 # limitations under the License.
 
 """
-Problems related to "Geometric and numerical aspects of redundancy", Wieber,
+Problems inspired by "Geometric and numerical aspects of redundancy", Wieber,
 Escande, Dimitrov and Sherikov (2017).
 """
 
@@ -27,7 +27,7 @@ from ..problem import Problem
 
 def __get_problem(alpha: float):
     return Problem(
-        P=np.array([[1.0, 0.0], [0.0, 1.0]]),
+        P=np.eye(2),
         q=np.zeros(2),
         G=None,
         h=None,

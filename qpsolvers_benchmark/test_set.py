@@ -45,6 +45,12 @@ class TestSet(abc.ABC):
         Yield test problems one by one.
         """
 
+    @abc.abstractproperty
+    def description(self) -> Optional[str]:
+        """
+        Test set description for the report (optional).
+        """
+
     @abc.abstractmethod
     def define_tolerances(self):
         """

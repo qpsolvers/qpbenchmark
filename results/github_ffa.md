@@ -1,11 +1,12 @@
 # GitHub "free-for-all" test set
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-12-09 14:43:19.382302+00:00
+- Date: 2022-12-09 15:48:29.785982+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Contents
 
+* [Description](#description)
 * [Solvers](#solvers)
 * [Settings](#settings)
 * [Results](#results)
@@ -13,6 +14,12 @@
     * [Computation time](#computation-time)
     * [Primal error](#primal-error)
     * [Cost error](#cost-error)
+
+## Description
+
+Problems in this test set:
+
+- [Geometric and numerical aspects of redundancy](https://github.com/stephane-caron/qpsolvers_benchmark/issues/25)
 
 ## Solvers
 

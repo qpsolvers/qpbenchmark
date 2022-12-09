@@ -21,7 +21,7 @@ Maros-Meszaros test set.
 
 import json
 import os.path
-from typing import Dict, Iterator
+from typing import Dict, Iterator, Optional
 
 from ..problem import Problem
 from ..solver_settings import SolverSettings
@@ -33,6 +33,10 @@ class MarosMeszaros(TestSet):
 
     data_dir: str
     optimal_costs: Dict[str, float]
+
+    @property
+    def description(self) -> Optional[str]:
+        return None
 
     @property
     def title(self) -> str:

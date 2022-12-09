@@ -19,7 +19,7 @@
 GitHub free-for-all test set.
 """
 
-from typing import Iterator
+from typing import Iterator, Optional
 
 from ..problem import Problem
 from ..solver_settings import SolverSettings
@@ -29,6 +29,19 @@ from .github_ffa_problems import available_problems
 
 
 class GithubFfa(TestSet):
+    @property
+    def description(self) -> Optional[str]:
+        issues = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
+        problems = (
+            (
+                "Geometric and numerical aspects of redundancy",
+                f"{issues}/25",
+            ),
+        )
+        return "Problems in this test set:\n\n" + "\n".join(
+            f"- [{name}]({link})" for name, link in problems
+        )
+
     @property
     def title(self) -> str:
         return 'GitHub "free-for-all" test set'

@@ -176,7 +176,12 @@ class Report:
 
 ## Contents
 
-* [Solvers](#solvers)
+"""
+            )
+            if self.test_set.description is not None:
+                fh.write("* [Description](#description)\n")
+            fh.write(
+                """* [Solvers](#solvers)
 * [Settings](#settings)
 * [Results](#results)
     * [Success rate](#success-rate)
@@ -184,7 +189,12 @@ class Report:
     * [Primal error](#primal-error)
     * [Cost error](#cost-error)
 
-## Solvers
+"""
+            )
+            if self.test_set.description is not None:
+                fh.write(f"## Description\n\n{self.test_set.description}\n\n")
+            fh.write(
+                f"""## Solvers
 
 {self.get_solver_versions_table()}
 
