@@ -70,6 +70,17 @@ class Problem:
         """
         Quadratic program in qpsolvers format.
         """
+        if isinstance(P, np.ndarray):
+            P.setflags(write=False)
+        q.setflags(write=False)
+        if isinstance(G, np.ndarray):
+            G.setflags(write=False)
+        h.setflags(write=False)
+        if isinstance(A, np.ndarray):
+            A.setflags(write=False)
+        b.setflags(write=False)
+        lb.setflags(write=False)
+        ub.setflags(write=False)
         self.A = A
         self.G = G
         self.P = P
