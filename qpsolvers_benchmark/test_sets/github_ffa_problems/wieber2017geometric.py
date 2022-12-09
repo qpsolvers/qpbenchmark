@@ -31,7 +31,7 @@ def __get_problem(alpha: float):
         q=np.zeros(2),
         G=None,
         h=None,
-        A=np.array([1.0, alpha]),
+        A=np.array([1.0, alpha]).reshape((1, 2)),
         b=np.array([1.0]),
         lb=None,
         ub=None,
