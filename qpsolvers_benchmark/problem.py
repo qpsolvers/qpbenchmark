@@ -32,6 +32,11 @@ from qpsolvers import solve_qp
 from .spdlog import logging
 
 
+def make_readonly(array: Optional[Union[np.ndarray, spa.csc_matrix]]):
+    if array is not None and isinstance(array, np.ndarray):
+        array.setflags(write=False)
+
+
 class Problem:
 
     """
@@ -70,17 +75,14 @@ class Problem:
         """
         Quadratic program in qpsolvers format.
         """
-        if isinstance(P, np.ndarray):
-            P.setflags(write=False)
-        q.setflags(write=False)
-        if isinstance(G, np.ndarray):
-            G.setflags(write=False)
-        h.setflags(write=False)
-        if isinstance(A, np.ndarray):
-            A.setflags(write=False)
-        b.setflags(write=False)
-        lb.setflags(write=False)
-        ub.setflags(write=False)
+        make_readonly(P)
+        make_readonly(q)
+        make_readonly(G)
+        make_readonly(h)
+        make_readonly(A)
+        make_readonly(b)
+        make_readonly(lb)
+        make_readonly(ub)
         self.A = A
         self.G = G
         self.P = P
