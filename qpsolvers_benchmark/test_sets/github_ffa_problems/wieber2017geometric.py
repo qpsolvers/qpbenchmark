@@ -36,7 +36,7 @@ def __get_problem(alpha: float):
         lb=None,
         ub=None,
         name=f"weds_{alpha=}",
-        optimal_cost=12.42,  # TODO
+        optimal_cost=0.5 / (1 + alpha ** 2),
     )
 
 
