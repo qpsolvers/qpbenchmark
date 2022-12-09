@@ -26,4 +26,14 @@ def get_problem():
     )
 ```
 
-This problem is interesting because ...
+### Motivation
+
+This problem is interesting because...
+
+### Solution
+
+The solution to this problem is...
+
+### References
+
+See also: ...
