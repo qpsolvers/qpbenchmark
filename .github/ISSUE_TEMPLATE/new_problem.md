@@ -8,35 +8,17 @@ assignees: ''
 
 I propose to add the following problem to the ``<test_set_name>`` test set.
 
-Format:
+The problem can be constructed as follows:
 
-$$
-\begin{split}
-\begin{array}{ll}
-\mbox{minimize}
-    & \frac{1}{2} x^T P x + q^T x \\
-\mbox{subject to}
-    & G x \leq h \\
-    & A x = b \\
-    & lb \leq x \leq ub
-\end{array}
-\end{split}
-$$
-
-The problem matrices are:
-
-$$
-\begin{split}
-\begin{array}{ll}
-    P & = ... \\
-    q & = ... \\
-    G & = ... \\
-    h & = ... \\
-    A & = ... \\
-    b & = ... \\
-    lb & = ... \\
-    ub & = ...
-\end{array}
-\end{split}
+```python
+P = ...
+q = ...
+G = ...
+h = ...
+A = ...
+b = ...
+lb = ...
+ub = ...
+```
 
 This problem is interesting because ...
