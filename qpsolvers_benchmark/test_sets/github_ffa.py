@@ -19,21 +19,19 @@
 GitHub free-for-all test set.
 """
 
-import json
-import os.path
-from typing import Dict, Iterator
+from typing import Iterator
 
 from ..problem import Problem
 from ..solver_settings import SolverSettings
 from ..test_set import TestSet
 from ..tolerance import Tolerance
-from .problems.github_ffa import available_problems
+from .github_ffa_problems import available_problems
 
 
-class GitHubFFA(TestSet):
+class GithubFfa(TestSet):
     @property
     def title(self) -> str:
-        return "GitHub QP test set"
+        return 'GitHub "free-for-all" test set'
 
     @property
     def sparse_only(self) -> bool:
@@ -78,9 +76,6 @@ class GitHubFFA(TestSet):
             "high_accuracy": high_accuracy,
         }
 
-    def __init__(self, data_dir: str):
-        super().__init__()
-
     def __iter__(self) -> Iterator[Problem]:
-        for function in get_wieber2017geometric_problems():
+        for problem in available_problems:
             yield problem

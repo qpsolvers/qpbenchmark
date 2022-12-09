@@ -39,6 +39,9 @@ def __get_problem(alpha: float):
         optimal_cost=12.42,  # TODO
     )
 
-def get_wieber2017geometric_problems():
-    for alpha in [1e-2, 1e-4, 1e-6, 1e-8, 1e-10]:
-        yield __get_problem(alpha)
+
+problems = [__get_problem(alpha) for alpha in [1e-2, 1e-4, 1e-6, 1e-8, 1e-10]]
+
+__all__ = [
+    "problems",
+]
