@@ -289,9 +289,32 @@ class Problem:
         """
         if x is None:
             return None
-        C = spa.vstack([self.G, self.A, spa.eye(self.n)], format="csc")
-        l = np.hstack([np.full(self.h.shape, -np.infty), self.b, self.lb])
-        u = np.hstack([self.h, self.b, self.ub])
+        C_list = []
+        l_list = []
+        u_list = []
+        if self.G is not None:
+            C_list.append(spa.csc_matrix(self.G))
+            l_list.append(np.full(self.h.shape, -np.infty))
+            u_list.append(self.h)
+        if self.A is not None:
+            C_list.append(spa.csc_matrix(self.A))
+            l_list.append(self.b)
+            u_list.append(self.b)
+        if self.lb is not None or self.ub is not None:
+            C_list.append(spa.eye(self.n))
+            l_list.append(
+                self.lb
+                if self.lb is not None
+                else np.full(self.ub.shape, -np.infty)
+            )
+            u_list.append(
+                self.ub
+                if self.ub is not None
+                else np.full(self.lb.shape, +np.infty)
+            )
+        C = spa.vstack(C_list, format="csc")
+        l = np.hstack(l_list)
+        u = np.hstack(u_list)
         C_x = C.dot(x)
         p = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
         return linalg.norm(p, np.inf)
