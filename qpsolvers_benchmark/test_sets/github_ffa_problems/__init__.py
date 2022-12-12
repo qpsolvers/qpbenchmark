@@ -15,10 +15,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .wieber2017geometric import problems as wieber2017geometric_problems
+from .ghffa01 import problems as ghffa01_problems
+from .ghffa02 import problems as ghffa02_problems
 
 available_problems = []
-available_problems.extend(wieber2017geometric_problems)
+available_problems.extend(ghffa01_problems)
+available_problems.extend(ghffa02_problems)
 
 __all__ = [
     "available_problems",
