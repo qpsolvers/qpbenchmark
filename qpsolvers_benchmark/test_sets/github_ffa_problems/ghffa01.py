@@ -16,8 +16,10 @@
 # limitations under the License.
 
 """
-Problems inspired by "Geometric and numerical aspects of redundancy", Wieber,
+Problem inspired by "Geometric and numerical aspects of redundancy", Wieber,
 Escande, Dimitrov and Sherikov (2017).
+
+See https://github.com/stephane-caron/qpsolvers_benchmark/issues/25
 """
 
 import numpy as np
@@ -25,7 +27,7 @@ import numpy as np
 from ..problem import Problem
 
 
-def __get_problem(alpha: float):
+def get_problem(alpha: float):
     return Problem(
         P=np.eye(2),
         q=np.zeros(2),
@@ -35,12 +37,12 @@ def __get_problem(alpha: float):
         b=np.array([1.0]),
         lb=None,
         ub=None,
-        name=f"weds_{alpha=}",
+        name=f"ghffa01_{alpha=}",
         optimal_cost=0.5 / (1 + alpha ** 2),
     )
 
 
-problems = [__get_problem(alpha) for alpha in [1e-2, 1e-4, 1e-6, 1e-8, 1e-10]]
+problems = [get_problem(alpha) for alpha in [1e-2, 1e-4, 1e-6, 1e-8, 1e-10]]
 
 __all__ = [
     "problems",
