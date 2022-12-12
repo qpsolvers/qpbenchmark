@@ -33,11 +33,21 @@ class GithubFfa(TestSet):
     def description(self) -> Optional[str]:
         issues = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
         problems = (
-            ("GHFFA01", f"{issues}/25"),
-            ("GHFFA02", f"{issues}/27"),
+            (
+                "GHFFA01",
+                25,
+                "Project the origin on a 2D line that becomes vertical.",
+            ),
+            (
+                "GHFFA02",
+                27,
+                "Linear system with two variables and a large "
+                "condition number",
+            ),
         )
         return "Problems in this test set:\n\n" + "\n".join(
-            f"- [{name}]({link})" for name, link in problems
+            f"- [{name}]({issues}/{inum}): {desc}"
+            for name, inum, desc in problems
         )
 
     @property
