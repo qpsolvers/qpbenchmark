@@ -42,7 +42,7 @@ class GithubFfa(TestSet):
                 "GHFFA02",
                 27,
                 "Linear system with two variables and a large "
-                "condition number",
+                "condition number.",
             ),
         )
         return "Problems in this test set:\n\n" + "\n".join(
