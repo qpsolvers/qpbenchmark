@@ -31,11 +31,11 @@ def get_problem(alpha: float):
         q=np.zeros(2),
         G=None,
         h=None,
-        A=np.array([[1.0, 0.0], [1.0, alpha]]).reshape((1, 2)),
+        A=np.array([[1.0, 0.0], [1.0, alpha]]),
         b=np.array([0.0, 1.0]),
         lb=None,
         ub=None,
-        name=f"ghffa02_{alpha=}",
+        name=f"GHFFA02_{alpha=}",
         optimal_cost=0.5 / (1 + alpha ** 2),
     )
 

@@ -37,7 +37,7 @@ def get_problem(alpha: float):
         b=np.array([1.0]),
         lb=None,
         ub=None,
-        name=f"ghffa01_{alpha=}",
+        name=f"GHFFA01_{alpha=}",
         optimal_cost=0.5 / (1 + alpha ** 2),
     )
 
