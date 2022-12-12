@@ -6,24 +6,22 @@ labels: ''
 assignees: ''
 ---
 
-I propose to add the following problem to the ``<test_set_name>`` test set.
-
-The problem can be constructed as follows:
+I propose to add the following problem to the GitHub free-for-all (``github_ffa``) test set. The problem can be constructed and solved as follows:
 
 ```python
-def get_problem():
-    return Problem(
-        P=[...],
-        q=[...],
-        G=[...],
-        h=[...],
-        A=[...],
-        b=[...],
-        lb=[...],
-        ub=[...],
-        name="...",
-        optimal_cost=[...],
-    )
+import numpy as np
+from qpsolvers import solve_qp
+
+P = ...
+q = ...
+G = ...
+h = ...
+A = ...
+b = ...
+lb = ...
+ub = ...
+
+x = solve_qp(P, q, G, h, A, b, lb, ub, solver="...")
 ```
 
 ### Motivation
@@ -32,8 +30,8 @@ This problem is interesting because...
 
 ### Solution
 
-The solution to this problem is...
+The solution $x^\*$ to this problem is...
 
 ### References
 
-See also: ...
+See also...
