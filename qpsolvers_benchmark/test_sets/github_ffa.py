@@ -33,10 +33,8 @@ class GithubFfa(TestSet):
     def description(self) -> Optional[str]:
         issues = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
         problems = (
-            (
-                "Geometric and numerical aspects of redundancy",
-                f"{issues}/25",
-            ),
+            ("GHFFA01", f"{issues}/25"),
+            ("GHFFA02", f"{issues}/27"),
         )
         return "Problems in this test set:\n\n" + "\n".join(
             f"- [{name}]({link})" for name, link in problems
