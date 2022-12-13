@@ -47,7 +47,7 @@ class GithubFfa(TestSet):
             (
                 "GHFFA03",
                 29,
-                "Large unconstrained least squares.",
+                "Ill-conditioned unconstrained least squares.",
             ),
         )
         return "Problems in this test set:\n\n" + "\n".join(
