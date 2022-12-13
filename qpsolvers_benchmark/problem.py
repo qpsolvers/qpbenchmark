@@ -32,11 +32,6 @@ from qpsolvers import solve_qp
 from .spdlog import logging
 
 
-def make_readonly(array: Optional[Union[np.ndarray, spa.csc_matrix]]):
-    if array is not None and isinstance(array, np.ndarray):
-        array.setflags(write=False)
-
-
 class Problem:
 
     """
@@ -76,14 +71,6 @@ class Problem:
         """
         Quadratic program in qpsolvers format.
         """
-        make_readonly(P)
-        make_readonly(q)
-        make_readonly(G)
-        make_readonly(h)
-        make_readonly(A)
-        make_readonly(b)
-        make_readonly(lb)
-        make_readonly(ub)
         self.A = A
         self.G = G
         self.P = P
