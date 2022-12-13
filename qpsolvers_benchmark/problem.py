@@ -42,28 +42,28 @@ class Problem:
             optimal one. Defaults to zero.
     """
 
-    A: Union[np.ndarray, spa.csc_matrix]
-    G: Union[np.ndarray, spa.csc_matrix]
+    A: Optional[Union[np.ndarray, spa.csc_matrix]]
+    G: Optional[Union[np.ndarray, spa.csc_matrix]]
     P: Union[np.ndarray, spa.csc_matrix]
-    b: np.ndarray
+    b: Optional[np.ndarray]
     cost_offset: float
-    h: np.ndarray
-    lb: np.ndarray
+    h: Optional[np.ndarray]
+    lb: Optional[np.ndarray]
     name: str
     optimal_cost: Optional[float]
     q: np.ndarray
-    ub: np.ndarray
+    ub: Optional[np.ndarray]
 
     def __init__(
         self,
         P: Union[np.ndarray, spa.csc_matrix],
         q: np.ndarray,
-        G: Union[np.ndarray, spa.csc_matrix],
-        h: np.ndarray,
-        A: Union[np.ndarray, spa.csc_matrix],
-        b: np.ndarray,
-        lb: np.ndarray,
-        ub: np.ndarray,
+        G: Optional[Union[np.ndarray, spa.csc_matrix]],
+        h: Optional[np.ndarray],
+        A: Optional[Union[np.ndarray, spa.csc_matrix]],
+        b: Optional[np.ndarray],
+        lb: Optional[np.ndarray],
+        ub: Optional[np.ndarray],
         name: str,
         optimal_cost: Optional[float] = None,
         cost_offset: float = 0.0,
