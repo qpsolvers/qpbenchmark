@@ -28,6 +28,10 @@ if __name__ == "__main__":
     x = solve_qp(*args, solver="...")
 ```
 
+### Parameter range
+
+<!-- If the problem has parameters, explain what values are suitable for them here. -->
+
 ### Motivation
 
 This problem is interesting because...
@@ -38,4 +42,4 @@ The solution $x^\*$ to this problem is...
 
 ### References
 
-See also...
+<!-- If the problem arose in a given context, e.g. if it was discussed in a scientific paper, put the relevant references here. -->
