@@ -6,8 +6,8 @@ labels: ''
 assignees: ''
 ---
 
-[General description of the bug/issue.]
+<!-- Description of the bug/issue. -->
 
 ### Reproduction steps
 
-[Instructions to reproduce the issue on another system.]
+<!-- Instructions to reproduce the issue on another system. -->
