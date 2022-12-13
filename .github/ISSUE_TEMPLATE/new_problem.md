@@ -36,9 +36,13 @@ if __name__ == "__main__":
 
 This problem is interesting because...
 
-### Solution
+### Solution and optimal cost
 
 The solution $x^\*$ to this problem is...
+
+<!-- We need to know what the optimal cost is to compute cost residuals in the benchmark. -->
+
+The optimal cost $\frac12 x^{\*T} P x^\* + q^T x^\*$ is therefore...
 
 ### References
 
