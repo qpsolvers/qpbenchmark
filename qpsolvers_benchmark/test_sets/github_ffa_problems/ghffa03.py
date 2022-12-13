@@ -32,6 +32,12 @@ def get_problem(n: int):
     return Problem(
         P=P,
         q=q,
+        G=None,
+        h=None,
+        A=None,
+        b=None,
+        lb=None,
+        ub=None,
         name="GHFFA03",
         optimal_cost=0.0,
     )
