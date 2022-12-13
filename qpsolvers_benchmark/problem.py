@@ -96,7 +96,14 @@ class Problem:
         """
         Number of inequality and equality constraints.
         """
-        return self.G.shape[0] + self.A.shape[0] + self.lb.shape[0]
+        m = 0
+        if self.G is not None:
+            m += self.G.shape[0]
+        if self.A is not None:
+            m += self.A.shape[0]
+        if self.lb is not None:
+            m += self.lb.shape[0]
+        return m
 
     @staticmethod
     def from_mat_file(path):
