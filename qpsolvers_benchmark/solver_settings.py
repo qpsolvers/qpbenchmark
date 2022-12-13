@@ -52,7 +52,7 @@ class SolverSettings:
         """
         return solver in cls.IMPLEMENTED_SOLVERS
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize settings.
         """
