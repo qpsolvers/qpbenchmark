@@ -44,6 +44,11 @@ class GithubFfa(TestSet):
                 "Linear system with two variables and a large "
                 "condition number.",
             ),
+            (
+                "GHFFA03",
+                29,
+                "Large unconstrained least squares.",
+            ),
         )
         return "Problems in this test set:\n\n" + "\n".join(
             f"- [{name}]({issues}/{inum}): {desc}"

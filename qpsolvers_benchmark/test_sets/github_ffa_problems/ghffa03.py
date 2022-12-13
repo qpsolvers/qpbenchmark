@@ -15,15 +15,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .ghffa01 import problems as ghffa01_problems
-from .ghffa02 import problems as ghffa02_problems
-from .ghffa03 import problems as ghffa03_problems
+"""
+Problem described at:
+    https://github.com/stephane-caron/qpsolvers_benchmark/issues/29
+"""
 
-available_problems = []
-available_problems.extend(ghffa01_problems)
-available_problems.extend(ghffa02_problems)
-available_problems.extend(ghffa03_problems)
+import numpy as np
+
+from ..problem import Problem
+
+
+def get_problem(n: int):
+    M = np.array(range(n * n), dtype=float).reshape((n, n))
+    P = np.dot(M.T, M)  # this is a positive definite matrix
+    q = np.dot(np.ones(n, dtype=float), M)
+    return Problem(
+        P=P,
+        q=q,
+        name="GHFFA03",
+        optimal_cost=0.0,
+    )
+
+
+problems = [get_problem(n=1000)]
 
 __all__ = [
-    "available_problems",
+    "problems",
 ]
