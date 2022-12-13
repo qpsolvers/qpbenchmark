@@ -291,11 +291,11 @@ class Problem:
         C_list = []
         l_list = []
         u_list = []
-        if self.G is not None:
+        if self.G is not None and self.h is not None:
             C_list.append(spa.csc_matrix(self.G))
             l_list.append(np.full(self.h.shape, -np.infty))
             u_list.append(self.h)
-        if self.A is not None:
+        if self.A is not None and self.b is not None:
             C_list.append(spa.csc_matrix(self.A))
             l_list.append(self.b)
             u_list.append(self.b)
@@ -304,12 +304,12 @@ class Problem:
             l_list.append(
                 self.lb
                 if self.lb is not None
-                else np.full(self.ub.shape, -np.infty)
+                else np.full(self.ub.shape, -np.infty)  # type: ignore
             )
             u_list.append(
                 self.ub
                 if self.ub is not None
-                else np.full(self.lb.shape, +np.infty)
+                else np.full(self.lb.shape, +np.infty)  # type: ignore
             )
         if not C_list:  # no constraint
             return 0.0
@@ -318,4 +318,4 @@ class Problem:
         u = np.hstack(u_list)
         C_x = C.dot(x)
         p = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
-        return linalg.norm(p, np.inf)
+        return linalg.norm(p, np.inf)  # type: ignore
