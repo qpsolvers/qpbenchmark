@@ -86,6 +86,10 @@ python benchmark.py run maros_meszaros_dense --solver proxqp --settings default
 
 Check out ``python benchmark.py --help`` for all available commands and arguments.
 
+## Contributing
+
+Contributions to improving this benchmark are welcome. You can for instance propose new problems, or share the runtimes you obtain on your machine. Check out the [contribution guidelines](CONTRIBUTING.md) for details.
+
 ## See also
 
 ### References
