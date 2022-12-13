@@ -317,6 +317,8 @@ class Problem:
                 if self.ub is not None
                 else np.full(self.lb.shape, +np.infty)
             )
+        if not C_list:  # no constraint
+            return 0.0
         C = spa.vstack(C_list, format="csc")
         l = np.hstack(l_list)
         u = np.hstack(u_list)
