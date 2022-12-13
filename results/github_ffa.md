@@ -1,7 +1,7 @@
 # GitHub "free-for-all" test set
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-12-12 16:46:28.316985+00:00
+- Date: 2022-12-13 12:05:41.771365+00:00
 - Run by: [@stephane-caron](https://github.com/stephane-caron/)
 
 ## Contents
@@ -21,6 +21,7 @@ Problems in this test set:
 
 - [GHFFA01](https://github.com/stephane-caron/qpsolvers_benchmark/issues/25): Project the origin on a 2D line that becomes vertical.
 - [GHFFA02](https://github.com/stephane-caron/qpsolvers_benchmark/issues/27): Linear system with two variables and a large condition number.
+- [GHFFA03](https://github.com/stephane-caron/qpsolvers_benchmark/issues/29): Large unconstrained least squares.
 
 ## Solvers
 
@@ -78,15 +79,15 @@ Precentage of problems each solver is able to solve:
 
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
-| cvxopt   |        60 |              55 |             60 |
-| ecos     |        50 |              50 |             50 |
-| highs    |        60 |              60 |             60 |
-| osqp     |        55 |              55 |             55 |
-| proxqp   |        60 |              60 |             55 |
-| qpoases  |        70 |              70 |             70 |
+| cvxopt   |        64 |              55 |             64 |
+| ecos     |        45 |              45 |             45 |
+| highs    |        82 |              82 |             82 |
+| osqp     |        64 |              55 |             64 |
+| proxqp   |        64 |              64 |             55 |
+| qpoases  |        91 |              91 |             91 |
 | qpswift  |         0 |               0 |              0 |
 | quadprog |         0 |               0 |              0 |
-| scs      |        60 |              55 |             60 |
+| scs      |        64 |              55 |             64 |
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
 that a solver successfully solved a problem when (1) it returned with a success
@@ -99,15 +100,15 @@ Percentage of problems where "solved" return codes are correct:
 
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
-| cvxopt   |        80 |              75 |             80 |
+| cvxopt   |        91 |              82 |             91 |
 | ecos     |       100 |             100 |            100 |
-| highs    |        80 |              80 |             80 |
-| osqp     |        95 |              95 |             95 |
-| proxqp   |        90 |              90 |             85 |
-| qpoases  |        70 |              70 |             70 |
+| highs    |       100 |             100 |            100 |
+| osqp     |       100 |             100 |            100 |
+| proxqp   |       100 |             100 |             91 |
+| qpoases  |        91 |              91 |             91 |
 | qpswift  |       100 |             100 |            100 |
 | quadprog |       100 |             100 |            100 |
-| scs      |        90 |              95 |             90 |
+| scs      |       100 |             100 |            100 |
 
 ### Computation time
 
@@ -120,15 +121,15 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
-| cvxopt   |   35643.4 |         46806.2 |        46671.0 |
-| ecos     |  134166.1 |        176204.1 |       175696.0 |
-| highs    |   35647.1 |         46811.4 |        46676.3 |
-| osqp     |   93207.9 |        122414.7 |       122061.0 |
-| proxqp   |   60988.5 |         80098.2 |        79866.6 |
+| cvxopt   |      30.9 |            29.7 |           30.2 |
+| ecos     |      90.2 |            86.7 |           88.3 |
+| highs    |      18.6 |            17.8 |           18.2 |
+| osqp     |      46.8 |            63.4 |           48.4 |
+| proxqp   |      46.5 |            44.7 |           45.5 |
 | qpoases  |       1.0 |             1.0 |            1.0 |
-| qpswift  |  579093.4 |        760555.3 |       758357.9 |
-| quadprog |  579093.4 |        760555.3 |       758357.9 |
-| scs      |   60990.8 |        122417.4 |        79869.8 |
+| qpswift  |     334.4 |           321.2 |          327.0 |
+| quadprog |     334.4 |           321.2 |          327.0 |
+| scs      |      46.5 |            63.4 |           45.5 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
@@ -145,17 +146,17 @@ on constraints than the best solver over the test set. See
 
 Shifted geometric means of solver primal errors (1.0 is the best):
 
-|          |            default |   high_accuracy |    low_accuracy |
-|:---------|-------------------:|----------------:|----------------:|
-| cvxopt   | -108344124091417.0 |   -5004647703.0 | -117590122552.0 |
-| ecos     | -274769388039508.0 |       -281626.0 | -281467940334.0 |
-| highs    | -108339023244642.0 |       -112591.0 | -112585487354.0 |
-| osqp     | -218829401905928.0 |       -225179.0 | -289076873422.0 |
-| proxqp   | -163288323377648.0 |       -466216.0 | -527415114875.0 |
-| qpoases  |                1.0 |             1.0 |             1.0 |
-| qpswift  | -562949953421316.0 |       -562951.0 | -562949953418.0 |
-| quadprog | -562949953421316.0 |       -562951.0 | -562949953418.0 |
-| scs      | -163288049868560.0 |       -225184.0 | -168882945522.0 |
+|          |           default |   high_accuracy |   low_accuracy |
+|:---------|------------------:|----------------:|---------------:|
+| cvxopt   |  37063635566269.2 |    1137432680.5 |  39518981023.0 |
+| ecos     |  75100956805741.8 |         76800.2 |  76764158178.2 |
+| highs    |  24601115559046.5 |         25589.0 |  25587587503.0 |
+| osqp     |  49647297291915.2 |         63971.5 |  65699136068.8 |
+| proxqp   |  49632356874694.8 |        118752.2 | 132661386369.2 |
+| qpoases  |               1.0 |             1.0 |            1.0 |
+| qpswift  | 140737488355329.0 |        140737.2 | 140737488355.8 |
+| quadprog | 140737488355329.0 |        140737.2 | 140737488355.8 |
+| scs      |  49632294335373.5 |         63972.2 |  51176519797.0 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal error equal to the
@@ -174,15 +175,15 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
-| cvxopt   |       7.3 |             7.3 |            7.3 |
-| ecos     |       1.2 |             1.2 |            1.2 |
-| highs    |      18.0 |            18.0 |           18.0 |
-| osqp     |       1.0 |             1.0 |            1.0 |
-| proxqp   |       1.7 |             1.4 |            2.4 |
-| qpoases  |      87.2 |            87.2 |           87.2 |
-| qpswift  |      13.1 |            13.1 |           13.1 |
-| quadprog |      13.1 |            13.1 |           13.1 |
-| scs      |       1.4 |             1.0 |            1.4 |
+| cvxopt   |      13.7 |            13.7 |           13.7 |
+| ecos     |      11.0 |            11.0 |           11.0 |
+| highs    |       1.3 |             1.3 |            1.3 |
+| osqp     |       6.4 |             6.9 |            6.4 |
+| proxqp   |       6.2 |             4.2 |           11.9 |
+| qpoases  |       1.0 |             1.0 |            1.0 |
+| qpswift  |      96.6 |            96.6 |           96.6 |
+| quadprog |      96.6 |            96.6 |           96.6 |
+| scs      |       4.2 |             6.9 |            4.2 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
