@@ -53,3 +53,7 @@ line-length = 79
 
 [tool.flit.sdist]
 exclude = ["data", "results"]
+
+[tool.isort]
+profile = "black"
+line_length = 79
