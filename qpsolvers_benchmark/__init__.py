@@ -19,7 +19,7 @@
 Benchmark for quadratic programming solvers available in Python.
 """
 
-__version__ = "0.1.0rc4"
+__version__ = "0.1.0rc3"
 
 from .report import Report
 from .results import Results
