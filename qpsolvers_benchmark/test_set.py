@@ -34,6 +34,33 @@ from .spdlog import logging
 from .tolerance import Tolerance
 
 
+def time_solve_problem(
+    problem, solver: str, **kwargs
+) -> Tuple[Optional[qpsolvers.Solution], float]:
+    """
+    Solve quadratic program.
+
+    Args:
+        problem: Quadratic program to solve.
+        solver: Name of the backend QP solver to call.
+
+    Returns:
+        Solution to the quadratic program, along with the time the solver took
+        to compute it.
+    """
+    # Don't time matrix conversions for solvers that require sparse inputs
+    if solver in ["highs", "osqp", "scs"]:
+        problem = problem.to_sparse()
+    start_time = perf_counter()
+    try:
+        solution = qpsolvers.solve_problem(problem, solver=solver, **kwargs)
+    except Exception as e:
+        logging.warning(f"Caught solver exception: {e}")
+        solution = None
+    runtime = perf_counter() - start_time
+    return solution, runtime
+
+
 class TestSet(abc.ABC):
 
     solver_settings: Dict[str, SolverSettings]
