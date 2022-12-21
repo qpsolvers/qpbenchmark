@@ -95,7 +95,7 @@ class Results:
         problem: Problem,
         solver: str,
         settings: str,
-        solution: Optional[np.ndarray],
+        solution: qpsolvers.Solution,
         runtime: float,
     ) -> None:
         """
