@@ -165,7 +165,7 @@ class Report:
             for name, tolerance in self.test_set.tolerances.items()
         }
         success_rate_df, correct_rate_df = self.results.build_success_frames(
-            cost_tolerances, primal_tolerances
+            cost_tolerances, primal_tolerances, dual_tolerances, gap_tolerances
         )
         success_rate_table = success_rate_df.to_markdown(
             index=True, floatfmt=".0f"

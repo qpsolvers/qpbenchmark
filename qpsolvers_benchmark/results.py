@@ -141,13 +141,17 @@ class Results:
         self,
         cost_tolerances: Dict[str, float],
         primal_tolerances: Dict[str, float],
+        dual_tolerances: Dict[str, float],
+        gap_tolerances: Dict[str, float],
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """
         Build the success-rate and correctness-rate data frames.
 
         Args:
             cost_tolerances: Cost tolerance for each settings.
-            primal_tolerances: Primal tolerance for each settings.
+            primal_tolerances: Primal-residual tolerance for each settings.
+            dual_tolerances: Dual-residual tolerance for each settings.
+            gap_tolerances: Duality-gap tolerance for each settings.
 
         Returns:
             Success-rate and correctness-rate data frames.
