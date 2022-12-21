@@ -92,12 +92,13 @@ class Problem(qpsolvers.Problem):
         Returns:
             Sparse version of the present problem.
         """
+        P, G, A = self.P, self.G, self.A
         return Problem(
-            spa.csc_matrix(self.P),
+            spa.csc_matrix(P) if isinstance(P, np.ndarray) else P,
             self.q,
-            spa.csc_matrix(self.G),
+            spa.csc_matrix(G) if isinstance(G, np.ndarray) else G,
             self.h,
-            spa.csc_matrix(self.A),
+            spa.csc_matrix(A) if isinstance(A, np.ndarray) else A,
             self.b,
             self.lb,
             self.ub,
