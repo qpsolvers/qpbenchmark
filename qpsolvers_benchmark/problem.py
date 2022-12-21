@@ -106,7 +106,7 @@ class Problem(qpsolvers.Problem):
             cost_offset=self.cost_offset,
         )
 
-    def cost_error(self, x: Optional[np.ndarray]) -> Optional[float]:
+    def cost_error(self, solution: qpsolvers.Solution) -> Optional[float]:
         """
         Compute difference between found cost and the optimal one.
 
@@ -116,6 +116,7 @@ class Problem(qpsolvers.Problem):
         Returns:
             Cost error, i.e. deviation from the (known) optimal cost.
         """
+        x = solution.x
         if x is None or self.optimal_cost is None:
             return None
         P, q = self.P, self.q
