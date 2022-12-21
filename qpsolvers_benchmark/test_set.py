@@ -21,7 +21,7 @@ Base class for test sets.
 
 import abc
 from time import perf_counter
-from typing import Dict, Iterator, Optional
+from typing import Dict, Iterator, Optional, Tuple
 
 import qpsolvers
 from qpsolvers.exceptions import SolverNotFound
@@ -242,7 +242,9 @@ class TestSet(abc.ABC):
                         f"with {settings} settings..."
                     )
                     kwargs = self.solver_settings[settings][solver]
-                    solution, runtime = problem.solve(solver, **kwargs)
+                    solution, runtime = time_solve_problem(
+                        problem, solver, **kwargs
+                    )
                     results.update(
                         problem, solver, settings, solution, runtime
                     )
