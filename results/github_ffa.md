@@ -1,4 +1,4 @@
-# GitHub "free-for-all" test set
+# GitHub free-for-all test set
 
 - CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
 - Date: 2022-12-13 12:05:41.771365+00:00
