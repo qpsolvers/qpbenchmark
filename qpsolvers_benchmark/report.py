@@ -152,6 +152,14 @@ class Report:
             name: tolerance.primal
             for name, tolerance in self.test_set.tolerances.items()
         }
+        dual_tolerances= {
+            name: tolerance.dual
+            for name, tolerance in self.test_set.tolerances.items()
+        }
+        gap_tolerances= {
+            name: tolerance.gap
+            for name, tolerance in self.test_set.tolerances.items()
+        }
         time_limits = {
             name: tolerance.runtime
             for name, tolerance in self.test_set.tolerances.items()
