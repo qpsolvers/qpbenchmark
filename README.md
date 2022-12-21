@@ -38,17 +38,19 @@ We evaluate QP solvers based on the following metrics:
 
 - **Success rate:** percentage of problems a solver is able to solve on a given test set.
 - **Computation time:** time a solver takes to solve a given problem.
-- **Primal error:** maximum error on equality and inequality constraints at the returned solution.
+- **Primal residual:** maximum error on equality and inequality constraints at the returned solution.
+- **Dual residual:** maximum error on the dual feasibility condition at the returned solution.
+- **Duality gap:** value of the duality gap at the returned solution.
 - **Cost error:** difference between the solution cost and the known optimal cost.
 
 ### Shifted geometric mean
 
-Problem-specific metrics (computation time, primal error, cost error) produce a different ranking of solvers for each problem. To aggregate those rankings into a single metric over the whole test set, we use the *shifted geometric mean* (SGM), which is a standard to aggregate computation times in [benchmarks for optimization software](#other-benchmarks). This mean has the advantage of being compromised by neither large outliers (as opposed to the arithmetic mean) nor by small outliers (in contrast to the geometric geometric mean). Check out the [references](#references) below for further details.
+Each metric (computation time, primal and dual residuals, duality gap) produces a different ranking of solvers for each problem. To aggregate those rankings into a single metric over the whole test set, we use the *shifted geometric mean* (SGM), which is a standard to aggregate computation times in [benchmarks for optimization software](#other-benchmarks). This mean has the advantage of being compromised by neither large outliers (as opposed to the arithmetic mean) nor by small outliers (in contrast to the geometric geometric mean). Check out the [references](#references) below for further details.
 
 Here are some intuitive interpretations:
 
 - A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set.
-- A solver with a shifted-geometric-mean primal error $P$ is $P$ times less accurate on equality and inequality constraints than the best solver over the test set.
+- A solver with a shifted-geometric-mean primal residual $R_p$ is $R_p$ times less accurate on equality and inequality constraints than the best solver over the test set.
 
 ## Limitations
 
