@@ -20,7 +20,7 @@ Matrix-vector representation of a quadratic program.
 """
 
 from time import perf_counter
-from typing import Optional, Union
+from typing import Optional, Tuple, Union
 
 import numpy as np
 import qpsolvers
@@ -89,7 +89,30 @@ class Problem(qpsolvers.Problem):
             cost_offset=self.cost_offset,
         )
 
-    def solve(self, solver: str, **kwargs):
+    def to_sparse(self):
+        """
+        Return sparse version.
+
+        Returns:
+            Sparse version of the present problem.
+        """
+        return Problem(
+            spa.csc_matrix(self.P),
+            self.q,
+            spa.csc_matrix(self.G),
+            self.h,
+            spa.csc_matrix(self.A),
+            self.b,
+            self.lb,
+            self.ub,
+            name=self.name,
+            optimal_cost=self.optimal_cost,
+            cost_offset=self.cost_offset,
+        )
+
+    def solve(
+        self, solver: str, **kwargs
+    ) -> Tuple[Optional[qpsolvers.Solution], float]:
         """
         Solve quadratic program.
 
