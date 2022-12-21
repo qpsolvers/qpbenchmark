@@ -126,7 +126,7 @@ class Results:
                         "solver": [solver],
                         "settings": [settings],
                         "runtime": [runtime],
-                        "found": [solution is not None],
+                        "found": [not solution.is_empty],
                         "cost_error": [problem.cost_error(solution)],
                         "primal_residual": [solution.primal_residual()],
                         "dual_residual": [solution.dual_residual()],
