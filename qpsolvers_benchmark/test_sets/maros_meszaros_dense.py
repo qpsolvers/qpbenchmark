@@ -53,7 +53,8 @@ class MarosMeszarosDense(MarosMeszaros):
     def __init__(self, data_dir: str):
         super().__init__(data_dir)
 
-    def count_constraints(self, problem: Problem):
+    @staticmethod
+    def count_constraints(problem: Problem):
         """
         Count inequality and equality constraints.
 
