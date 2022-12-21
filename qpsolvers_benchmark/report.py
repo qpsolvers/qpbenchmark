@@ -59,7 +59,7 @@ class Report:
             [],
             columns=["tolerance"] + names,
         )
-        tolerances = ["cost", "primal", "runtime"]
+        tolerances = ["cost", "primal", "dual", "gap", "runtime"]
         for tolerance in tolerances:
             row = {
                 "tolerance": [f"``{tolerance}``"],
