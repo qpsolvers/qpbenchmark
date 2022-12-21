@@ -24,7 +24,6 @@ from typing import Optional, Union
 import numpy as np
 import qpsolvers
 import scipy.sparse as spa
-from numpy import linalg
 
 
 class Problem(qpsolvers.Problem):
@@ -122,57 +121,3 @@ class Problem(qpsolvers.Problem):
         P, q = self.P, self.q
         cost = 0.5 * x.dot(P.dot(x)) + q.dot(x) + self.cost_offset
         return cost - self.optimal_cost
-
-    def primal_error(self, x: Optional[np.ndarray]) -> Optional[float]:
-        """
-        Compute the primal residual for a given vector.
-
-        Args:
-            x: Primal candidate.
-
-        Returns:
-            Primal residual, i.e. the largest constraint violation.
-
-        Notes:
-            This function is adapted from `is_qp_solution_optimal` in
-            proxqp_benchmark. The original function included the relative
-            tolerance parameter specified in the OSQP paper, set to zero.
-
-            See `Optimality conditions and numerical tolerances in QP solvers
-            <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
-            for a primer on residuals.
-        """
-        if x is None:
-            return None
-        C_list = []
-        l_list = []
-        u_list = []
-        if self.G is not None and self.h is not None:
-            C_list.append(spa.csc_matrix(self.G))
-            l_list.append(np.full(self.h.shape, -np.infty))
-            u_list.append(self.h)
-        if self.A is not None and self.b is not None:
-            C_list.append(spa.csc_matrix(self.A))
-            l_list.append(self.b)
-            u_list.append(self.b)
-        if self.lb is not None or self.ub is not None:
-            n: int = self.P.shape[0]
-            C_list.append(spa.eye(n))
-            l_list.append(
-                self.lb
-                if self.lb is not None
-                else np.full(self.ub.shape, -np.infty)  # type: ignore
-            )
-            u_list.append(
-                self.ub
-                if self.ub is not None
-                else np.full(self.lb.shape, +np.infty)  # type: ignore
-            )
-        if not C_list:  # no constraint
-            return 0.0
-        C = spa.vstack(C_list, format="csc")
-        l = np.hstack(l_list)
-        u = np.hstack(u_list)
-        C_x = C.dot(x)
-        p = np.minimum(C_x - l, 0.0) + np.maximum(C_x - u, 0.0)
-        return linalg.norm(p, np.inf)  # type: ignore
