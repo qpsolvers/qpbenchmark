@@ -36,7 +36,7 @@ from .tolerance import Tolerance
 
 def time_solve_problem(
     problem, solver: str, **kwargs
-) -> Tuple[Optional[qpsolvers.Solution], float]:
+) -> Tuple[qpsolvers.Solution, float]:
     """
     Solve quadratic program.
 
@@ -56,7 +56,7 @@ def time_solve_problem(
         solution = qpsolvers.solve_problem(problem, solver=solver, **kwargs)
     except Exception as e:
         logging.warning(f"Caught solver exception: {e}")
-        solution = None
+        solution = qpsolvers.Solution(problem)
     runtime = perf_counter() - start_time
     return solution, runtime
 
@@ -213,13 +213,25 @@ class TestSet(abc.ABC):
                 for settings in filtered_settings:
                     time_limit = self.tolerances[settings].runtime
                     if skip_solver_issue(problem, solver):
-                        failure = problem, solver, settings, None, 0.0
+                        failure = (
+                            problem,
+                            solver,
+                            settings,
+                            qpsolvers.Solution(problem),
+                            0.0,
+                        )
                         results.update(*failure)
                         continue
                     if skip_solver_timeout(
                         time_limit, problem, solver, settings
                     ):
-                        failure = problem, solver, settings, None, 0.0
+                        failure = (
+                            problem,
+                            solver,
+                            settings,
+                            qpsolvers.Solution(problem),
+                            0.0,
+                        )
                         results.update(*failure)
                         continue
                     if results.has(problem, solver, settings):
