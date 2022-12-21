@@ -53,9 +53,26 @@ class MarosMeszarosDense(MarosMeszaros):
     def __init__(self, data_dir: str):
         super().__init__(data_dir)
 
+    def count_constraints(self, problem: Problem):
+        """
+        Count inequality and equality constraints.
+
+        Notes:
+            We only count box inequality constraints once, and only from lower
+            bounds. That latter part is specific to this test set.
+        """
+        m = 0
+        if problem.G is not None:
+            m += problem.G.shape[0]
+        if problem.A is not None:
+            m += problem.A.shape[0]
+        if problem.lb is not None:
+            m += problem.lb.shape[0]
+        return m
+
     def __iter__(self) -> Iterator[Problem]:
         for problem in super().__iter__():
-            nb_variables = problem.nb_variables
-            nb_constraints = problem.nb_constraints
+            nb_variables = problem.P.shape[0]
+            nb_constraints = self.count_constraints(problem)
             if nb_variables <= 1000 and nb_constraints <= 1000:
                 yield problem.to_dense()

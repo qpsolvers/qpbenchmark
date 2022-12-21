@@ -38,7 +38,7 @@ Problems in this test set:
 | scs      | 3.2.2       |
 
 All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.6.0.
+[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.7.0.
 
 ## Settings
 

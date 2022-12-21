@@ -19,20 +19,18 @@
 Matrix-vector representation of a quadratic program.
 """
 
-import os
 from time import perf_counter
 from typing import Optional, Union
 
 import numpy as np
-import scipy.io as spio
+import qpsolvers
 import scipy.sparse as spa
 from numpy import linalg
-from qpsolvers import solve_qp
 
 from .spdlog import logging
 
 
-class Problem:
+class Problem(qpsolvers.Problem):
 
     """
     Quadratic program.
@@ -40,19 +38,13 @@ class Problem:
     Attributes:
         cost_offset: Cost offset, used to compare solution cost to a known
             optimal one. Defaults to zero.
+        name: Name of the problem, for reporting.
+        optimal_cost: If known, cost at the optimum of the problem.
     """
 
-    A: Optional[Union[np.ndarray, spa.csc_matrix]]
-    G: Optional[Union[np.ndarray, spa.csc_matrix]]
-    P: Union[np.ndarray, spa.csc_matrix]
-    b: Optional[np.ndarray]
     cost_offset: float
-    h: Optional[np.ndarray]
-    lb: Optional[np.ndarray]
     name: str
     optimal_cost: Optional[float]
-    q: np.ndarray
-    ub: Optional[np.ndarray]
 
     def __init__(
         self,
@@ -71,127 +63,10 @@ class Problem:
         """
         Quadratic program in qpsolvers format.
         """
-        self.A = A
-        self.G = G
-        self.P = P
-        self.b = b
+        super().__init__(P, q, G, h, A, b, lb, ub)
         self.cost_offset = cost_offset
-        self.h = h
-        self.lb = lb
-        self.n = P.shape[0]
         self.name = name
         self.optimal_cost = optimal_cost
-        self.q = q
-        self.ub = ub
-
-    @property
-    def nb_variables(self) -> int:
-        """
-        Number of optimization variables.
-        """
-        return self.P.shape[0]
-
-    @property
-    def nb_constraints(self) -> int:
-        """
-        Number of inequality and equality constraints.
-        """
-        m = 0
-        if self.G is not None:
-            m += self.G.shape[0]
-        if self.A is not None:
-            m += self.A.shape[0]
-        if self.lb is not None:
-            m += self.lb.shape[0]
-        return m
-
-    @staticmethod
-    def from_mat_file(path):
-        """
-        Load problem from MAT file.
-
-        Args:
-            path: Path to file.
-
-        Notes:
-            We assume that matrix files result from calling `sif2mat.m` in
-            proxqp_benchmark. In particular, ``A = [sparse(A_c); speye(n)];``
-            and the infinity constant is set to 1e20.
-        """
-        assert path.endswith(".mat")
-        name = os.path.basename(path)[:-4]
-
-        mat_dict = spio.loadmat(path)
-        P = mat_dict["P"].astype(float).tocsc()
-        q = mat_dict["q"].T.flatten().astype(float)
-        r = mat_dict["r"].T.flatten().astype(float)[0]
-        A = mat_dict["A"].astype(float).tocsc()
-        l = mat_dict["l"].T.flatten().astype(float)
-        u = mat_dict["u"].T.flatten().astype(float)
-        n = mat_dict["n"].T.flatten().astype(int)[0]
-        m = mat_dict["m"].T.flatten().astype(int)[0]
-        assert A.shape == (m, n)
-
-        # Infinity constant is 1e20
-        A[A > +9e19] = +np.inf
-        l[l > +9e19] = +np.inf
-        u[u > +9e19] = +np.inf
-        A[A < -9e19] = -np.inf
-        l[l < -9e19] = -np.inf
-        u[u < -9e19] = -np.inf
-
-        # A = vstack([C, spa.eye(n)])
-        lb = l[-n:]
-        ub = u[-n:]
-        C = A[:-n]
-        l_c = l[:-n]
-        u_c = u[:-n]
-
-        return Problem.from_double_sided_ineq(
-            P, q, C, l_c, u_c, lb, ub, name=name, cost_offset=r
-        )
-
-    @staticmethod
-    def from_double_sided_ineq(
-        P, q, C, l, u, lb, ub, name: str, cost_offset: float = 0.0
-    ):
-        """
-        Load problem from double-sided inequality format:
-
-        .. code::
-
-            minimize        0.5 x^T P x + q^T x + cost_offset
-            subject to      l <= C x <= u
-                            lb <= x <= ub
-
-        Args:
-            P: Cost matrix.
-            q: Cost vector.
-            C: Constraint inequality matrix.
-            l: Constraint lower bound.
-            u: Constraint upper bound.
-            lb: Box lower bound.
-            ub: Box upper bound.
-            name: Problem name.
-            cost_offset: Cost offset.
-        """
-        bounds_are_equal = u - l < 1e-10
-
-        eq_rows = np.where(bounds_are_equal)
-        A = C[eq_rows]
-        b = u[eq_rows]
-
-        ineq_rows = np.where(np.logical_not(bounds_are_equal))
-        G = spa.vstack([C[ineq_rows], -C[ineq_rows]], format="csc")
-        h = np.hstack([u[ineq_rows], -l[ineq_rows]])
-        h_finite = h < np.inf
-        if not h_finite.all():
-            G = G[h_finite]
-            h = h[h_finite]
-
-        return Problem(
-            P, q, G, h, A, b, lb, ub, name=name, cost_offset=cost_offset
-        )
 
     def to_dense(self):
         """
@@ -233,7 +108,7 @@ class Problem:
             A = spa.csc_matrix(A) if isinstance(A, np.ndarray) else A
         start_time = perf_counter()
         try:
-            solution = solve_qp(
+            solution = qpsolvers.solve_qp(
                 P,
                 self.q,
                 G=G,
@@ -300,7 +175,8 @@ class Problem:
             l_list.append(self.b)
             u_list.append(self.b)
         if self.lb is not None or self.ub is not None:
-            C_list.append(spa.eye(self.n))
+            n: int = self.P.shape[0]
+            C_list.append(spa.eye(n))
             l_list.append(
                 self.lb
                 if self.lb is not None
