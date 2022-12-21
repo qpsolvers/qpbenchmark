@@ -131,18 +131,7 @@ class Problem(qpsolvers.Problem):
             A = spa.csc_matrix(A) if isinstance(A, np.ndarray) else A
         start_time = perf_counter()
         try:
-            solution = qpsolvers.solve_qp(
-                P,
-                self.q,
-                G=G,
-                h=self.h,
-                A=A,
-                b=self.b,
-                lb=self.lb,
-                ub=self.ub,
-                solver=solver,
-                **kwargs,
-            )
+            solution = qpsolvers.solve_problem(self, solver=solver, **kwargs)
         except Exception as e:
             logging.warning(f"Caught solver exception: {e}")
             solution = None
