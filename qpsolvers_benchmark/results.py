@@ -53,7 +53,9 @@ class Results:
                 "runtime",
                 "found",
                 "cost_error",
-                "primal_error",
+                "primal_residual",
+                "dual_residual",
+                "duality_gap",
             ],
         )
         if os.path.exists(csv_path):
@@ -126,7 +128,9 @@ class Results:
                         "runtime": [runtime],
                         "found": [solution is not None],
                         "cost_error": [problem.cost_error(solution)],
-                        "primal_error": [problem.primal_error(solution)],
+                        "primal_residual": [solution.primal_residual()],
+                        "dual_residual": [solution.dual_residual()],
+                        "duality_gap": [solution.duality_gap()],
                     }
                 ),
             ],
