@@ -158,7 +158,9 @@ class Results:
         found_and_valid = {
             settings: df["found"]
             & (df["cost_error"].abs() < cost_tolerances[settings])
-            & (df["primal_error"] < primal_tolerances[settings])
+            & (df["primal_residual"] < primal_tolerances[settings])
+            & (df["dual_residual"] < dual_tolerances[settings])
+            & (df["duality_gap"] < gap_tolerances[settings])
             for settings in all_settings
         }
         success_rate_df = (
