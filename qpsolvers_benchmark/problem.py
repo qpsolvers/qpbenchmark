@@ -19,15 +19,12 @@
 Matrix-vector representation of a quadratic program.
 """
 
-from time import perf_counter
-from typing import Optional, Tuple, Union
+from typing import Optional, Union
 
 import numpy as np
 import qpsolvers
 import scipy.sparse as spa
 from numpy import linalg
-
-from .spdlog import logging
 
 
 class Problem(qpsolvers.Problem):
@@ -109,34 +106,6 @@ class Problem(qpsolvers.Problem):
             optimal_cost=self.optimal_cost,
             cost_offset=self.cost_offset,
         )
-
-    def solve(
-        self, solver: str, **kwargs
-    ) -> Tuple[Optional[qpsolvers.Solution], float]:
-        """
-        Solve quadratic program.
-
-        Args:
-            solver: Name of the backend QP solver to call.
-
-        Returns:
-            Primal solution to the quadratic program, or None if it is
-            unfeasible.
-        """
-        # Don't time matrix conversions for solvers that require sparse inputs
-        P, G, A = self.P, self.G, self.A
-        if solver in ["highs", "osqp", "scs"]:
-            P = spa.csc_matrix(P) if isinstance(P, np.ndarray) else P
-            G = spa.csc_matrix(G) if isinstance(G, np.ndarray) else G
-            A = spa.csc_matrix(A) if isinstance(A, np.ndarray) else A
-        start_time = perf_counter()
-        try:
-            solution = qpsolvers.solve_problem(self, solver=solver, **kwargs)
-        except Exception as e:
-            logging.warning(f"Caught solver exception: {e}")
-            solution = None
-        runtime = perf_counter() - start_time
-        return solution, runtime
 
     def cost_error(self, x: Optional[np.ndarray]) -> Optional[float]:
         """
