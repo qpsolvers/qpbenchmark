@@ -20,10 +20,11 @@ Test case results.
 """
 
 import os.path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 
 import numpy as np
 import pandas
+import qpsolvers
 
 from .problem import Problem
 from .spdlog import logging
