@@ -186,7 +186,9 @@ class Report:
 * [Results](#results)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
-    * [Primal error](#primal-error)
+    * [Primal residual](#primal-residual)
+    * [Dual residual](#dual-residual)
+    * [Duality gap](#duality-gap)
     * [Cost error](#cost-error)
 
 """
@@ -250,26 +252,69 @@ Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
 limit](#settings) when it fails to solve a problem.
 
-### Primal error
+### Primal residual
 
-The primal error measures the maximum (equality and inequality) constraint
+The primal residual measures the maximum (equality and inequality) constraint
 violation in the solution returned by a solver. We use the shifted geometric
-mean to compare solver primal errors over the whole test set. Intuitively, a
-solver with a shifted-geometric-mean primal error of Y is Y times less precise
-on constraints than the best solver over the test set. See
+mean to compare solver primal residuals over the whole test set. Intuitively, a
+solver with a shifted-geometric-mean primal residual of Y is Y times less
+precise on constraints than the best solver over the test set. See
 [Metrics](../README.md#metrics) for details.
 
-Shifted geometric means of solver primal errors (1.0 is the best):
+Shifted geometric means of primal residuals (1.0 is the best):
 
 {self.results.build_shifted_geometric_mean_df(
-    column="primal_error",
+    column="primal_residual",
     shift=10.0,
     not_found_values=primal_tolerances,
 ).to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal error equal to the
-[primal tolerance](#settings).
+solver that fails to find a solution receives a primal residual equal to the
+full [primal tolerance](#settings).
+
+### Dual residual
+
+The dual residual measures the maximum violation of the dual feasibility
+condition in the solution returned by a solver. We use the shifted geometric
+mean to compare solver dual residuals over the whole test set. Intuitively, a
+solver with a shifted-geometric-mean dual residual of Y is Y times less precise
+on the dual feasibility condition than the best solver over the test set. See
+[Metrics](../README.md#metrics) for details.
+
+Shifted geometric means of dual residuals (1.0 is the best):
+
+{self.results.build_shifted_geometric_mean_df(
+    column="dual_residual",
+    shift=10.0,
+    not_found_values=dual_tolerances,
+).to_markdown(index=True, floatfmt=".1f")}
+
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
+solver that fails to find a solution receives a dual residual equal to the full
+[dual tolerance](#settings).
+
+### Duality gap
+
+The duality gap measures the consistency of the primal and dual solutions
+returned by a solver. A duality gap close to zero ensures that the
+complementarity slackness optimality condition is satisfied. We use the shifted
+geometric mean to compare solver duality gaps over the whole test set.
+Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times
+less precise on the complementarity slackness condition than the best solver
+over the test set. See [Metrics](../README.md#metrics) for details.
+
+Shifted geometric means of duality gaps (1.0 is the best):
+
+{self.results.build_shifted_geometric_mean_df(
+    column="duality_gap",
+    shift=10.0,
+    not_found_values=gap_tolerances,
+).to_markdown(index=True, floatfmt=".1f")}
+
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
+solver that fails to find a solution receives a duality gap equal to the full
+[gap tolerance](#settings).
 
 ### Cost errors
 

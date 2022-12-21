@@ -43,6 +43,8 @@ We evaluate QP solvers based on the following metrics:
 - **Duality gap:** value of the duality gap at the returned solution.
 - **Cost error:** difference between the solution cost and the known optimal cost.
 
+If you are wondering about the meaning of residuals or the duality gap, check out for instance [Optimality conditions and numerical tolerances in QP solvers](https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html).
+
 ### Shifted geometric mean
 
 Each metric (computation time, primal and dual residuals, duality gap) produces a different ranking of solvers for each problem. To aggregate those rankings into a single metric over the whole test set, we use the *shifted geometric mean* (SGM), which is a standard to aggregate computation times in [benchmarks for optimization software](#other-benchmarks). This mean has the advantage of being compromised by neither large outliers (as opposed to the arithmetic mean) nor by small outliers (in contrast to the geometric geometric mean). Check out the [references](#references) below for further details.
