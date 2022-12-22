@@ -26,6 +26,7 @@ from typing import Dict, Iterator, Optional, Tuple
 import qpsolvers
 from qpsolvers.exceptions import SolverNotFound
 
+from .exceptions import ProblemNotFound
 from .problem import Problem
 from .results import Results
 from .solver_issues import skip_solver_issue, skip_solver_timeout
