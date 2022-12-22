@@ -79,13 +79,13 @@ By default, the benchmark will run with any supported solver installed on your s
 Pick up the keyword corresponding to the desired [test set](#test-sets), for instance ``maros_meszaros``, and pass it to the ``run`` command:
 
 ```console
-python benchmark.py run maros_meszaros
+python benchmark.py maros_meszaros run
 ```
 
 You can also run a specific solver, problem or set of solver settings:
 
 ```console
-python benchmark.py run maros_meszaros_dense --solver proxqp --settings default
+python benchmark.py maros_meszaros_dense run --solver proxqp --settings default
 ```
 
 Check out ``python benchmark.py --help`` for all available commands and arguments.
