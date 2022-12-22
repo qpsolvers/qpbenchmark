@@ -130,7 +130,11 @@ def parse_command_line_arguments():
 
 def find_results_file(args):
     if args.command in ["check_results", "report"]:
-        results_file = args.results_file
+        results_file = (
+            args.results_file
+            if args.results_file
+            else f"results/{args.test_set}.csv"
+        )
         if not os.path.exists(results_file):
             raise FileNotFoundError(f"results file '{results_file}' not found")
     else:
