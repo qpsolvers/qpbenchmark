@@ -176,9 +176,9 @@ class MarosMeszaros(TestSet):
         """
         bounds_are_equal = u - l < 1e-10
 
-        eq_rows = np.where(bounds_are_equal)
-        A = C[eq_rows]
-        b = u[eq_rows]
+        eq_rows = np.asarray(bounds_are_equal).nonzero()
+        A = C[eq_rows] if eq_rows[0].size > 0 else None
+        b = u[eq_rows] if eq_rows[0].size > 0 else None
 
         ineq_rows = np.asarray(np.logical_not(bounds_are_equal)).nonzero()
         G = spa.vstack([C[ineq_rows], -C[ineq_rows]], format="csc")
