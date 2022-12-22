@@ -57,7 +57,7 @@ class GithubFfa(TestSet):
 
     @property
     def title(self) -> str:
-        return 'GitHub free-for-all test set'
+        return "GitHub free-for-all test set"
 
     @property
     def sparse_only(self) -> bool:
