@@ -196,7 +196,7 @@ class MarosMeszaros(TestSet):
         for fname in os.listdir(self.data_dir):
             if fname.endswith(".mat"):
                 mat_path = os.path.join(self.data_dir, fname)
-                problem = self.get_problem_from_mat_file(mat_path)
+                problem = self.load_problem_from_mat_file(mat_path)
                 if problem.name in self.optimal_costs:
                     problem.optimal_cost = self.optimal_costs[problem.name]
                 yield problem
