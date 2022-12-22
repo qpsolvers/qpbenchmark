@@ -42,6 +42,11 @@ def parse_command_line_arguments():
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument(
+        "test_set",
+        choices=TEST_SETS,
+        help="test set from the benchmark to consider",
+    )
+    parser.add_argument(
         "-v",
         "--verbose",
         default=False,
@@ -55,12 +60,7 @@ def parse_command_line_arguments():
     # check_problem
     parser_check_problem = subparsers.add_parser(
         "check_problem",
-        help="analyze a given test set problem in interactive mode",
-    )
-    parser_check_problem.add_argument(
-        "test_set",
-        choices=TEST_SETS,
-        help="test set to get problem from",
+        help="analyze a given problem in interactive mode",
     )
     parser_check_problem.add_argument(
         "problem",
@@ -70,26 +70,21 @@ def parse_command_line_arguments():
     # check_results
     parser_check_results = subparsers.add_parser(
         "check_results",
-        help="evaluate results from an existing run",
+        help="evaluate test set results interactively",
     )
     parser_check_results.add_argument(
-        "results_file",
+        "--results-file",
         help="path to the results CSV file",
     )
 
     # report
     parser_report = subparsers.add_parser(
         "report",
-        help="write report from stored results",
+        help="write report from test set results",
     )
     parser_report.add_argument(
-        "test_set",
-        choices=TEST_SETS,
-        help="test set to report on",
-    )
-    parser_report.add_argument(
-        "results_file",
-        help="path to the corresponding results CSV file",
+        "--results-file",
+        help="report test set results from this specific CSV file",
     )
     parser_report.add_argument(
         "--author",
@@ -99,12 +94,7 @@ def parse_command_line_arguments():
     # run
     parser_run = subparsers.add_parser(
         "run",
-        help="run all tests from a test set",
-    )
-    parser_run.add_argument(
-        "test_set",
-        choices=TEST_SETS,
-        help="test set to execute command on",
+        help="run all tests from the test set",
     )
     parser_run.add_argument(
         "--include-timeouts",
