@@ -180,7 +180,7 @@ class MarosMeszaros(TestSet):
         A = C[eq_rows]
         b = u[eq_rows]
 
-        ineq_rows = np.where(np.logical_not(bounds_are_equal))
+        ineq_rows = np.asarray(np.logical_not(bounds_are_equal)).nonzero()
         G = spa.vstack([C[ineq_rows], -C[ineq_rows]], format="csc")
         h = np.hstack([u[ineq_rows], -l[ineq_rows]])
         h_finite = h < np.inf
