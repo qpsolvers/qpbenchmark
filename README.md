@@ -52,7 +52,7 @@ Each metric (computation time, primal and dual residuals, duality gap) produces 
 Here are some intuitive interpretations:
 
 - A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set.
-- A solver with a shifted-geometric-mean primal residual $R_p$ is $R_p$ times less accurate on equality and inequality constraints than the best solver over the test set.
+- A solver with a shifted-geometric-mean primal residual $R$ is $R$ times less accurate on equality and inequality constraints than the best solver over the test set.
 
 ## Limitations
 
