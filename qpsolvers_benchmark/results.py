@@ -239,8 +239,8 @@ class Results:
                     (self.df["solver"] == solver)
                     & (self.df["settings"] == settings)
                 ]
-                # Cost errors can be negative because of primal errors. We
-                # count that as errors as well using absolute values.
+                # Cost errors can be negative when the primal residual is
+                # large. We count that as errors as well using absolute values.
                 column_values = np.array(
                     [
                         abs(solver_df.at[i, column])  # abs() for cost error

@@ -232,8 +232,8 @@ Precentage of problems each solver is able to solve:
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
 that a solver successfully solved a problem when (1) it returned with a success
-status and (2) its solution is within cost and primal error
-[tolerances](#settings). The second table below summarizes the frequency at
+status and (2) its solution satisfies optimality conditions within
+[tolerance](#settings). The second table below summarizes the frequency at
 which solvers return success (1) and the corresponding solution did indeed pass
 tolerance checks.
 
