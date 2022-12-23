@@ -117,7 +117,8 @@ class SolverSettings:
 
     def set_eps_rel(self, eps_rel: float) -> None:
         """
-        Set relative primal tolerances for solvers that support it.
+        Set relative primal, dual and duality-gap tolerances for solvers that
+        support it.
 
         Args:
             eps_rel: Relative primal feasibility tolerance.
