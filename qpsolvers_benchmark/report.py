@@ -52,7 +52,6 @@ class Report:
     def __init__(
         self,
         author: str,
-        test_set: TestSet,
         results: Results,
     ):
         cpu_info = get_cpu_info()
@@ -61,8 +60,8 @@ class Report:
         self.cpu_info = cpu_info
         self.date = date
         self.results = results
-        self.solver_settings = test_set.solver_settings
-        self.test_set = test_set
+        self.solver_settings = results.test_set.solver_settings
+        self.test_set = results.test_set
 
     def get_tolerances_table(self):
         names = list(self.test_set.tolerances.keys())

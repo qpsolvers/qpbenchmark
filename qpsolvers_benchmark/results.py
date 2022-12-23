@@ -28,6 +28,7 @@ import qpsolvers
 
 from .problem import Problem
 from .spdlog import logging
+from .test_set import TestSet
 from .utils import shgeom
 
 
@@ -37,12 +38,17 @@ class Results:
     Test case results.
     """
 
-    def __init__(self, csv_path: str):
+    csv_path: str
+    df: pandas.DataFrame
+    test_set: TestSet
+
+    def __init__(self, csv_path: str, test_set: TestSet):
         """
         Initialize results.
 
         Args:
             csv_path: Path to the results CSV file.
+            test_set: Test set from which results were produced.
         """
         df = pandas.DataFrame(
             [],
@@ -63,6 +69,7 @@ class Results:
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         self.csv_path = csv_path
         self.df = df
+        self.test_set = test_set
 
     def write(self) -> None:
         """

@@ -165,11 +165,8 @@ if __name__ == "__main__":
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
-    results = Results(find_results_file(args))
-
-    test_set = None
-    if args.command in ["check_problem", "report", "run"]:
-        test_set = load_test_set(args.test_set)
+    test_set = load_test_set(args.test_set)
+    results = Results(find_results_file(args), test_set)
 
     if args.command == "run":
         args.solver = args.solver.lower() if args.solver else None
@@ -210,6 +207,6 @@ if __name__ == "__main__":
             if args.author
             else input("GitHub username to write in the report? ")
         )
-        report = Report(author, test_set, results)
+        report = Report(author, results)
         md_path = results.csv_path.replace(".csv", ".md")
         report.write(md_path)
