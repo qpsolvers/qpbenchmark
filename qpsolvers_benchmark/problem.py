@@ -116,10 +116,14 @@ class Problem(qpsolvers.Problem):
 
         Returns:
             Cost error, i.e. deviation from the (known) optimal cost.
+
+        Note:
+            Cost errors can be negative when the primal residual is large. We
+            count that as errors as well using absolute values.
         """
         x = solution.x
         if x is None or self.optimal_cost is None:
             return None
         P, q = self.P, self.q
         cost = 0.5 * x.dot(P.dot(x)) + q.dot(x) + self.cost_offset
-        return cost - self.optimal_cost
+        return abs(cost - self.optimal_cost)

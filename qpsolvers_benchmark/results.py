@@ -52,10 +52,10 @@ class Results:
                 "settings",
                 "runtime",
                 "found",
-                "cost_error",
                 "primal_residual",
                 "dual_residual",
                 "duality_gap",
+                "cost_error",
             ],
         )
         if os.path.exists(csv_path):
@@ -127,10 +127,10 @@ class Results:
                         "settings": [settings],
                         "runtime": [runtime],
                         "found": [not solution.is_empty],
-                        "cost_error": [problem.cost_error(solution)],
                         "primal_residual": [solution.primal_residual()],
                         "dual_residual": [solution.dual_residual()],
                         "duality_gap": [solution.duality_gap()],
+                        "cost_error": [problem.cost_error(solution)],
                     }
                 ),
             ],
@@ -161,10 +161,10 @@ class Results:
         df = self.df.fillna(value=np.nan)  # replace None by NaN for abs()
         found_and_valid = {
             settings: df["found"]
-            & (df["cost_error"].abs() < cost_tolerances[settings])
             & (df["primal_residual"] < primal_tolerances[settings])
             & (df["dual_residual"] < dual_tolerances[settings])
             & (df["duality_gap"] < gap_tolerances[settings])
+            & (df["cost_error"].abs() < cost_tolerances[settings])
             for settings in all_settings
         }
         success_rate_df = (
@@ -239,11 +239,9 @@ class Results:
                     (self.df["solver"] == solver)
                     & (self.df["settings"] == settings)
                 ]
-                # Cost errors can be negative when the primal residual is
-                # large. We count that as errors as well using absolute values.
                 column_values = np.array(
                     [
-                        abs(solver_df.at[i, column])  # abs() for cost error
+                        solver_df.at[i, column]
                         if solver_df.at[i, "found"]
                         else not_found_values[settings]
                         for i in solver_df.index
