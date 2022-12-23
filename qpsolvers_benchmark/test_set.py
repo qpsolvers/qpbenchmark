@@ -250,7 +250,7 @@ class TestSet(abc.ABC):
                                 f"with {settings} settings..."
                             )
                             continue
-                        elif not include_timeouts and results.is_timeout(
+                        if not include_timeouts and results.is_timeout(
                             problem, solver, settings, time_limit
                         ):
                             logging.info(
