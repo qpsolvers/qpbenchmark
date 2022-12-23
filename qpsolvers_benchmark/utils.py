@@ -21,8 +21,12 @@ Utility functions.
 
 import platform
 from importlib import metadata
-from typing import Set
+from time import perf_counter
+from typing import Set, Tuple
 
+import qpsolvers
+
+from .problem import Problem
 from .spdlog import logging
 
 try:
@@ -32,6 +36,19 @@ except ImportError:
     logging.warning(
         "Run ``pip install py-cpuinfo`` for more accurate CPU info"
     )
+
+
+def capitalize_settings(name: str) -> str:
+    """
+    Capitalize settings name.
+
+    Args:
+        name: Settings name, e.g. "low_accuracy".
+
+    Returns:
+        Capitalized settings name to use as column title, e.g. "Low accuracy".
+    """
+    return name.replace("_", " ").capitalize()
 
 
 def get_cpu_info() -> str:
@@ -77,3 +94,30 @@ def get_solver_versions(solvers: Set[str]):
         # Install: https://scaron.info/doc/qpsolvers/installation.html#qpoases
         versions["qpoases"] = "3.2.0"
     return versions
+
+
+def time_solve_problem(
+    problem: Problem, solver: str, **kwargs
+) -> Tuple[qpsolvers.Solution, float]:
+    """
+    Solve quadratic program.
+
+    Args:
+        problem: Quadratic program to solve.
+        solver: Name of the backend QP solver to call.
+
+    Returns:
+        Solution to the quadratic program, along with the time the solver took
+        to compute it.
+    """
+    # Don't time matrix conversions for solvers that require sparse inputs
+    if solver in ["highs", "osqp", "scs"]:
+        problem = problem.to_sparse()
+    start_time = perf_counter()
+    try:
+        solution = qpsolvers.solve_problem(problem, solver=solver, **kwargs)
+    except Exception as e:
+        logging.warning(f"Caught solver exception: {e}")
+        solution = qpsolvers.Solution(problem)
+    runtime = perf_counter() - start_time
+    return solution, runtime
