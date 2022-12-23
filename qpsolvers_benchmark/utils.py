@@ -34,7 +34,13 @@ except ImportError:
     )
 
 
-def get_cpu_info():
+def get_cpu_info() -> str:
+    """
+    Get CPU information.
+
+    Returns:
+        CPU information.
+    """
     return (
         platform.processor()
         if cpuinfo is None
