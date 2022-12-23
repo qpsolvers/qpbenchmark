@@ -20,6 +20,7 @@ Report written from test set results.
 """
 
 import datetime
+import io
 from importlib import metadata
 
 import pandas
@@ -27,7 +28,7 @@ import pandas
 from .results import Results
 from .spdlog import logging
 from .test_set import TestSet
-from .utils import get_cpu_info, get_solver_versions
+from .utils import capitalize_settings, get_cpu_info, get_solver_versions
 
 
 class Report:
@@ -59,6 +60,13 @@ class Report:
         """
         cpu_info = get_cpu_info()
         date = str(datetime.datetime.now(datetime.timezone.utc))
+        self.__correct_rate_df = pandas.DataFrame()
+        self.__cost_df = pandas.DataFrame()
+        self.__dual_df = pandas.DataFrame()
+        self.__gap_df = pandas.DataFrame()
+        self.__primal_df = pandas.DataFrame()
+        self.__runtime_df = pandas.DataFrame()
+        self.__success_rate_df = pandas.DataFrame()
         self.author = author
         self.cpu_info = cpu_info
         self.date = date
@@ -160,21 +168,10 @@ class Report:
         versions_table = versions_df.to_markdown(index=True)
         return versions_table
 
-    def write(self, path: str) -> None:
+    def __compute_dataframes(self) -> None:
         """
-        Write report to a given path.
-
-        Args:
-            path: Path to the Markdown file to write the report to.
-
-        Note:
-            We make sure each table in the report is preceded by a single line
-            title, for instance "Precentage of problems each solver is able to
-            solve:". This comes in handy for ``@@`` anchorage when doing the
-            ``diff`` of two reports.
+        Compute dataframes used in the report.
         """
-        assert path.endswith(".md")
-        qpsolvers_version = metadata.version("qpsolvers")
         primal_tolerances = {
             name: tolerance.primal
             for name, tolerance in self.test_set.tolerances.items()
@@ -195,92 +192,152 @@ class Report:
             name: tolerance.runtime
             for name, tolerance in self.test_set.tolerances.items()
         }
-        success_rate_df = self.results.build_success_rate_df(
+        self.__success_rate_df = self.results.build_success_rate_df(
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
             cost_tolerances,
         )
-        correct_rate_df = self.results.build_correct_rate_df(
+        self.__correct_rate_df = self.results.build_correct_rate_df(
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
             cost_tolerances,
         )
-        runtime_df = self.results.build_shifted_geometric_mean_df(
+        self.__runtime_df = self.results.build_shifted_geometric_mean_df(
             column="runtime",
             shift=10.0,
             not_found_values=runtime_tolerances,
         )
-        primal_df = self.results.build_shifted_geometric_mean_df(
+        self.__primal_df = self.results.build_shifted_geometric_mean_df(
             column="primal_residual",
             shift=10.0,
             not_found_values=primal_tolerances,
         )
-        dual_df = self.results.build_shifted_geometric_mean_df(
+        self.__dual_df = self.results.build_shifted_geometric_mean_df(
             column="dual_residual",
             shift=10.0,
             not_found_values=dual_tolerances,
         )
-        gap_df = self.results.build_shifted_geometric_mean_df(
+        self.__gap_df = self.results.build_shifted_geometric_mean_df(
             column="duality_gap",
             shift=10.0,
             not_found_values=gap_tolerances,
         )
-        cost_df = self.results.build_shifted_geometric_mean_df(
+        self.__cost_df = self.results.build_shifted_geometric_mean_df(
             column="cost_error",
             shift=10.0,
             not_found_values=cost_tolerances,
         )
-        italics_settings = [f"*{x}*" for x in self.solver_settings]
-        upper_settings = {
-            name: name.replace("_", " ").capitalize()
-            for name in self.solver_settings
-        }
+
+    def write(self, path: str) -> None:
+        """
+        Write report to a given path.
+
+        Args:
+            path: Path to the Markdown file to write the report to.
+
+        Note:
+            We make sure each table in the report is preceded by a single line
+            title, for instance "Precentage of problems each solver is able to
+            solve:". This comes in handy for ``@@`` anchorage when doing the
+            ``diff`` of two reports.
+        """
+        assert path.endswith(".md")
+        self.__compute_dataframes()
         with open(path, "w") as fh:
-            fh.write(
-                f"""# {self.test_set.title}
+            self.__write_header(fh)
+            self.__write_toc(fh)
+            self.__write_description(fh)
+            self.__write_solvers_section(fh)
+            self.__write_settings_section(fh)
+            self.__write_results_by_settings(fh)
+            self.__write_results_by_metric(fh)
+        logging.info(f"Wrote report to {path}")
+
+    def __write_header(self, fh: io.TextIOWrapper) -> None:
+        """
+        Write report header.
+
+        Args:
+            fh: Output file handle.
+        """
+        fh.write(
+            f"""# {self.test_set.title}
 
 - CPU: {self.cpu_info}
 - Date: {self.date}
 - Run by: [@{self.author}](https://github.com/{self.author}/)
 
-## Contents
-
 """
-            )
-            if self.test_set.description is not None:
-                fh.write("* [Description](#description)\n")
-            fh.write(
-                """* [Solvers](#solvers)
+        )
+
+    def __write_toc(self, fh: io.TextIOWrapper) -> None:
+        """
+        Write table of contents.
+
+        Args:
+            fh: Output file handle.
+        """
+        fh.write("## Contents\n\n")
+        if self.test_set.description is not None:
+            fh.write("* [Description](#description)\n")
+        fh.write(
+            """* [Solvers](#solvers)
 * [Settings](#settings)
 * [Results by settings](#results-by-settings)\n"""
-            )
-            for name in self.solver_settings:
-                fh.write(f"    * [{upper_settings[name]}](#{name})\n")
-            fh.write(
-                """* [Results by metric](#results-by-metric)
+        )
+        for name in self.solver_settings:
+            fh.write(f"    * [{capitalize_settings(name)}](#{name})\n")
+        fh.write(
+            """* [Results by metric](#results-by-metric)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
     * [Optimality conditions](#optimality-conditions)
         * [Primal residual](#primal-residual)
         * [Dual residual](#dual-residual)
         * [Duality gap](#duality-gap)
-    * [Cost error](#cost-error)
+    * [Cost error](#cost-error)\n\n"""
+        )
 
-"""
-            )
-            if self.test_set.description is not None:
-                fh.write(f"## Description\n\n{self.test_set.description}\n\n")
-            fh.write(
-                f"""## Solvers
+    def __write_description(self, fh: io.TextIOWrapper) -> None:
+        """
+        Write optional Description section.
+
+        Args:
+            fh: Output file handle.
+        """
+        if self.test_set.description is not None:
+            fh.write(f"## Description\n\n{self.test_set.description}\n\n")
+
+    def __write_solvers_section(self, fh: io.TextIOWrapper) -> None:
+        """
+        Write Solvers section.
+
+        Args:
+            fh: Output file handle.
+        """
+        qpsolvers_version = metadata.version("qpsolvers")
+        fh.write(
+            f"""## Solvers
 
 {self.get_solver_versions_table()}
 
 All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers) v{qpsolvers_version}.
+[qpsolvers](https://github.com/stephane-caron/qpsolvers)
+v{qpsolvers_version}.\n\n"""
+        )
 
-## Settings
+    def __write_settings_section(self, fh: io.TextIOWrapper) -> None:
+        """
+        Write Settings section.
+
+        Args:
+            fh: Output file handle.
+        """
+        italics_settings = [f"*{x}*" for x in self.solver_settings]
+        fh.write(
+            f"""## Settings
 
 There are {len(italics_settings)} settings: {", ".join(italics_settings[:-1])}
 and {italics_settings[-1]}. They validate solutions using the following
@@ -290,41 +347,59 @@ tolerances:
 
 Solvers for each settings are configured as follows:
 
-{self.get_solver_settings_table()}
+{self.get_solver_settings_table()}\n\n"""
+        )
 
-## Results by settings\n\n"""
-            )
-            for settings in self.solver_settings:
-                cols = {
-                    "[Success rate](#success-rate) (%)": success_rate_df[
-                        settings
-                    ],
-                    "[Runtime](#computation-time) (shm)": runtime_df[settings],
-                    "[Primal residual](#primal-residual) (shm)": primal_df[
-                        settings
-                    ],
-                    "[Dual residual](#dual-residual) (shm)": dual_df[settings],
-                    "[Duality gap](#duality-gap) (shm)": gap_df[settings],
-                    "[Cost error](#cost-error) (shm)": cost_df[settings],
-                }
-                df = pandas.DataFrame([], index=gap_df.index).assign(**cols)
-                fh.write(
-                    f"""### {upper_settings[settings]}
+    def __write_results_by_settings(self, fh: io.TextIOWrapper) -> None:
+        """
+        Write Results by settings.
+
+        Args:
+            fh: Output file handle.
+        """
+        fh.write("""## Results by settings\n\n""")
+        for settings in self.solver_settings:
+            cols = {
+                "[Success rate](#success-rate) (%)": self.__success_rate_df[
+                    settings
+                ],
+                "[Runtime](#computation-time) (shm)": self.__runtime_df[
+                    settings
+                ],
+                "[Primal residual](#primal-residual) (shm)": self.__primal_df[
+                    settings
+                ],
+                "[Dual residual](#dual-residual) (shm)": self.__dual_df[
+                    settings
+                ],
+                "[Duality gap](#duality-gap) (shm)": self.__gap_df[settings],
+                "[Cost error](#cost-error) (shm)": self.__cost_df[settings],
+            }
+            df = pandas.DataFrame([], index=self.__gap_df.index).assign(**cols)
+            fh.write(
+                f"""### {capitalize_settings(settings)}
 
 Solvers compared over the whole test set by [shifted geometric
 mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 
 {df.to_markdown(index=True, floatfmt=".1f")}\n\n"""
-                )
+            )
 
-            fh.write(
-                f"""## Results by metric
+    def __write_results_by_metric(self, fh: io.TextIOWrapper) -> None:
+        """
+        Write Results by metric.
+
+        Args:
+            fh: Output file handle.
+        """
+        fh.write(
+            f"""## Results by metric
 
 ### Success rate
 
 Precentage of problems each solver is able to solve:
 
-{success_rate_df.to_markdown(index=True, floatfmt=".0f")}
+{self.__success_rate_df.to_markdown(index=True, floatfmt=".0f")}
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
 that a solver successfully solved a problem when (1) it returned with a success
@@ -335,7 +410,7 @@ tolerance checks.
 
 Percentage of problems where "solved" return codes are correct:
 
-{correct_rate_df.to_markdown(index=True, floatfmt=".0f")}
+{self.__correct_rate_df.to_markdown(index=True, floatfmt=".0f")}
 
 ### Computation time
 
@@ -346,7 +421,7 @@ Y is Y times slower than the best solver over the test set. See
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
-{runtime_df.to_markdown(index=True, floatfmt=".1f")}
+{self.__runtime_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
@@ -365,7 +440,7 @@ precise on constraints than the best solver over the test set. See
 
 Shifted geometric means of primal residuals (1.0 is the best):
 
-{primal_df.to_markdown(index=True, floatfmt=".1f")}
+{self.__primal_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal residual equal to the
@@ -382,7 +457,7 @@ on the dual feasibility condition than the best solver over the test set. See
 
 Shifted geometric means of dual residuals (1.0 is the best):
 
-{dual_df.to_markdown(index=True, floatfmt=".1f")}
+{self.__dual_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a dual residual equal to the full
@@ -400,7 +475,7 @@ over the test set. See [Metrics](../README.md#metrics) for details.
 
 Shifted geometric means of duality gaps (1.0 is the best):
 
-{gap_df.to_markdown(index=True, floatfmt=".1f")}
+{self.__gap_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a duality gap equal to the full
@@ -417,11 +492,10 @@ less precise on the optimal cost than the best solver over the test set. See
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
-{cost_df.to_markdown(index=True, floatfmt=".1f")}
+{self.__cost_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
 tolerance](#settings).
 """
-            )
-        logging.info(f"Wrote report to {path}")
+        )
