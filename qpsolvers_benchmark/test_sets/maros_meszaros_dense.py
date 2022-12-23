@@ -55,9 +55,6 @@ class MarosMeszarosDense(MarosMeszaros):
         high_accuracy = self.solver_settings["high_accuracy"]
         high_accuracy.set_param("qpoases", "predefined_options", "reliable")
 
-    def __init__(self, data_dir: str):
-        super().__init__(data_dir)
-
     @staticmethod
     def count_constraints(problem: Problem):
         """
