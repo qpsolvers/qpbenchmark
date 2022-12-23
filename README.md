@@ -58,8 +58,6 @@ Here are some intuitive interpretations:
 
 Here are some known areas of improvement for this benchmark:
 
-- *Dual feasibility:* we don't check the dual multipliers computed by solvers, as the API for them is not yet unified.
-- *Optimality conditions:* for the same reason, we don't verify complementarity slackness or duality gap, which would provide a full optimality check.
 - *Cold start only:* we don't evaluate warm-start performance for now.
 
 Check out the [issue tracker](https://github.com/stephane-caron/qpsolvers_benchmark/issues) for ongoing works and future improvements.
