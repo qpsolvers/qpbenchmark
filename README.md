@@ -1,5 +1,7 @@
 # QP solvers benchmark
 
+[![Build](https://img.shields.io/github/actions/workflow/status/stephane-caron/qpsolvers_benchmark/CI.yml?branch=main)](https://github.com/stephane-caron/qpsolvers_benchmark/actions)
+[![PyPI version](https://img.shields.io/pypi/v/qpsolvers_benchmark)](https://pypi.org/project/qpsolvers_benchmark/)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/stephane-caron/qpsolvers_benchmark/tree/master/CONTRIBUTING.md)
 
 Benchmark for quadratic programming (QP) solvers available in Python.
