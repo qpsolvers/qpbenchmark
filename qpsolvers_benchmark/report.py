@@ -492,7 +492,7 @@ Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a duality gap equal to the full
 [gap tolerance](#settings).
 
-### Cost errors
+### Cost error
 
 The cost error measures the difference between the known optimal objective and
 the objective at the solution returned by a solver. We use the shifted
