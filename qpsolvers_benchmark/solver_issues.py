@@ -37,7 +37,7 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
     if solver == "proxqp" and problem.name == "QGFRDXPN":
         # https://github.com/Simple-Robotics/proxsuite/issues/63
         return True
-    elif solver == "highs" and problem.name == "STADAT1":
+    if solver == "highs" and problem.name == "STADAT1":
         # https://github.com/ERGO-Code/HiGHS/issues/995
         return True
     return False

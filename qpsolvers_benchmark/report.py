@@ -32,6 +32,17 @@ from .utils import get_cpu_info, get_solver_versions
 
 class Report:
 
+    """
+    Report generated from benchmark results.
+
+    Attributes:
+        author: GitHub username of the person who generated the report.
+        cpu_info: CPU with which results were generated.
+        date: Date of report generation.
+        results: Results from which the report should be generated.
+        test_set: Test set from which results were generated.
+    """
+
     author: str
     cpu_info: str
     date: str
