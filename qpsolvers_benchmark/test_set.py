@@ -47,7 +47,8 @@ class TestSet(abc.ABC):
         Yield test problems one by one.
         """
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def description(self) -> Optional[str]:
         """
         Test set description for the report (optional).
@@ -65,13 +66,15 @@ class TestSet(abc.ABC):
         Define solver settings.
         """
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def sparse_only(self) -> bool:
         """
         If True, test set is restricted to solvers with a sparse matrix API.
         """
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def title(self) -> str:
         """
         Report title.
