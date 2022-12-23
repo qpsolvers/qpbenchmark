@@ -88,6 +88,9 @@ Solvers for each settings are configured as follows:
 
 ### Default
 
+Solvers compared over the whole test set by [shifted geometric
+mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
+
 |          |   Success rate (%) |   Runtime (shm) |   Primal residual (shm) |   Dual residual (shm) |   Duality gap (shm) |   Cost error (shm) |
 |:---------|-------------------:|----------------:|------------------------:|----------------------:|--------------------:|-------------------:|
 | cvxopt   |               63.6 |             3.8 |                     3.0 |                   3.0 |               392.9 |               10.6 |
@@ -103,6 +106,9 @@ Solvers for each settings are configured as follows:
 
 ### Low accuracy
 
+Solvers compared over the whole test set by [shifted geometric
+mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
+
 |          |   Success rate (%) |   Runtime (shm) |   Primal residual (shm) |   Dual residual (shm) |   Duality gap (shm) |   Cost error (shm) |
 |:---------|-------------------:|----------------:|------------------------:|----------------------:|--------------------:|-------------------:|
 | cvxopt   |               54.5 |             3.8 |                     3.1 |                   3.0 |            363653.4 |               10.6 |
@@ -117,6 +123,9 @@ Solvers for each settings are configured as follows:
 | scs      |               63.6 |             5.7 |                     4.0 |                   4.0 |                 4.0 |                3.3 |
 
 ### High accuracy
+
+Solvers compared over the whole test set by [shifted geometric
+mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 
 |          |   Success rate (%) |   Runtime (shm) |   Primal residual (shm) |   Dual residual (shm) |   Duality gap (shm) |   Cost error (shm) |
 |:---------|-------------------:|----------------:|------------------------:|----------------------:|--------------------:|-------------------:|
