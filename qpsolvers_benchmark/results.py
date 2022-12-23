@@ -85,6 +85,17 @@ class Results:
         self.df.to_csv(self.csv_path, index=False)
 
     def has(self, problem: Problem, solver: str, settings: str) -> bool:
+        """
+        Check if results contain a given run of a solver on a problem.
+
+        Args:
+            problem: Test set problem.
+            solver: Name of the QP solver.
+            settings: Name of the corresponding solver settings.
+
+        Returns:
+            True if a result for this instance is present.
+        """
         return (
             (self.df["problem"] == problem.name)
             & (self.df["solver"] == solver)
