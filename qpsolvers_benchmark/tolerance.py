@@ -49,5 +49,5 @@ class Tolerance:
         self.cost = cost
         self.primal = primal
         self.dual = dual
-        self.gap= gap
+        self.gap = gap
         self.runtime = runtime

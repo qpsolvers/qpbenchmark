@@ -269,7 +269,9 @@ Solvers for each settings are configured as follows:
                         settings
                     ],
                     "[Runtime](#computation-time) (shm)": runtime_df[settings],
-                    "[Primal residual](#primal-residual) (shm)": primal_df[settings],
+                    "[Primal residual](#primal-residual) (shm)": primal_df[
+                        settings
+                    ],
                     "[Dual residual](#dual-residual) (shm)": dual_df[settings],
                     "[Duality gap](#duality-gap) (shm)": gap_df[settings],
                     "[Cost error](#cost-error) (shm)": cost_df[settings],
