@@ -23,10 +23,12 @@ import datetime
 import importlib
 import io
 from importlib import metadata
+from typing import Dict
 
 import pandas
 
 from .results import Results
+from .solver_settings import SolverSettings
 from .spdlog import logging
 from .test_set import TestSet
 from .utils import capitalize_settings, get_cpu_info, get_solver_versions
@@ -40,6 +42,7 @@ class Report:
     Attributes:
         author: GitHub username of the person who generated the report.
         results: Results from which the report should be generated.
+        solver_settings: Dictionary of solver parameters for each settings.
         test_set: Test set from which results were generated.
     """
 
@@ -55,6 +58,7 @@ class Report:
     __success_rate_df: pandas.DataFrame
     author: str
     results: Results
+    solver_settings: Dict[str, SolverSettings]
     test_set: TestSet
 
     def __init__(self, author: str, results: Results):
