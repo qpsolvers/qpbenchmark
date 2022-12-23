@@ -265,7 +265,7 @@ Solvers for each settings are configured as follows:
             )
             for settings in self.solver_settings:
                 cols = {
-                    "Success rate (%)": success_rate_df[settings],
+                    "[Success rate](#success-rate) (%)": success_rate_df[settings],
                     "Runtime (shm)": runtime_df[settings],
                     "Primal residual (shm)": primal_df[settings],
                     "Dual residual (shm)": dual_df[settings],
