@@ -21,7 +21,7 @@ Maros-Meszaros test set.
 
 import json
 import os.path
-from typing import Dict, Iterator, Optional
+from typing import Dict, Iterator, Optional, Union
 
 import numpy as np
 import scipy.io as spio
@@ -178,7 +178,15 @@ class MarosMeszaros(TestSet):
 
     @staticmethod
     def convert_problem_from_double_sided(
-        P, q, C, l, u, lb, ub, name: str, cost_offset: float = 0.0
+        P: Union[np.ndarray, spa.csc_matrix],
+        q: np.ndarray,
+        C: Union[np.ndarray, spa.csc_matrix],
+        l: np.ndarray,
+        u: np.ndarray,
+        lb: np.ndarray,
+        ub: np.ndarray,
+        name: str,
+        cost_offset: float = 0.0,
     ):
         """
         Load problem from double-sided inequality format:
