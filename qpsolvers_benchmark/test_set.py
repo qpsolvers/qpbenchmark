@@ -64,6 +64,11 @@ def time_solve_problem(
 
 class TestSet(abc.ABC):
 
+    """
+    Abstract base class for a test test, i.e. a collection of problems with
+    solver settings.
+    """
+
     solver_settings: Dict[str, SolverSettings]
     tolerances: Dict[str, Tolerance]
 
@@ -209,7 +214,7 @@ class TestSet(abc.ABC):
         ]
         filtered_settings = [
             settings
-            for settings in self.solver_settings.keys()
+            for settings in self.solver_settings
             if only_settings is None or settings == only_settings
         ]
 

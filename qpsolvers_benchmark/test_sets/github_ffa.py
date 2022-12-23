@@ -29,6 +29,16 @@ from .github_ffa_problems import available_problems
 
 
 class GithubFfa(TestSet):
+
+    """
+    GitHub free-for-all test set.
+
+    Note:
+        This test set is open to proposals from the community. Feel free to
+        `submit a new problem
+        <https://github.com/stephane-caron/qpsolvers_benchmark/issues/new?template=new_problem.md>`__.
+    """
+
     @property
     def description(self) -> Optional[str]:
         issues = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
