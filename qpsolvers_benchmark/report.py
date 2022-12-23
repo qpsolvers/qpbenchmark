@@ -389,7 +389,7 @@ Solvers for each settings are configured as follows:
             fh.write(
                 f"""### {capitalize_settings(settings)}
 
-Solvers compared over the whole test set by [shifted geometric
+Solvers are compared over the whole test set by [shifted geometric
 mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 
 {df.to_markdown(index=True, floatfmt=".1f")}\n\n"""
