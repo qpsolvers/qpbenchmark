@@ -117,7 +117,7 @@ def time_solve_problem(
     try:
         solution = qpsolvers.solve_problem(problem, solver=solver, **kwargs)
     except Exception as e:  # pylint: disable=W0703
-        # TODO(scaron): wait on qpsolvers update on exceptions
+        # TODO(scaron): wait for qpsolvers update regarding exceptions
         # See https://github.com/stephane-caron/qpsolvers/pull/139
         logging.warning(f"Caught solver exception: {e}")
         solution = qpsolvers.Solution(problem)
