@@ -45,17 +45,29 @@ class MarosMeszaros(TestSet):
 
     @property
     def description(self) -> Optional[str]:
+        """
+        No description for this test set.
+        """
         return None
 
     @property
     def title(self) -> str:
+        """
+        Test set title.
+        """
         return "Maros-Meszaros test set"
 
     @property
     def sparse_only(self) -> bool:
+        """
+        This test set is sparse.
+        """
         return True
 
     def define_tolerances(self) -> None:
+        """
+        Define test set tolerances.
+        """
         self.tolerances = {
             "default": Tolerance(
                 cost=1000.0,
@@ -81,6 +93,9 @@ class MarosMeszaros(TestSet):
         }
 
     def define_solver_settings(self) -> None:
+        """
+        Define solver settings.
+        """
         default = SolverSettings()
         default.set_time_limit(self.tolerances["default"].runtime)
 
@@ -101,6 +116,12 @@ class MarosMeszaros(TestSet):
         }
 
     def __init__(self, data_dir: str):
+        """
+        Initialize test set.
+
+        Args:
+            data_dir: Path to the benchmark data directory.
+        """
         super().__init__()
         data_dir = os.path.join(data_dir, "maros_meszaros")
         cost_path = os.path.join(data_dir, "OPTCOSTS.json")
