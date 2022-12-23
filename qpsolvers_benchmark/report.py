@@ -20,6 +20,7 @@ Report written from test set results.
 """
 
 import datetime
+import importlib
 import io
 from importlib import metadata
 
@@ -38,8 +39,6 @@ class Report:
 
     Attributes:
         author: GitHub username of the person who generated the report.
-        cpu_info: CPU with which results were generated.
-        date: Date of report generation.
         results: Results from which the report should be generated.
         test_set: Test set from which results were generated.
     """
@@ -55,8 +54,6 @@ class Report:
     __runtime_df: pandas.DataFrame
     __success_rate_df: pandas.DataFrame
     author: str
-    cpu_info: str
-    date: str
     results: Results
     test_set: TestSet
 
@@ -68,8 +65,6 @@ class Report:
             author: GitHub username of the person who generated the report.
             results: Results from which the report should be generated.
         """
-        cpu_info = get_cpu_info()
-        date = str(datetime.datetime.now(datetime.timezone.utc))
         self.__correct_rate_df = pandas.DataFrame()
         self.__cost_df = pandas.DataFrame()
         self.__dual_df = pandas.DataFrame()
@@ -78,8 +73,6 @@ class Report:
         self.__runtime_df = pandas.DataFrame()
         self.__success_rate_df = pandas.DataFrame()
         self.author = author
-        self.cpu_info = cpu_info
-        self.date = date
         self.results = results
         self.solver_settings = results.test_set.solver_settings
         self.test_set = results.test_set
@@ -272,12 +265,17 @@ class Report:
         Args:
             fh: Output file handle.
         """
+        benchmark_version = importlib.metadata.version("qpsolvers_benchmark")
+        cpu_info = get_cpu_info()
+        date = str(datetime.datetime.now(datetime.timezone.utc))
         fh.write(
             f"""# {self.test_set.title}
 
-- CPU: {self.cpu_info}
-- Date: {self.date}
-- Run by: [@{self.author}](https://github.com/{self.author}/)
+| Version | {benchmark_version} |
+|:--------|---------------------|
+| CPU     | {cpu_info} |
+| Date    | {date} |
+| Run by  | [@{self.author}](https://github.com/{self.author}/) |
 
 """
         )
