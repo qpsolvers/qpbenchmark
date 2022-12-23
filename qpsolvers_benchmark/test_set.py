@@ -36,6 +36,10 @@ class TestSet(abc.ABC):
     """
     Abstract base class for a test test, i.e. a collection of problems with
     solver settings.
+
+    Attributes:
+        solver_settings: Dictionary of solver parameters for each settings.
+        tolerances: Validation tolerances.
     """
 
     solver_settings: Dict[str, SolverSettings]
