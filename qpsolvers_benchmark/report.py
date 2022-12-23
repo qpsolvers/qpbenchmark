@@ -44,6 +44,16 @@ class Report:
         test_set: Test set from which results were generated.
     """
 
+    # pylint: disable=R0902
+    # Reports are big and linear, thus with many instance attributes.
+
+    __correct_rate_df: pandas.DataFrame
+    __cost_df: pandas.DataFrame
+    __dual_df: pandas.DataFrame
+    __gap_df: pandas.DataFrame
+    __primal_df: pandas.DataFrame
+    __runtime_df: pandas.DataFrame
+    __success_rate_df: pandas.DataFrame
     author: str
     cpu_info: str
     date: str
