@@ -35,7 +35,12 @@ from .utils import shgeom
 class Results:
 
     """
-    Test case results.
+    Test set results.
+
+    Attributes:
+        csv_path: Path to the results CSV file.
+        df: Data frame storing the results.
+        test_set: Test set from which results were produced.
     """
 
     csv_path: str
