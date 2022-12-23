@@ -19,35 +19,25 @@
 Tolerances on solver solution validation.
 """
 
+from dataclasses import dataclass
 
+
+@dataclass
 class Tolerance:
+
+    """
+    Tolerances on solver solution validation.
+
+    Attributes:
+        cost_tolerance: Cost tolerance.
+        primal_tolerance: Tolerance on primal residuals.
+        dual_tolerance: Tolerance on dual residuals.
+        gap_tolerance: Tolerance on duality gaps.
+        runtime: Time limit in seconds.
+    """
 
     cost: float
     primal: float
     dual: float
     gap: float
     runtime: float
-
-    def __init__(
-        self,
-        cost: float,
-        primal: float,
-        dual: float,
-        gap: float,
-        runtime: float,
-    ):
-        """
-        Initialize tolerance.
-
-        Args:
-            cost_tolerance: Cost tolerance.
-            primal_tolerance: Tolerance on primal residuals.
-            dual_tolerance: Tolerance on dual residuals.
-            gap_tolerance: Tolerance on duality gaps.
-            runtime: Time limit in seconds.
-        """
-        self.cost = cost
-        self.primal = primal
-        self.dual = dual
-        self.gap = gap
-        self.runtime = runtime
