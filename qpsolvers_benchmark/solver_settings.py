@@ -22,6 +22,7 @@ Solver settings.
 from typing import Any, Dict, Iterator, Set
 
 import numpy as np
+import qpsolvers
 
 
 class SolverSettings:
@@ -59,7 +60,8 @@ class SolverSettings:
         self.__settings: Dict[str, Dict[str, Any]] = {
             solver: {} for solver in self.IMPLEMENTED_SOLVERS
         }
-        #
+        if "gurobi" in qpsolvers.available_solvers:
+            self.__settings["gurobi"]["License"] = "size-limited"
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
         """
