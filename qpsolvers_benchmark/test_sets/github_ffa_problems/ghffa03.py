@@ -26,6 +26,12 @@ from ..problem import Problem
 
 
 def get_problem(n: int):
+    """
+    Get problem instance.
+
+    Args:
+        n: Number of optimization variables.
+    """
     M = np.array(range(n * n), dtype=float).reshape((n, n))
     P = np.dot(M.T, M)  # this is a positive definite matrix
     q = np.dot(np.ones(n, dtype=float), M)
