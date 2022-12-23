@@ -75,34 +75,34 @@ class SolverSettings:
 
     def set_eps_abs(self, eps_abs: float) -> None:
         """
-        Set absolute primal tolerances for solvers that support it.
+        Set absolute primal, dual and duality-gap tolerances for solvers that
+        support it.
 
         Args:
-            eps_abs: Absolute primal feasibility tolerance.
+            eps_abs: Absolute primal, dual and duality-gap tolerance.
 
         Notes:
-            The primal residual of a solution :math:`(x, y, z)` consists of
-            :math:`r_{prim,eq} = A x - b` and :math:`r_{prim,ineq} = \\max(0, G
-            x - h)`. The overall primal residual is the maximum of these two.
-            The dual residual is :math:`r_{dual} = P x + q + A^T y + G^T z`.
-            Hence, when we ask for an absolute tolerance
-            :math:`\\epsilon_{abs}` on residuals, we want the solver to find an
-            approximation of the optimum such that:
+            When we set an absolute tolerance :math:`\\epsilon_{abs}` on
+            residuals, we ask the solver to find an approximation of the
+            optimum such that the primal residual, dual residual and duality
+            gap are below :math:`\\epsilon_{abs}`, that is:
 
             .. math::
 
                 \\begin{align}
-                \\| P x + g + A^T y + C^T z \\|_\\infty
-                & \\leq \\epsilon_{abs} \\\\
-                \\| A x - b \\|_\\infty & \\leq \\epsilon_{abs} \\\\
-                \\| \\max(0, G x - h) \\|_\\infty & \\leq \\epsilon_{abs}
+                r_p := \\max(\\| A x - b \\|_\\infty, [G x - h]^+, [lb - x]^+,
+                [x - ub]^+) & \\leq \\epsilon_{abs} \\\\
+                r_d := \\| P x + q + A^T y + G^T z + z_{box} \\|_\\infty &
+                \\leq \\epsilon_{abs} \\\\
+                r_g := | x^T P x + q^T x + b^T y + h^T z + lb^T z_{box}^- +
+                ub^T z_{box}^+ | & \\leq \\epsilon_{abs}
                 \\end{align}
 
-            The tolerance on the primal residual is called "feasibility
-            tolerance" by some solvers, for instance CVXOPT and ECOS.
-            See `this note
+            were :math:`v^- = \\min(v, 0)` and :math:`v^+ = \\max(v, 0)`. The
+            tolerance on the primal residual is called "feasibility tolerance"
+            by some solvers, for instance CVXOPT and ECOS. See `this note
             <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
-            for details.
+            for more details.
         """
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
