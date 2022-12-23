@@ -16,9 +16,10 @@
 * [Results by metric](#results-by-metric)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
-    * [Primal residual](#primal-residual)
-    * [Dual residual](#dual-residual)
-    * [Duality gap](#duality-gap)
+    * [Optimality conditions](#optimality-conditions)
+        * [Primal residual](#primal-residual)
+        * [Dual residual](#dual-residual)
+        * [Duality gap](#duality-gap)
     * [Cost error](#cost-error)
 
 ## Description
@@ -207,7 +208,9 @@ Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
 limit](#settings) when it fails to solve a problem.
 
-### Primal residual
+### Optimality conditions
+
+#### Primal residual
 
 The primal residual measures the maximum (equality and inequality) constraint
 violation in the solution returned by a solver. We use the shifted geometric
@@ -235,7 +238,7 @@ Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal residual equal to the
 full [primal tolerance](#settings).
 
-### Dual residual
+#### Dual residual
 
 The dual residual measures the maximum violation of the dual feasibility
 condition in the solution returned by a solver. We use the shifted geometric
@@ -263,7 +266,7 @@ Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a dual residual equal to the full
 [dual tolerance](#settings).
 
-### Duality gap
+#### Duality gap
 
 The duality gap measures the consistency of the primal and dual solutions
 returned by a solver. A duality gap close to zero ensures that the
