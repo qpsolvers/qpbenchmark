@@ -26,6 +26,11 @@ from .maros_meszaros import MarosMeszaros
 
 
 class MarosMeszarosDense(MarosMeszaros):
+
+    """
+    Subset of the Maros-Meszaros test set restricted to smaller dense problems.
+    """
+
     @property
     def description(self) -> Optional[str]:
         return None

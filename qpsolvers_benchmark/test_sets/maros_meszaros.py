@@ -35,6 +35,11 @@ from ..tolerance import Tolerance
 
 class MarosMeszaros(TestSet):
 
+    """
+    Maros-Meszaros QP test set, a standard set of problems designed to be
+    difficult.
+    """
+
     data_dir: str
     optimal_costs: Dict[str, float]
 
