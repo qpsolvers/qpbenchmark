@@ -125,7 +125,7 @@ class MarosMeszaros(TestSet):
         super().__init__()
         data_dir = os.path.join(data_dir, "maros_meszaros")
         cost_path = os.path.join(data_dir, "OPTCOSTS.json")
-        with open(cost_path, "r") as fh:
+        with open(cost_path, "rb") as fh:
             file_dict = json.load(fh)
             optimal_costs = {k: float(v) for k, v in file_dict.items()}
         self.data_dir = data_dir
