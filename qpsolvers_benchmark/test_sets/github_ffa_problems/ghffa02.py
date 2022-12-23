@@ -26,6 +26,12 @@ from ..problem import Problem
 
 
 def get_problem(alpha: float):
+    """
+    Get problem instance.
+
+    Args:
+        alpha: Inverse condition number of the problem.
+    """
     return Problem(
         P=np.eye(2),
         q=np.zeros(2),
