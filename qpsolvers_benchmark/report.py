@@ -298,7 +298,8 @@ class Report:
 * [Results by settings](#results-by-settings)\n"""
         )
         for name in self.solver_settings:
-            fh.write(f"    * [{capitalize_settings(name)}](#{name})\n")
+            link = name.replace("_", "-")
+            fh.write(f"    * [{capitalize_settings(name)}](#{link})\n")
         fh.write(
             """* [Results by metric](#results-by-metric)
     * [Success rate](#success-rate)
