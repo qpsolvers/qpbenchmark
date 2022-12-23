@@ -137,24 +137,24 @@ class Results:
             ignore_index=True,
         )
 
-    def build_success_frames(
+    def build_success_rate_df(
         self,
-        cost_tolerances: Dict[str, float],
         primal_tolerances: Dict[str, float],
         dual_tolerances: Dict[str, float],
         gap_tolerances: Dict[str, float],
+        cost_tolerances: Dict[str, float],
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """
-        Build the success-rate and correctness-rate data frames.
+        Build the success-rate data frame.
 
         Args:
-            cost_tolerances: Cost tolerance for each settings.
             primal_tolerances: Primal-residual tolerance for each settings.
             dual_tolerances: Dual-residual tolerance for each settings.
             gap_tolerances: Duality-gap tolerance for each settings.
+            cost_tolerances: Cost tolerance for each settings.
 
         Returns:
-            Success-rate and correctness-rate data frames.
+            Success-rate data frames.
         """
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
@@ -186,6 +186,38 @@ class Results:
             .reindex(columns=sorted(all_settings))
             .sort_index()
         )
+        return success_rate_df
+
+    def build_correct_rate_df(
+        self,
+        primal_tolerances: Dict[str, float],
+        dual_tolerances: Dict[str, float],
+        gap_tolerances: Dict[str, float],
+        cost_tolerances: Dict[str, float],
+    ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
+        """
+        Build the correctness-rate data frame.
+
+        Args:
+            primal_tolerances: Primal-residual tolerance for each settings.
+            dual_tolerances: Dual-residual tolerance for each settings.
+            gap_tolerances: Duality-gap tolerance for each settings.
+            cost_tolerances: Cost tolerance for each settings.
+
+        Returns:
+            Correctness-rate data frames.
+        """
+        solvers = set(self.df["solver"].to_list())
+        all_settings = set(self.df["settings"].to_list())
+        df = self.df.fillna(value=np.nan)  # replace None by NaN for abs()
+        found_and_valid = {
+            settings: df["found"]
+            & (df["primal_residual"] < primal_tolerances[settings])
+            & (df["dual_residual"] < dual_tolerances[settings])
+            & (df["duality_gap"] < gap_tolerances[settings])
+            & (df["cost_error"].abs() < cost_tolerances[settings])
+            for settings in all_settings
+        }
         correctness_rate_df = (
             pandas.DataFrame(
                 {
@@ -211,7 +243,7 @@ class Results:
             .reindex(columns=sorted(all_settings))
             .sort_index()
         )
-        return success_rate_df, correctness_rate_df
+        return correctness_rate_df
 
     def build_shifted_geometric_mean_df(
         self, column: str, shift: float, not_found_values: Dict[str, float]
