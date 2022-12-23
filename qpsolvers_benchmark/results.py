@@ -27,9 +27,9 @@ import pandas
 import qpsolvers
 
 from .problem import Problem
+from .shgeom import shgeom
 from .spdlog import logging
 from .test_set import TestSet
-from .utils import shgeom
 
 
 class Results:
