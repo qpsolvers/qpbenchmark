@@ -201,7 +201,11 @@ class Report:
             shift=10.0,
             not_found_values=cost_tolerances,
         )
-        settings_names = [f"*{x}*" for x in self.solver_settings]
+        italics_settings = [f"*{x}*" for x in self.solver_settings]
+        upper_settings = {
+            name: name.replace("_", " ").capitalize()
+            for name in self.solver_settings
+        }
         with open(path, "w") as fh:
             fh.write(
                 f"""# {self.test_set.title}
@@ -219,7 +223,12 @@ class Report:
             fh.write(
                 """* [Solvers](#solvers)
 * [Settings](#settings)
-* [Results](#results)
+* [Results by settings](#results-by-settings)\n"""
+            )
+            for name in self.solver_settings:
+                fh.write(f"    * [{upper_settings[name]}](#{name})\n")
+            fh.write(
+                """* [Results by metric](#results-by-metric)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
     * [Primal residual](#primal-residual)
@@ -241,8 +250,9 @@ All solvers were called via
 
 ## Settings
 
-There are {len(settings_names)} settings: {", ".join(settings_names[:-1])} and
-{settings_names[-1]}. They validate solutions using the following tolerances:
+There are {len(italics_settings)} settings: {", ".join(italics_settings[:-1])}
+and {italics_settings[-1]}. They validate solutions using the following
+tolerances:
 
 {self.get_tolerances_table()}
 
@@ -250,7 +260,26 @@ Solvers for each settings are configured as follows:
 
 {self.get_solver_settings_table()}
 
-## Results
+## Results by settings\n\n"""
+            )
+            for settings in self.solver_settings:
+                cols = {
+                    "Success rate": success_rate_df[settings],
+                    "Runtime": runtime_df[settings],
+                    "Primal residual": primal_df[settings],
+                    "Dual residual": dual_df[settings],
+                    "Duality gap": gap_df[settings],
+                    "Cost error": cost_df[settings],
+                }
+                df = pandas.DataFrame([], index=gap_df.index).assign(**cols)
+                fh.write(
+                    f"""### {upper_settings[settings]}
+
+{df.to_markdown(index=True, floatfmt=".1f")}\n\n"""
+                )
+
+            fh.write(
+                f"""## Results by metric
 
 ### Success rate
 
