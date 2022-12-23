@@ -144,34 +144,62 @@ class Report:
         """
         assert path.endswith(".md")
         qpsolvers_version = metadata.version("qpsolvers")
-        cost_tolerances = {
-            name: tolerance.cost
-            for name, tolerance in self.test_set.tolerances.items()
-        }
         primal_tolerances = {
             name: tolerance.primal
             for name, tolerance in self.test_set.tolerances.items()
         }
-        dual_tolerances= {
+        dual_tolerances = {
             name: tolerance.dual
             for name, tolerance in self.test_set.tolerances.items()
         }
-        gap_tolerances= {
+        gap_tolerances = {
             name: tolerance.gap
             for name, tolerance in self.test_set.tolerances.items()
         }
-        time_limits = {
+        cost_tolerances = {
+            name: tolerance.cost
+            for name, tolerance in self.test_set.tolerances.items()
+        }
+        runtime_tolerances = {
             name: tolerance.runtime
             for name, tolerance in self.test_set.tolerances.items()
         }
-        success_rate_df, correct_rate_df = self.results.build_success_frames(
-            cost_tolerances, primal_tolerances, dual_tolerances, gap_tolerances
+        success_rate_df = self.results.build_success_rate_df(
+            primal_tolerances,
+            dual_tolerances,
+            gap_tolerances,
+            cost_tolerances,
         )
-        success_rate_table = success_rate_df.to_markdown(
-            index=True, floatfmt=".0f"
+        correct_rate_df = self.results.build_correct_rate_df(
+            primal_tolerances,
+            dual_tolerances,
+            gap_tolerances,
+            cost_tolerances,
         )
-        correct_rate_table = correct_rate_df.to_markdown(
-            index=True, floatfmt=".0f"
+        runtime_df = self.results.build_shifted_geometric_mean_df(
+            column="runtime",
+            shift=10.0,
+            not_found_values=runtime_tolerances,
+        )
+        primal_df = self.results.build_shifted_geometric_mean_df(
+            column="primal_residual",
+            shift=10.0,
+            not_found_values=primal_tolerances,
+        )
+        dual_df = self.results.build_shifted_geometric_mean_df(
+            column="dual_residual",
+            shift=10.0,
+            not_found_values=dual_tolerances,
+        )
+        gap_df = self.results.build_shifted_geometric_mean_df(
+            column="duality_gap",
+            shift=10.0,
+            not_found_values=gap_tolerances,
+        )
+        cost_df = self.results.build_shifted_geometric_mean_df(
+            column="cost_error",
+            shift=10.0,
+            not_found_values=cost_tolerances,
         )
         settings_names = [f"*{x}*" for x in self.solver_settings]
         with open(path, "w") as fh:
@@ -228,7 +256,7 @@ Solvers for each settings are configured as follows:
 
 Precentage of problems each solver is able to solve:
 
-{success_rate_table}
+{success_rate_df.to_markdown(index=True, floatfmt=".0f")}
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
 that a solver successfully solved a problem when (1) it returned with a success
@@ -239,7 +267,7 @@ tolerance checks.
 
 Percentage of problems where "solved" return codes are correct:
 
-{correct_rate_table}
+{correct_rate_df.to_markdown(index=True, floatfmt=".0f")}
 
 ### Computation time
 
@@ -250,11 +278,7 @@ Y is Y times slower than the best solver over the test set. See
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
-{self.results.build_shifted_geometric_mean_df(
-    column="runtime",
-    shift=10.0,
-    not_found_values=time_limits,
-).to_markdown(index=True, floatfmt=".1f")}
+{runtime_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
@@ -271,11 +295,7 @@ precise on constraints than the best solver over the test set. See
 
 Shifted geometric means of primal residuals (1.0 is the best):
 
-{self.results.build_shifted_geometric_mean_df(
-    column="primal_residual",
-    shift=10.0,
-    not_found_values=primal_tolerances,
-).to_markdown(index=True, floatfmt=".1f")}
+{primal_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal residual equal to the
@@ -292,11 +312,7 @@ on the dual feasibility condition than the best solver over the test set. See
 
 Shifted geometric means of dual residuals (1.0 is the best):
 
-{self.results.build_shifted_geometric_mean_df(
-    column="dual_residual",
-    shift=10.0,
-    not_found_values=dual_tolerances,
-).to_markdown(index=True, floatfmt=".1f")}
+{dual_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a dual residual equal to the full
@@ -314,11 +330,7 @@ over the test set. See [Metrics](../README.md#metrics) for details.
 
 Shifted geometric means of duality gaps (1.0 is the best):
 
-{self.results.build_shifted_geometric_mean_df(
-    column="duality_gap",
-    shift=10.0,
-    not_found_values=gap_tolerances,
-).to_markdown(index=True, floatfmt=".1f")}
+{gap_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a duality gap equal to the full
@@ -335,11 +347,7 @@ less precise on the optimal cost than the best solver over the test set. See
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
-{self.results.build_shifted_geometric_mean_df(
-    column="cost_error",
-    shift=10.0,
-    not_found_values=cost_tolerances,
-).to_markdown(index=True, floatfmt=".1f")}
+{cost_df.to_markdown(index=True, floatfmt=".1f")}
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a cost error equal to the [cost
