@@ -40,12 +40,11 @@ We evaluate QP solvers based on the following metrics:
 
 - **Success rate:** percentage of problems a solver is able to solve on a given test set.
 - **Computation time:** time a solver takes to solve a given problem.
-- **Primal residual:** maximum error on equality and inequality constraints at the returned solution.
-- **Dual residual:** maximum error on the dual feasibility condition at the returned solution.
-- **Duality gap:** value of the duality gap at the returned solution.
+- **Optimality conditions:** we evaluate all three [optimality conditions](https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html):
+    - **Primal residual:** maximum error on equality and inequality constraints at the returned solution.
+    - **Dual residual:** maximum error on the dual feasibility condition at the returned solution.
+    - **Duality gap:** value of the duality gap at the returned solution.
 - **Cost error:** difference between the solution cost and the known optimal cost.
-
-If you are wondering about the meaning of residuals or the duality gap, check out for instance [Optimality conditions and numerical tolerances in QP solvers](https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html).
 
 ### Shifted geometric mean
 
