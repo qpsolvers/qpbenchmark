@@ -74,9 +74,9 @@ class Problem(qpsolvers.Problem):
         return Problem(
             self.P.toarray().astype(float),
             self.q,
-            self.G.toarray().astype(float),
+            self.G.toarray().astype(float) if self.G is not None else None,
             self.h,
-            self.A.toarray().astype(float),
+            self.A.toarray().astype(float) if self.A is not None else None,
             self.b,
             self.lb,
             self.ub,
