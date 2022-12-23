@@ -19,7 +19,7 @@ import argparse
 import os
 from importlib import import_module  # type: ignore
 
-from qpsolvers_benchmark import Report, Results, TestSet, logging
+from qpsolvers_benchmark import Report, Results, TestSet, logging, run
 
 TEST_SETS = [
     "github_ffa",
@@ -171,7 +171,8 @@ if __name__ == "__main__":
     if args.command == "run":
         args.solver = args.solver.lower() if args.solver else None
         args.settings = args.settings.lower() if args.settings else None
-        test_set.run(
+        run(
+            test_set,
             results,
             only_problem=args.problem,
             only_settings=args.settings,
