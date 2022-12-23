@@ -245,7 +245,7 @@ class Report:
         """
         assert path.endswith(".md")
         self.__compute_dataframes()
-        with open(path, "w") as fh:
+        with open(path, "w", encoding="UTF-8") as fh:
             self.__write_header(fh)
             self.__write_toc(fh)
             self.__write_description(fh)
