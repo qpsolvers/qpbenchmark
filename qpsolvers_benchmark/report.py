@@ -264,12 +264,12 @@ Solvers for each settings are configured as follows:
             )
             for settings in self.solver_settings:
                 cols = {
-                    "Success rate": success_rate_df[settings],
-                    "Runtime": runtime_df[settings],
-                    "Primal residual": primal_df[settings],
-                    "Dual residual": dual_df[settings],
-                    "Duality gap": gap_df[settings],
-                    "Cost error": cost_df[settings],
+                    "Success rate (%)": success_rate_df[settings],
+                    "Runtime (shm)": runtime_df[settings],
+                    "Primal residual (shm)": primal_df[settings],
+                    "Dual residual (shm)": dual_df[settings],
+                    "Duality gap (shm)": gap_df[settings],
+                    "Cost error (shm)": cost_df[settings],
                 }
                 df = pandas.DataFrame([], index=gap_df.index).assign(**cols)
                 fh.write(
