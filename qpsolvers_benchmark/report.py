@@ -49,11 +49,14 @@ class Report:
     results: Results
     test_set: TestSet
 
-    def __init__(
-        self,
-        author: str,
-        results: Results,
-    ):
+    def __init__(self, author: str, results: Results):
+        """
+        Initialize report.
+
+        Args:
+            author: GitHub username of the person who generated the report.
+            results: Results from which the report should be generated.
+        """
         cpu_info = get_cpu_info()
         date = str(datetime.datetime.now(datetime.timezone.utc))
         self.author = author
@@ -63,7 +66,13 @@ class Report:
         self.solver_settings = results.test_set.solver_settings
         self.test_set = results.test_set
 
-    def get_tolerances_table(self):
+    def get_tolerances_table(self) -> str:
+        """
+        Get tolerances Markdown table.
+
+        Returns:
+            Tolerances Markdown table.
+        """
         names = list(self.test_set.tolerances.keys())
         df = pandas.DataFrame(
             [],
@@ -90,7 +99,13 @@ class Report:
         df = df.sort_values(by="tolerance")
         return df.to_markdown(index=False)
 
-    def get_solver_settings_table(self):
+    def get_solver_settings_table(self) -> str:
+        """
+        Get Markdown table for solver settings.
+
+        Returns:
+            Solver settings Markdown table.
+        """
         solver_settings = self.test_set.solver_settings
         names = list(solver_settings.keys())
         df = pandas.DataFrame(
@@ -127,6 +142,12 @@ class Report:
         return df.to_markdown(index=False)
 
     def get_solver_versions_table(self):
+        """
+        Get Markdown table for solver versions.
+
+        Returns:
+            Solver versions Markdown table.
+        """
         versions = get_solver_versions(self.test_set.solvers)
         versions_df = pandas.DataFrame(
             {
