@@ -154,13 +154,34 @@ class SolverSettings:
 
     @property
     def solvers(self) -> Iterator[str]:
+        """
+        List solvers configured in these settings.
+        """
         for solver in self.__settings:
             yield solver
 
     def get_param(self, solver: str, param: str, default: str) -> Any:
+        """
+        Get solver parameter in these settings.
+
+        Args:
+            solver: QP solver.
+            param: Parameter name.
+            default: Value to return if the parameter is not configured.
+
+        Returns:
+            Corresponding solver parameter, or default value.
+        """
         if solver not in self.__settings:
             return default
         return self.__settings[solver].get(param, default)
 
     def set_param(self, solver: str, param: str, value: Any) -> None:
+        """
+        Set solver parameter.
+
+        Args:
+            solver: QP solver.
+            param: Parameter name.
+        """
         self.__settings[solver][param] = value
