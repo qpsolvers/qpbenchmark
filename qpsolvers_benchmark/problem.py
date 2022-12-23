@@ -55,7 +55,7 @@ class Problem(qpsolvers.Problem):
         name: str,
         optimal_cost: Optional[float] = None,
         cost_offset: float = 0.0,
-    ):
+    ):  # pylint: disable=R0913
         """
         Quadratic program in qpsolvers format.
         """
