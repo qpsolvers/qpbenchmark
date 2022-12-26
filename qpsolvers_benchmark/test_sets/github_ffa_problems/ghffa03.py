@@ -44,7 +44,7 @@ def get_problem(n: int):
         b=None,
         lb=None,
         ub=None,
-        name="GHFFA03",
+        name=f"GHFFA03_{n=}",
         optimal_cost=0.0,
     )
 
