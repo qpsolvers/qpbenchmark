@@ -93,6 +93,8 @@ def get_solver_versions(solvers: Set[str]):
         # Commit: 11363a25cf4eab579c287e78bcb17273f314a2e0
         # Install: https://scaron.info/doc/qpsolvers/installation.html#qpoases
         versions["qpoases"] = "3.2.0"
+    if "gurobi" in versions:
+        versions["gurobi"] += " (size-limited)"
     return versions
 
 

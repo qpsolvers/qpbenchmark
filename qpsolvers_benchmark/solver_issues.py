@@ -19,6 +19,8 @@
 Some solvers fail on some problems. Make sure we handle and report those.
 """
 
+from typing import Dict, Tuple
+
 from .problem import Problem
 from .spdlog import logging
 
