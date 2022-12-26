@@ -40,7 +40,10 @@ class GithubFfa(TestSet):
     """
 
     @property
-    def description(self) -> Optional[str]:
+    def description(self) -> str:
+        """
+        Description of the test set.
+        """
         issues = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
         problems = (
             (

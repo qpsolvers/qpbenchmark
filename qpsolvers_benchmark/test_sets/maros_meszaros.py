@@ -44,11 +44,11 @@ class MarosMeszaros(TestSet):
     optimal_costs: Dict[str, float]
 
     @property
-    def description(self) -> Optional[str]:
+    def description(self) -> str:
         """
-        No description for this test set.
+        Description of the test set.
         """
-        return None
+        return "Standard set of problems designed to be difficult."
 
     @property
     def title(self) -> str:

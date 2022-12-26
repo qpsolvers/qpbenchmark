@@ -16,7 +16,7 @@
 # limitations under the License.
 
 """
-Test sets.
+Test sets of the benchmark.
 """
 
 from .maros_meszaros import MarosMeszaros
