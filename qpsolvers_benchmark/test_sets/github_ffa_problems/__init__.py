@@ -23,11 +23,11 @@ from .ghffa01 import problems as ghffa01_problems
 from .ghffa02 import problems as ghffa02_problems
 from .ghffa03 import problems as ghffa03_problems
 
-available_problems = []
-available_problems.extend(ghffa01_problems)
-available_problems.extend(ghffa02_problems)
-available_problems.extend(ghffa03_problems)
+github_ffa_problems = []
+github_ffa_problems.extend(ghffa01_problems)
+github_ffa_problems.extend(ghffa02_problems)
+github_ffa_problems.extend(ghffa03_problems)
 
 __all__ = [
-    "available_problems",
+    "github_ffa_problems",
 ]
