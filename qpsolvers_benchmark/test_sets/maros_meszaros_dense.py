@@ -32,8 +32,14 @@ class MarosMeszarosDense(MarosMeszaros):
     """
 
     @property
-    def description(self) -> Optional[str]:
-        return None
+    def description(self) -> str:
+        """
+        Description of the test set.
+        """
+        return (
+            "Subset of the Maros-Meszaros test set"
+            "restricted to smaller dense problems."
+        )
 
     @property
     def title(self) -> str:

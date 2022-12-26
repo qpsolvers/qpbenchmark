@@ -53,13 +53,13 @@ class TestSet(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def description(self) -> Optional[str]:
+    def description(self) -> str:
         """
-        Test set description for the report (optional).
+        Test set description.
         """
 
     @abc.abstractmethod
-    def define_tolerances(self):
+    def define_tolerances(self) -> None:
         """
         Define validation tolerances.
         """

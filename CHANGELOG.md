@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file.
 * Refactor Report class and run function
 * Report encoding is now UTF-8
 * Switch to qpsolvers v2.7
+* Test set descriptions are now mandatory
 
 ### Fixed
 
