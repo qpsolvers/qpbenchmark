@@ -19,7 +19,7 @@
 Dense subset of the Maros-Meszaros test set.
 """
 
-from typing import Iterator, Optional
+from typing import Iterator
 
 from ..problem import Problem
 from .maros_meszaros import MarosMeszaros

@@ -21,14 +21,13 @@ Maros-Meszaros test set.
 
 import json
 import os.path
-from typing import Dict, Iterator, Optional, Union
+from typing import Dict, Iterator, Union
 
 import numpy as np
 import scipy.io as spio
 import scipy.sparse as spa
 
 from ..problem import Problem
-from ..solver_settings import SolverSettings
 from ..test_set import TestSet
 from ..tolerance import Tolerance
 
@@ -142,7 +141,7 @@ class MarosMeszaros(TestSet):
         l[l < -9e19] = -np.inf
         u[u < -9e19] = -np.inf
 
-        # A = vstack([C, spa.eye(n)])
+        # A == vstack([C, spa.eye(n)])
         lb = l[-n:]
         ub = u[-n:]
         C = A[:-n]
