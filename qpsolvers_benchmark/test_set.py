@@ -64,11 +64,31 @@ class TestSet(abc.ABC):
         Define validation tolerances.
         """
 
-    @abc.abstractmethod
-    def define_solver_settings(self):
+    def define_solver_settings(self) -> None:
         """
         Define solver settings.
         """
+        default = SolverSettings()
+        default.set_param("qpoases", "predefined_options", "default")
+        default.set_time_limit(self.tolerances["default"].runtime)
+
+        high_accuracy = SolverSettings()
+        high_accuracy.set_eps_abs(1e-9)
+        high_accuracy.set_eps_rel(0.0)
+        high_accuracy.set_param("qpoases", "predefined_options", "reliable")
+        high_accuracy.set_time_limit(self.tolerances["high_accuracy"].runtime)
+
+        low_accuracy = SolverSettings()
+        low_accuracy.set_eps_abs(1e-3)
+        low_accuracy.set_eps_rel(0.0)
+        low_accuracy.set_param("qpoases", "predefined_options", "fast")
+        low_accuracy.set_time_limit(self.tolerances["low_accuracy"].runtime)
+
+        self.solver_settings = {
+            "default": default,
+            "high_accuracy": high_accuracy,
+            "low_accuracy": low_accuracy,
+        }
 
     @property
     @abc.abstractmethod

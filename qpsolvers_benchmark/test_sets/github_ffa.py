@@ -101,26 +101,6 @@ class GithubFfa(TestSet):
             ),
         }
 
-    def define_solver_settings(self) -> None:
-        default = SolverSettings()
-        default.set_time_limit(self.tolerances["default"].runtime)
-
-        low_accuracy = SolverSettings()
-        low_accuracy.set_time_limit(self.tolerances["low_accuracy"].runtime)
-        low_accuracy.set_eps_abs(1e-3)
-        low_accuracy.set_eps_rel(0.0)
-
-        high_accuracy = SolverSettings()
-        high_accuracy.set_time_limit(self.tolerances["high_accuracy"].runtime)
-        high_accuracy.set_eps_abs(1e-9)
-        high_accuracy.set_eps_rel(0.0)
-
-        self.solver_settings = {
-            "default": default,
-            "low_accuracy": low_accuracy,
-            "high_accuracy": high_accuracy,
-        }
-
     def __iter__(self) -> Iterator[Problem]:
         for problem in available_problems:
             yield problem

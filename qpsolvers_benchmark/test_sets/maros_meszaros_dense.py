@@ -49,18 +49,6 @@ class MarosMeszarosDense(MarosMeszaros):
     def sparse_only(self) -> bool:
         return False
 
-    def define_solver_settings(self) -> None:
-        super().define_solver_settings()
-
-        default = self.solver_settings["default"]
-        default.set_param("qpoases", "predefined_options", "default")
-
-        low_accuracy = self.solver_settings["low_accuracy"]
-        low_accuracy.set_param("qpoases", "predefined_options", "fast")
-
-        high_accuracy = self.solver_settings["high_accuracy"]
-        high_accuracy.set_param("qpoases", "predefined_options", "reliable")
-
     @staticmethod
     def count_constraints(problem: Problem):
         """
