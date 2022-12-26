@@ -21,6 +21,7 @@ Benchmark for quadratic programming solvers available in Python.
 
 from .report import Report
 from .results import Results
+from .run import run
 from .spdlog import logging
 from .test_set import TestSet
 from .version import get_version
@@ -32,4 +33,5 @@ __all__ = [
     "Results",
     "TestSet",
     "logging",
+    "run",
 ]
