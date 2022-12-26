@@ -20,7 +20,6 @@ Report written from test set results.
 """
 
 import datetime
-import importlib
 import io
 from importlib import metadata
 from typing import Dict
@@ -32,6 +31,7 @@ from .solver_settings import SolverSettings
 from .spdlog import logging
 from .test_set import TestSet
 from .utils import capitalize_settings, get_cpu_info, get_solver_versions
+from .version import get_version
 
 
 class Report:
@@ -269,16 +269,16 @@ class Report:
         Args:
             fh: Output file handle.
         """
-        benchmark_version = importlib.metadata.version("qpsolvers_benchmark")
+        benchmark_version = get_version()
         cpu_info = get_cpu_info()
         date = str(datetime.datetime.now(datetime.timezone.utc))
         fh.write(
             f"""# {self.test_set.title}
 
 | Version | {benchmark_version} |
-|:--------|---------------------|
-| CPU     | {cpu_info} |
+|:--------|:--------------------|
 | Date    | {date} |
+| CPU     | {cpu_info} |
 | Run by  | [@{self.author}](https://github.com/{self.author}/) |
 
 """

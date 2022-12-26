@@ -16,20 +16,12 @@
 # limitations under the License.
 
 """
-Benchmark for quadratic programming solvers available in Python.
+Benchmark version.
 """
 
-from .report import Report
-from .results import Results
-from .spdlog import logging
-from .test_set import TestSet
-from .version import get_version
 
-__version__ = get_version()
-
-__all__ = [
-    "Report",
-    "Results",
-    "TestSet",
-    "logging",
-]
+def get_version() -> str:
+    """
+    Get benchmark version as a string.
+    """
+    return "0.1.0rc4"
