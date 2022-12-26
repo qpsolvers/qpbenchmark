@@ -78,6 +78,7 @@ def get_solver_versions(solvers: Set[str]):
     package_name = {solver: solver for solver in solvers}
     package_name.update(
         {
+            "gurobi": "gurobipy",
             "highs": "highspy",
             "proxqp": "proxsuite",
         }
