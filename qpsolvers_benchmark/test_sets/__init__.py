@@ -18,11 +18,3 @@
 """
 Test sets of the benchmark.
 """
-
-from .maros_meszaros import MarosMeszaros
-from .maros_meszaros_dense import MarosMeszarosDense
-
-__all__ = [
-    "MarosMeszaros",
-    "MarosMeszarosDense",
-]
