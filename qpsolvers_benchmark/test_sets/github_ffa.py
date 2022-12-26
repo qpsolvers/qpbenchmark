@@ -19,13 +19,12 @@
 GitHub free-for-all test set.
 """
 
-from typing import Iterator, Optional
+from typing import Iterator
 
 from ..problem import Problem
-from ..solver_settings import SolverSettings
 from ..test_set import TestSet
 from ..tolerance import Tolerance
-from .github_ffa_problems import available_problems
+from .github_ffa_problems import github_ffa_problems
 
 
 class GithubFfa(TestSet):
@@ -102,5 +101,5 @@ class GithubFfa(TestSet):
         }
 
     def __iter__(self) -> Iterator[Problem]:
-        for problem in available_problems:
+        for problem in github_ffa_problems:
             yield problem
