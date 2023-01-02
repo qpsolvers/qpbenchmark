@@ -26,9 +26,15 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 dependencies = [
+    "cvxopt >=1.2.6",
+    "ecos >=2.0.8",
+    "highspy >=1.1.2.dev3",
+    "osqp >=0.6.2",
     "pandas >=1.4.3",
+    "proxsuite >=0.2.9",
     "qpsolvers >=2.7.2",
-    "quadprog >= 0.1.1",
+    "quadprog >=0.1.11",
+    "scs >=3.2.0",
     "tabulate >=0.9.0",
 ]
 keywords = ["quadratic programming", "benchmark", "solvers", "numerical optimization"]
