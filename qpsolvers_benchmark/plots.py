@@ -31,6 +31,18 @@ def hist_metric(
     test_set: str = "",
     alpha: float = 0.5,
 ) -> None:
+    """
+    Histogram comparing solvers on a given metric.
+
+    Args:
+        metric: Metric to compare solvers on.
+        df: Test set results data frame.
+        settings: Settings to compare solvers on.
+        solvers: Names of solvers to compare (default: all).
+        nb_bins: Number of bins in the histogram.
+        test_set: Name of the set set.
+        alpha: Histogram transparency.
+    """
     found_df = df[df["found"]]
     settings_df = found_df[found_df["settings"] == settings]
     solvers = set(solvers if solvers else settings_df.solver)
