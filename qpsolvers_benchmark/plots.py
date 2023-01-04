@@ -19,7 +19,7 @@
 Plots for analysis of test set results.
 """
 
-from typing import List, Optional, Set
+from typing import List, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -49,16 +49,18 @@ def hist_metric(
     """
     found_df = df[df["found"]]
     settings_df = found_df[found_df["settings"] == settings]
-    plot_solvers: Set[str] = (
-        set(solvers) if solvers is not None else set(settings_df.solver)
+    plot_solvers: List[str] = (
+        solvers if solvers is not None else list(set(settings_df.solver))
     )
     for solver in plot_solvers:
         values = settings_df[settings_df["solver"] == solver][metric].values
         _, bins = np.histogram(values, bins=nb_bins)
         logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
         plt.hist(values, bins=logbins, cumulative=True, alpha=alpha)
-    plt.legend(solvers)
-    plt.title(f"Comparing {metric} on {test_set} test set")
+    plt.legend(plot_solvers)
+    plt.title(
+        f"Comparing {metric} on {test_set} test set with {settings} settings"
+    )
     plt.xlabel(metric)
     plt.xscale("log")
     plt.ylabel("# problems solved")
