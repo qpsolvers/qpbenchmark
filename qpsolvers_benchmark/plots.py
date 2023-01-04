@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
+from typing import List, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -26,7 +26,7 @@ def hist_metric(
     metric: str,
     df: pandas.DataFrame,
     settings: str,
-    solvers: List[str] = [],
+    solvers: Optional[List[str]] = None,
     nb_bins: int = 10,
     test_set: str = "",
     alpha: float = 0.5,
@@ -45,12 +45,12 @@ def hist_metric(
     """
     found_df = df[df["found"]]
     settings_df = found_df[found_df["settings"] == settings]
-    solvers = set(solvers if solvers else settings_df.solver)
+    solvers = set(solvers if solvers is not None else settings_df.solver)
     for solver in solvers:
         values = settings_df[settings_df["solver"] == solver][metric].values
-        hist, bins = np.histogram(values, bins=nb_bins)
+        _, bins = np.histogram(values, bins=nb_bins)
         logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
-        plt.hist(values, bins=logbins, cumulative=True, alpha=0.5)
+        plt.hist(values, bins=logbins, cumulative=True, alpha=alpha)
     plt.legend(solvers)
     plt.title(f"Comparing {metric} on {test_set} test set")
     plt.xlabel(metric)
