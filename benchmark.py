@@ -92,10 +92,8 @@ def parse_command_line_arguments():
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
     parser_hist_metric.add_argument(
-        "--solver",
-        "-s",
-        dest="solvers",
-        help="limit plot to a specific solver (multiple solvers if repeated)",
+        "--solvers",
+        help="solvers to limit the histogram to",
         nargs="+",
     )
     parser_hist_metric.add_argument(
