@@ -65,13 +65,20 @@ Check out the [issue tracker](https://github.com/stephane-caron/qpsolvers_benchm
 
 ## Installation
 
-Install all required dependencies by:
+You can install the benchmark and its dependencies in an isolated environment using ``conda``:
+
+```
+conda env create -f environment.yaml
+conda activate qpsolvers_benchmark
+```
+
+Alternatively, you can install the benchmark on your system using ``pip``:
 
 ```console
 pip install qpsolvers_benchmark
 ```
 
-By default, the benchmark will run with any supported solver installed on your system. You can install all supported open-source solvers at once by installing ``qpsolvers_benchmark[open_source_solvers]``, *i.e.* appending the ``open_source_solvers`` dependency.
+By default, the benchmark will run all supported solvers it finds.
 
 ## Running the benchmark
 
