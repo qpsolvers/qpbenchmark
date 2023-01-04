@@ -15,6 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Plots for analysis of test set results.
+"""
+
 from typing import List, Optional
 
 import matplotlib.pyplot as plt
