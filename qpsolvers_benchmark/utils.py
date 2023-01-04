@@ -20,7 +20,7 @@ Utility functions.
 """
 
 import platform
-from importlib import metadata
+from importlib import import_module, metadata
 from time import perf_counter
 from typing import Set, Tuple
 
@@ -88,7 +88,16 @@ def get_solver_versions(solvers: Set[str]):
         try:
             versions[solver] = metadata.version(package)
         except metadata.PackageNotFoundError:
+            pass
+        if solver in versions:
             continue
+        try:
+            module = import_module(package)
+            versions[solver] = module.__version__
+        except AttributeError:
+            pass
+        except ModuleNotFoundError:
+            pass
     if "qpoases" in solvers and "qpoases" not in versions:
         # Repository: https://github.com/stephane-caron/qpOASES
         # Commit: 11363a25cf4eab579c287e78bcb17273f314a2e0
