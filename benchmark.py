@@ -20,6 +20,7 @@ import os
 from importlib import import_module  # type: ignore
 
 from qpsolvers_benchmark import Report, Results, TestSet, logging, run
+from qpsolvers_benchmark.plots import hist_metric
 
 TEST_SETS = [
     "github_ffa",
@@ -75,6 +76,33 @@ def parse_command_line_arguments():
     parser_check_results.add_argument(
         "--results-file",
         help="path to the results CSV file",
+    )
+
+    # hist_metric
+    parser_hist_metric = subparsers.add_parser(
+        "hist_metric",
+        help="compare how solvers performed on a given metric",
+    )
+    parser_hist_metric.add_argument(
+        "metric",
+        help='name of the metric to evaluate (e.g. "duality_gap")',
+    )
+    parser_hist_metric.add_argument(
+        "settings",
+        help='settings to compare solvers on (e.g. "high_accuracy")',
+    )
+    parser_hist_metric.add_argument(
+        "--solver",
+        "-s",
+        dest="solvers",
+        help="limit plot to a specific solver (multiple solvers if repeated)",
+        nargs="+",
+    )
+    parser_hist_metric.add_argument(
+        "--bins",
+        help="number of bins in the resulting histogram",
+        type=int,
+        default=10,
     )
 
     # report
@@ -200,6 +228,16 @@ if __name__ == "__main__":
             logging.error(
                 "IPython not found, run this script in interactive mode"
             )
+
+    if args.command == "hist_metric":
+        hist_metric(
+            args.metric,
+            results.df,
+            args.settings,
+            solvers=args.solvers,
+            nb_bins=args.bins,
+            test_set=args.test_set,
+        )
 
     if args.command in ["report", "run"]:
         logging.info("Writing the overall report...")
