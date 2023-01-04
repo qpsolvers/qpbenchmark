@@ -24,7 +24,7 @@ The goal of this benchmark is to help us compare and select QP solvers. Its meth
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Goldfarb-Idnani | Dense | GPL-2.0 |
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
 
-## Results
+## Test sets and results
 
 The benchmark has different test sets that represent different use cases for QP solvers. Click on a test set to check out its report.
 
