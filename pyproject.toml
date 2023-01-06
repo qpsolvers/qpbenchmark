@@ -41,13 +41,13 @@ keywords = ["quadratic programming", "benchmark", "solvers", "numerical optimiza
 
 [project.optional-dependencies]
 open_source_solvers = [
-    "cvxopt >=1.3.0",
-    "ecos >=2.0.10",
-    "highspy >=1.1.2",
-    "osqp >=0.6.2",
-    "proxsuite >=0.2.5",
-    "quadprog >=0.1.11",
-    "scs >=3.2.0",
+    "cvxopt >= 1.3.0",
+    "ecos >= 2.0.10",
+    "highspy >= 1.1.2",
+    "osqp >= 0.6.2",
+    "proxsuite >= 0.2.7",
+    "quadprog >= 0.1.11",
+    "scs >= 3.2.2",
 ]
 
 [project.urls]
