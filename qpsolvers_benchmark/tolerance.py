@@ -21,6 +21,8 @@ Tolerances on solver solution validation.
 
 from dataclasses import dataclass
 
+from .exceptions import BenchmarkError
+
 
 @dataclass
 class Tolerance:
@@ -41,3 +43,16 @@ class Tolerance:
     dual: float
     gap: float
     runtime: float
+
+    def from_metric(self, metric: str) -> float:
+        if metric == "primal_residual":
+            return self.primal
+        if metric == "dual_residual":
+            return self.dual
+        if metric == "duality_gap":
+            return self.gap
+        if metric == "runtime":
+            return self.runtime
+        if metric == "cost_error":
+            return self.cost
+        raise BenchmarkError(f"unknown metric '{metric}'")
