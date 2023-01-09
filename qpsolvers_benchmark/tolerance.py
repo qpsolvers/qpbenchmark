@@ -31,10 +31,10 @@ class Tolerance:
     Tolerances on solver solution validation.
 
     Attributes:
-        cost_tolerance: Cost tolerance.
-        primal_tolerance: Tolerance on primal residuals.
-        dual_tolerance: Tolerance on dual residuals.
-        gap_tolerance: Tolerance on duality gaps.
+        cost: Cost tolerance.
+        primal: Tolerance on primal residuals.
+        dual: Tolerance on dual residuals.
+        gap: Tolerance on duality gaps.
         runtime: Time limit in seconds.
     """
 
