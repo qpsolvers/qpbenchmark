@@ -49,6 +49,7 @@ def hist(
         nb_bins: Number of bins in the histogram.
         alpha: Histogram transparency.
     """
+    assert issubclass(df[metric].dtype.type, np.floating)
     settings_df = df[df["settings"] == settings]
     hist_df = settings_df.assign(
         **{
