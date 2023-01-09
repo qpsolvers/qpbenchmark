@@ -68,6 +68,18 @@ class Results:
                 "duality_gap",
                 "cost_error",
             ],
+        ).astype(
+            {
+                "problem": str,
+                "solver": str,
+                "settings": str,
+                "runtime": float,
+                "found": bool,
+                "primal_residual": float,
+                "dual_residual": float,
+                "duality_gap": float,
+                "cost_error": float,
+            }
         )
         if os.path.exists(csv_path):
             logging.info(f"Loading existing results from {csv_path}")
