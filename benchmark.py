@@ -20,7 +20,7 @@ import os
 from importlib import import_module  # type: ignore
 
 from qpsolvers_benchmark import Report, Results, TestSet, logging, run
-from qpsolvers_benchmark.plots import hist_metric
+from qpsolvers_benchmark.plots import hist
 
 TEST_SETS = [
     "github_ffa",
@@ -78,25 +78,25 @@ def parse_command_line_arguments():
         help="path to the results CSV file",
     )
 
-    # hist_metric
-    parser_hist_metric = subparsers.add_parser(
-        "hist_metric",
+    # hist
+    parser_hist = subparsers.add_parser(
+        "hist",
         help="compare how solvers performed on a given metric",
     )
-    parser_hist_metric.add_argument(
+    parser_hist.add_argument(
         "metric",
         help='name of the metric to evaluate (e.g. "duality_gap")',
     )
-    parser_hist_metric.add_argument(
+    parser_hist.add_argument(
         "settings",
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
-    parser_hist_metric.add_argument(
+    parser_hist.add_argument(
         "--solvers",
         help="solvers to limit the histogram to",
         nargs="+",
     )
-    parser_hist_metric.add_argument(
+    parser_hist.add_argument(
         "--bins",
         help="number of bins in the resulting histogram",
         type=int,
@@ -227,8 +227,8 @@ if __name__ == "__main__":
                 "IPython not found, run this script in interactive mode"
             )
 
-    if args.command == "hist_metric":
-        hist_metric(
+    if args.command == "hist":
+        hist(
             args.metric,
             results.df,
             args.settings,

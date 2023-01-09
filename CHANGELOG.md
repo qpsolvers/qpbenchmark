@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 * Check dual residual
 * Check duality gap
 * Document all benchmark functions
-* Main script: new ``hist_metric`` plot command
+* Main script: new ``hist`` plot command
 * ProblemNotFound exception
 * Results by settings in reports
 * Write benchmark version in reports
