@@ -20,7 +20,14 @@ Benchmark exceptions.
 """
 
 
-class ProblemNotFound(KeyError):
+class BenchmarkError(Exception):
+
+    """
+    Base class for benchmark exceptions.
+    """
+
+
+class ProblemNotFound(BenchmarkError):
 
     """
     Exception raised when a requested problem is not part of a test set.
