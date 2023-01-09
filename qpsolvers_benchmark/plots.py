@@ -26,7 +26,7 @@ import numpy as np
 import pandas
 
 
-def hist_metric(
+def hist(
     metric: str,
     df: pandas.DataFrame,
     settings: str,
