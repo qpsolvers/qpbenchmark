@@ -65,7 +65,9 @@ def hist(
     for solver in plot_solvers:
         values = hist_df[hist_df["solver"] == solver][metric].values
         _, bins = np.histogram(values, bins=nb_bins)
-        logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
+        logmin = np.log10(max(bins[0], 1e-20))
+        logmax = np.log10(max(bins[-1], 1e-20))
+        logbins = np.logspace(logmin, logmax, len(bins))
         plt.hist(values, bins=logbins, cumulative=True, alpha=alpha)
     plt.legend(plot_solvers)
     plt.title(
