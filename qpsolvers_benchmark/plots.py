@@ -51,11 +51,12 @@ def hist(
     """
     assert issubclass(df[metric].dtype.type, np.floating)
     settings_df = df[df["settings"] == settings]
+    metric_tol = test_set.tolerances[settings].from_metric(metric)
     hist_df = settings_df.assign(
         **{
             metric: settings_df[metric].mask(
                 ~settings_df["found"],
-                test_set.tolerances[settings].from_metric(metric),
+                metric_tol,
             ),
         }
     )
@@ -75,5 +76,7 @@ def hist(
     )
     plt.xlabel(metric)
     plt.xscale("log")
+    plt.axvline(x=metric_tol, color='r')
     plt.ylabel("# problems solved")
+    plt.grid(True)
     plt.show(block=True)
