@@ -232,9 +232,9 @@ if __name__ == "__main__":
             args.metric,
             results.df,
             args.settings,
+            test_set,
             solvers=args.solvers,
             nb_bins=args.bins,
-            test_set=args.test_set,
         )
 
     if args.command in ["report", "run"]:

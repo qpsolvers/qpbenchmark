@@ -25,14 +25,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas
 
+from .test_set import TestSet
+
 
 def hist(
     metric: str,
     df: pandas.DataFrame,
     settings: str,
+    test_set: TestSet,
     solvers: Optional[List[str]] = None,
     nb_bins: int = 10,
-    test_set: str = "",
     alpha: float = 0.5,
 ) -> None:
     """
@@ -42,24 +44,31 @@ def hist(
         metric: Metric to compare solvers on.
         df: Test set results data frame.
         settings: Settings to compare solvers on.
+        test_set: Test set.
         solvers: Names of solvers to compare (default: all).
         nb_bins: Number of bins in the histogram.
-        test_set: Name of the set set.
         alpha: Histogram transparency.
     """
-    found_df = df[df["found"]]
-    settings_df = found_df[found_df["settings"] == settings]
+    settings_df = df[df["settings"] == settings]
+    hist_df = settings_df.assign(
+        **{
+            metric: settings_df[metric].mask(
+                ~settings_df["found"],
+                test_set.tolerances[settings].from_metric(metric),
+            ),
+        }
+    )
     plot_solvers: List[str] = (
-        solvers if solvers is not None else list(set(settings_df.solver))
+        solvers if solvers is not None else list(set(hist_df.solver))
     )
     for solver in plot_solvers:
-        values = settings_df[settings_df["solver"] == solver][metric].values
+        values = hist_df[hist_df["solver"] == solver][metric].values
         _, bins = np.histogram(values, bins=nb_bins)
         logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
         plt.hist(values, bins=logbins, cumulative=True, alpha=alpha)
     plt.legend(plot_solvers)
     plt.title(
-        f"Comparing {metric} on {test_set} test set with {settings} settings"
+        f"Comparing {metric} on {test_set.title} with {settings} settings"
     )
     plt.xlabel(metric)
     plt.xscale("log")
