@@ -14,6 +14,6 @@ dependencies:
     - quadprog >= 0.1.11
     - tabulate
     - pip:
-        - highspy >= 1.1.2
+        - highspy >= 1.1.2.dev3
         - py-cpuinfo
         - scs >= 3.2.2
