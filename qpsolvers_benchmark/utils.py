@@ -100,7 +100,7 @@ def get_solver_versions(solvers: Set[str]):
             pass
     if "qpoases" in solvers and "qpoases" not in versions:
         # See https://github.com/coin-or/qpOASES/issues/140
-        versions["qpoases"] = "3.2.2"
+        versions["qpoases"] = "3.2.1"
     if "gurobi" in versions:
         versions["gurobi"] += " (size-limited)"
     return versions
