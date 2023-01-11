@@ -12,8 +12,8 @@ dependencies:
     - qpoases >= 3.2.0
     - qpsolvers >= 2.7.2
     - quadprog >= 0.1.11
-    - scs >= 3.2.2
     - tabulate
     - pip:
         - highspy >= 1.1.2
         - py-cpuinfo
+        - scs >= 3.2.2
