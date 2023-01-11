@@ -38,7 +38,7 @@ Subset of the Maros-Meszaros test setrestricted to smaller dense problems.
 | highs    | 1.5.0.dev0            |
 | osqp     | 0.6.2.post0           |
 | proxqp   | 0.3.1                 |
-| qpoases  | 3.2.0                 |
+| qpoases  | 3.2.1                 |
 | quadprog | 0.1.11                |
 | scs      | 3.2.2                 |
 
