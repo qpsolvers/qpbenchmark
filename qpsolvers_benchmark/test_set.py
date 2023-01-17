@@ -76,6 +76,8 @@ class TestSet(abc.ABC):
         high_accuracy.set_eps_abs(1e-9)
         high_accuracy.set_eps_rel(0.0)
         high_accuracy.set_param("proxqp", "check_duality_gap", True)
+        high_accuracy.set_param("proxqp", "eps_duality_gap_abs", 1e-9)
+        high_accuracy.set_param("proxqp", "eps_duality_gap_rel", 0.0)
         high_accuracy.set_param("qpoases", "predefined_options", "reliable")
         high_accuracy.set_time_limit(self.tolerances["high_accuracy"].runtime)
 
@@ -83,6 +85,8 @@ class TestSet(abc.ABC):
         low_accuracy.set_eps_abs(1e-3)
         low_accuracy.set_eps_rel(0.0)
         low_accuracy.set_param("proxqp", "check_duality_gap", True)
+        low_accuracy.set_param("proxqp", "eps_duality_gap_abs", 1e-3)
+        low_accuracy.set_param("proxqp", "eps_duality_gap_rel", 0.0)
         low_accuracy.set_param("qpoases", "predefined_options", "fast")
         low_accuracy.set_time_limit(self.tolerances["low_accuracy"].runtime)
 
