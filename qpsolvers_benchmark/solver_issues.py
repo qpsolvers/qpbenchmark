@@ -84,6 +84,7 @@ def skip_solver_timeout(
         ("CONT-300", "highs", "high_accuracy"): 30 * minutes,
         ("CONT-300", "proxqp", "*"): 60 * minutes,
         ("CVXQP1_L", "proxqp", "*"): 20 * minutes,
+        ("CVXQP2_L", "proxqp", "high_accuracy"): 30 * minutes,
         ("CVXQP3_L", "cvxopt", "*"): 20 * minutes,
         ("CVXQP3_L", "proxqp", "*"): 30 * minutes,
         ("DTOC3", "proxqp", "high_accuracy"): 20 * minutes,
