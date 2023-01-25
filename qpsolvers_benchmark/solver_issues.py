@@ -69,6 +69,7 @@ def skip_solver_timeout(
     minutes = 60.0
     known_timeout_settings: Dict[Tuple[str, str, str], float] = {
         ("AUG2D", "highs", "*"): 40 * minutes,
+        ("AUG2D", "proxqp", "high_accuracy"): 40 * minutes,
         ("AUG2DC", "highs", "*"): 40 * minutes,
         ("AUG2DC", "proxqp", "high_accuracy"): 40 * minutes,
         ("AUG2DCQP", "proxqp", "high_accuracy"): 20 * minutes,
