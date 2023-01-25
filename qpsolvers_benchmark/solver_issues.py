@@ -84,6 +84,8 @@ def skip_solver_timeout(
         ("CVXQP1_L", "proxqp", "*"): 20 * minutes,
         ("CVXQP3_L", "cvxopt", "*"): 20 * minutes,
         ("CVXQP3_L", "proxqp", "*"): 30 * minutes,
+        ("DTOC3", "proxqp", "high_accuracy"): 20 * minutes,
+        ("DTOC3", "proxqp", "low_accuracy"): 20 * minutes,
         ("EXDATA", "proxqp", "*"): 30 * minutes,
         ("LISWET1", "proxqp", "*"): 20 * minutes,
         ("LISWET10", "proxqp", "*"): 50 * minutes,
