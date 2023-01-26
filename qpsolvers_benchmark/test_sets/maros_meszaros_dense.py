@@ -37,7 +37,7 @@ class MarosMeszarosDense(MarosMeszaros):
         Description of the test set.
         """
         return (
-            "Subset of the Maros-Meszaros test set"
+            "Subset of the Maros-Meszaros test set "
             "restricted to smaller dense problems."
         )
 
