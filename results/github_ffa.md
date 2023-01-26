@@ -1,8 +1,10 @@
 # GitHub free-for-all test set
 
-- CPU: Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
-- Date: 2022-12-23 10:10:04.653538+00:00
-- Run by: [@stephane-caron](https://github.com/stephane-caron/)
+| Version | 0.1.0rc4 |
+|:--------|:--------------------|
+| Date    | 2023-01-26 14:47:03.418473+00:00 |
+| CPU     | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
 ## Contents
 
@@ -11,8 +13,8 @@
 * [Settings](#settings)
 * [Results by settings](#results-by-settings)
     * [Default](#default)
-    * [Low accuracy](#low_accuracy)
-    * [High accuracy](#high_accuracy)
+    * [High accuracy](#high-accuracy)
+    * [Low accuracy](#low-accuracy)
 * [Results by metric](#results-by-metric)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
@@ -38,19 +40,20 @@ Problems in this test set:
 | ecos     | 2.0.10      |
 | highs    | 1.1.2.dev3  |
 | osqp     | 0.6.2.post5 |
-| proxqp   | 0.2.7       |
+| proxqp   | 0.3.2       |
 | qpoases  | 3.2.0       |
 | qpswift  | 1.0.0       |
 | quadprog | 0.1.11      |
 | scs      | 3.2.2       |
 
 All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers) v2.7.1.
+[qpsolvers](https://github.com/stephane-caron/qpsolvers)
+v2.7.2.
 
 ## Settings
 
-There are 3 settings: *default*, *low_accuracy*
-and *high_accuracy*. They validate solutions using the following
+There are 3 settings: *default*, *high_accuracy*
+and *low_accuracy*. They validate solutions using the following
 tolerances:
 
 | tolerance   |   default |   low_accuracy |   high_accuracy |
@@ -63,33 +66,36 @@ tolerances:
 
 Solvers for each settings are configured as follows:
 
-| solver   | parameter                        | default      | low_accuracy          | high_accuracy          |
-|:---------|:---------------------------------|:-------------|:----------------------|:-----------------------|
-| cvxopt   | ``feastol``                      | -            | 0.001                 | 1e-09                  |
-| ecos     | ``feastol``                      | -            | 0.001                 | 1e-09                  |
-| gurobi   | ``FeasibilityTol``               | -            | 0.001                 | 1e-09                  |
-| gurobi   | ``License``                      | size-limited | size-limited          | size-limited           |
-| gurobi   | ``OptimalityTol``                | -            | 0.001                 | 1e-09                  |
-| gurobi   | ``TimeLimit``                    | 100.0        | 100.0                 | 100.0                  |
-| highs    | ``dual_feasibility_tolerance``   | -            | 0.001                 | 1e-09                  |
-| highs    | ``primal_feasibility_tolerance`` | -            | 0.001                 | 1e-09                  |
-| highs    | ``time_limit``                   | 100.0        | 100.0                 | 100.0                  |
-| osqp     | ``eps_abs``                      | -            | 0.001                 | 1e-09                  |
-| osqp     | ``eps_rel``                      | -            | 0.0                   | 0.0                    |
-| osqp     | ``time_limit``                   | 100.0        | 100.0                 | 100.0                  |
-| proxqp   | ``eps_abs``                      | -            | 0.001                 | 1e-09                  |
-| proxqp   | ``eps_rel``                      | -            | 0.0                   | 0.0                    |
-| qpoases  | ``time_limit``                   | 100.0        | 100.0                 | 100.0                  |
-| qpswift  | ``RELTOL``                       | -            | 0.0017320508075688772 | 1.7320508075688772e-09 |
-| scs      | ``eps_abs``                      | -            | 0.001                 | 1e-09                  |
-| scs      | ``eps_rel``                      | -            | 0.0                   | 0.0                    |
-| scs      | ``time_limit_secs``              | 100.0        | 100.0                 | 100.0                  |
+| solver   | parameter                        | default   | high_accuracy          | low_accuracy          |
+|:---------|:---------------------------------|:----------|:-----------------------|:----------------------|
+| cvxopt   | ``feastol``                      | -         | 1e-09                  | 0.001                 |
+| ecos     | ``feastol``                      | -         | 1e-09                  | 0.001                 |
+| gurobi   | ``FeasibilityTol``               | -         | 1e-09                  | 0.001                 |
+| gurobi   | ``OptimalityTol``                | -         | 1e-09                  | 0.001                 |
+| gurobi   | ``TimeLimit``                    | 100.0     | 100.0                  | 100.0                 |
+| highs    | ``dual_feasibility_tolerance``   | -         | 1e-09                  | 0.001                 |
+| highs    | ``primal_feasibility_tolerance`` | -         | 1e-09                  | 0.001                 |
+| highs    | ``time_limit``                   | 100.0     | 100.0                  | 100.0                 |
+| osqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
+| osqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
+| osqp     | ``time_limit``                   | 100.0     | 100.0                  | 100.0                 |
+| proxqp   | ``check_duality_gap``            | -         | True                   | True                  |
+| proxqp   | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
+| proxqp   | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
+| proxqp   | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
+| proxqp   | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
+| qpoases  | ``predefined_options``           | default   | reliable               | fast                  |
+| qpoases  | ``time_limit``                   | 100.0     | 100.0                  | 100.0                 |
+| qpswift  | ``RELTOL``                       | -         | 1.7320508075688772e-09 | 0.0017320508075688772 |
+| scs      | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
+| scs      | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
+| scs      | ``time_limit_secs``              | 100.0     | 100.0                  | 100.0                 |
 
 ## Results by settings
 
 ### Default
 
-Solvers compared over the whole test set by [shifted geometric
+Solvers are compared over the whole test set by [shifted geometric
 mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
@@ -99,33 +105,15 @@ mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 | gurobi   |                                81.8 |                                  1.0 |                                         1.0 |                                     1.0 |                                 1.0 |                               1.4 |
 | highs    |                                45.5 |                                  2.3 |                                         2.0 |                                   512.4 |                              1427.0 |                               1.0 |
 | osqp     |                                54.5 |                                  5.7 |                                         4.1 |                                    71.9 |                                 4.1 |                               5.0 |
-| proxqp   |                                54.5 |                                  5.7 |                                         4.1 |                                     4.1 |                                50.2 |                               4.8 |
+| proxqp   |                                50.0 |                                  7.0 |                                         4.7 |                                     4.7 |                                46.5 |                               6.2 |
 | qpoases  |                                72.7 |                                  1.0 |                                         1.0 |                                     2.9 |                                 1.0 |                               1.4 |
 | qpswift  |                                 0.0 |                                 41.1 |                                        11.5 |                                    11.5 |                                11.5 |                              74.9 |
 | quadprog |                                72.7 |                                  3.8 |                                         3.0 |                                     3.0 |                                 3.0 |                               1.9 |
 | scs      |                                63.6 |                                  5.7 |                                         4.1 |                                     4.1 |                                 4.5 |                               3.3 |
 
-### Low accuracy
-
-Solvers compared over the whole test set by [shifted geometric
-mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
-
-|          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
-|:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
-| cvxopt   |                                54.5 |                                  3.8 |                                         3.1 |                                     3.0 |                            363653.4 |                              10.6 |
-| ecos     |                                45.5 |                                 11.1 |                                         6.0 |                                     6.3 |                                 6.3 |                               8.5 |
-| gurobi   |                                81.8 |                                  1.0 |                                         1.0 |                                     1.0 |                                 1.0 |                               1.4 |
-| highs    |                                27.3 |                                  2.3 |                                         2.0 |                                480222.3 |                           1340748.7 |                               1.0 |
-| osqp     |                                54.5 |                                  6.1 |                                         5.1 |                                     8.4 |                                 7.5 |                               5.0 |
-| proxqp   |                                45.5 |                                  5.7 |                                        10.4 |                                     4.0 |                            164043.8 |                               9.3 |
-| qpoases  |                                72.7 |                                  1.0 |                                         1.0 |                                  1839.5 |                                 1.2 |                               1.4 |
-| qpswift  |                                 0.0 |                                 41.1 |                                        11.0 |                                    11.0 |                                11.0 |                              74.9 |
-| quadprog |                                72.7 |                                  3.8 |                                         3.0 |                                     3.1 |                                 3.2 |                               1.9 |
-| scs      |                                63.6 |                                  5.7 |                                         4.0 |                                     4.0 |                                 4.0 |                               3.3 |
-
 ### High accuracy
 
-Solvers compared over the whole test set by [shifted geometric
+Solvers are compared over the whole test set by [shifted geometric
 mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
@@ -135,11 +123,29 @@ mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 | gurobi   |                                81.8 |                                  1.0 |                                         1.0 |                                     1.0 |                                 1.0 |                               1.4 |
 | highs    |                                 0.0 |                                  2.3 |                                         2.0 |                          477792868971.8 |                     1333969483708.8 |                               1.0 |
 | osqp     |                                54.5 |                                  8.1 |                                         5.0 |                                     5.0 |                                 5.0 |                               5.4 |
-| proxqp   |                                45.5 |                                  5.7 |                                         9.3 |                                     4.2 |                          45613635.3 |                               3.3 |
+| proxqp   |                                58.3 |                                  7.0 |                                         9.1 |                                     4.6 |                                 9.1 |                               4.4 |
 | qpoases  |                                63.6 |                                  1.0 |                                         1.0 |                            1829234566.4 |                            242920.3 |                               1.4 |
 | qpswift  |                                 0.0 |                                 41.1 |                                        11.0 |                                    10.9 |                                10.9 |                              74.9 |
 | quadprog |                                54.5 |                                  3.8 |                                         3.0 |                                121478.1 |                            242937.1 |                               1.9 |
 | scs      |                                54.5 |                                  8.1 |                                         5.0 |                                     5.0 |                                 5.6 |                               5.4 |
+
+### Low accuracy
+
+Solvers are compared over the whole test set by [shifted geometric
+mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
+
+|          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
+|:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
+| cvxopt   |                                54.5 |                                  3.8 |                                         3.1 |                                     3.0 |                            363653.4 |                              10.6 |
+| ecos     |                                45.5 |                                 11.1 |                                         6.0 |                                     6.3 |                                 6.3 |                               8.5 |
+| gurobi   |                                81.8 |                                  1.0 |                                         1.0 |                                     1.0 |                                 1.0 |                               1.4 |
+| highs    |                                27.3 |                                  2.3 |                                         2.0 |                                480222.3 |                           1340748.7 |                               1.0 |
+| osqp     |                                54.5 |                                  6.1 |                                         5.1 |                                     8.4 |                                 7.5 |                               5.0 |
+| proxqp   |                                58.3 |                                  7.0 |                                         9.2 |                                     4.6 |                                10.1 |                               4.4 |
+| qpoases  |                                72.7 |                                  1.0 |                                         1.0 |                                  1839.5 |                                 1.2 |                               1.4 |
+| qpswift  |                                 0.0 |                                 41.1 |                                        11.0 |                                    11.0 |                                11.0 |                              74.9 |
+| quadprog |                                72.7 |                                  3.8 |                                         3.0 |                                     3.1 |                                 3.2 |                               1.9 |
+| scs      |                                63.6 |                                  5.7 |                                         4.0 |                                     4.0 |                                 4.0 |                               3.3 |
 
 ## Results by metric
 
@@ -154,7 +160,7 @@ Precentage of problems each solver is able to solve:
 | gurobi   |        82 |              82 |             82 |
 | highs    |        45 |               0 |             27 |
 | osqp     |        55 |              55 |             55 |
-| proxqp   |        55 |              45 |             45 |
+| proxqp   |        50 |              58 |             58 |
 | qpoases  |        73 |              64 |             73 |
 | qpswift  |         0 |               0 |              0 |
 | quadprog |        73 |              55 |             73 |
@@ -176,7 +182,7 @@ Percentage of problems where "solved" return codes are correct:
 | gurobi   |        91 |              91 |             91 |
 | highs    |        64 |              18 |             45 |
 | osqp     |        91 |             100 |             91 |
-| proxqp   |        91 |              82 |             82 |
+| proxqp   |        92 |             100 |            100 |
 | qpoases  |        82 |              73 |             82 |
 | qpswift  |       100 |             100 |            100 |
 | quadprog |       100 |              82 |            100 |
@@ -198,7 +204,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | gurobi   |       1.0 |             1.0 |            1.0 |
 | highs    |       2.3 |             2.3 |            2.3 |
 | osqp     |       5.7 |             8.1 |            6.1 |
-| proxqp   |       5.7 |             5.7 |            5.7 |
+| proxqp   |       7.0 |             7.0 |            7.0 |
 | qpoases  |       1.0 |             1.0 |            1.0 |
 | qpswift  |      41.1 |            41.1 |           41.1 |
 | quadprog |       3.8 |             3.8 |            3.8 |
@@ -228,7 +234,7 @@ Shifted geometric means of primal residuals (1.0 is the best):
 | gurobi   |       1.0 |             1.0 |            1.0 |
 | highs    |       2.0 |             2.0 |            2.0 |
 | osqp     |       4.1 |             5.0 |            5.1 |
-| proxqp   |       4.1 |             9.3 |           10.4 |
+| proxqp   |       4.7 |             9.1 |            9.2 |
 | qpoases  |       1.0 |             1.0 |            1.0 |
 | qpswift  |      11.5 |            11.0 |           11.0 |
 | quadprog |       3.0 |             3.0 |            3.0 |
@@ -256,7 +262,7 @@ Shifted geometric means of dual residuals (1.0 is the best):
 | gurobi   |       1.0 |             1.0 |            1.0 |
 | highs    |     512.4 |  477792868971.8 |       480222.3 |
 | osqp     |      71.9 |             5.0 |            8.4 |
-| proxqp   |       4.1 |             4.2 |            4.0 |
+| proxqp   |       4.7 |             4.6 |            4.6 |
 | qpoases  |       2.9 |    1829234566.4 |         1839.5 |
 | qpswift  |      11.5 |            10.9 |           11.0 |
 | quadprog |       3.0 |        121478.1 |            3.1 |
@@ -285,7 +291,7 @@ Shifted geometric means of duality gaps (1.0 is the best):
 | gurobi   |       1.0 |             1.0 |            1.0 |
 | highs    |    1427.0 | 1333969483708.8 |      1340748.7 |
 | osqp     |       4.1 |             5.0 |            7.5 |
-| proxqp   |      50.2 |      45613635.3 |       164043.8 |
+| proxqp   |      46.5 |             9.1 |           10.1 |
 | qpoases  |       1.0 |        242920.3 |            1.2 |
 | qpswift  |      11.5 |            10.9 |           11.0 |
 | quadprog |       3.0 |        242937.1 |            3.2 |
@@ -295,7 +301,7 @@ Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a duality gap equal to the full
 [gap tolerance](#settings).
 
-### Cost errors
+### Cost error
 
 The cost error measures the difference between the known optimal objective and
 the objective at the solution returned by a solver. We use the shifted
@@ -313,7 +319,7 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | gurobi   |       1.4 |             1.4 |            1.4 |
 | highs    |       1.0 |             1.0 |            1.0 |
 | osqp     |       5.0 |             5.4 |            5.0 |
-| proxqp   |       4.8 |             3.3 |            9.3 |
+| proxqp   |       6.2 |             4.4 |            4.4 |
 | qpoases  |       1.4 |             1.4 |            1.4 |
 | qpswift  |      74.9 |            74.9 |           74.9 |
 | quadprog |       1.9 |             1.9 |            1.9 |
