@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [0.1.0-beta] - 2022/01/26
 
 ### Added
 
@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 
 * Benchmark script takes test set as first argument
 * Maros-Meszaros: empty equality constraints are now set to ``None``
+* ProxQP: re-run benchmark with ProxQP 0.3.2
 * Refactor Report class and run function
 * Report encoding is now UTF-8
 * Switch to qpsolvers v2.7
