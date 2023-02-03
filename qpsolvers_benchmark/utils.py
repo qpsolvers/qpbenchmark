@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Utility functions.
-"""
+"""Utility functions."""
 
 import platform
 from importlib import import_module, metadata
@@ -39,8 +37,7 @@ except ImportError:
 
 
 def capitalize_settings(name: str) -> str:
-    """
-    Capitalize settings name.
+    """Capitalize settings name.
 
     Args:
         name: Settings name, e.g. "low_accuracy".
@@ -52,8 +49,7 @@ def capitalize_settings(name: str) -> str:
 
 
 def get_cpu_info() -> str:
-    """
-    Get CPU information.
+    """Get CPU information.
 
     Returns:
         CPU information.
@@ -66,8 +62,7 @@ def get_cpu_info() -> str:
 
 
 def get_solver_versions(solvers: Set[str]):
-    """
-    Get version numbers for a given set of solvers.
+    """Get version numbers for a given set of solvers.
 
     Args:
         solvers: Names of solvers to get the version of.
@@ -109,12 +104,12 @@ def get_solver_versions(solvers: Set[str]):
 def time_solve_problem(
     problem: Problem, solver: str, **kwargs
 ) -> Tuple[qpsolvers.Solution, float]:
-    """
-    Solve quadratic program.
+    """Solve quadratic program.
 
     Args:
         problem: Quadratic program to solve.
         solver: Name of the backend QP solver to call.
+        kwargs: Keyword arguments forwarded to underlying solver.
 
     Returns:
         Solution to the quadratic program, along with the time the solver took

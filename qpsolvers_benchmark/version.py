@@ -15,13 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Benchmark version.
-"""
+"""Benchmark version."""
 
 
 def get_version() -> str:
-    """
-    Get benchmark version as a string.
-    """
+    """Get benchmark version as a string."""
     return "0.1.0rc4"
