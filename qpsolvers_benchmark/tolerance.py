@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Tolerances on solver solution validation.
-"""
+"""Tolerances on solver solution validation."""
 
 from dataclasses import dataclass
 
@@ -26,9 +24,7 @@ from .exceptions import BenchmarkError
 
 @dataclass
 class Tolerance:
-
-    """
-    Tolerances on solver solution validation.
+    """Tolerances on solver solution validation.
 
     Attributes:
         cost: Cost tolerance.
@@ -45,6 +41,14 @@ class Tolerance:
     runtime: float
 
     def from_metric(self, metric: str) -> float:
+        """Get tolerance corresponding to a given metric.
+
+        Args:
+            metric: Metric to get the tolerance of.
+
+        Returns:
+            Corresponding tolerance.
+        """
         if metric == "primal_residual":
             return self.primal
         if metric == "dual_residual":
