@@ -63,30 +63,29 @@ class SolverSettings:
         return self.__settings[solver]
 
     def set_eps_abs(self, eps_abs: float) -> None:
-        """Set absolute primal, dual and duality-gap tolerances for solvers that
-        support it.
+        r"""Set absolute tolerances for solvers that support it.
 
         Args:
             eps_abs: Absolute primal, dual and duality-gap tolerance.
 
         Notes:
-            When we set an absolute tolerance :math:`\\epsilon_{abs}` on
+            When we set an absolute tolerance :math:`\epsilon_{abs}` on
             residuals, we ask the solver to find an approximation of the
             optimum such that the primal residual, dual residual and duality
-            gap are below :math:`\\epsilon_{abs}`, that is:
+            gap are below :math:`\epsilon_{abs}`, that is:
 
             .. math::
 
-                \\begin{align}
-                r_p := \\max(\\| A x - b \\|_\\infty, [G x - h]^+, [lb - x]^+,
-                [x - ub]^+) & \\leq \\epsilon_{abs} \\\\
-                r_d := \\| P x + q + A^T y + G^T z + z_{box} \\|_\\infty &
-                \\leq \\epsilon_{abs} \\\\
+                \begin{align}
+                r_p := \max(\| A x - b \|_\infty, [G x - h]^+, [lb - x]^+,
+                [x - ub]^+) & \leq \epsilon_{abs} \\
+                r_d := \| P x + q + A^T y + G^T z + z_{box} \|_\infty &
+                \leq \epsilon_{abs} \\
                 r_g := | x^T P x + q^T x + b^T y + h^T z + lb^T z_{box}^- +
-                ub^T z_{box}^+ | & \\leq \\epsilon_{abs}
-                \\end{align}
+                ub^T z_{box}^+ | & \leq \epsilon_{abs}
+                \end{align}
 
-            were :math:`v^- = \\min(v, 0)` and :math:`v^+ = \\max(v, 0)`. The
+            were :math:`v^- = \min(v, 0)` and :math:`v^+ = \max(v, 0)`. The
             tolerance on the primal residual is called "feasibility tolerance"
             by some solvers, for instance CVXOPT and ECOS. See `this note
             <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
@@ -104,8 +103,7 @@ class SolverSettings:
         self.__settings["scs"]["eps_abs"] = eps_abs
 
     def set_eps_rel(self, eps_rel: float) -> None:
-        """Set relative primal, dual and duality-gap tolerances for solvers that
-        support it.
+        """Set relative tolerances for solvers that support it.
 
         Args:
             eps_rel: Relative primal feasibility tolerance.
@@ -162,5 +160,6 @@ class SolverSettings:
         Args:
             solver: QP solver.
             param: Parameter name.
+            value: Parameter value.
         """
         self.__settings[solver][param] = value

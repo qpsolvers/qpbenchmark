@@ -103,7 +103,7 @@ class Problem(qpsolvers.Problem):
         """Compute difference between found cost and the optimal one.
 
         Args:
-            x: Primal solution.
+            solution: Problem solution.
 
         Returns:
             Cost error, i.e. deviation from the (known) optimal cost.
