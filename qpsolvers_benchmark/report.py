@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Report written from test set results.
-"""
+"""Report written from test set results."""
 
 import datetime
 import io
@@ -35,9 +33,7 @@ from .version import get_version
 
 
 class Report:
-
-    """
-    Report generated from benchmark results.
+    """Report generated from benchmark results.
 
     Attributes:
         author: GitHub username of the person who generated the report.
@@ -62,8 +58,7 @@ class Report:
     test_set: TestSet
 
     def __init__(self, author: str, results: Results):
-        """
-        Initialize report.
+        """Initialize report.
 
         Args:
             author: GitHub username of the person who generated the report.
@@ -82,8 +77,7 @@ class Report:
         self.test_set = results.test_set
 
     def get_tolerances_table(self) -> str:
-        """
-        Get tolerances Markdown table.
+        """Get tolerances Markdown table.
 
         Returns:
             Tolerances Markdown table.
@@ -115,8 +109,7 @@ class Report:
         return df.to_markdown(index=False)
 
     def get_solver_settings_table(self) -> str:
-        """
-        Get Markdown table for solver settings.
+        """Get Markdown table for solver settings.
 
         Returns:
             Solver settings Markdown table.
@@ -159,8 +152,7 @@ class Report:
         return df.to_markdown(index=False)
 
     def get_solver_versions_table(self):
-        """
-        Get Markdown table for solver versions.
+        """Get Markdown table for solver versions.
 
         Returns:
             Solver versions Markdown table.
@@ -178,9 +170,7 @@ class Report:
         return versions_table
 
     def __compute_dataframes(self) -> None:
-        """
-        Compute dataframes used in the report.
-        """
+        """Compute dataframes used in the report."""
         primal_tolerances = {
             name: tolerance.primal
             for name, tolerance in self.test_set.tolerances.items()
@@ -240,8 +230,7 @@ class Report:
         )
 
     def write(self, path: str) -> None:
-        """
-        Write report to a given path.
+        """Write report to a given path.
 
         Args:
             path: Path to the Markdown file to write the report to.
@@ -265,8 +254,7 @@ class Report:
         logging.info(f"Wrote report to {path}")
 
     def __write_header(self, fh: io.TextIOWrapper) -> None:
-        """
-        Write report header.
+        """Write report header.
 
         Args:
             fh: Output file handle.
@@ -287,8 +275,7 @@ class Report:
         )
 
     def __write_toc(self, fh: io.TextIOWrapper) -> None:
-        """
-        Write table of contents.
+        """Write table of contents.
 
         Args:
             fh: Output file handle.
@@ -316,8 +303,7 @@ class Report:
         )
 
     def __write_description(self, fh: io.TextIOWrapper) -> None:
-        """
-        Write optional Description section.
+        """Write optional Description section.
 
         Args:
             fh: Output file handle.
@@ -326,8 +312,7 @@ class Report:
             fh.write(f"## Description\n\n{self.test_set.description}\n\n")
 
     def __write_solvers_section(self, fh: io.TextIOWrapper) -> None:
-        """
-        Write Solvers section.
+        """Write Solvers section.
 
         Args:
             fh: Output file handle.
@@ -344,8 +329,7 @@ v{qpsolvers_version}.\n\n"""
         )
 
     def __write_settings_section(self, fh: io.TextIOWrapper) -> None:
-        """
-        Write Settings section.
+        """Write Settings section.
 
         Args:
             fh: Output file handle.
@@ -366,8 +350,7 @@ Solvers for each settings are configured as follows:
         )
 
     def __write_results_by_settings(self, fh: io.TextIOWrapper) -> None:
-        """
-        Write Results by settings.
+        """Write Results by settings.
 
         Args:
             fh: Output file handle.
@@ -401,8 +384,7 @@ mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
             )
 
     def __write_results_by_metric(self, fh: io.TextIOWrapper) -> None:
-        """
-        Write Results by metric.
+        """Write Results by metric.
 
         Args:
             fh: Output file handle.

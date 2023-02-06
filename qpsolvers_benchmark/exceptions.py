@@ -15,20 +15,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Benchmark exceptions.
-"""
+"""Benchmark exceptions."""
 
 
 class BenchmarkError(Exception):
-
-    """
-    Base class for benchmark exceptions.
-    """
+    """Base class for benchmark exceptions."""
 
 
 class ProblemNotFound(BenchmarkError):
-
-    """
-    Exception raised when a requested problem is not part of a test set.
-    """
+    """Exception raised when a requested problem is not part of a test set."""

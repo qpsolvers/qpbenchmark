@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Matrix-vector representation of a quadratic program.
-"""
+"""Matrix-vector representation of a quadratic program."""
 
 from typing import Optional, Union
 
@@ -27,9 +25,7 @@ import scipy.sparse as spa
 
 
 class Problem(qpsolvers.Problem):
-
-    """
-    Quadratic program.
+    """Quadratic program.
 
     Attributes:
         cost_offset: Cost offset, used to compare solution cost to a known
@@ -56,17 +52,14 @@ class Problem(qpsolvers.Problem):
         optimal_cost: Optional[float] = None,
         cost_offset: float = 0.0,
     ):
-        """
-        Quadratic program in qpsolvers format.
-        """
+        """Quadratic program in qpsolvers format."""
         super().__init__(P, q, G, h, A, b, lb, ub)
         self.cost_offset = cost_offset
         self.name = name
         self.optimal_cost = optimal_cost
 
     def to_dense(self):
-        """
-        Return dense version.
+        """Return dense version.
 
         Returns:
             Dense version of the present problem.
@@ -86,8 +79,7 @@ class Problem(qpsolvers.Problem):
         )
 
     def to_sparse(self):
-        """
-        Return sparse version.
+        """Return sparse version.
 
         Returns:
             Sparse version of the present problem.
@@ -108,8 +100,7 @@ class Problem(qpsolvers.Problem):
         )
 
     def cost_error(self, solution: qpsolvers.Solution) -> Optional[float]:
-        """
-        Compute difference between found cost and the optimal one.
+        """Compute difference between found cost and the optimal one.
 
         Args:
             x: Primal solution.

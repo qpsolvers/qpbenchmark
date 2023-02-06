@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Benchmark for quadratic programming solvers available in Python.
-"""
+"""Benchmark for quadratic programming solvers available in Python."""
 
 from .report import Report
 from .results import Results

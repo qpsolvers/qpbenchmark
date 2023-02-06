@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Plots for analysis of test set results.
-"""
+"""Plots for analysis of test set results."""
 
 from typing import List, Optional
 
@@ -37,8 +35,7 @@ def hist(
     nb_bins: int = 10,
     alpha: float = 0.5,
 ) -> None:
-    """
-    Histogram comparing solvers on a given metric.
+    """Histogram comparing solvers on a given metric.
 
     Args:
         metric: Metric to compare solvers on.
