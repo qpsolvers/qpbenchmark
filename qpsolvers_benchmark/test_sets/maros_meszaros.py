@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Maros-Meszaros test set.
-"""
+"""Maros-Meszaros test set."""
 
 import json
 import os.path
@@ -33,40 +31,28 @@ from ..tolerance import Tolerance
 
 
 class MarosMeszaros(TestSet):
-
-    """
-    Maros-Meszaros QP test set, a standard set of problems designed to be
-    difficult.
-    """
+    """Maros-Meszaros test set, standard problems designed to be difficult."""
 
     data_dir: str
     optimal_costs: Dict[str, float]
 
     @property
     def description(self) -> str:
-        """
-        Description of the test set.
-        """
+        """Description of the test set."""
         return "Standard set of problems designed to be difficult."
 
     @property
     def title(self) -> str:
-        """
-        Test set title.
-        """
+        """Test set title."""
         return "Maros-Meszaros test set"
 
     @property
     def sparse_only(self) -> bool:
-        """
-        This test set is sparse.
-        """
+        """This test set is sparse."""
         return True
 
     def define_tolerances(self) -> None:
-        """
-        Define test set tolerances.
-        """
+        """Define test set tolerances."""
         self.tolerances = {
             "default": Tolerance(
                 cost=1000.0,
@@ -92,8 +78,7 @@ class MarosMeszaros(TestSet):
         }
 
     def __init__(self, data_dir: str):
-        """
-        Initialize test set.
+        """Initialize test set.
 
         Args:
             data_dir: Path to the benchmark data directory.
@@ -108,8 +93,7 @@ class MarosMeszaros(TestSet):
         self.optimal_costs = optimal_costs
 
     def load_problem_from_mat_file(self, path):
-        """
-        Load problem from MAT file.
+        """Load problem from MAT file.
 
         Args:
             path: Path to file.
@@ -164,8 +148,7 @@ class MarosMeszaros(TestSet):
         name: str,
         cost_offset: float = 0.0,
     ):
-        """
-        Load problem from double-sided inequality format:
+        """Load problem from double-sided inequality format:
 
         .. code::
 

@@ -15,9 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Problem described at:
-    https://github.com/stephane-caron/qpsolvers_benchmark/issues/29
+"""Problem described at:
+https://github.com/stephane-caron/qpsolvers_benchmark/issues/29.
 """
 
 import numpy as np
@@ -26,8 +25,7 @@ from ..problem import Problem
 
 
 def get_problem(n: int):
-    """
-    Get problem instance.
+    """Get problem instance.
 
     Args:
         n: Number of optimization variables.

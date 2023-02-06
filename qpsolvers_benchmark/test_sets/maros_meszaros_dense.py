@@ -36,16 +36,17 @@ class MarosMeszarosDense(MarosMeszaros):
 
     @property
     def title(self) -> str:
+        """Test set title."""
         return "Maros-Meszaros dense subset"
 
     @property
     def sparse_only(self) -> bool:
+        """Test set is dense."""
         return False
 
     @staticmethod
     def count_constraints(problem: Problem):
-        """
-        Count inequality and equality constraints.
+        """Count inequality and equality constraints.
 
         Notes:
             We only count box inequality constraints once, and only from lower
@@ -61,6 +62,7 @@ class MarosMeszarosDense(MarosMeszaros):
         return m
 
     def __iter__(self) -> Iterator[Problem]:
+        """Iterate on test set problems."""
         for problem in super().__iter__():
             nb_variables = problem.P.shape[0]
             nb_constraints = self.count_constraints(problem)

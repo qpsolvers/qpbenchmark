@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-GitHub free-for-all test set problems.
-"""
+"""GitHub free-for-all test set problems."""
 
 from .ghffa01 import problems as ghffa01_problems
 from .ghffa02 import problems as ghffa02_problems

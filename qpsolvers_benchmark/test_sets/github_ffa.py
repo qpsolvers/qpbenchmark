@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-GitHub free-for-all test set.
-"""
+"""GitHub free-for-all test set."""
 
 from typing import Iterator
 
@@ -28,9 +26,7 @@ from .github_ffa_problems import github_ffa_problems
 
 
 class GithubFfa(TestSet):
-
-    """
-    GitHub free-for-all test set.
+    """GitHub free-for-all test set.
 
     Note:
         This test set is open to proposals from the community. Feel free to
@@ -40,9 +36,7 @@ class GithubFfa(TestSet):
 
     @property
     def description(self) -> str:
-        """
-        Description of the test set.
-        """
+        """Description of the test set."""
         issues = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
         problems = (
             (

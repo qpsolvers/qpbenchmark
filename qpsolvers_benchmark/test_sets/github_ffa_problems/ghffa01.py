@@ -15,8 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Problem inspired by "Geometric and numerical aspects of redundancy", Wieber,
+"""Problem inspired by "Geometric and numerical aspects of redundancy", Wieber,
 Escande, Dimitrov and Sherikov (2017).
 
 See https://github.com/stephane-caron/qpsolvers_benchmark/issues/25
@@ -28,8 +27,7 @@ from ..problem import Problem
 
 
 def get_problem(alpha: float):
-    """
-    Get problem instance.
+    """Get problem instance.
 
     Args:
         alpha: Inverse condition number of the problem.
