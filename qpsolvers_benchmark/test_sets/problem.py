@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Matrix-vector representation of a quadratic program.
-"""
+"""Matrix-vector representation of a quadratic program."""
 
 from ..problem import Problem
 

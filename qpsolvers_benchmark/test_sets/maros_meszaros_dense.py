@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Dense subset of the Maros-Meszaros test set.
-"""
+"""Dense subset of the Maros-Meszaros test set."""
 
 from typing import Iterator
 
@@ -26,16 +24,11 @@ from .maros_meszaros import MarosMeszaros
 
 
 class MarosMeszarosDense(MarosMeszaros):
-
-    """
-    Subset of the Maros-Meszaros test set restricted to smaller dense problems.
-    """
+    """Subset of Maros-Meszaros restricted to smaller dense problems."""
 
     @property
     def description(self) -> str:
-        """
-        Description of the test set.
-        """
+        """Description of the test set."""
         return (
             "Subset of the Maros-Meszaros test set "
             "restricted to smaller dense problems."
