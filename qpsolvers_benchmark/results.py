@@ -31,9 +31,7 @@ from .test_set import TestSet
 
 
 class Results:
-
-    """
-    Test set results.
+    """Test set results.
 
     Attributes:
         csv_path: Path to the results CSV file.
@@ -46,8 +44,7 @@ class Results:
     test_set: TestSet
 
     def __init__(self, csv_path: str, test_set: TestSet):
-        """
-        Initialize results.
+        """Initialize results.
 
         Args:
             csv_path: Path to the results CSV file.
@@ -87,16 +84,13 @@ class Results:
         self.test_set = test_set
 
     def write(self) -> None:
-        """
-        Write results to their CSV file for persistence.
-        """
+        """Write results to their CSV file for persistence."""
         logging.debug(f"Test set results written to {self.csv_path}")
         self.df = self.df.sort_values(by=["problem", "solver", "settings"])
         self.df.to_csv(self.csv_path, index=False)
 
     def has(self, problem: Problem, solver: str, settings: str) -> bool:
-        """
-        Check if results contain a given run of a solver on a problem.
+        """Check if results contain a given run of a solver on a problem.
 
         Args:
             problem: Test set problem.
@@ -115,9 +109,7 @@ class Results:
     def is_timeout(
         self, problem: Problem, solver: str, settings: str, time_limit: float
     ) -> bool:
-        """
-        Check whether a particular result was a timeout.
-        """
+        """Check whether a particular result was a timeout."""
         runtime = self.df[
             (self.df["problem"] == problem.name)
             & (self.df["solver"] == solver)
@@ -133,8 +125,7 @@ class Results:
         solution: qpsolvers.Solution,
         runtime: float,
     ) -> None:
-        """
-        Update entry for a given (problem, solver) pair.
+        """Update entry for a given (problem, solver) pair.
 
         Args:
             problem: Problem solved.
@@ -177,8 +168,7 @@ class Results:
         gap_tolerances: Dict[str, float],
         cost_tolerances: Dict[str, float],
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
-        """
-        Build the success-rate data frame.
+        """Build the success-rate data frame.
 
         Args:
             primal_tolerances: Primal-residual tolerance for each settings.
@@ -228,8 +218,7 @@ class Results:
         gap_tolerances: Dict[str, float],
         cost_tolerances: Dict[str, float],
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
-        """
-        Build the correctness-rate data frame.
+        """Build the correctness-rate data frame.
 
         Args:
             primal_tolerances: Primal-residual tolerance for each settings.
@@ -281,8 +270,7 @@ class Results:
     def build_shifted_geometric_mean_df(
         self, column: str, shift: float, not_found_values: Dict[str, float]
     ) -> pandas.DataFrame:
-        """
-        Compute the shifted geometric mean of a results column.
+        """Compute the shifted geometric mean of a results column.
 
         Args:
             column: Name of the column to average.

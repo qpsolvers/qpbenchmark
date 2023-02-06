@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Base class for test sets.
-"""
+"""Base class for test sets."""
 
 import abc
 from typing import Dict, Iterator, Optional
@@ -32,9 +30,7 @@ from .tolerance import Tolerance
 
 
 class TestSet(abc.ABC):
-
-    """
-    Abstract base class for a test test, i.e. a collection of problems with
+    """Abstract base class for a test test, i.e. a collection of problems with
     solver settings.
 
     Attributes:
@@ -47,27 +43,19 @@ class TestSet(abc.ABC):
 
     @abc.abstractmethod
     def __iter__(self) -> Iterator[Problem]:
-        """
-        Yield test problems one by one.
-        """
+        """Yield test problems one by one."""
 
     @property
     @abc.abstractmethod
     def description(self) -> str:
-        """
-        Test set description.
-        """
+        """Test set description."""
 
     @abc.abstractmethod
     def define_tolerances(self) -> None:
-        """
-        Define validation tolerances.
-        """
+        """Define validation tolerances."""
 
     def define_solver_settings(self) -> None:
-        """
-        Define solver settings.
-        """
+        """Define solver settings."""
         default = SolverSettings()
         default.set_param("qpoases", "predefined_options", "default")
         default.set_time_limit(self.tolerances["default"].runtime)
@@ -99,21 +87,15 @@ class TestSet(abc.ABC):
     @property
     @abc.abstractmethod
     def sparse_only(self) -> bool:
-        """
-        If True, test set is restricted to solvers with a sparse matrix API.
-        """
+        """If True, test set is restricted to solvers with a sparse matrix API."""
 
     @property
     @abc.abstractmethod
     def title(self) -> str:
-        """
-        Report title.
-        """
+        """Report title."""
 
     def __init__(self):
-        """
-        Initialize test set.
-        """
+        """Initialize test set."""
         candidate_solvers = set(
             qpsolvers.sparse_solvers
             if self.sparse_only
@@ -138,8 +120,7 @@ class TestSet(abc.ABC):
         self.check_definitions()
 
     def check_definitions(self):
-        """
-        Check that settings and tolerance definitions are consistent.
+        """Check that settings and tolerance definitions are consistent.
 
         Raises:
             ValueError: in case of inconsistency.
@@ -153,8 +134,7 @@ class TestSet(abc.ABC):
             raise ValueError("Settings are not consistent with tolerances")
 
     def get_problem(self, name: str) -> Optional[Problem]:
-        """
-        Get a specific test set problem.
+        """Get a specific test set problem.
 
         Args:
             name: Problem name.

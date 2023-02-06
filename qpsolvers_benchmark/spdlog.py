@@ -15,8 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Import ``logging`` from this module to use logging from Python standard library
+"""Import ``logging`` from this module to use logging from Python standard library
 with formatting similar to spdlog.
 """
 
@@ -25,10 +24,7 @@ from typing import Any, Dict
 
 
 class SpdlogFormatter(logging.Formatter):
-
-    """
-    Custom logging formatter visually consistent with spdlog.
-    """
+    """Custom logging formatter visually consistent with spdlog."""
 
     BOLD_RED: str = "\033[31;1m"
     BOLD_WHITE: str = "\033[37;1m"

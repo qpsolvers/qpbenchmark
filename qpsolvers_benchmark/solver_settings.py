@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Solver settings.
-"""
+"""Solver settings."""
 
 from typing import Any, Dict, Iterator, Set
 
@@ -25,10 +23,7 @@ import numpy as np
 
 
 class SolverSettings:
-
-    """
-    Settings for multiple solvers.
-    """
+    """Settings for multiple solvers."""
 
     IMPLEMENTED_SOLVERS: Set[str] = set(
         [
@@ -47,22 +42,17 @@ class SolverSettings:
 
     @classmethod
     def is_implemented(cls, solver: str):
-        """
-        Check whether a solver is implemented by this class.
-        """
+        """Check whether a solver is implemented by this class."""
         return solver in cls.IMPLEMENTED_SOLVERS
 
     def __init__(self) -> None:
-        """
-        Initialize settings.
-        """
+        """Initialize settings."""
         self.__settings: Dict[str, Dict[str, Any]] = {
             solver: {} for solver in self.IMPLEMENTED_SOLVERS
         }
 
     def __getitem__(self, solver: str) -> Dict[str, Any]:
-        """
-        Get settings dictionary of a given solver.
+        """Get settings dictionary of a given solver.
 
         Args:
             solver: Name of the QP solver.
@@ -73,8 +63,7 @@ class SolverSettings:
         return self.__settings[solver]
 
     def set_eps_abs(self, eps_abs: float) -> None:
-        """
-        Set absolute primal, dual and duality-gap tolerances for solvers that
+        """Set absolute primal, dual and duality-gap tolerances for solvers that
         support it.
 
         Args:
@@ -115,8 +104,7 @@ class SolverSettings:
         self.__settings["scs"]["eps_abs"] = eps_abs
 
     def set_eps_rel(self, eps_rel: float) -> None:
-        """
-        Set relative primal, dual and duality-gap tolerances for solvers that
+        """Set relative primal, dual and duality-gap tolerances for solvers that
         support it.
 
         Args:
@@ -127,8 +115,7 @@ class SolverSettings:
         self.__settings["scs"]["eps_rel"] = eps_rel
 
     def set_time_limit(self, time_limit: float) -> None:
-        """
-        Apply time limits to all solvers that support it.
+        """Apply time limits to all solvers that support it.
 
         Args:
             time_limit: Time limit in seconds.
@@ -140,8 +127,7 @@ class SolverSettings:
         self.__settings["scs"]["time_limit_secs"] = time_limit
 
     def set_verbosity(self, verbose: bool) -> None:
-        """
-        Apply verbosity settings to all solvers.
+        """Apply verbosity settings to all solvers.
 
         Args:
             verbose: Verbosity boolean.
@@ -151,15 +137,12 @@ class SolverSettings:
 
     @property
     def solvers(self) -> Iterator[str]:
-        """
-        List solvers configured in these settings.
-        """
+        """List solvers configured in these settings."""
         for solver in self.__settings:
             yield solver
 
     def get_param(self, solver: str, param: str, default: str) -> Any:
-        """
-        Get solver parameter in these settings.
+        """Get solver parameter in these settings.
 
         Args:
             solver: QP solver.
@@ -174,8 +157,7 @@ class SolverSettings:
         return self.__settings[solver].get(param, default)
 
     def set_param(self, solver: str, param: str, value: Any) -> None:
-        """
-        Set solver parameter.
+        """Set solver parameter.
 
         Args:
             solver: QP solver.

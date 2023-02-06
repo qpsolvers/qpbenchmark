@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Main function of the benchmark.
-"""
+"""Main function of the benchmark."""
 
 from time import perf_counter
 from typing import Optional
@@ -41,8 +39,7 @@ def run(
     rerun: bool = False,
     include_timeouts: bool = False,
 ) -> None:
-    """
-    Run a given test set and store results.
+    """Run a given test set and store results.
 
     Args:
         test_set: Test set to run.

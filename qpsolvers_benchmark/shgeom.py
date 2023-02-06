@@ -15,16 +15,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Shifted geometric mean.
-"""
+"""Shifted geometric mean."""
 
 import numpy as np
 
 
 def shgeom(v: np.ndarray, sh: float) -> float:
-    """
-    `Shifted geometric mean <http://plato.asu.edu/ftp/shgeom.html>`_.
+    """`Shifted geometric mean <http://plato.asu.edu/ftp/shgeom.html>`_.
 
     Args:
         v: Nonnegative values.

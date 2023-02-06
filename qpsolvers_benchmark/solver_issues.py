@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Some solvers fail on some problems. Make sure we handle and report those.
-"""
+"""Some solvers fail on some problems. Make sure we handle and report those."""
 
 from typing import Dict, Tuple
 
@@ -26,8 +24,7 @@ from .spdlog import logging
 
 
 def skip_solver_issue(problem: Problem, solver: str) -> bool:
-    """
-    Check whether a solver is known to fail at solving a given problem.
+    """Check whether a solver is known to fail at solving a given problem.
 
     Args:
         problem: Problem to solve.
@@ -48,8 +45,7 @@ def skip_solver_issue(problem: Problem, solver: str) -> bool:
 def skip_solver_timeout(
     time_limit: float, problem: Problem, solver: str, settings: str
 ) -> bool:
-    """
-    Skip known solver timeouts.
+    """Skip known solver timeouts.
 
     Args:
         time_limit: Time limit in seconds.
