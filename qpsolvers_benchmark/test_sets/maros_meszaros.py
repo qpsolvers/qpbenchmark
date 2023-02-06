@@ -148,7 +148,9 @@ class MarosMeszaros(TestSet):
         name: str,
         cost_offset: float = 0.0,
     ):
-        """Load problem from double-sided inequality format:
+        """Load problem from double-sided inequality format.
+
+        Double-sided format is as follows:
 
         .. code::
 
@@ -195,6 +197,7 @@ class MarosMeszaros(TestSet):
         )
 
     def __iter__(self) -> Iterator[Problem]:
+        """Iterate over test set problems."""
         for fname in os.listdir(self.data_dir):
             if fname.endswith(".mat"):
                 mat_path = os.path.join(self.data_dir, fname)

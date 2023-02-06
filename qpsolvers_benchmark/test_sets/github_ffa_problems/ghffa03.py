@@ -15,7 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Problem described at:
+"""GHFFA03 problem.
+
+This problem is described at:
 https://github.com/stephane-caron/qpsolvers_benchmark/issues/29.
 """
 

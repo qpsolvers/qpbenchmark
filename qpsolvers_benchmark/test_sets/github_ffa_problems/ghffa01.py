@@ -15,8 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Problem inspired by "Geometric and numerical aspects of redundancy", Wieber,
-Escande, Dimitrov and Sherikov (2017).
+"""GHFFA01 problem.
+
+This problem is inspired by "Geometric and numerical aspects of redundancy",
+Wieber, Escande, Dimitrov and Sherikov (2017).
 
 See https://github.com/stephane-caron/qpsolvers_benchmark/issues/25
 """

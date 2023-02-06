@@ -15,7 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Import ``logging`` from this module to use logging from Python standard library
+"""Logging with formatting similar to spdlog.
+
+Import ``logging`` from this module to use logging from Python standard library
 with formatting similar to spdlog.
 """
 
@@ -43,6 +45,11 @@ class SpdlogFormatter(logging.Formatter):
     }
 
     def format(self, record):
+        """Format for a logging record.
+
+        Args:
+            record: Record to format.
+        """
         custom_format = (
             "[%(asctime)s] "
             + self.LEVEL_FORMAT.get(record.levelno, "[???]")

@@ -63,13 +63,16 @@ class GithubFfa(TestSet):
 
     @property
     def title(self) -> str:
+        """Test set title."""
         return "GitHub free-for-all test set"
 
     @property
     def sparse_only(self) -> bool:
+        """Test set is dense."""
         return False
 
     def define_tolerances(self) -> None:
+        """Define test set tolerances."""
         self.tolerances = {
             "default": Tolerance(
                 cost=1000.0,
@@ -95,5 +98,6 @@ class GithubFfa(TestSet):
         }
 
     def __iter__(self) -> Iterator[Problem]:
+        """Iterate over test set problems."""
         for problem in github_ffa_problems:
             yield problem

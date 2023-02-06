@@ -30,8 +30,9 @@ from .tolerance import Tolerance
 
 
 class TestSet(abc.ABC):
-    """Abstract base class for a test test, i.e. a collection of problems with
-    solver settings.
+    """Abstract base class for a test set.
+
+    A test set is a collection of problems with solver settings.
 
     Attributes:
         solver_settings: Dictionary of solver parameters for each settings.
@@ -87,7 +88,7 @@ class TestSet(abc.ABC):
     @property
     @abc.abstractmethod
     def sparse_only(self) -> bool:
-        """If True, test set is restricted to solvers with a sparse matrix API."""
+        """If True, restrict test set to solvers with a sparse matrix API."""
 
     @property
     @abc.abstractmethod

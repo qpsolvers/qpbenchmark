@@ -15,8 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Problems inspired by "Geometric and numerical aspects of redundancy", Wieber,
-Escande, Dimitrov and Sherikov (2017).
+"""GHFFA02 problem.
+
+These problems are inspired by "Geometric and numerical aspects of redundancy",
+Wieber, Escande, Dimitrov and Sherikov (2017).
 """
 
 import numpy as np
