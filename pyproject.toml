@@ -81,6 +81,7 @@ select = [
 ignore = [
     "D401",  # good for methods but not for class docstrings
     "D405",  # British-style section names are also "proper"!
+    "E741",  # we have a variable called 'l'
 ]
 
 [tool.ruff.pydocstyle]
