@@ -96,6 +96,18 @@ python benchmark.py maros_meszaros_dense run --solver proxqp --settings default
 
 Check out ``python benchmark.py --help`` for all available commands and arguments.
 
+## Plots
+
+The command line includes a histogram (``hist``) plotting command. It can be used to compare solver performance over a test set for a specific metric. For instance, run:
+
+```console
+python benchmark.py maros_meszaros_dense hist runtime high_accuracy --solvers proxqp osqp scs --bins 42
+```
+
+To generate the following plot:
+
+![image](https://user-images.githubusercontent.com/1189580/217619100-216c9961-0515-461c-afa6-3d85bb6e0a13.png)
+
 ## Contributing
 
 Contributions to improving this benchmark are welcome. You can for instance propose new problems, or share the runtimes you obtain on your machine. Check out the [contribution guidelines](CONTRIBUTING.md) for details.
