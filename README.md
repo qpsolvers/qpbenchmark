@@ -82,7 +82,7 @@ By default, the benchmark will run all supported solvers it finds.
 
 ## Running the benchmark
 
-Pick up the keyword corresponding to the desired [test set](#test-sets), for instance ``maros_meszaros``, and pass it to the ``run`` command:
+Once dependencies are installed, you will be able to run the main ``benchmark.py`` script from the repository. Pick up the keyword corresponding to the desired [test set](#test-sets), for instance ``maros_meszaros``, and pass it to the ``run`` command:
 
 ```console
 python benchmark.py maros_meszaros run
