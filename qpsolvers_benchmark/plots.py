@@ -48,16 +48,10 @@ def hist(
         alpha: Histogram transparency.
     """
     assert issubclass(df[metric].dtype.type, np.floating)
+    nb_problems = test_set.count_problems()
     settings_df = df[df["settings"] == settings]
     metric_tol = test_set.tolerances[settings].from_metric(metric)
-    hist_df = settings_df.assign(
-        **{
-            metric: settings_df[metric].mask(
-                ~settings_df["found"],
-                metric_tol,
-            ),
-        }
-    )
+    hist_df = settings_df[settings_df["found"]]
     plot_solvers: List[str] = (
         solvers if solvers is not None else list(set(hist_df.solver))
     )
@@ -81,7 +75,6 @@ def hist(
     )
     plt.xlabel(metric)
     plt.xscale("log")
-    nb_problems = test_set.count_problems()
     plt.axhline(y=nb_problems, color="r")
     plt.axvline(x=metric_tol, color="r")
     plt.ylabel("# problems solved")
