@@ -81,6 +81,8 @@ def hist(
     )
     plt.xlabel(metric)
     plt.xscale("log")
+    nb_problems = test_set.count_problems()
+    plt.axhline(y=nb_problems, color="r")
     plt.axvline(x=metric_tol, color="r")
     plt.ylabel("# problems solved")
     plt.grid(True)
