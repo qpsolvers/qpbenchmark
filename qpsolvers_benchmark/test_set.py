@@ -141,7 +141,7 @@ class TestSet(abc.ABC):
             Number of problems in the test set.
         """
         nb_problems = 0
-        for problem in self:
+        for _ in self:
             nb_problems += 1
         return nb_problems
 
