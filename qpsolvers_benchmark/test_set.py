@@ -134,6 +134,17 @@ class TestSet(abc.ABC):
             logging.info(f"Tolerances: {tolerances}")
             raise ValueError("Settings are not consistent with tolerances")
 
+    def count_problems(self) -> int:
+        """Count the number of problems in the set.
+
+        Returns:
+            Number of problems in the test set.
+        """
+        nb_problems = 0
+        for problem in self:
+            nb_problems += 1
+        return nb_problems
+
     def get_problem(self, name: str) -> Optional[Problem]:
         """Get a specific test set problem.
 
