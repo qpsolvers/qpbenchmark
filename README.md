@@ -98,15 +98,15 @@ Check out ``python benchmark.py --help`` for all available commands and argument
 
 ## Plots
 
-The command line includes a histogram (``hist``) plotting command. It can be used to compare solver performance over a test set for a specific metric. For instance, run:
+The command line ships a ``plot`` command. It can be used to compare solver performance over a test set for a specific metric. For instance, run:
 
 ```console
-python benchmark.py maros_meszaros_dense hist runtime high_accuracy --solvers proxqp osqp scs --bins 42
+python benchmark.py maros_meszaros_dense plot runtime high_accuracy --solvers proxqp osqp scs
 ```
 
 To generate the following plot:
 
-![image](https://user-images.githubusercontent.com/1189580/217619100-216c9961-0515-461c-afa6-3d85bb6e0a13.png)
+![image](https://user-images.githubusercontent.com/1189580/217885630-c0f7fc37-54ff-4c5a-a925-e77b7c47edbd.png)
 
 ## Contributing
 
