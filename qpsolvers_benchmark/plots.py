@@ -33,7 +33,8 @@ def hist(
     test_set: TestSet,
     solvers: Optional[List[str]] = None,
     nb_bins: int = 10,
-    alpha: float = 0.5,
+    alpha: float = 0.8,
+    linewidth: float = 3.0,
 ) -> None:
     """Histogram comparing solvers on a given metric.
 
@@ -66,7 +67,14 @@ def hist(
         logmin = np.log10(max(bins[0], 1e-20))
         logmax = np.log10(max(bins[-1], 1e-20))
         logbins = np.logspace(logmin, logmax, len(bins))
-        plt.hist(values, bins=logbins, cumulative=True, alpha=alpha)
+        plt.hist(
+            values,
+            bins=logbins,
+            cumulative=True,
+            alpha=alpha,
+            linewidth=linewidth,
+            histtype="step",
+        )
     plt.legend(plot_solvers)
     plt.title(
         f"Comparing {metric} on {test_set.title} with {settings} settings"
