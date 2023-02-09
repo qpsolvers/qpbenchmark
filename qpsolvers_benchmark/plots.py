@@ -57,18 +57,29 @@ def hist(
     )
     for solver in plot_solvers:
         values = hist_df[hist_df["solver"] == solver][metric].values
-        _, bins = np.histogram(values, bins=nb_bins)
+        print(f"values for {solver=} are: {sorted(values)=}")
+        y, bins = np.histogram(values, bins=nb_problems)
+        print(f"{bins[0]=}")
+        print(f"{bins[-1]=}")
         logmin = np.log10(max(bins[0], 1e-20))
         logmax = np.log10(max(bins[-1], 1e-20))
         logbins = np.logspace(logmin, logmax, len(bins))
-        plt.hist(
-            values,
-            bins=logbins,
-            cumulative=True,
-            alpha=alpha,
-            linewidth=linewidth,
-            histtype="step",
-        )
+        if False:
+            plt.hist(
+                values,
+                bins=logbins,
+                cumulative=True,
+                alpha=alpha,
+                linewidth=linewidth,
+                histtype="step",
+            )
+        else:
+            sorted_values = np.sort(values)
+            nb_solved = len(sorted_values)
+            y = np.arange(1, 1 + nb_solved)
+            padded_values = np.hstack([sorted_values, [metric_tol]])
+            padded_y = np.hstack([y, [nb_solved]])
+            plt.step(padded_values, padded_y, linewidth=linewidth)
     plt.legend(plot_solvers)
     plt.title(
         f"Comparing {metric} on {test_set.title} with {settings} settings"
