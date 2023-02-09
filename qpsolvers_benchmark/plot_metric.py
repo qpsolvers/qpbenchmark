@@ -26,17 +26,15 @@ import pandas
 from .test_set import TestSet
 
 
-def hist(
+def plot_metric(
     metric: str,
     df: pandas.DataFrame,
     settings: str,
     test_set: TestSet,
     solvers: Optional[List[str]] = None,
-    nb_bins: int = 10,
-    alpha: float = 0.8,
     linewidth: float = 3.0,
 ) -> None:
-    """Histogram comparing solvers on a given metric.
+    """Plot comparing solvers on a given metric.
 
     Args:
         metric: Metric to compare solvers on.
@@ -44,8 +42,7 @@ def hist(
         settings: Settings to compare solvers on.
         test_set: Test set.
         solvers: Names of solvers to compare (default: all).
-        nb_bins: Number of bins in the histogram.
-        alpha: Histogram transparency.
+        linewidth: Width of output lines, in px.
     """
     assert issubclass(df[metric].dtype.type, np.floating)
     nb_problems = test_set.count_problems()
@@ -69,8 +66,8 @@ def hist(
     )
     plt.xlabel(metric)
     plt.xscale("log")
-    plt.axhline(y=nb_problems, color="r")
-    plt.axvline(x=metric_tol, color="r")
+    plt.axhline(y=nb_problems, color="gray", linestyle=":")
+    plt.axvline(x=metric_tol, color="gray", linestyle=":")
     plt.ylabel("# problems solved")
     plt.grid(True)
     plt.show(block=True)

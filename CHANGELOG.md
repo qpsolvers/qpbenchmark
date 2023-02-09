@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+* Rename ``hist`` command to ``plot``
+
 ## [0.1.0-beta] - 2022/01/26
 
 ### Added

@@ -20,7 +20,7 @@ import os
 from importlib import import_module  # type: ignore
 
 from qpsolvers_benchmark import Report, Results, TestSet, logging, run
-from qpsolvers_benchmark.plots import hist
+from qpsolvers_benchmark.plot_metric import plot_metric
 
 TEST_SETS = [
     "github_ffa",
@@ -78,29 +78,29 @@ def parse_command_line_arguments():
         help="path to the results CSV file",
     )
 
-    # hist
-    parser_hist = subparsers.add_parser(
-        "hist",
+    # plot
+    parser_plot = subparsers.add_parser(
+        "plot",
         help="compare how solvers performed on a given metric",
     )
-    parser_hist.add_argument(
+    parser_plot.add_argument(
         "metric",
         help='name of the metric to evaluate (e.g. "duality_gap")',
     )
-    parser_hist.add_argument(
+    parser_plot.add_argument(
         "settings",
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
-    parser_hist.add_argument(
+    parser_plot.add_argument(
         "--solvers",
         help="solvers to limit the histogram to",
         nargs="+",
     )
-    parser_hist.add_argument(
-        "--bins",
-        help="number of bins in the resulting histogram",
+    parser_plot.add_argument(
+        "--linewidth",
+        help="width of plotted lines in px",
         type=int,
-        default=10,
+        default=3,
     )
 
     # report
@@ -227,14 +227,14 @@ if __name__ == "__main__":
                 "IPython not found, run this script in interactive mode"
             )
 
-    if args.command == "hist":
-        hist(
+    if args.command == "plot":
+        plot_metric(
             args.metric,
             results.df,
             args.settings,
             test_set,
             solvers=args.solvers,
-            nb_bins=args.bins,
+            linewidth=args.linewidth,
         )
 
     if args.command in ["report", "run"]:
