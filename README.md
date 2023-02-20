@@ -98,15 +98,15 @@ Check out ``python benchmark.py --help`` for all available commands and argument
 
 ## Plots
 
-The command line ships a ``plot`` command. It can be used to compare solver performance over a test set for a specific metric. For instance, run:
+The command line ships a ``plot`` command to compare solver performances over a test set for a specific metric. For instance, run:
 
 ```console
-python benchmark.py maros_meszaros_dense plot runtime high_accuracy --solvers proxqp osqp scs
+python benchmark.py maros_meszaros_dense plot runtime high_accuracy
 ```
 
 To generate the following plot:
 
-![image](https://user-images.githubusercontent.com/1189580/217885630-c0f7fc37-54ff-4c5a-a925-e77b7c47edbd.png)
+![image](https://user-images.githubusercontent.com/1189580/220150365-530cd685-fc90-49b5-90e0-0b243fa602d9.png)
 
 ## Contributing
 
