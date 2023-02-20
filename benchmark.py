@@ -156,7 +156,7 @@ def parse_command_line_arguments():
         args.settings = args.settings.lower()
     if "solver" in args and args.solver is not None:
         args.solver = args.solver.lower()
-    if "solvers" in args:
+    if "solvers" in args and args.solvers is not None:
         lowercase_solvers = [name.lower() for name in args.solvers]
         args.solvers = lowercase_solvers
     return args
