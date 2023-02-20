@@ -6,7 +6,10 @@ labels: ''
 assignees: ''
 ---
 
-I propose to add the following problem to the GitHub free-for-all (``github_ffa``) test set. The problem can be built and tested as follows:
+### Problem
+
+I propose to add the following problem to the *GitHub free-for-all* test set.
+The problem can be built and tested as follows:
 
 ```python
 import numpy as np
@@ -30,7 +33,9 @@ if __name__ == "__main__":
 
 ### Parameter range
 
-<!-- If the problem has parameters, explain what values are suitable for them here. -->
+<!--
+    If the problem has parameters, explain what their sensible values are.
+-->
 
 ### Motivation
 
@@ -38,12 +43,20 @@ This problem is interesting because...
 
 ### Solution and optimal cost
 
-The solution $x^\*$ to this problem is...
+<!--
+    If you know a formula for the solution of the problem, or the optimal cost,
+    write them down here. This is not a requirement but it can help us debug
+    solver outputs later on.
+-->
 
-<!-- We need to know what the optimal cost is to compute cost residuals in the benchmark. -->
-
-The optimal cost $\frac12 x^{\*T} P x^\* + q^T x^\*$ is therefore...
+- Solution: $x^\* = ...$
+- Optimal cost: $\frac12 x^{\*T} P x^\* + q^T x^\* = ...$
 
 ### References
 
-<!-- If the problem arose in a given context, e.g. if it was discussed in a scientific paper, put the relevant references here. -->
+<!--
+    If the problem arose in a specific context, such as an engineering problem
+    or a research paper, put the relevant references here.
+-->
+
+1. Foo Bar *et al.*, "...", 2022.
