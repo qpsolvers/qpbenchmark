@@ -4,9 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+* Allow non-lowercase solver names in the command line (thanks to @ottapav)
+
 ### Changed
 
 * Rename ``hist`` command to ``plot``
+* Plot: trim solutions that don't fulfill tolerance requirements
+
+### Fixed
+
+* Plot whiskers on solutions beyond tolerance requirements (thanks to @ottapav)
 
 ## [0.1.0-beta] - 2022/01/26
 
