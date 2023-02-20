@@ -151,7 +151,15 @@ def parse_command_line_arguments():
         help="author field in the post-run report",
     )
 
-    return parser.parse_args()
+    args = parser.parse_args()
+    if "settings" in args and args.settings is not None:
+        args.settings = args.settings.lower()
+    if "solver" in args and args.solver is not None:
+        args.solver = args.solver.lower()
+    if "solvers" in args:
+        lowercase_solvers = [name.lower() for name in args.solvers]
+        args.solvers = lowercase_solvers
+    return args
 
 
 def find_results_file(args):
@@ -195,8 +203,6 @@ if __name__ == "__main__":
     results = Results(find_results_file(args), test_set)
 
     if args.command == "run":
-        args.solver = args.solver.lower() if args.solver else None
-        args.settings = args.settings.lower() if args.settings else None
         run(
             test_set,
             results,
