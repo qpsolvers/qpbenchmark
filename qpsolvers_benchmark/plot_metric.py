@@ -56,6 +56,9 @@ def plot_metric(
     for solver in plot_solvers:
         values = solved_df[solved_df["solver"] == solver][metric].values
         nb_solved = len(values)
+        if nb_solved < 1:
+            plt.step([0.0, metric_tol], [0.0, 0.0], linewidth=linewidth)
+            continue
         sorted_values = np.sort(values)
         y = np.arange(1, 1 + nb_solved)
         last_value = max(metric_tol, sorted_values[-1])
