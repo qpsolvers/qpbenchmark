@@ -48,12 +48,13 @@ def plot_metric(
     nb_problems = test_set.count_problems()
     settings_df = df[df["settings"] == settings]
     metric_tol = test_set.tolerances[settings].from_metric(metric)
-    hist_df = settings_df[settings_df["found"]]
+    found_df = settings_df[settings_df["found"]]
+    solved_df = found_df[found_df[metric] <= metric_tol]
     plot_solvers: List[str] = (
-        solvers if solvers is not None else list(set(hist_df.solver))
+        solvers if solvers is not None else list(set(solved_df.solver))
     )
     for solver in plot_solvers:
-        values = hist_df[hist_df["solver"] == solver][metric].values
+        values = solved_df[solved_df["solver"] == solver][metric].values
         nb_solved = len(values)
         sorted_values = np.sort(values)
         y = np.arange(1, 1 + nb_solved)
