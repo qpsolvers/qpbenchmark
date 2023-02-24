@@ -358,7 +358,7 @@ Solvers for each settings are configured as follows:
             fh: Output file handle.
         """
         fh.write(
-            """## Know limitations
+            """## Known limitations
 
 The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues)
 have been identified as impacting the fairness of this benchmark. Keep them in
