@@ -11,6 +11,7 @@
 * [Description](#description)
 * [Solvers](#solvers)
 * [Settings](#settings)
+* [Known limitations](#known-limitations)
 * [Results by settings](#results-by-settings)
     * [Default](#default)
     * [High accuracy](#high-accuracy)
@@ -90,6 +91,15 @@ Solvers for each settings are configured as follows:
 | scs      | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | scs      | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | scs      | ``time_limit_secs``              | 100.0     | 100.0                  | 100.0                 |
+
+## Know limitations
+
+The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues)
+have been identified as impacting the fairness of this benchmark. Keep them in
+mind when drawing conclusions from the results.
+
+- [#60](https://github.com/qpsolvers/qpsolvers_benchmark/issues/60):
+  Conversion to SOCP limits performance of ECOS
 
 ## Results by settings
 
