@@ -26,6 +26,7 @@ TEST_SETS = [
     "github_ffa",
     "maros_meszaros",
     "maros_meszaros_dense",
+    "maros_meszaros_dense_posdef",
 ]
 
 TEST_ARGS = {
@@ -33,6 +34,9 @@ TEST_ARGS = {
         "data_dir": os.path.join(os.path.dirname(__file__), "data"),
     },
     "maros_meszaros_dense": {
+        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
+    },
+    "maros_meszaros_dense_posdef": {
         "data_dir": os.path.join(os.path.dirname(__file__), "data"),
     },
 }
