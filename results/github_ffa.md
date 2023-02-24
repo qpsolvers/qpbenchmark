@@ -92,7 +92,7 @@ Solvers for each settings are configured as follows:
 | scs      | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | scs      | ``time_limit_secs``              | 100.0     | 100.0                  | 100.0                 |
 
-## Know limitations
+## Known limitations
 
 The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues)
 have been identified as impacting the fairness of this benchmark. Keep them in
