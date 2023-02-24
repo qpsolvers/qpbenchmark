@@ -249,6 +249,7 @@ class Report:
             self.__write_description(fh)
             self.__write_solvers_section(fh)
             self.__write_settings_section(fh)
+            self.__write_limitations_section(fh)
             self.__write_results_by_settings(fh)
             self.__write_results_by_metric(fh)
         logging.info(f"Wrote report to {path}")
@@ -286,6 +287,7 @@ class Report:
         fh.write(
             """* [Solvers](#solvers)
 * [Settings](#settings)
+* [Known limitations](#known-limitations)
 * [Results by settings](#results-by-settings)\n"""
         )
         for name in self.solver_settings:
@@ -347,6 +349,23 @@ tolerances:
 Solvers for each settings are configured as follows:
 
 {self.get_solver_settings_table()}\n\n"""
+        )
+
+    def __write_limitations_section(self, fh: io.TextIOWrapper) -> None:
+        """Write Known limitations section.
+
+        Args:
+            fh: Output file handle.
+        """
+        fh.write(
+            """## Know limitations
+
+The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues)
+have been identified as impacting the fairness of this benchmark. Keep them in
+mind when drawing conclusions from the results.
+
+- [#60](https://github.com/qpsolvers/qpsolvers_benchmark/issues/60):
+  Conversion to SOCP limits performance of ECOS\n\n"""
         )
 
     def __write_results_by_settings(self, fh: io.TextIOWrapper) -> None:
