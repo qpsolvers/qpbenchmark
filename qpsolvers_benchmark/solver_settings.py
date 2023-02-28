@@ -27,6 +27,7 @@ class SolverSettings:
 
     IMPLEMENTED_SOLVERS: Set[str] = set(
         [
+            "clarabel",
             "cvxopt",
             "ecos",
             "gurobi",
@@ -92,6 +93,7 @@ class SolverSettings:
             <https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html>`__
             for more details.
         """
+        self.__settings["clarabel"]["tol_feas"] = eps_abs
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
         self.__settings["gurobi"]["FeasibilityTol"] = eps_abs  # primal
