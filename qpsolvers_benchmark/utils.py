@@ -117,7 +117,10 @@ def time_solve_problem(
         to compute it.
     """
     # Don't time matrix conversions for solvers that require sparse inputs
-    if solver in ["highs", "osqp", "scs"]:
+    if (
+        solver in qpsolvers.sparse_solvers
+        and solver not in qpsolvers.dense_solvers
+    ):
         problem = problem.to_sparse()
     start_time = perf_counter()
     try:
