@@ -23,6 +23,7 @@ from time import perf_counter
 from typing import Set, Tuple
 
 import qpsolvers
+import numpy as np
 
 from .problem import Problem
 from .spdlog import logging
@@ -128,3 +129,12 @@ def time_solve_problem(
         solution = qpsolvers.Solution(problem)
     runtime = perf_counter() - start_time
     return solution, runtime
+
+
+def is_posdef(M):
+    '''Try to do Cholesky decomposition of a matrix. Only positive definite matrices will pass.'''
+    try:
+        np.linalg.cholesky(M)
+    except np.linalg.LinAlgError:
+        return False
+    return True
