@@ -150,7 +150,7 @@ class Results:
                         "solver": [solver],
                         "settings": [settings],
                         "runtime": [runtime],
-                        "found": [not solution.is_empty],
+                        "found": [solution.found],
                         "primal_residual": [solution.primal_residual()],
                         "dual_residual": [solution.dual_residual()],
                         "duality_gap": [solution.duality_gap()],

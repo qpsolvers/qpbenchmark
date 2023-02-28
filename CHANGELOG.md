@@ -10,8 +10,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-* Rename ``hist`` command to ``plot``
 * Plot: trim solutions that don't fulfill tolerance requirements
+* Rename ``hist`` command to ``plot``
+* Update to qpsolvers v3
 
 ### Fixed
 
