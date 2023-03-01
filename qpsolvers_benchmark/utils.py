@@ -132,7 +132,7 @@ def time_solve_problem(
 
 
 def is_posdef(M):
-    '''Try to do Cholesky decomposition of a matrix. Only positive definite matrices will pass.'''
+    """Try to do Cholesky decomposition of a matrix. Only positive definite matrices will pass."""
     try:
         np.linalg.cholesky(M)
     except np.linalg.LinAlgError:

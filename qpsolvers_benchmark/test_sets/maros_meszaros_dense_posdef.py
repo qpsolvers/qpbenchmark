@@ -46,7 +46,6 @@ class MarosMeszarosDensePosdef(MarosMeszarosDense):
         """Test set is dense."""
         return False
 
-
     def __iter__(self) -> Iterator[Problem]:
         """Iterate on test set problems."""
         for problem in super().__iter__():
