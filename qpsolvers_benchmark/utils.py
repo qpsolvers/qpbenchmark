@@ -22,6 +22,7 @@ from importlib import import_module, metadata
 from time import perf_counter
 from typing import Set, Tuple
 
+import numpy as np
 import qpsolvers
 
 from .problem import Problem
@@ -128,3 +129,20 @@ def time_solve_problem(
         solution = qpsolvers.Solution(problem)
     runtime = perf_counter() - start_time
     return solution, runtime
+
+
+def is_posdef(M: np.ndarray) -> bool:
+    """Test whether a matrix is positive-definite.
+
+    Args:
+        M: Matrix to test.
+
+    Notes:
+        This function will try to do a Cholesky decomposition of the input
+        matrix. Only positive definite matrices will succeed.
+    """
+    try:
+        np.linalg.cholesky(M)
+    except np.linalg.LinAlgError:
+        return False
+    return True
