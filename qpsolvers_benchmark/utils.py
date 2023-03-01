@@ -22,8 +22,8 @@ from importlib import import_module, metadata
 from time import perf_counter
 from typing import Set, Tuple
 
-import qpsolvers
 import numpy as np
+import qpsolvers
 
 from .problem import Problem
 from .spdlog import logging

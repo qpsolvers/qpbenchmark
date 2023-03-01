@@ -20,8 +20,8 @@
 from typing import Iterator
 
 from ..problem import Problem
-from .maros_meszaros_dense import MarosMeszarosDense
 from ..utils import is_posdef
+from .maros_meszaros_dense import MarosMeszarosDense
 
 
 class MarosMeszarosDensePosdef(MarosMeszarosDense):
