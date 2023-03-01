@@ -131,7 +131,7 @@ def time_solve_problem(
     return solution, runtime
 
 
-def is_posdef(M):
+def is_posdef(M: np.ndarray) -> bool:
     """Test whether a matrix is positive-definite.
 
     Args:
