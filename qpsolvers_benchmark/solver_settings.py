@@ -31,6 +31,7 @@ class SolverSettings:
             "ecos",
             "gurobi",
             "highs",
+            "nppro",
             "osqp",
             "proxqp",
             "qpoases",

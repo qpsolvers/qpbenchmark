@@ -17,6 +17,7 @@ The goal of this benchmark is to help us compare and select QP solvers. Its meth
 | [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Interior point | Sparse | Commercial |
 | [HiGHS](https://highs.dev/) | ``highs`` | Active set | Sparse | MIT |
 | [MOSEK](https://mosek.com/) | ``mosek`` | Interior point | Sparse | Commercial |
+| NPPro | ``nppro`` | Active set | Dense | Commercial |
 | [OSQP](https://osqp.org/) | ``osqp`` | Douglas–Rachford | Sparse | Apache-2.0 |
 | [ProxQP](https://github.com/Simple-Robotics/proxsuite) | ``proxqp`` | Augmented Lagrangian | Dense & Sparse | BSD-2-Clause |
 | [qpOASES](https://github.com/coin-or/qpOASES) | ``qpoases`` | Active set | Dense | LGPL-2.1 |
