@@ -26,6 +26,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
 dependencies = [
+    "clarabel >=0.4.1",
     "cvxopt >=1.2.6",
     "ecos >=2.0.8",
     "highspy >=1.1.2.dev3",
