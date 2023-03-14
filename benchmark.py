@@ -96,6 +96,10 @@ def parse_command_line_arguments():
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
     parser_plot.add_argument(
+        "--savefig",
+        help="path to a file to save the plot to (rather than displaying it)",
+    )
+    parser_plot.add_argument(
         "--solvers",
         help="solvers to limit the histogram to",
         nargs="+",
@@ -245,6 +249,7 @@ if __name__ == "__main__":
             test_set,
             solvers=args.solvers,
             linewidth=args.linewidth,
+            savefig=args.savefig,
         )
 
     if args.command in ["report", "run"]:

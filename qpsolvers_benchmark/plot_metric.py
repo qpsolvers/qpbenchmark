@@ -33,6 +33,7 @@ def plot_metric(
     test_set: TestSet,
     solvers: Optional[List[str]] = None,
     linewidth: float = 3.0,
+    savefig: Optional[str] = None,
 ) -> None:
     """Plot comparing solvers on a given metric.
 
@@ -43,6 +44,7 @@ def plot_metric(
         test_set: Test set.
         solvers: Names of solvers to compare (default: all).
         linewidth: Width of output lines, in px.
+        savefig: If set, save plot to this path rather than displaying it.
     """
     assert issubclass(df[metric].dtype.type, np.floating)
     nb_problems = test_set.count_problems()
@@ -75,4 +77,7 @@ def plot_metric(
     plt.axvline(x=metric_tol, color="gray", linestyle=":")
     plt.ylabel("# problems solved")
     plt.grid(True)
-    plt.show(block=True)
+    if savefig:
+        plt.savefig(fname=savefig)
+    else:  # display figure
+        plt.show(block=True)
