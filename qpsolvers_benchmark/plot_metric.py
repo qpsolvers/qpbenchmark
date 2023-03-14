@@ -34,6 +34,7 @@ def plot_metric(
     solvers: Optional[List[str]] = None,
     linewidth: float = 3.0,
     savefig: Optional[str] = None,
+    title: Optional[str] = None,
 ) -> None:
     """Plot comparing solvers on a given metric.
 
@@ -45,6 +46,7 @@ def plot_metric(
         solvers: Names of solvers to compare (default: all).
         linewidth: Width of output lines, in px.
         savefig: If set, save plot to this path rather than displaying it.
+        title: Plot title, set to "" to disable.
     """
     assert issubclass(df[metric].dtype.type, np.floating)
     nb_problems = test_set.count_problems()
@@ -68,9 +70,12 @@ def plot_metric(
         padded_y = np.hstack([y, [nb_solved]])
         plt.step(padded_values, padded_y, linewidth=linewidth)
     plt.legend(plot_solvers)
-    plt.title(
-        f"Comparing {metric} on {test_set.title} with {settings} settings"
-    )
+    if title is None:
+        plt.title(
+            f"Comparing {metric} on {test_set.title} with {settings} settings"
+        )
+    elif title != "":
+        plt.title(title)
     plt.xlabel(metric)
     plt.xscale("log")
     plt.axhline(y=nb_problems, color="gray", linestyle=":")
