@@ -96,6 +96,12 @@ def parse_command_line_arguments():
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
     parser_plot.add_argument(
+        "--linewidth",
+        help="width of plotted lines in px",
+        type=int,
+        default=3,
+    )
+    parser_plot.add_argument(
         "--savefig",
         help="path to a file to save the plot to (rather than displaying it)",
     )
@@ -105,10 +111,8 @@ def parse_command_line_arguments():
         nargs="+",
     )
     parser_plot.add_argument(
-        "--linewidth",
-        help="width of plotted lines in px",
-        type=int,
-        default=3,
+        "--title",
+        help='plot title (set to "" to disable)',
     )
 
     # report
@@ -250,6 +254,7 @@ if __name__ == "__main__":
             solvers=args.solvers,
             linewidth=args.linewidth,
             savefig=args.savefig,
+            title=args.title,
         )
 
     if args.command in ["report", "run"]:
