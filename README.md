@@ -12,6 +12,7 @@ The goal of this benchmark is to help us compare and select QP solvers. Its meth
 
 | Solver | Keyword | Algorithm | Matrices | License |
 | ------ | ------- | --------- | -------- | ------- |
+| [Clarabel](https://github.com/oxfordcontrol/Clarabel.rs) | ``clarabel`` | Interior point | Sparse | Apache-2.0 |
 | [CVXOPT](http://cvxopt.org/) | ``cvxopt`` | Interior point | Dense | GPL-3.0 |
 | [ECOS](https://web.stanford.edu/~boyd/papers/ecos.html) | ``ecos`` | Interior point | Sparse | GPL-3.0 |
 | [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Interior point | Sparse | Commercial |
