@@ -139,13 +139,5 @@ def is_posdef(M: np.ndarray) -> bool:
 
     Args:
         M: Matrix to test.
-
-    Notes:
-        This function will try to do a Cholesky decomposition of the input
-        matrix. Only positive definite matrices will succeed.
     """
-    try:
-        np.linalg.cholesky(M)
-    except np.linalg.LinAlgError:
-        return False
-    return True
+    return all(np.linalg.eigvals(M) > 0)
