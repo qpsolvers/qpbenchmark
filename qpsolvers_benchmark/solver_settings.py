@@ -29,6 +29,7 @@ class SolverSettings:
         [
             "clarabel",
             "cvxopt",
+            "daqp",
             "ecos",
             "gurobi",
             "highs",
