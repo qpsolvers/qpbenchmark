@@ -96,6 +96,8 @@ class SolverSettings:
         """
         self.__settings["clarabel"]["tol_feas"] = eps_abs
         self.__settings["cvxopt"]["feastol"] = eps_abs
+        self.__settings["daqp"]["dual_tol"] = eps_abs
+        self.__settings["daqp"]["primal_tol"] = eps_abs
         self.__settings["ecos"]["feastol"] = eps_abs
         self.__settings["gurobi"]["FeasibilityTol"] = eps_abs  # primal
         self.__settings["gurobi"]["OptimalityTol"] = eps_abs  # dual
