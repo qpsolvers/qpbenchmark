@@ -43,7 +43,7 @@ Subset of the Maros-Meszaros test set restricted to smaller dense problems.
 | qpoases  | 3.2.1                 |
 | qpswift  | 1.0.0                 |
 | quadprog | 0.1.11                |
-| scs      | 3.2.3                 |
+| scs      | 3.2.2                 |
 
 All solvers were called via
 [qpsolvers](https://github.com/stephane-caron/qpsolvers)
