@@ -38,7 +38,7 @@ Subset of the Maros-Meszaros test set restricted to smaller dense problems.
 | ecos     | 2.0.11                |
 | gurobi   | 10.0.0 (size-limited) |
 | highs    | 1.1.2.dev3            |
-| osqp     | 0.6.2.post0           |
+| osqp     | 0.6.2.post5           |
 | proxqp   | 0.3.6                 |
 | qpoases  | 3.2.1                 |
 | qpswift  | 1.0.0                 |
