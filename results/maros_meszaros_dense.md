@@ -35,7 +35,7 @@ Subset of the Maros-Meszaros test set restricted to smaller dense problems.
 |:---------|:----------------------|
 | cvxopt   | 1.3.0                 |
 | daqp     | 0.5.1                 |
-| ecos     | 2.0.11                |
+| ecos     | 2.0.10                |
 | gurobi   | 10.0.0 (size-limited) |
 | highs    | 1.1.2.dev3            |
 | osqp     | 0.6.2.post5           |
