@@ -113,7 +113,7 @@ class Problem(qpsolvers.Problem):
             count that as errors as well using absolute values.
         """
         x = solution.x
-        if x is None or self.optimal_cost is None:
+        if not solution.found or x is None or self.optimal_cost is None:
             return None
         P, q = self.P, self.q
         cost = 0.5 * x.dot(P.dot(x)) + q.dot(x) + self.cost_offset

@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 
 * Plot: trim solutions that don't fulfill tolerance requirements
 * Rename ``hist`` command to ``plot``
-* Update to qpsolvers v3
+* Update to qpsolvers v3.3.1
 
 ### Fixed
 
