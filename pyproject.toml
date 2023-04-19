@@ -30,6 +30,7 @@ dependencies = [
     "cvxopt >=1.2.6",
     "ecos >=2.0.8",
     "highspy >=1.1.2.dev3",
+    "matplotlib >=3.6.2",
     "osqp >=0.6.2",
     "pandas >=1.4.3",
     "proxsuite >=0.3.0",
