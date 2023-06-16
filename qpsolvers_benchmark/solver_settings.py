@@ -102,7 +102,14 @@ class SolverSettings:
         self.__settings["gurobi"]["FeasibilityTol"] = eps_abs  # primal
         self.__settings["gurobi"]["OptimalityTol"] = eps_abs  # dual
         self.__settings["highs"]["dual_feasibility_tolerance"] = eps_abs
+
+        # Note on primal feasibility with HiGHS: "Primal feasibility is
+        # maintained rather than achieved (in contrast to IPM or ADMM based
+        # solvers) [...] changing the primal feasibility tolerance setting
+        # doesn't have any effect on QPs at the moment".
+        # https://github.com/ERGO-Code/HiGHS/issues/996#issuecomment-1561890995
         self.__settings["highs"]["primal_feasibility_tolerance"] = eps_abs
+
         self.__settings["osqp"]["eps_abs"] = eps_abs
         self.__settings["proxqp"]["eps_abs"] = eps_abs
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
