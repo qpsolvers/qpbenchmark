@@ -183,7 +183,7 @@ def find_results_file(args):
     if args.command in ["check_results", "report"]:
         results_file = (
             args.results_file if args.results_file
-    else os.path.join(args.test_set_path, "results", os.path.split(args.test_set_path)[1].replace(".py", ".csv"))
+    else os.path.join(args.test_set_path, "results", f"{os.path.split(args.test_set_path)[1][:-3]}.csv")
         )
         if not os.path.exists(results_file):
             raise FileNotFoundError(f"results file '{results_file}' not found")
@@ -191,9 +191,8 @@ def find_results_file(args):
         testset_dir = os.path.split(args.test_set_path)[0]
         results_dir = os.path.join(testset_dir, "results")
         if not os.path.exists(results_dir):
-            #if the results directory does not exist, we create one and put the results inside.
             os.mkdir(results_dir)
-        results_file = os.path.join(results_dir,os.path.split(args.test_set_path)[1].replace(".py", ".csv"))
+        results_file = os.path.join(results_dir,f"{os.path.split(args.test_set_path)[1][:-3]}.csv")
     return results_file
        
 
