@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
@@ -17,10 +18,11 @@
 
 import argparse
 import os
+import sys
 from importlib import import_module  # type: ignore
 
-from qpsolvers_benchmark import Report, Results, TestSet, logging, run
-from qpsolvers_benchmark.plot_metric import plot_metric
+from .. import Report, Results, TestSet, logging, run
+from .plot_metric import plot_metric
 
 TEST_SETS = [
     "github_ffa",
@@ -46,11 +48,14 @@ def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
-    parser.add_argument(
-        "test_set",
-        choices=TEST_SETS,
-        help="test set from the benchmark to consider",
-    )
+    parser.add_argument("test_set_path",
+                        help="path to the test set dir "
+                        )
+    # parser.add_argument(
+    #     "test_set",
+    #     choices=TEST_SETS,
+    #     help="test set from the benchmark to consider",
+    # )
     parser.add_argument(
         "-v",
         "--verbose",
@@ -177,41 +182,44 @@ def parse_command_line_arguments():
 def find_results_file(args):
     if args.command in ["check_results", "report"]:
         results_file = (
-            args.results_file
-            if args.results_file
-            else f"results/{args.test_set}.csv"
+            args.results_file if args.results_file
+    else os.path.join(args.test_set_path, "results", os.path.split(args.test_set_path)[1].replace(".py", ".csv"))
         )
         if not os.path.exists(results_file):
             raise FileNotFoundError(f"results file '{results_file}' not found")
     else:
-        results_dir = os.path.join(os.path.dirname(__file__), "results")
-        results_file = os.path.join(results_dir, f"{args.test_set}.csv")
+        testset_dir = os.path.split(args.test_set_path)[0]
+        results_dir = os.path.join(testset_dir, "results")
+        if not os.path.exists(results_dir):
+            #if the results directory does not exist, we create one and put the results inside.
+            os.mkdir(results_dir)
+        results_file = os.path.join(results_dir,os.path.split(args.test_set_path)[1].replace(".py", ".csv"))
     return results_file
+       
 
-
-def load_test_set(name: str) -> TestSet:
+def load_test_set(path : str) -> TestSet:
     """
     Load a test set.
-
+    
     Args:
-        name: Name of the test set.
+        path (str): path to the .py file containing the class definition of the TestSet
 
     Returns:
-        Test set.
+        Test set
     """
-    module = import_module(f"qpsolvers_benchmark.test_sets.{name}")
+    dir_path , full_name = os.path.split(path)
+    name = full_name.replace(".py", "")
+    sys.path.append(dir_path)  # Add directory path to system path so import_module can find the module
+    module = import_module(name)
     class_name = name.title().replace("_", "")
     TestClass = getattr(module, class_name)
-    kwargs = TEST_ARGS.get(name, {})
-    return TestClass(**kwargs)
+    return TestClass()
 
-
-if __name__ == "__main__":
+def main():
     args = parse_command_line_arguments()
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
-
-    test_set = load_test_set(args.test_set)
+    test_set = load_test_set(os.path.abspath(args.test_set_path))
     results = Results(find_results_file(args), test_set)
 
     if args.command == "run":
@@ -267,3 +275,6 @@ if __name__ == "__main__":
         report = Report(author, results)
         md_path = results.csv_path.replace(".csv", ".md")
         report.write(md_path)
+
+if __name__ == "__main__":
+    main()

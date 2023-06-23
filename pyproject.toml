@@ -52,6 +52,9 @@ open_source_solvers = [
     "scs >= 3.2.2",
 ]
 
+[project.scripts]
+qpsolvers_benchmark = "qpsolvers_benchmark.benchmark:main"
+
 [project.urls]
 Source = "https://github.com/stephane-caron/qpsolvers_benchmark"
 Tracker = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
@@ -88,3 +91,4 @@ ignore = [
 
 [tool.ruff.pydocstyle]
 convention = "google"
+
