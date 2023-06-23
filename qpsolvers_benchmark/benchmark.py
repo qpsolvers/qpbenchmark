@@ -21,7 +21,7 @@ import os
 import sys
 from importlib import import_module  # type: ignore
 
-from .. import Report, Results, TestSet, logging, run
+from . import Report, Results, TestSet, logging, run
 from .plot_metric import plot_metric
 
 TEST_SETS = [
