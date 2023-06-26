@@ -101,6 +101,10 @@ def parse_command_line_arguments():
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
     parser_plot.add_argument(
+        "--results-file",
+        help="results to plot" 
+    )
+    parser_plot.add_argument(
         "--linewidth",
         help="width of plotted lines in px",
         type=int,
@@ -138,6 +142,10 @@ def parse_command_line_arguments():
     parser_run = subparsers.add_parser(
         "run",
         help="run all tests from the test set",
+    )
+    parser_run.add_argument(
+        "--results-path",
+        help="create .csv file in a specfic directory"
     )
     parser_run.add_argument(
         "--include-timeouts",
