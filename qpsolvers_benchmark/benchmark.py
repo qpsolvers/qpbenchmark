@@ -102,7 +102,7 @@ def parse_command_line_arguments():
     )
     parser_plot.add_argument(
         "--results-file",
-        help="results to plot" 
+        help="path to the results CSV file" 
     )
     parser_plot.add_argument(
         "--linewidth",
@@ -190,20 +190,23 @@ def parse_command_line_arguments():
 def find_results_file(args):
     if args.command in ["check_results", "report", "plot"]:
         results_file = (
-            args.results_file if args.results_file
-    else os.path.join(args.test_set_path, "results", f"{os.path.split(args.test_set_path)[1][:-3]}.csv")
-        )
+            os.path.abspath(args.results_file) if args.results_file
+            else os.path.join(os.path.abspath(os.path.dirname(args.test_set_path)),
+                      "results",
+                      os.path.split(args.test_set_path)[1].replace(".py", ".csv")
+                            )
+                        )
         if not os.path.exists(results_file):
             raise FileNotFoundError(f"results file '{results_file}' not found")
     else:
         if args.command == "run" and args.results_path:
             results_dir = os.path.abspath(args.results_path)
         else:    
-            testset_dir = os.path.split(args.test_set_path)[0]
+            testset_dir = os.path.dirname(args.test_set_path)
             results_dir = os.path.join(testset_dir, "results")
         if not os.path.exists(results_dir):
             os.mkdir(results_dir)
-        results_file = os.path.join(results_dir,f"{os.path.split(args.test_set_path)[1][:-3]}.csv")
+        results_file = os.path.join(results_dir, os.path.split(args.test_set_path)[1].replace(".py", ".csv"))
     return results_file
        
 
