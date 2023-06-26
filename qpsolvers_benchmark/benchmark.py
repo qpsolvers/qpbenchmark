@@ -188,6 +188,18 @@ def parse_command_line_arguments():
 
 
 def find_results_file(args):
+    """
+    Find the path to the results file.
+
+    Args:
+        args (argparse.Namespace): The arguments passed in the command line.
+
+    Raises:
+        FileNotFoundError: If the file was not found.
+
+    Returns:
+        str: The path to the results file.
+    """
     if args.command in ["check_results", "report", "plot"]:
         results_file = (
             os.path.abspath(args.results_file) if args.results_file
