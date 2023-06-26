@@ -180,7 +180,7 @@ def parse_command_line_arguments():
 
 
 def find_results_file(args):
-    if args.command in ["check_results", "report"]:
+    if args.command in ["check_results", "report", "plot"]:
         results_file = (
             args.results_file if args.results_file
     else os.path.join(args.test_set_path, "results", f"{os.path.split(args.test_set_path)[1][:-3]}.csv")
@@ -188,8 +188,11 @@ def find_results_file(args):
         if not os.path.exists(results_file):
             raise FileNotFoundError(f"results file '{results_file}' not found")
     else:
-        testset_dir = os.path.split(args.test_set_path)[0]
-        results_dir = os.path.join(testset_dir, "results")
+        if args.command == "run" and args.results_path:
+            results_dir = os.path.abspath(args.results_path)
+        else:    
+            testset_dir = os.path.split(args.test_set_path)[0]
+            results_dir = os.path.join(testset_dir, "results")
         if not os.path.exists(results_dir):
             os.mkdir(results_dir)
         results_file = os.path.join(results_dir,f"{os.path.split(args.test_set_path)[1][:-3]}.csv")
