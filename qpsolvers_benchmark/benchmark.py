@@ -49,13 +49,8 @@ def parse_command_line_arguments():
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument("test_set_path",
-                        help="path to the test set dir "
+                        help="path to the test set python file"
                         )
-    # parser.add_argument(
-    #     "test_set",
-    #     choices=TEST_SETS,
-    #     help="test set from the benchmark to consider",
-    # )
     parser.add_argument(
         "-v",
         "--verbose",
@@ -145,7 +140,7 @@ def parse_command_line_arguments():
     )
     parser_run.add_argument(
         "--results-path",
-        help="create .csv file in a specfic directory"
+        help="write results in a specific directory"
     )
     parser_run.add_argument(
         "--include-timeouts",
