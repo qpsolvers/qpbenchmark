@@ -78,8 +78,7 @@ class MarosMeszaros(TestSet):
         }
 
     def __init__(self):
-        """Initialize test set.
-        """
+        """Initialize test set."""
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         data_dir = os.path.join(current_dir, "data")
