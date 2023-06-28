@@ -27,14 +27,12 @@ from spdlog import logging
 from plot_metric import plot_metric
 
 
-
 def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument(
-        "test_set_path",
-        help="path to the test set python file"
+        "test_set_path", help="path to the test set python file"
     )
     parser.add_argument(
         "-v",
@@ -81,8 +79,7 @@ def parse_command_line_arguments():
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
     parser_plot.add_argument(
-        "--results-file",
-        help="path to the results CSV file" 
+        "--results-file", help="path to the results CSV file"
     )
     parser_plot.add_argument(
         "--linewidth",
@@ -124,8 +121,7 @@ def parse_command_line_arguments():
         help="run all tests from the test set",
     )
     parser_run.add_argument(
-        "--results-path",
-        help="write results in a specific directory"
+        "--results-path", help="write results in a specific directory"
     )
     parser_run.add_argument(
         "--include-timeouts",
@@ -182,43 +178,51 @@ def find_results_file(args: argparse.Namespace) -> str:
     """
     if args.command in ["check_results", "report", "plot"]:
         results_file = (
-            os.path.abspath(args.results_file) if args.results_file
-            else os.path.join(os.path.abspath(os.path.dirname(args.test_set_path)),
-                      "results",
-                      os.path.split(args.test_set_path)[1].replace(".py", ".csv")
-                            )
-                        )
+            os.path.abspath(args.results_file)
+            if args.results_file
+            else os.path.join(
+                os.path.abspath(os.path.dirname(args.test_set_path)),
+                "results",
+                os.path.split(args.test_set_path)[1].replace(".py", ".csv"),
+            )
+        )
         if not os.path.exists(results_file):
             raise FileNotFoundError(f"results file '{results_file}' not found")
     else:
         if args.command == "run" and args.results_path:
             results_dir = os.path.abspath(args.results_path)
-        else:    
+        else:
             testset_dir = os.path.dirname(args.test_set_path)
             results_dir = os.path.join(testset_dir, "results")
         if not os.path.exists(results_dir):
             os.mkdir(results_dir)
-        results_file = os.path.join(results_dir, os.path.split(args.test_set_path)[1].replace(".py", ".csv"))
+        results_file = os.path.join(
+            results_dir,
+            os.path.split(args.test_set_path)[1].replace(".py", ".csv"),
+        )
     return results_file
-       
 
-def load_test_set(path : str) -> TestSet:
+
+def load_test_set(path: str) -> TestSet:
     """
     Load a test set.
-    
+
     Args:
         path: path to the .py file containing the class definition of the TestSet
 
     Returns:
         Test set
     """
-    dir_path , full_name = os.path.split(path)
+    dir_path, full_name = os.path.split(path)
     name = full_name.replace(".py", "")
-    sys.path.append(dir_path)  # Add directory path to system path so import_module can find the module
+    sys.path.append(
+        dir_path
+    )  # Add directory path to system path so import_module can find the module
     module = import_module(name)
     class_name = name.title().replace("_", "")
     TestClass = getattr(module, class_name)
     return TestClass()
+
 
 def main():
     args = parse_command_line_arguments()
@@ -280,6 +284,7 @@ def main():
         report = Report(author, results)
         md_path = results.csv_path.replace(".csv", ".md")
         report.write(md_path)
+
 
 if __name__ == "__main__":
     main()

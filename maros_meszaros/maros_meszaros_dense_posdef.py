@@ -19,8 +19,8 @@
 
 from typing import Iterator
 
-from ..problem import Problem
-from ..utils import is_posdef
+from qpsolvers_benchmark.problem import Problem
+from qpsolvers_benchmark.utils import is_posdef
 from .maros_meszaros_dense import MarosMeszarosDense
 
 

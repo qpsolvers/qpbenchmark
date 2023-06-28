@@ -15,40 +15,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""GHFFA01 problem.
+"""GHFFA03 problem.
 
-This problem is inspired by "Geometric and numerical aspects of redundancy",
-Wieber, Escande, Dimitrov and Sherikov (2017).
-
-See https://github.com/stephane-caron/qpsolvers_benchmark/issues/25
+This problem is described at:
+https://github.com/stephane-caron/qpsolvers_benchmark/issues/29.
 """
 
 import numpy as np
 
-from ..problem import Problem
+from ...maros_meszaros.problem import Problem
 
 
-def get_problem(alpha: float):
+def get_problem(n: int):
     """Get problem instance.
 
     Args:
-        alpha: Inverse condition number of the problem.
+        n: Number of optimization variables.
     """
+    M = np.array(range(n * n), dtype=float).reshape((n, n))
+    P = np.dot(M.T, M)  # this is a positive definite matrix
+    q = np.dot(np.ones(n, dtype=float), M)
     return Problem(
-        P=np.eye(2),
-        q=np.zeros(2),
+        P=P,
+        q=q,
         G=None,
         h=None,
-        A=np.array([1.0, alpha]).reshape((1, 2)),
-        b=np.array([1.0]),
+        A=None,
+        b=None,
         lb=None,
         ub=None,
-        name=f"GHFFA01_{alpha=}",
-        optimal_cost=0.5 / (1 + alpha**2),
+        name=f"GHFFA03_{n=}",
+        optimal_cost=0.0,
     )
 
 
-problems = [get_problem(alpha) for alpha in [1e-2, 1e-4, 1e-6, 1e-8, 1e-10]]
+problems = [get_problem(n=1000)]
 
 __all__ = [
     "problems",

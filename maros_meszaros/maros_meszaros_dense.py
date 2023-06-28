@@ -19,7 +19,7 @@
 
 from typing import Iterator
 
-from ..problem import Problem
+from qpsolvers_benchmark.problem import Problem
 from .maros_meszaros import MarosMeszaros
 
 

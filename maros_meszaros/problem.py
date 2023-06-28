@@ -17,6 +17,6 @@
 
 """Matrix-vector representation of a quadratic program."""
 
-from ..problem import Problem
+from qpsolvers_benchmark.problem import Problem
 
 __all__ = ["Problem"]
