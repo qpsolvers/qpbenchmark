@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
@@ -20,37 +19,23 @@ import argparse
 import os
 import sys
 from importlib import import_module  # type: ignore
+from report import Report
+from results import Results
+from test_set import TestSet
+from run import run
+from spdlog import logging
+from plot_metric import plot_metric
 
-from . import Report, Results, TestSet, logging, run
-from .plot_metric import plot_metric
-
-TEST_SETS = [
-    "github_ffa",
-    "maros_meszaros",
-    "maros_meszaros_dense",
-    "maros_meszaros_dense_posdef",
-]
-
-TEST_ARGS = {
-    "maros_meszaros": {
-        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
-    },
-    "maros_meszaros_dense": {
-        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
-    },
-    "maros_meszaros_dense_posdef": {
-        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
-    },
-}
 
 
 def parse_command_line_arguments():
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
-    parser.add_argument("test_set_path",
-                        help="path to the test set python file"
-                        )
+    parser.add_argument(
+        "test_set_path",
+        help="path to the test set python file"
+    )
     parser.add_argument(
         "-v",
         "--verbose",
@@ -182,12 +167,12 @@ def parse_command_line_arguments():
     return args
 
 
-def find_results_file(args):
+def find_results_file(args: argparse.Namespace) -> str:
     """
     Find the path to the results file.
 
     Args:
-        args (argparse.Namespace): The arguments passed in the command line.
+        args: The arguments passed in the command line.
 
     Raises:
         FileNotFoundError: If the file was not found.
@@ -222,7 +207,7 @@ def load_test_set(path : str) -> TestSet:
     Load a test set.
     
     Args:
-        path (str): path to the .py file containing the class definition of the TestSet
+        path: path to the .py file containing the class definition of the TestSet
 
     Returns:
         Test set

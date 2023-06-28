@@ -91,4 +91,3 @@ ignore = [
 
 [tool.ruff.pydocstyle]
 convention = "google"
-
