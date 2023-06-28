@@ -21,7 +21,7 @@ from typing import Iterator
 
 from qpsolvers_benchmark.problem import Problem
 from qpsolvers_benchmark.utils import is_posdef
-from .maros_meszaros_dense import MarosMeszarosDense
+from maros_meszaros_dense import MarosMeszarosDense
 
 
 class MarosMeszarosDensePosdef(MarosMeszarosDense):

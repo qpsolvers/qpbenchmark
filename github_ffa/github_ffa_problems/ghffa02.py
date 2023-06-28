@@ -23,7 +23,7 @@ Wieber, Escande, Dimitrov and Sherikov (2017).
 
 import numpy as np
 
-from ...maros_meszaros.problem import Problem
+from qpsolvers_benchmark.problem import Problem
 
 
 def get_problem(alpha: float):

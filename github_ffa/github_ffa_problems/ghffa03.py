@@ -23,7 +23,7 @@ https://github.com/stephane-caron/qpsolvers_benchmark/issues/29.
 
 import numpy as np
 
-from ...maros_meszaros.problem import Problem
+from qpsolvers_benchmark.problem import Problem
 
 
 def get_problem(n: int):
