@@ -19,10 +19,11 @@
 
 from typing import Iterator
 
+from problems import github_ffa_problems
+
 from qpsolvers_benchmark.problem import Problem
 from qpsolvers_benchmark.test_set import TestSet
 from qpsolvers_benchmark.tolerance import Tolerance
-from github_ffa_problems import github_ffa_problems
 
 
 class GithubFfa(TestSet):

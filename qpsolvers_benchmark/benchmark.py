@@ -15,19 +15,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""This is the main script for the 'qpsolvers_benchmark' package.
+
+It provides tools to benchmark different Quadratic Programming (QP) solvers.
+"""
+
 import argparse
 import os
 import sys
 from importlib import import_module  # type: ignore
+
+from .plot_metric import plot_metric
 from .report import Report
 from .results import Results
-from .test_set import TestSet
 from .run import run
 from .spdlog import logging
-from .plot_metric import plot_metric
+from .test_set import TestSet
 
 
-def parse_command_line_arguments():
+def parse_command_line_arguments() -> argparse.Namespace:
+    """Extracts and interprets command line arguments passed to the script.
+
+    Returns:
+        args: arguments of the command line.
+    """
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
@@ -79,7 +90,7 @@ def parse_command_line_arguments():
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
     parser_plot.add_argument(
-        "--results-file", help="path to the results CSV file"
+        "--results-file", help="path to the CSV file where results are stored"
     )
     parser_plot.add_argument(
         "--linewidth",
@@ -164,8 +175,7 @@ def parse_command_line_arguments():
 
 
 def find_results_file(args: argparse.Namespace) -> str:
-    """
-    Find the path to the results file.
+    """Find the path to the results file.
 
     Args:
         args: The arguments passed in the command line.
@@ -181,7 +191,7 @@ def find_results_file(args: argparse.Namespace) -> str:
             os.path.abspath(args.results_file)
             if args.results_file
             else os.path.join(
-                os.path.abspath(os.path.dirname(args.test_set_path)),
+                os.path.dirname(os.path.abspath(args.test_set_path)),
                 "results",
                 os.path.split(args.test_set_path)[1].replace(".py", ".csv"),
             )
@@ -204,11 +214,11 @@ def find_results_file(args: argparse.Namespace) -> str:
 
 
 def load_test_set(path: str) -> TestSet:
-    """
-    Load a test set.
+    """Load a test set.
 
     Args:
-        path: path to the .py file containing the class definition of the TestSet
+        path: path to the .py file containing the class definition
+                of the TestSet
 
     Returns:
         Test set
@@ -225,6 +235,7 @@ def load_test_set(path: str) -> TestSet:
 
 
 def main():
+    """Main function of the script."""
     args = parse_command_line_arguments()
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
@@ -244,11 +255,13 @@ def main():
 
     if args.command == "check_problem":
         problem = test_set.get_problem(args.problem)
+        _ = problem  # dummy variable, to pass ruff linting
         logging.info(f"Check out `problem` for the {args.problem} problem")
 
     if args.command == "check_results":
         logging.info("Check out `results` for the full results data")
         df = results.df
+        _ = df  # dummy variable, to pass ruff linting
         logging.info("Check out `df` for results as a pandas DataFrame")
 
     if args.command in ["check_problem", "check_results"]:
