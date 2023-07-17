@@ -85,26 +85,26 @@ By default, the benchmark will run all supported solvers it finds.
 
 ## Running the benchmark
 
-Once dependencies are installed, you will be able to run the main ``benchmark.py`` script from the repository. Pick up the keyword corresponding to the desired [test set](#test-sets), for instance ``maros_meszaros``, and pass it to the ``run`` command:
+Once the benchmark is installed, you will be able to run the ``qpsolvers_benchmark`` command. Provide it with the script corresponding to the [test set](#test-sets) you want to run, followed by a benchmark command such as "run". For instance, let's run the "dense" subset of the Maros-Meszaros test set:
 
 ```console
-python benchmark.py maros_meszaros run
+qpsolvers_benchmark maros_meszaros/maros_meszaros_dense.py run
 ```
 
 You can also run a specific solver, problem or set of solver settings:
 
 ```console
-python benchmark.py maros_meszaros_dense run --solver proxqp --settings default
+qpsolvers_benchmark maros_meszaros/maros_meszaros_dense.py run --solver proxqp --settings default
 ```
 
-Check out ``python benchmark.py --help`` for all available commands and arguments.
+Check out ``qpsolvers_benchmark --help`` for a list of available commands and arguments.
 
 ## Plots
 
 The command line ships a ``plot`` command to compare solver performances over a test set for a specific metric. For instance, run:
 
 ```console
-python benchmark.py maros_meszaros_dense plot runtime high_accuracy
+qpsolvers_benchmark maros_meszaros/maros_meszaros_dense.py plot runtime high_accuracy
 ```
 
 To generate the following plot:
