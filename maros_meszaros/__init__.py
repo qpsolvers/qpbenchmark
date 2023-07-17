@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2022 Stéphane Caron
+# Copyright 2023 inria
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Matrix-vector representation of a quadratic program."""
+"""Test sets of the benchmark."""
 
-from ..problem import Problem
 
-__all__ = ["Problem"]
+from .maros_meszaros import MarosMeszaros
+from .maros_meszaros_dense import maros_meszaros_dense
+from .maros_meszaros_dense_posdef import maros_meszaros_dense_posdef
+from .problem import problem
+
+__all__ = [
+    "MarosMeszaros",
+    "maros_meszaros_dense",
+    "maros_meszaros_dense_posdef",
+    "problem",
+]

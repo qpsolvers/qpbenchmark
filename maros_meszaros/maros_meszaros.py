@@ -25,9 +25,9 @@ import numpy as np
 import scipy.io as spio
 import scipy.sparse as spa
 
-from ..problem import Problem
-from ..test_set import TestSet
-from ..tolerance import Tolerance
+from qpsolvers_benchmark.problem import Problem
+from qpsolvers_benchmark.test_set import TestSet
+from qpsolvers_benchmark.tolerance import Tolerance
 
 
 class MarosMeszaros(TestSet):
@@ -77,14 +77,11 @@ class MarosMeszaros(TestSet):
             ),
         }
 
-    def __init__(self, data_dir: str):
-        """Initialize test set.
-
-        Args:
-            data_dir: Path to the benchmark data directory.
-        """
+    def __init__(self):
+        """Initialize test set."""
         super().__init__()
-        data_dir = os.path.join(data_dir, "maros_meszaros")
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        data_dir = os.path.join(current_dir, "data")
         cost_path = os.path.join(data_dir, "OPTCOSTS.json")
         with open(cost_path, "rb") as fh:
             file_dict = json.load(fh)

@@ -15,17 +15,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""GHFFA01 problem.
+"""GHFFA02 problem.
 
-This problem is inspired by "Geometric and numerical aspects of redundancy",
+These problems are inspired by "Geometric and numerical aspects of redundancy",
 Wieber, Escande, Dimitrov and Sherikov (2017).
-
-See https://github.com/stephane-caron/qpsolvers_benchmark/issues/25
 """
 
 import numpy as np
 
-from ..problem import Problem
+from qpsolvers_benchmark.problem import Problem
 
 
 def get_problem(alpha: float):
@@ -39,12 +37,12 @@ def get_problem(alpha: float):
         q=np.zeros(2),
         G=None,
         h=None,
-        A=np.array([1.0, alpha]).reshape((1, 2)),
-        b=np.array([1.0]),
+        A=np.array([[1.0, 0.0], [1.0, alpha]]),
+        b=np.array([0.0, 1.0]),
         lb=None,
         ub=None,
-        name=f"GHFFA01_{alpha=}",
-        optimal_cost=0.5 / (1 + alpha**2),
+        name=f"GHFFA02_{alpha=}",
+        optimal_cost=0.5 / alpha**2,
     )
 
 

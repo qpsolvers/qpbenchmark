@@ -15,41 +15,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""This is the main script for the 'qpsolvers_benchmark' package.
+
+It provides tools to benchmark different Quadratic Programming (QP) solvers.
+"""
+
 import argparse
 import os
+import sys
 from importlib import import_module  # type: ignore
 
-from qpsolvers_benchmark import Report, Results, TestSet, logging, run
-from qpsolvers_benchmark.plot_metric import plot_metric
-
-TEST_SETS = [
-    "github_ffa",
-    "maros_meszaros",
-    "maros_meszaros_dense",
-    "maros_meszaros_dense_posdef",
-]
-
-TEST_ARGS = {
-    "maros_meszaros": {
-        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
-    },
-    "maros_meszaros_dense": {
-        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
-    },
-    "maros_meszaros_dense_posdef": {
-        "data_dir": os.path.join(os.path.dirname(__file__), "data"),
-    },
-}
+from .plot_metric import plot_metric
+from .report import Report
+from .results import Results
+from .run import run
+from .spdlog import logging
+from .test_set import TestSet
 
 
-def parse_command_line_arguments():
+def parse_command_line_arguments() -> argparse.Namespace:
+    """Extracts and interprets command line arguments passed to the script.
+
+    Returns:
+        args: arguments of the command line.
+    """
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
     parser.add_argument(
-        "test_set",
-        choices=TEST_SETS,
-        help="test set from the benchmark to consider",
+        "test_set_path", help="path to the test set python file"
     )
     parser.add_argument(
         "-v",
@@ -96,6 +90,9 @@ def parse_command_line_arguments():
         help='settings to compare solvers on (e.g. "high_accuracy")',
     )
     parser_plot.add_argument(
+        "--results-file", help="path to the CSV file where results are stored"
+    )
+    parser_plot.add_argument(
         "--linewidth",
         help="width of plotted lines in px",
         type=int,
@@ -133,6 +130,9 @@ def parse_command_line_arguments():
     parser_run = subparsers.add_parser(
         "run",
         help="run all tests from the test set",
+    )
+    parser_run.add_argument(
+        "--results-path", help="write results in a specific directory"
     )
     parser_run.add_argument(
         "--include-timeouts",
@@ -174,44 +174,72 @@ def parse_command_line_arguments():
     return args
 
 
-def find_results_file(args):
-    if args.command in ["check_results", "report"]:
+def find_results_file(args: argparse.Namespace) -> str:
+    """Find the path to the results file.
+
+    Args:
+        args: The arguments passed in the command line.
+
+    Raises:
+        FileNotFoundError: If the file was not found.
+
+    Returns:
+        str: The path to the results file.
+    """
+    if args.command in ["check_results", "report", "plot"]:
         results_file = (
-            args.results_file
+            os.path.abspath(args.results_file)
             if args.results_file
-            else f"results/{args.test_set}.csv"
+            else os.path.join(
+                os.path.dirname(os.path.abspath(args.test_set_path)),
+                "results",
+                os.path.split(args.test_set_path)[1].replace(".py", ".csv"),
+            )
         )
         if not os.path.exists(results_file):
             raise FileNotFoundError(f"results file '{results_file}' not found")
     else:
-        results_dir = os.path.join(os.path.dirname(__file__), "results")
-        results_file = os.path.join(results_dir, f"{args.test_set}.csv")
+        if args.command == "run" and args.results_path:
+            results_dir = os.path.abspath(args.results_path)
+        else:
+            testset_dir = os.path.dirname(args.test_set_path)
+            results_dir = os.path.join(testset_dir, "results")
+        if not os.path.exists(results_dir):
+            os.mkdir(results_dir)
+        results_file = os.path.join(
+            results_dir,
+            os.path.split(args.test_set_path)[1].replace(".py", ".csv"),
+        )
     return results_file
 
 
-def load_test_set(name: str) -> TestSet:
-    """
-    Load a test set.
+def load_test_set(path: str) -> TestSet:
+    """Load a test set.
 
     Args:
-        name: Name of the test set.
+        path: path to the .py file containing the class definition
+                of the TestSet
 
     Returns:
-        Test set.
+        Test set
     """
-    module = import_module(f"qpsolvers_benchmark.test_sets.{name}")
+    dir_path, full_name = os.path.split(path)
+    name = full_name.replace(".py", "")
+    sys.path.append(
+        dir_path
+    )  # Add directory path to system path so import_module can find the module
+    module = import_module(name)
     class_name = name.title().replace("_", "")
     TestClass = getattr(module, class_name)
-    kwargs = TEST_ARGS.get(name, {})
-    return TestClass(**kwargs)
+    return TestClass()
 
 
-if __name__ == "__main__":
+def main():
+    """Main function of the script."""
     args = parse_command_line_arguments()
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
-
-    test_set = load_test_set(args.test_set)
+    test_set = load_test_set(os.path.abspath(args.test_set_path))
     results = Results(find_results_file(args), test_set)
 
     if args.command == "run":
@@ -227,11 +255,13 @@ if __name__ == "__main__":
 
     if args.command == "check_problem":
         problem = test_set.get_problem(args.problem)
+        _ = problem  # dummy variable, to pass ruff linting
         logging.info(f"Check out `problem` for the {args.problem} problem")
 
     if args.command == "check_results":
         logging.info("Check out `results` for the full results data")
         df = results.df
+        _ = df  # dummy variable, to pass ruff linting
         logging.info("Check out `df` for results as a pandas DataFrame")
 
     if args.command in ["check_problem", "check_results"]:
@@ -267,3 +297,7 @@ if __name__ == "__main__":
         report = Report(author, results)
         md_path = results.csv_path.replace(".csv", ".md")
         report.write(md_path)
+
+
+if __name__ == "__main__":
+    main()

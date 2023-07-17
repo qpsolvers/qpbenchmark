@@ -15,15 +15,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Dense subset of the Maros-Meszaros test set."""
+"""Dense subset with positive definite P of the Maros-Meszaros test set."""
 
 from typing import Iterator
 
-from ..problem import Problem
-from .maros_meszaros import MarosMeszaros
+from maros_meszaros_dense import MarosMeszarosDense
+
+from qpsolvers_benchmark.problem import Problem
+from qpsolvers_benchmark.utils import is_posdef
 
 
-class MarosMeszarosDense(MarosMeszaros):
+class MarosMeszarosDensePosdef(MarosMeszarosDense):
     """Subset of Maros-Meszaros restricted to smaller dense problems."""
 
     @property
@@ -31,40 +33,22 @@ class MarosMeszarosDense(MarosMeszaros):
         """Description of the test set."""
         return (
             "Subset of the Maros-Meszaros test set "
-            "restricted to smaller dense problems."
+            "restricted to smaller dense problems "
+            "with positive definite Hessian matrix."
         )
 
     @property
     def title(self) -> str:
         """Test set title."""
-        return "Maros-Meszaros dense subset"
+        return "Maros-Meszaros dense positive definite subset"
 
     @property
     def sparse_only(self) -> bool:
         """Test set is dense."""
         return False
 
-    @staticmethod
-    def count_constraints(problem: Problem):
-        """Count inequality and equality constraints.
-
-        Notes:
-            We only count box inequality constraints once, and only from lower
-            bounds. That latter part is specific to this test set.
-        """
-        m = 0
-        if problem.G is not None:
-            m += problem.G.shape[0]
-        if problem.A is not None:
-            m += problem.A.shape[0]
-        if problem.lb is not None:
-            m += problem.lb.shape[0]
-        return m
-
     def __iter__(self) -> Iterator[Problem]:
         """Iterate on test set problems."""
         for problem in super().__iter__():
-            nb_variables = problem.P.shape[0]
-            nb_constraints = self.count_constraints(problem)
-            if nb_variables <= 1000 and nb_constraints <= 1000:
-                yield problem.to_dense()
+            if is_posdef(problem.P):
+                yield problem
