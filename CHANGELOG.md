@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * Allow non-lowercase solver names in the command line (thanks to @ottapav)
+* Support standalone test sets (thanks to @ZAKIAkram)
 
 ### Changed
 
