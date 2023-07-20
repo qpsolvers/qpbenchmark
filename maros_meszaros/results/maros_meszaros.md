@@ -1,8 +1,8 @@
 # Maros-Meszaros test set
 
-| Version | 0.1.0rc4 |
+| Version | 1.0.0 |
 |:--------|:--------------------|
-| Date    | 2023-03-15 16:04:45.650801+00:00 |
+| Date    | 2023-07-20 07:16:30.860360+00:00 |
 | CPU     | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -38,12 +38,12 @@ Standard set of problems designed to be difficult.
 | gurobi   | 10.0.0 (size-limited) |
 | highs    | 1.1.2.dev3            |
 | osqp     | 0.6.2.post5           |
-| proxqp   | 0.3.2                 |
+| proxqp   | 0.4.0                 |
 | scs      | 3.2.2                 |
 
 All solvers were called via
 [qpsolvers](https://github.com/stephane-caron/qpsolvers)
-v3.0.0.
+v3.3.1.
 
 ## Settings
 
@@ -104,11 +104,11 @@ mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
 | clarabel |                                89.9 |                                  1.0 |                                         1.0 |                                     1.9 |                                 1.0 |                               1.0 |
-| cvxopt   |                                19.6 |                                 85.7 |                                        11.2 |                                     5.6 |                                10.6 |                              44.4 |
+| cvxopt   |                                53.6 |                                 13.8 |                                         5.3 |                                     2.6 |                                22.9 |                               6.6 |
 | gurobi   |                                16.7 |                                 57.8 |                                        10.5 |                                    37.5 |                                94.0 |                              34.9 |
 | highs    |                                53.6 |                                 11.3 |                                         5.3 |                                     2.6 |                                21.2 |                               6.1 |
-| osqp     |                                41.3 |                                  1.7 |                                        60.7 |                                    22.9 |                              2160.0 |                              45.9 |
-| proxqp   |                                76.8 |                                  4.6 |                                         2.0 |                                     1.0 |                                 5.6 |                               2.2 |
+| osqp     |                                41.3 |                                  1.8 |                                        58.7 |                                    22.6 |                              1950.7 |                              42.4 |
+| proxqp   |                                77.5 |                                  4.6 |                                         2.0 |                                     1.0 |                                11.5 |                               2.2 |
 | scs      |                                60.1 |                                  2.1 |                                        37.5 |                                     3.4 |                               133.1 |                               8.4 |
 
 ### High accuracy
@@ -118,13 +118,13 @@ mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
-| clarabel |                                61.6 |                                  1.0 |                                         1.0 |                                751257.0 |                                44.9 |                               1.0 |
-| cvxopt   |                                 0.0 |                                 28.4 |                                         9.8 |                                  1667.7 |                         105162189.5 |                              25.2 |
-| gurobi   |                                 5.1 |                                 19.2 |                                         4.3 |                            7247695596.0 |                        9769259351.6 |                              19.8 |
-| highs    |                                 0.0 |                                  3.7 |                                      5416.6 |                                894822.1 |                        1987500500.6 |                               3.5 |
-| osqp     |                                25.4 |                                 11.5 |                                         2.8 |                                     1.2 |                              3235.7 |                              11.7 |
-| proxqp   |                                57.2 |                                  2.5 |                                         1.4 |                                     1.0 |                              9664.6 |                               2.2 |
-| scs      |                                42.8 |                                  8.0 |                                         2.5 |                                     1.1 |                                 1.0 |                               7.6 |
+| clarabel |                                61.6 |                                  1.0 |                                         1.0 |                                742803.1 |                                44.9 |                               1.0 |
+| cvxopt   |                                 5.8 |                                  5.8 |                                   1484115.0 |                                   126.3 |                        1612205372.0 |                               5.0 |
+| gurobi   |                                 5.1 |                                 19.2 |                                         4.3 |                            7166137621.8 |                        9769259351.6 |                              19.8 |
+| highs    |                                 0.0 |                                  3.7 |                                      5416.6 |                                884752.7 |                        1987500500.6 |                               3.5 |
+| osqp     |                                26.1 |                                 11.5 |                                         2.8 |                                     1.2 |                              3235.1 |                              11.7 |
+| proxqp   |                                59.4 |                                  2.4 |                                         1.4 |                                     1.0 |                              5387.0 |                               2.2 |
+| scs      |                                42.8 |                                  8.0 |                                         2.5 |                                     1.0 |                                 1.0 |                               7.6 |
 
 ### Low accuracy
 
@@ -133,13 +133,13 @@ mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
-| clarabel |                                91.3 |                                  1.0 |                                         1.8 |                                  1094.5 |                                 1.0 |                               1.0 |
-| cvxopt   |                                13.8 |                                157.8 |                                         3.9 |                                     4.5 |                               292.6 |                              58.0 |
-| gurobi   |                                16.7 |                                106.4 |                                         3.6 |                                 23832.8 |                             26882.1 |                              45.5 |
-| highs    |                                37.7 |                                 20.8 |                                         1.9 |                                     5.1 |                              5469.8 |                               8.0 |
-| osqp     |                                21.0 |                                 19.7 |                                         2.9 |                                     3.3 |                              4985.0 |                              11.6 |
-| proxqp   |                                78.3 |                                  8.0 |                                         1.0 |                                     1.0 |                                19.6 |                               2.9 |
-| scs      |                                71.0 |                                  9.3 |                                        31.7 |                                     2.2 |                                 1.6 |                               4.2 |
+| clarabel |                                91.3 |                                  1.0 |                                         1.8 |                                  1086.8 |                                 1.0 |                               1.0 |
+| cvxopt   |                                42.8 |                                 21.8 |                                         3.5 |                                     3.9 |                              6604.3 |                               7.4 |
+| gurobi   |                                16.7 |                                106.5 |                                         3.6 |                                 23665.7 |                             26882.1 |                              45.5 |
+| highs    |                                37.7 |                                 20.8 |                                         1.8 |                                     5.1 |                              5469.8 |                               8.0 |
+| osqp     |                                21.0 |                                 19.7 |                                         2.9 |                                     3.2 |                              4982.6 |                              11.6 |
+| proxqp   |                                78.3 |                                  7.9 |                                         1.0 |                                     1.0 |                                19.6 |                               2.9 |
+| scs      |                                71.0 |                                  9.3 |                                        31.3 |                                     2.2 |                                 1.6 |                               4.2 |
 
 ## Results by metric
 
@@ -150,11 +150,11 @@ Precentage of problems each solver is able to solve:
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
 | clarabel |        90 |              62 |             91 |
-| cvxopt   |        20 |               0 |             14 |
+| cvxopt   |        54 |               6 |             43 |
 | gurobi   |        17 |               5 |             17 |
 | highs    |        54 |               0 |             38 |
-| osqp     |        41 |              25 |             21 |
-| proxqp   |        77 |              57 |             78 |
+| osqp     |        41 |              26 |             21 |
+| proxqp   |        78 |              59 |             78 |
 | scs      |        60 |              43 |             71 |
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
@@ -169,11 +169,11 @@ Percentage of problems where "solved" return codes are correct:
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
 | clarabel |        97 |              80 |             95 |
-| cvxopt   |        99 |              79 |             93 |
-| gurobi   |        91 |              79 |             91 |
-| highs    |        91 |              38 |             75 |
-| osqp     |        54 |              88 |             61 |
-| proxqp   |        91 |              86 |             95 |
+| cvxopt   |        80 |              38 |             66 |
+| gurobi   |        17 |               5 |             17 |
+| highs    |        86 |              33 |             71 |
+| osqp     |        55 |              89 |             61 |
+| proxqp   |        78 |              62 |             78 |
 | scs      |        72 |              97 |             95 |
 
 ### Computation time
@@ -188,11 +188,11 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
 | clarabel |       1.0 |             1.0 |            1.0 |
-| cvxopt   |      85.7 |            28.4 |          157.8 |
-| gurobi   |      57.8 |            19.2 |          106.4 |
+| cvxopt   |      13.8 |             5.8 |           21.8 |
+| gurobi   |      57.8 |            19.2 |          106.5 |
 | highs    |      11.3 |             3.7 |           20.8 |
-| osqp     |       1.7 |            11.5 |           19.7 |
-| proxqp   |       4.6 |             2.5 |            8.0 |
+| osqp     |       1.8 |            11.5 |           19.7 |
+| proxqp   |       4.6 |             2.4 |            7.9 |
 | scs      |       2.1 |             8.0 |            9.3 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
@@ -215,12 +215,12 @@ Shifted geometric means of primal residuals (1.0 is the best):
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
 | clarabel |       1.0 |             1.0 |            1.8 |
-| cvxopt   |      11.2 |             9.8 |            3.9 |
+| cvxopt   |       5.3 |       1484115.0 |            3.5 |
 | gurobi   |      10.5 |             4.3 |            3.6 |
-| highs    |       5.3 |          5416.6 |            1.9 |
-| osqp     |      60.7 |             2.8 |            2.9 |
+| highs    |       5.3 |          5416.6 |            1.8 |
+| osqp     |      58.7 |             2.8 |            2.9 |
 | proxqp   |       2.0 |             1.4 |            1.0 |
-| scs      |      37.5 |             2.5 |           31.7 |
+| scs      |      37.5 |             2.5 |           31.3 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a primal residual equal to the
@@ -239,13 +239,13 @@ Shifted geometric means of dual residuals (1.0 is the best):
 
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
-| clarabel |       1.9 |        751257.0 |         1094.5 |
-| cvxopt   |       5.6 |          1667.7 |            4.5 |
-| gurobi   |      37.5 |    7247695596.0 |        23832.8 |
-| highs    |       2.6 |        894822.1 |            5.1 |
-| osqp     |      22.9 |             1.2 |            3.3 |
+| clarabel |       1.9 |        742803.1 |         1086.8 |
+| cvxopt   |       2.6 |           126.3 |            3.9 |
+| gurobi   |      37.5 |    7166137621.8 |        23665.7 |
+| highs    |       2.6 |        884752.7 |            5.1 |
+| osqp     |      22.6 |             1.2 |            3.2 |
 | proxqp   |       1.0 |             1.0 |            1.0 |
-| scs      |       3.4 |             1.1 |            2.2 |
+| scs      |       3.4 |             1.0 |            2.2 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
 solver that fails to find a solution receives a dual residual equal to the full
@@ -266,11 +266,11 @@ Shifted geometric means of duality gaps (1.0 is the best):
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
 | clarabel |       1.0 |            44.9 |            1.0 |
-| cvxopt   |      10.6 |     105162189.5 |          292.6 |
+| cvxopt   |      22.9 |    1612205372.0 |         6604.3 |
 | gurobi   |      94.0 |    9769259351.6 |        26882.1 |
 | highs    |      21.2 |    1987500500.6 |         5469.8 |
-| osqp     |    2160.0 |          3235.7 |         4985.0 |
-| proxqp   |       5.6 |          9664.6 |           19.6 |
+| osqp     |    1950.7 |          3235.1 |         4982.6 |
+| proxqp   |      11.5 |          5387.0 |           19.6 |
 | scs      |     133.1 |             1.0 |            1.6 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
@@ -291,10 +291,10 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
 | clarabel |       1.0 |             1.0 |            1.0 |
-| cvxopt   |      44.4 |            25.2 |           58.0 |
+| cvxopt   |       6.6 |             5.0 |            7.4 |
 | gurobi   |      34.9 |            19.8 |           45.5 |
 | highs    |       6.1 |             3.5 |            8.0 |
-| osqp     |      45.9 |            11.7 |           11.6 |
+| osqp     |      42.4 |            11.7 |           11.6 |
 | proxqp   |       2.2 |             2.2 |            2.9 |
 | scs      |       8.4 |             7.6 |            4.2 |
 
