@@ -65,10 +65,10 @@ line-length = 79
 
 [tool.flit.sdist]
 exclude = [
-    "github_ffa/data",
-    "github_ffa/results",
-    "maros_meszaros/data",
-    "maros_meszaros/results",
+    ".github",
+    ".gitignore",
+    "github_ffa",
+    "maros_meszaros",
 ]
 
 [tool.isort]
