@@ -6,7 +6,15 @@
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
-The goal of this benchmark is to help us compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). New test sets are [also welcome](CONTRIBUTING.md). Feel free to add one that better represents the kind of problems you are working on.
+The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpsolvers_benchmark`` command-line tool to run any test set directly on your machine. For instance:
+
+```console
+qpsolvers_benchmark maros_meszaros/maros_meszaros.py run
+```
+
+The outcome from running a test set is a standardized report evaluating all [metrics](#metrics) of the benchmark across all available QP solvers. This repository also distributes [results](#results) from running the benchmark on all test sets using the same computer.
+
+New test sets are [welcome](CONTRIBUTING.md). The benchmark is designed so that each test-set directory is standalone, so that the ``qpsolvers_benchmark`` command can be run on test sets from other repositories. Feel free to create ones that better represent the kind of problems you are working on.
 
 ## Solvers
 
@@ -27,15 +35,23 @@ The goal of this benchmark is to help us compare and select QP solvers. Its meth
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Goldfarb-Idnani | Dense | GPL-2.0 |
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
 
-## Test sets and results
+## Test sets
 
-The benchmark has different test sets that represent different use cases for QP solvers. Click on a test set to check out its report.
+The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
 
 | Test set | Keyword | Description |
 | -------- | ------- | ----------- |
-| [GitHub free-for-all](github_ffa/results/github_ffa.md) | ``github_ffa`` | Test set built by the community on GitHub, new problems [are welcome](https://github.com/stephane-caron/qpsolvers_benchmark/issues/new?assignees=&labels=&template=new_problem.md&title=)! |
-| [Maros-Meszaros](maros_meszaros/results/maros_meszaros.md) | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
-| [Maros-Meszaros dense](maros_meszaros/results/maros_meszaros_dense.md) | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
+| **GitHub free-for-all** | ``github_ffa`` | Test set built by the community on GitHub, new problems [are welcome](https://github.com/stephane-caron/qpsolvers_benchmark/issues/new?assignees=&labels=&template=new_problem.md&title=)! |
+| **Maros-Meszaros** | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
+| **Maros-Meszaros dense** | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
+
+## Results
+
+The outcome from running a test set is a standardized report. Here are the results obtained from running all test sets in this repository with the same computer:
+
+* [GitHub free-for-all](github_ffa/results/github_ffa.md)
+* [Maros-Meszaros](maros_meszaros/results/maros_meszaros.md)
+* [Maros-Meszaros dense](maros_meszaros/results/maros_meszaros_dense.md)
 
 ## Metrics
 
