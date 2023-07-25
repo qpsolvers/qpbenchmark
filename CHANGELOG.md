@@ -2,12 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [1.0.0] - 2023/07/25
 
 ### Added
 
 * Allow non-lowercase solver names in the command line (thanks to @ottapav)
-* Support standalone test sets (thanks to @ZAKIAkram)
+* Command-line tool and standalone test sets (thanks to @ZAKIAkram)
 
 ### Changed
 
