@@ -64,7 +64,12 @@ Changelog = "https://github.com/stephane-caron/qpsolvers_benchmark/blob/master/C
 line-length = 79
 
 [tool.flit.sdist]
-exclude = ["data", "results"]
+exclude = [
+    "github_ffa/data",
+    "github_ffa/results",
+    "maros_meszaros/data",
+    "maros_meszaros/results",
+]
 
 [tool.isort]
 profile = "black"
