@@ -397,7 +397,8 @@ mind when drawing conclusions from the results.
                 f"""### {capitalize_settings(settings)}
 
 Solvers are compared over the whole test set by [shifted geometric
-mean](../README.md#shifted-geometric-mean) (shm). Lower is better.
+mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
+(shm). Lower is better.
 
 {df.to_markdown(index=True, floatfmt=".1f")}\n\n"""
             )
@@ -433,7 +434,8 @@ Percentage of problems where "solved" return codes are correct:
 We compare solver computation times over the whole test set using the shifted
 geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of
 Y is Y times slower than the best solver over the test set. See
-[Metrics](../README.md#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
@@ -452,7 +454,8 @@ violation in the solution returned by a solver. We use the shifted geometric
 mean to compare solver primal residuals over the whole test set. Intuitively, a
 solver with a shifted-geometric-mean primal residual of Y is Y times less
 precise on constraints than the best solver over the test set. See
-[Metrics](../README.md#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of primal residuals (1.0 is the best):
 
@@ -469,7 +472,8 @@ condition in the solution returned by a solver. We use the shifted geometric
 mean to compare solver dual residuals over the whole test set. Intuitively, a
 solver with a shifted-geometric-mean dual residual of Y is Y times less precise
 on the dual feasibility condition than the best solver over the test set. See
-[Metrics](../README.md#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of dual residuals (1.0 is the best):
 
@@ -487,7 +491,9 @@ complementarity slackness optimality condition is satisfied. We use the shifted
 geometric mean to compare solver duality gaps over the whole test set.
 Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times
 less precise on the complementarity slackness condition than the best solver
-over the test set. See [Metrics](../README.md#metrics) for details.
+over the test set. See
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of duality gaps (1.0 is the best):
 
@@ -504,7 +510,8 @@ the objective at the solution returned by a solver. We use the shifted
 geometric mean to compare solver cost errors over the whole test set.
 Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times
 less precise on the optimal cost than the best solver over the test set. See
-[Metrics](../README.md#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
