@@ -34,7 +34,7 @@ dependencies = [
     "matplotlib >=3.6.2",
     "osqp >=0.6.2",
     "pandas >=1.4.3",
-    "proxsuite >=0.4.0",
+    "proxsuite >=0.4.1",
     "py-cpuinfo",
     "qpsolvers >=3.4.0",
     "quadprog >=0.1.11",

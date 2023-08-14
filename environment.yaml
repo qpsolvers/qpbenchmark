@@ -9,7 +9,7 @@ dependencies:
     - osqp >= 0.6.2
     - pandas
     - pip
-    - proxsuite >= 0.4.0
+    - proxsuite >= 0.4.1
     - qpoases >= 3.2.0
     - qpsolvers >= 3.4.0
     - quadprog >= 0.1.11
