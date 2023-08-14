@@ -9,12 +9,13 @@ dependencies:
     - osqp >= 0.6.2
     - pandas
     - pip
-    - proxsuite >= 0.3.1
+    - proxsuite >= 0.4.0
     - qpoases >= 3.2.0
     - qpsolvers >= 3.4.0
     - quadprog >= 0.1.11
     - tabulate
     - pip:
+        - clarabel >= 0.4.1
         - highspy >= 1.1.2.dev3
         - py-cpuinfo
         - qpsolvers_benchmark >= 1.0.0
