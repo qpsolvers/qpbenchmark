@@ -280,7 +280,7 @@ class Results:
         )
         return correctness_rate_df
 
-    def get_shgeom_dict(
+    def get_shgeom_for_metric_and_settings(
         self,
         metric: str,
         settings: str,
@@ -342,12 +342,11 @@ class Results:
         return (
             pandas.DataFrame(
                 {
-                    settings: self.get_shgeom_dict_for_settings(
-                        self.df,
-                        metric=metric,
-                        settings=settings,
-                        not_found_value=not_found_values[settings],
+                    settings: self.get_shgeom_for_metric_and_settings(
+                        metric,
+                        settings,
                         shift=shift,
+                        not_found_value=not_found_values[settings],
                     )
                     for settings in all_settings
                 }
