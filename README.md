@@ -26,6 +26,7 @@ New test sets are [welcome](CONTRIBUTING.md). The benchmark is designed so that 
 | [ECOS](https://web.stanford.edu/~boyd/papers/ecos.html) | ``ecos`` | Interior point | Sparse | GPL-3.0 |
 | [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Interior point | Sparse | Commercial |
 | [HiGHS](https://highs.dev/) | ``highs`` | Active set | Sparse | MIT |
+| [HPIPM](https://github.com/giaf/hpipm) | ``hpipm`` | Interior point | Dense | BSD-2-Clause |
 | [MOSEK](https://mosek.com/) | ``mosek`` | Interior point | Sparse | Commercial |
 | NPPro | ``nppro`` | Active set | Dense | Commercial |
 | [OSQP](https://osqp.org/) | ``osqp`` | Douglas–Rachford | Sparse | Apache-2.0 |
