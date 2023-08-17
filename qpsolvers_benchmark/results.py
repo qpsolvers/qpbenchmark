@@ -52,7 +52,7 @@ class Results:
             ResultsError: if the dataframe is inconsitent.
         """
         if not isinstance(df["found"].dtype, np.dtypes.BoolDType):
-            raise ResultsError("\"found\" column has some non-boolean values")
+            raise ResultsError('"found" column has some non-boolean values')
 
     def __init__(self, csv_path: str, test_set: TestSet):
         """Initialize results.
