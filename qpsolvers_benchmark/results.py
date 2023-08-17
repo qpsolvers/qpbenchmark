@@ -153,6 +153,7 @@ class Results:
                 & (self.df["settings"] == settings)
             ]
         )
+        found: bool = True if solution.found else False  # make sure not None
         self.df = pandas.concat(
             [
                 self.df,
@@ -162,7 +163,7 @@ class Results:
                         "solver": [solver],
                         "settings": [settings],
                         "runtime": [runtime],
-                        "found": [solution.found],
+                        "found": [found],
                         "primal_residual": [solution.primal_residual()],
                         "dual_residual": [solution.dual_residual()],
                         "duality_gap": [solution.duality_gap()],
