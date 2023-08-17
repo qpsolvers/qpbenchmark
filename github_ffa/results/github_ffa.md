@@ -2,7 +2,7 @@
 
 | Version | 1.1.0rc0 |
 |:--------|:--------------------|
-| Date    | 2023-08-17 15:14:41.264986+00:00 |
+| Date    | 2023-08-17 15:22:44.257029+00:00 |
 | CPU     | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -85,10 +85,14 @@ Solvers for each settings are configured as follows:
 | highs    | ``dual_feasibility_tolerance``   | -         | 1e-09                  | 0.001                 |
 | highs    | ``primal_feasibility_tolerance`` | -         | 1e-09                  | 0.001                 |
 | highs    | ``time_limit``                   | 100.0     | 100.0                  | 100.0                 |
+| hpipm    | ``tol_comp``                     | -         | 1e-09                  | 0.001                 |
+| hpipm    | ``tol_eq``                       | -         | 1e-09                  | 0.001                 |
+| hpipm    | ``tol_ineq``                     | -         | 1e-09                  | 0.001                 |
+| hpipm    | ``tol_stat``                     | -         | 1e-09                  | 0.001                 |
 | osqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | osqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | osqp     | ``time_limit``                   | 100.0     | 100.0                  | 100.0                 |
-| proxqp   | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
+| proxqp   | ``check_duality_gap``            | -         | True                   | True                  |
 | proxqp   | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
@@ -119,18 +123,19 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
-| clarabel |                                63.6 |                                  2.8 |                                         2.2 |                                     2.2 |                                 2.3 |                               3.7 |
-| cvxopt   |                                58.3 |                                  2.5 |                                         2.0 |                                     2.0 |                               183.3 |                              14.3 |
-| daqp     |                                63.6 |                                  2.8 |                                         2.2 |                                     2.2 |                                 2.4 |                               3.7 |
-| ecos     |                                41.7 |                                  6.2 |                                         3.6 |                                     3.6 |                                 3.6 |                              11.7 |
-| gurobi   |                                75.0 |                                  1.0 |                                         1.0 |                                     1.0 |                                 1.0 |                               2.4 |
-| highs    |                                41.7 |                                  1.0 |                                         1.0 |                                  1234.3 |                               612.5 |                               1.0 |
-| osqp     |                                50.0 |                                  2.5 |                                         2.0 |                                    85.0 |                                 2.0 |                               6.6 |
-| proxqp   |                                50.0 |                                  3.5 |                                         2.5 |                                     2.5 |                                25.3 |                               7.0 |
-| qpoases  |                                66.7 |                                  1.0 |                                         1.0 |                                     2.0 |                                 1.0 |                               2.4 |
-| qpswift  |                                 0.0 |                                 20.4 |                                         6.2 |                                     6.2 |                                 6.2 |                              85.1 |
-| quadprog |                                75.0 |                                  1.7 |                                         1.5 |                                     1.5 |                                 1.5 |                               2.8 |
-| scs      |                                58.3 |                                  3.5 |                                         2.5 |                                     2.5 |                                 2.7 |                               5.0 |
+| clarabel |                                63.6 |                               2701.0 |                                         2.2 |                                     2.2 |                                 2.3 |                               3.7 |
+| cvxopt   |                                58.3 |                               2375.7 |                                         2.0 |                                     2.0 |                               183.3 |                              14.3 |
+| daqp     |                                63.6 |                               2700.9 |                                         2.2 |                                     2.2 |                                 2.4 |                               3.7 |
+| ecos     |                                41.7 |                               5920.5 |                                         3.6 |                                     3.6 |                                 3.6 |                              11.7 |
+| gurobi   |                                75.0 |                                955.7 |                                         1.0 |                                     1.0 |                                 1.0 |                               2.4 |
+| highs    |                                41.7 |                                981.7 |                                         1.0 |                                  1234.3 |                               612.5 |                               1.0 |
+| hpipm    |                                63.6 |                                  1.0 |                                         1.1 |                                    15.0 |                               206.6 |                            5692.1 |
+| osqp     |                                50.0 |                               2396.7 |                                         2.0 |                                    85.0 |                                 2.0 |                               6.6 |
+| proxqp   |                                50.0 |                               3330.4 |                                         2.5 |                                     2.5 |                                25.3 |                               7.0 |
+| qpoases  |                                66.7 |                                953.6 |                                         1.0 |                                     2.0 |                                 1.0 |                               2.4 |
+| qpswift  |                                 0.0 |                              19408.6 |                                         6.2 |                                     6.2 |                                 6.2 |                              85.1 |
+| quadprog |                                75.0 |                               1604.7 |                                         1.5 |                                     1.5 |                                 1.5 |                               2.8 |
+| scs      |                                58.3 |                               3330.4 |                                         2.5 |                                     2.5 |                                 2.7 |                               5.0 |
 
 ### High accuracy
 
@@ -140,18 +145,19 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
-| clarabel |                                54.5 |                                  2.8 |                                         2.2 |                                     2.2 |                                10.3 |                               3.7 |
-| cvxopt   |                                41.7 |                                  2.5 |                                     44450.7 |                                     2.0 |                      168327208682.3 |                              14.3 |
-| daqp     |                                45.5 |                                  2.8 |                                         4.3 |                                     2.2 |                         209710895.6 |                               3.7 |
-| ecos     |                                 0.0 |                                  6.2 |                                         3.5 |                                157713.2 |                            157713.2 |                              11.7 |
-| gurobi   |                                75.0 |                                  1.0 |                                         1.0 |                                     1.0 |                                 1.0 |                               2.4 |
-| highs    |                                 0.0 |                                  1.0 |                                         1.0 |                         1163315301303.3 |                      576790866538.3 |                               1.0 |
-| osqp     |                                50.0 |                                  4.7 |                                         3.0 |                                     3.0 |                                 3.0 |                               7.7 |
-| proxqp   |                                58.3 |                                  3.5 |                                         5.0 |                                     2.5 |                                 5.0 |                               5.0 |
-| qpoases  |                                58.3 |                                  1.0 |                                         1.0 |                             916283906.9 |                            121766.3 |                               2.4 |
-| qpswift  |                                 0.0 |                                 20.4 |                                         6.0 |                                     6.0 |                                 6.0 |                              85.1 |
-| quadprog |                                50.0 |                                  1.7 |                                         1.5 |                                144070.8 |                            121774.3 |                               2.8 |
-| scs      |                                50.0 |                                  4.7 |                                         3.0 |                                     3.0 |                                 3.3 |                               7.7 |
+| clarabel |                                54.5 |                               1856.6 |                                         2.2 |                                     2.2 |                                10.3 |                               3.7 |
+| cvxopt   |                                41.7 |                               1633.0 |                                     44450.7 |                                     2.0 |                      168327208682.3 |                              14.3 |
+| daqp     |                                45.5 |                               1856.6 |                                         4.3 |                                     2.2 |                         209710895.6 |                               3.7 |
+| ecos     |                                 0.0 |                               4069.6 |                                         3.5 |                                157713.2 |                            157713.2 |                              11.7 |
+| gurobi   |                                75.0 |                                656.2 |                                         1.0 |                                     1.0 |                                 1.0 |                               2.4 |
+| highs    |                                 0.0 |                                673.7 |                                         1.0 |                         1163315301303.3 |                      576790866538.3 |                               1.0 |
+| hpipm    |                                45.5 |                                  1.0 |                                1048846709.2 |                           14407044547.8 |                      197992946197.5 |                            5692.1 |
+| osqp     |                                50.0 |                               3090.7 |                                         3.0 |                                     3.0 |                                 3.0 |                               7.7 |
+| proxqp   |                                58.3 |                               2289.2 |                                         5.0 |                                     2.5 |                                 5.0 |                               5.0 |
+| qpoases  |                                58.3 |                                655.5 |                                         1.0 |                             916283906.9 |                            121766.3 |                               2.4 |
+| qpswift  |                                 0.0 |                              13341.1 |                                         6.0 |                                     6.0 |                                 6.0 |                              85.1 |
+| quadprog |                                50.0 |                               1103.1 |                                         1.5 |                                144070.8 |                            121774.3 |                               2.8 |
+| scs      |                                50.0 |                               3090.7 |                                         3.0 |                                     3.0 |                                 3.3 |                               7.7 |
 
 ### Low accuracy
 
@@ -161,18 +167,19 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
-| clarabel |                                63.6 |                                  6.2 |                                         4.4 |                                     2.2 |                                 2.6 |                               3.7 |
-| cvxopt   |                                50.0 |                                  5.5 |                                         4.1 |                                     2.0 |                            168761.7 |                              14.3 |
-| daqp     |                                54.5 |                                  6.2 |                                         4.4 |                                     2.2 |                               212.4 |                               3.7 |
-| ecos     |                                41.7 |                                 13.6 |                                         7.0 |                                     3.7 |                                 3.7 |                              11.7 |
-| gurobi   |                                75.0 |                                  2.2 |                                         2.0 |                                     1.0 |                                 1.0 |                               2.4 |
-| highs    |                                25.0 |                                  2.3 |                                         2.0 |                               1166285.7 |                            578264.2 |                               1.0 |
-| osqp     |                                58.3 |                                  5.8 |                                         5.1 |                                     4.3 |                                 3.8 |                               6.6 |
-| proxqp   |                                58.3 |                                  7.7 |                                        10.0 |                                     2.5 |                                 5.5 |                               5.0 |
-| qpoases  |                                66.7 |                                  1.0 |                                         1.0 |                                 70347.3 |                             70823.2 |                               2.1 |
-| qpswift  |                                 0.0 |                                 44.7 |                                        12.0 |                                     6.0 |                                 6.0 |                              85.1 |
-| quadprog |                                75.0 |                                  3.7 |                                         3.0 |                                     1.6 |                                 1.6 |                               2.8 |
-| scs      |                                58.3 |                                  7.7 |                                         5.0 |                                     2.5 |                                 2.5 |                               5.0 |
+| clarabel |                                63.6 |                               1884.4 |                                         4.4 |                                     2.2 |                                 2.6 |                               3.7 |
+| cvxopt   |                                50.0 |                               1657.4 |                                         4.1 |                                     2.0 |                            168761.7 |                              14.3 |
+| daqp     |                                54.5 |                               1884.4 |                                         4.4 |                                     2.2 |                               212.4 |                               3.7 |
+| ecos     |                                41.7 |                               4130.6 |                                         7.0 |                                     3.7 |                                 3.7 |                              11.7 |
+| gurobi   |                                75.0 |                                665.8 |                                         2.0 |                                     1.0 |                                 1.0 |                               2.4 |
+| highs    |                                25.0 |                                684.3 |                                         2.0 |                               1166285.7 |                            578264.2 |                               1.0 |
+| hpipm    |                                54.5 |                                  1.0 |                                      2097.8 |                                 14443.6 |                            198495.0 |                            5692.1 |
+| osqp     |                                58.3 |                               1765.6 |                                         5.1 |                                     4.3 |                                 3.8 |                               6.6 |
+| proxqp   |                                58.3 |                               2323.5 |                                        10.0 |                                     2.5 |                                 5.5 |                               5.0 |
+| qpoases  |                                66.7 |                                302.6 |                                         1.0 |                                 70347.3 |                             70823.2 |                               2.1 |
+| qpswift  |                                 0.0 |                              13540.9 |                                        12.0 |                                     6.0 |                                 6.0 |                              85.1 |
+| quadprog |                                75.0 |                               1119.6 |                                         3.0 |                                     1.6 |                                 1.6 |                               2.8 |
+| scs      |                                58.3 |                               2323.6 |                                         5.0 |                                     2.5 |                                 2.5 |                               5.0 |
 
 ## Results by metric
 
@@ -188,6 +195,7 @@ Precentage of problems each solver is able to solve:
 | ecos     |        42 |               0 |             42 |
 | gurobi   |        75 |              75 |             75 |
 | highs    |        42 |               0 |             25 |
+| hpipm    |        64 |              45 |             55 |
 | osqp     |        50 |              50 |             58 |
 | proxqp   |        50 |              58 |             58 |
 | qpoases  |        67 |              58 |             67 |
@@ -212,6 +220,7 @@ Percentage of problems where "solved" return codes are correct:
 | ecos     |       100 |              58 |            100 |
 | gurobi   |        92 |              92 |             92 |
 | highs    |        58 |              17 |             42 |
+| hpipm    |        64 |              45 |             55 |
 | osqp     |        83 |             100 |             92 |
 | proxqp   |        92 |             100 |            100 |
 | qpoases  |        83 |              75 |             75 |
@@ -231,18 +240,19 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 
 |          |   default |   high_accuracy |   low_accuracy |
 |:---------|----------:|----------------:|---------------:|
-| clarabel |       2.8 |             2.8 |            6.2 |
-| cvxopt   |       2.5 |             2.5 |            5.5 |
-| daqp     |       2.8 |             2.8 |            6.2 |
-| ecos     |       6.2 |             6.2 |           13.6 |
-| gurobi   |       1.0 |             1.0 |            2.2 |
-| highs    |       1.0 |             1.0 |            2.3 |
-| osqp     |       2.5 |             4.7 |            5.8 |
-| proxqp   |       3.5 |             3.5 |            7.7 |
-| qpoases  |       1.0 |             1.0 |            1.0 |
-| qpswift  |      20.4 |            20.4 |           44.7 |
-| quadprog |       1.7 |             1.7 |            3.7 |
-| scs      |       3.5 |             4.7 |            7.7 |
+| clarabel |    2701.0 |          1856.6 |         1884.4 |
+| cvxopt   |    2375.7 |          1633.0 |         1657.4 |
+| daqp     |    2700.9 |          1856.6 |         1884.4 |
+| ecos     |    5920.5 |          4069.6 |         4130.6 |
+| gurobi   |     955.7 |           656.2 |          665.8 |
+| highs    |     981.7 |           673.7 |          684.3 |
+| hpipm    |       1.0 |             1.0 |            1.0 |
+| osqp     |    2396.7 |          3090.7 |         1765.6 |
+| proxqp   |    3330.4 |          2289.2 |         2323.5 |
+| qpoases  |     953.6 |           655.5 |          302.6 |
+| qpswift  |   19408.6 |         13341.1 |        13540.9 |
+| quadprog |    1604.7 |          1103.1 |         1119.6 |
+| scs      |    3330.4 |          3090.7 |         2323.6 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
 the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
@@ -270,6 +280,7 @@ Shifted geometric means of primal residuals (1.0 is the best):
 | ecos     |       3.6 |             3.5 |            7.0 |
 | gurobi   |       1.0 |             1.0 |            2.0 |
 | highs    |       1.0 |             1.0 |            2.0 |
+| hpipm    |       1.1 |    1048846709.2 |         2097.8 |
 | osqp     |       2.0 |             3.0 |            5.1 |
 | proxqp   |       2.5 |             5.0 |           10.0 |
 | qpoases  |       1.0 |             1.0 |            1.0 |
@@ -301,6 +312,7 @@ Shifted geometric means of dual residuals (1.0 is the best):
 | ecos     |       3.6 |        157713.2 |            3.7 |
 | gurobi   |       1.0 |             1.0 |            1.0 |
 | highs    |    1234.3 | 1163315301303.3 |      1166285.7 |
+| hpipm    |      15.0 |   14407044547.8 |        14443.6 |
 | osqp     |      85.0 |             3.0 |            4.3 |
 | proxqp   |       2.5 |             2.5 |            2.5 |
 | qpoases  |       2.0 |     916283906.9 |        70347.3 |
@@ -334,6 +346,7 @@ Shifted geometric means of duality gaps (1.0 is the best):
 | ecos     |       3.6 |        157713.2 |            3.7 |
 | gurobi   |       1.0 |             1.0 |            1.0 |
 | highs    |     612.5 |  576790866538.3 |       578264.2 |
+| hpipm    |     206.6 |  197992946197.5 |       198495.0 |
 | osqp     |       2.0 |             3.0 |            3.8 |
 | proxqp   |      25.3 |             5.0 |            5.5 |
 | qpoases  |       1.0 |        121766.3 |        70823.2 |
@@ -365,6 +378,7 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | ecos     |      11.7 |            11.7 |           11.7 |
 | gurobi   |       2.4 |             2.4 |            2.4 |
 | highs    |       1.0 |             1.0 |            1.0 |
+| hpipm    |    5692.1 |          5692.1 |         5692.1 |
 | osqp     |       6.6 |             7.7 |            6.6 |
 | proxqp   |       7.0 |             5.0 |            5.0 |
 | qpoases  |       2.4 |             2.4 |            2.1 |
