@@ -1,8 +1,8 @@
 # Maros-Meszaros dense positive definite subset
 
-| Version | 1.0.0 |
+| Version | 1.1.0rc0 |
 |:--------|:--------------------|
-| Date    | 2023-07-20 07:21:04.404274+00:00 |
+| Date    | 2023-08-17 15:14:12.608926+00:00 |
 | CPU     | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -33,22 +33,22 @@ Subset of the Maros-Meszaros test set restricted to smaller dense problems with 
 
 | solver   | version               |
 |:---------|:----------------------|
-| clarabel | 0.4.1                 |
-| cvxopt   | 1.3.0                 |
+| clarabel | 0.5.1                 |
+| cvxopt   | 1.3.2                 |
 | daqp     | 0.5.1                 |
-| ecos     | 2.0.10                |
-| gurobi   | 10.0.0 (size-limited) |
-| highs    | 1.1.2.dev3            |
-| osqp     | 0.6.2.post5           |
-| proxqp   | 0.4.0                 |
+| ecos     | 2.0.11                |
+| gurobi   | 10.0.2 (size-limited) |
+| highs    | 1.5.3                 |
+| osqp     | 0.6.3                 |
+| proxqp   | 0.4.1                 |
 | qpoases  | 3.2.1                 |
 | qpswift  | 1.0.0                 |
 | quadprog | 0.1.11                |
-| scs      | 3.2.2                 |
+| scs      | 3.2.3                 |
 
 All solvers were called via
 [qpsolvers](https://github.com/stephane-caron/qpsolvers)
-v3.3.1.
+v3.5.0.
 
 ## Settings
 
@@ -206,7 +206,7 @@ Percentage of problems where "solved" return codes are correct:
 | cvxopt   |       100 |              21 |             84 |
 | daqp     |       100 |              84 |             84 |
 | ecos     |        95 |              58 |             95 |
-| gurobi   |        58 |               5 |             58 |
+| gurobi   |        68 |              16 |             68 |
 | highs    |       100 |               0 |             79 |
 | osqp     |        79 |              84 |             68 |
 | proxqp   |        95 |              89 |             89 |
@@ -220,7 +220,8 @@ Percentage of problems where "solved" return codes are correct:
 We compare solver computation times over the whole test set using the shifted
 geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of
 Y is Y times slower than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
@@ -252,7 +253,8 @@ violation in the solution returned by a solver. We use the shifted geometric
 mean to compare solver primal residuals over the whole test set. Intuitively, a
 solver with a shifted-geometric-mean primal residual of Y is Y times less
 precise on constraints than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of primal residuals (1.0 is the best):
 
@@ -282,7 +284,8 @@ condition in the solution returned by a solver. We use the shifted geometric
 mean to compare solver dual residuals over the whole test set. Intuitively, a
 solver with a shifted-geometric-mean dual residual of Y is Y times less precise
 on the dual feasibility condition than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of dual residuals (1.0 is the best):
 
@@ -313,7 +316,9 @@ complementarity slackness optimality condition is satisfied. We use the shifted
 geometric mean to compare solver duality gaps over the whole test set.
 Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times
 less precise on the complementarity slackness condition than the best solver
-over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
+over the test set. See
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of duality gaps (1.0 is the best):
 
@@ -343,7 +348,8 @@ the objective at the solution returned by a solver. We use the shifted
 geometric mean to compare solver cost errors over the whole test set.
 Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times
 less precise on the optimal cost than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
+[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
+details.
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
