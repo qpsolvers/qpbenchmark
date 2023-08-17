@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 * Correct `None` values to `False` in found column
+* Make sure found column has only boolean values
 
 ## [1.0.0] - 2023/07/25
 
