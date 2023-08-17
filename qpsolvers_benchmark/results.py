@@ -24,7 +24,7 @@ import numpy as np
 import pandas
 import qpsolvers
 
-from .exceptions import BenchmarkError
+from .exceptions import BenchmarkError, ResultsError
 from .problem import Problem
 from .shgeom import shgeom
 from .spdlog import logging
@@ -268,13 +268,56 @@ class Results:
         )
         return correctness_rate_df
 
-    def build_shifted_geometric_mean_df(
-        self, column: str, shift: float, not_found_values: Dict[str, float]
-    ) -> pandas.DataFrame:
-        """Compute the shifted geometric mean of a results column.
+    def get_shgeom_dict(
+        self,
+        metric: str,
+        settings: str,
+        shift: float,
+        not_found_value: float,
+    ) -> Dict[str, float]:
+        """Get shifted geometric means for a given metric with given settings.
 
         Args:
-            column: Name of the column to average.
+            metric: Name of the metric column to average.
+            settings: Name of the settings column to filter on.
+            shift: Shift of the shifted geometric mean.
+            not_found_value: Value to apply when a solver has not found a
+                solution.
+
+        Returns:
+            Dictionary with the shifted geometric mean of each solver.
+        """
+        solvers = set(self.df["solver"].to_list())
+        means = {}
+        for solver in solvers:
+            solver_df = self.df[
+                (self.df["solver"] == solver)
+                & (self.df["settings"] == settings)
+            ]
+            column_values = np.array(
+                [
+                    solver_df.at[i, metric]
+                    if solver_df.at[i, "found"]
+                    else not_found_value
+                    for i in solver_df.index
+                ]
+            )
+            try:
+                means[solver] = shgeom(column_values, shift)
+            except BenchmarkError as exn:
+                raise BenchmarkError(
+                    f"Cannot evaluate mean for {settings=} of {solver=}"
+                ) from exn
+        best_mean = np.min(list(means.values()))
+        return {solver: means[solver] / best_mean for solver in solvers}
+
+    def build_shgeom_df(
+        self, metric: str, shift: float, not_found_values: Dict[str, float]
+    ) -> pandas.DataFrame:
+        """Compute the shifted geometric mean for a given metric.
+
+        Args:
+            metric: Name of the metric column to average.
             shift: Shift of the shifted geometric mean.
             not_found_values: Values to apply when a solver has not found a
                 solution (one per settings). For instance, time limits are used
@@ -283,37 +326,17 @@ class Results:
         Returns:
             Shifted geometric mean of the prescribed column.
         """
-        solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
-
-        def mean_for_settings(settings):
-            means = {}
-            for solver in solvers:
-                solver_df = self.df[
-                    (self.df["solver"] == solver)
-                    & (self.df["settings"] == settings)
-                ]
-                column_values = np.array(
-                    [
-                        solver_df.at[i, column]
-                        if solver_df.at[i, "found"]
-                        else not_found_values[settings]
-                        for i in solver_df.index
-                    ]
-                )
-                try:
-                    means[solver] = shgeom(column_values, shift)
-                except BenchmarkError as exn:
-                    raise BenchmarkError(
-                        f"Cannot evaluate mean for {settings=} of {solver=}"
-                    ) from exn
-            best_mean = np.min(list(means.values()))
-            return {solver: means[solver] / best_mean for solver in solvers}
-
         return (
             pandas.DataFrame(
                 {
-                    settings: mean_for_settings(settings)
+                    settings: self.get_shgeom_dict_for_settings(
+                        self.df,
+                        metric=metric,
+                        settings=settings,
+                        not_found_value=not_found_values[settings],
+                        shift=shift,
+                    )
                     for settings in all_settings
                 }
             )

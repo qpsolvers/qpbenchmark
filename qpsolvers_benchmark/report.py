@@ -203,28 +203,28 @@ class Report:
             gap_tolerances,
             cost_tolerances,
         )
-        self.__runtime_df = self.results.build_shifted_geometric_mean_df(
-            column="runtime",
+        self.__runtime_df = self.results.build_shgeom_df(
+            metric="runtime",
             shift=10.0,
             not_found_values=runtime_tolerances,
         )
-        self.__primal_df = self.results.build_shifted_geometric_mean_df(
-            column="primal_residual",
+        self.__primal_df = self.results.build_shgeom_df(
+            metric="primal_residual",
             shift=10.0,
             not_found_values=primal_tolerances,
         )
-        self.__dual_df = self.results.build_shifted_geometric_mean_df(
-            column="dual_residual",
+        self.__dual_df = self.results.build_shgeom_df(
+            metric="dual_residual",
             shift=10.0,
             not_found_values=dual_tolerances,
         )
-        self.__gap_df = self.results.build_shifted_geometric_mean_df(
-            column="duality_gap",
+        self.__gap_df = self.results.build_shgeom_df(
+            metric="duality_gap",
             shift=10.0,
             not_found_values=gap_tolerances,
         )
-        self.__cost_df = self.results.build_shifted_geometric_mean_df(
-            column="cost_error",
+        self.__cost_df = self.results.build_shgeom_df(
+            metric="cost_error",
             shift=10.0,
             not_found_values=cost_tolerances,
         )

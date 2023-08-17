@@ -6,12 +6,18 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+* Check consistency after loading results
 * New solver: HPIPM
 
 ### Changed
 
+* Refactor results class to allow finer `check_results` sessions
 * Improve reporting of shifted geometric mean errors
 * Update to qpsolvers v3.5.0
+
+### Fixed
+
+* Correct `None` values to `False` in found column
 
 ## [1.0.0] - 2023/07/25
 
