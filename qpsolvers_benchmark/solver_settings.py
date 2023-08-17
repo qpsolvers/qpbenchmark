@@ -33,6 +33,7 @@ class SolverSettings:
             "ecos",
             "gurobi",
             "highs",
+            "hpipm",
             "nppro",
             "osqp",
             "proxqp",
@@ -110,6 +111,10 @@ class SolverSettings:
         # https://github.com/ERGO-Code/HiGHS/issues/996#issuecomment-1561890995
         self.__settings["highs"]["primal_feasibility_tolerance"] = eps_abs
 
+        self.__settings["hpipm"]["tol_eq"] = eps_abs
+        self.__settings["hpipm"]["tol_ineq"] = eps_abs
+        self.__settings["hpipm"]["tol_comp"] = eps_abs
+        self.__settings["hpipm"]["tol_stat"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
         self.__settings["proxqp"]["eps_abs"] = eps_abs
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
