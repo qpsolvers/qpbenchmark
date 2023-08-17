@@ -19,6 +19,8 @@
 
 import numpy as np
 
+from .exceptions import BenchmarkError
+
 
 def shgeom(v: np.ndarray, sh: float) -> float:
     """`Shifted geometric mean <http://plato.asu.edu/ftp/shgeom.html>`_.
@@ -42,5 +44,11 @@ def shgeom(v: np.ndarray, sh: float) -> float:
         arithmetic means) nor by very small outliers (in contrast to geometric
         means)."
     """
-    assert (v >= 0.0).all() and sh >= 1.0
+    if (v < 0.0).any():
+        raise BenchmarkError(
+            "Cannot compute shifted geometric mean, "
+            f"negative values detected: {v[v < 0.0]}"
+        )
+    if sh < 1.0:
+        raise BenchmarkError(f"Invalid shift parameter {sh=}")
     return np.exp(np.sum(np.log(v + sh)) / len(v)) - sh

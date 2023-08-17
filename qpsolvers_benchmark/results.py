@@ -24,6 +24,7 @@ import numpy as np
 import pandas
 import qpsolvers
 
+from .exceptions import BenchmarkError
 from .problem import Problem
 from .shgeom import shgeom
 from .spdlog import logging
@@ -300,7 +301,12 @@ class Results:
                         for i in solver_df.index
                     ]
                 )
-                means[solver] = shgeom(column_values, shift)
+                try:
+                    means[solver] = shgeom(column_values, shift)
+                except BenchmarkError as exn:
+                    raise BenchmarkError(
+                        f"Cannot evaluate mean for {settings=} of {solver=}"
+                    ) from exn
             best_mean = np.min(list(means.values()))
             return {solver: means[solver] / best_mean for solver in solvers}
 
