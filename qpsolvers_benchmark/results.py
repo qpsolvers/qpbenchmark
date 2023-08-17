@@ -44,6 +44,16 @@ class Results:
     df: pandas.DataFrame
     test_set: TestSet
 
+    @staticmethod
+    def check_df(df) -> None:
+        """Check consistency of a full results dataframe.
+
+        Raises:
+            ResultsError: if the dataframe is inconsitent.
+        """
+        if not isinstance(df["found"].dtype, np.dtypes.BoolDType):
+            raise ResultsError("\"found\" column has some non-boolean values")
+
     def __init__(self, csv_path: str, test_set: TestSet):
         """Initialize results.
 
@@ -80,6 +90,7 @@ class Results:
         if os.path.exists(csv_path):
             logging.info(f"Loading existing results from {csv_path}")
             df = pandas.concat([df, pandas.read_csv(csv_path)])
+        Results.check_df(df)
         self.csv_path = csv_path
         self.df = df
         self.test_set = test_set

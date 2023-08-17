@@ -11,8 +11,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-* Refactor results class to allow finer `check_results` sessions
 * Improve reporting of shifted geometric mean errors
+* Refactor results class to allow finer `check_results` sessions
 * Update to qpsolvers v3.5.0
 
 ### Fixed
