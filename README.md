@@ -6,15 +6,13 @@
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
-The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpsolvers_benchmark`` command-line tool to run any test set directly on your machine. For instance:
+* **Results:** [`[GitHub-FFA]`](github_ffa/results/github_ffa.md), [`[Maros-Meszaros]`](maros_meszaros/results/maros_meszaros.md), [`[Maros-Meszaros-dense]`](maros_meszaros/results/maros_meszaros_dense.md)
+* **Install:** `pip install qpsolvers_benchmark`
+* **Run:** `qpsolvers_benchmark maros_meszaros/maros_meszaros.py run`
 
-```console
-qpsolvers_benchmark maros_meszaros/maros_meszaros.py run
-```
+The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpsolvers_benchmark`` command-line tool to run test sets directly. The main output of the benchmark are standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. This repository also distributes [results](#results) from running the benchmark on a reference computer.
 
-The outcome from running a test set is a standardized report evaluating all [metrics](#metrics) of the benchmark across all available QP solvers. This repository also distributes [results](#results) from running the benchmark on all test sets using the same computer.
-
-New test sets are [welcome](CONTRIBUTING.md). The benchmark is designed so that each test-set directory is standalone, so that the ``qpsolvers_benchmark`` command can be run on test sets from other repositories. Feel free to create ones that better represent the kind of problems you are working on.
+New test sets are welcome! The benchmark is designed so that each test-set comes in a standalone directory. Feel free to create a new one and [contribute it](CONTRIBUTING.md) here so that we grow the collection over time.
 
 ## Solvers
 
