@@ -2,7 +2,7 @@
 
 | Version | 1.1.0rc0 |
 |:--------|:--------------------|
-| Date    | 2023-08-17 15:13:17.720314+00:00 |
+| Date    | 2023-08-17 15:24:17.399992+00:00 |
 | CPU     | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -81,6 +81,10 @@ Solvers for each settings are configured as follows:
 | highs    | ``dual_feasibility_tolerance``   | -         | 1e-09                  | 0.001                 |
 | highs    | ``primal_feasibility_tolerance`` | -         | 1e-09                  | 0.001                 |
 | highs    | ``time_limit``                   | 1000.0    | 1000.0                 | 1000.0                |
+| hpipm    | ``tol_comp``                     | -         | 1e-09                  | 0.001                 |
+| hpipm    | ``tol_eq``                       | -         | 1e-09                  | 0.001                 |
+| hpipm    | ``tol_ineq``                     | -         | 1e-09                  | 0.001                 |
+| hpipm    | ``tol_stat``                     | -         | 1e-09                  | 0.001                 |
 | osqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | osqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | osqp     | ``time_limit``                   | 1000.0    | 1000.0                 | 1000.0                |
@@ -121,6 +125,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 | ecos     |                                12.9 |                               2057.1 |                                    745533.1 |                               1209371.0 |                                25.7 |                            1012.5 |
 | gurobi   |                                37.1 |                                262.6 |                                    372208.9 |                              17512535.1 |                               645.8 |                             129.2 |
 | highs    |                                61.3 |                                103.6 |                                    232549.3 |                                403411.7 |                                52.0 |                              51.1 |
+| hpipm    |                                24.2 |                                338.1 |                                   7527265.0 |                                655503.5 |                                14.6 |                             167.6 |
 | osqp     |                                51.6 |                                 27.8 |                                   4204778.0 |                               4635783.3 |                              3099.2 |                             421.0 |
 | proxqp   |                                96.8 |                                  1.0 |                                         1.0 |                                     1.0 |                                 5.8 |                               1.0 |
 | qpoases  |                                24.2 |                                293.6 |                                   6001873.6 |                              30019506.1 |                                13.3 |                             528.0 |
@@ -142,6 +147,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 | ecos     |                                 0.0 |                                239.0 |                                         5.7 |                              28777958.1 |                            992912.4 |                             261.7 |
 | gurobi   |                                11.3 |                                 30.5 |                                         7.9 |                           66691063931.3 |                       44215628581.3 |                              33.4 |
 | highs    |                                 0.0 |                                 12.0 |                                         2.8 |                             142759814.4 |                        3123675547.7 |                              13.2 |
+| hpipm    |                                32.3 |                                 54.6 |                                         3.7 |                                     3.2 |                                 5.5 |                             155.7 |
 | osqp     |                                41.9 |                                 39.3 |                                         3.7 |                                     3.2 |                                 3.6 |                              43.0 |
 | proxqp   |                                80.6 |                                  1.0 |                                         1.0 |                                     1.0 |                                72.0 |                               1.0 |
 | qpoases  |                                19.4 |                                 37.6 |                               40724546539.7 |                          114700822389.8 |                                 1.7 |                             136.4 |
@@ -163,6 +169,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 | ecos     |                                11.3 |                               2136.4 |                                        27.0 |                                    96.2 |                                 5.1 |                            1720.7 |
 | gurobi   |                                37.1 |                                252.6 |                                        13.5 |                               1140327.0 |                            115512.4 |                             203.6 |
 | highs    |                                45.2 |                                 99.8 |                                         8.5 |                                  2467.6 |                              8161.8 |                              80.5 |
+| hpipm    |                                27.4 |                                416.9 |                                        16.6 |                                    54.9 |                                20.6 |                             878.8 |
 | osqp     |                                38.7 |                                194.2 |                                        14.5 |                                    52.0 |                               783.4 |                             159.1 |
 | proxqp   |                                96.8 |                                  1.0 |                                         1.6 |                                     1.0 |                                52.5 |                               1.0 |
 | qpoases  |                                19.4 |                                326.9 |                                    123757.7 |                               1327588.7 |                                 2.8 |                             746.9 |
@@ -184,6 +191,7 @@ Precentage of problems each solver is able to solve:
 | ecos     |        13 |               0 |             11 |
 | gurobi   |        37 |              11 |             37 |
 | highs    |        61 |               0 |             45 |
+| hpipm    |        24 |              32 |             27 |
 | osqp     |        52 |              42 |             39 |
 | proxqp   |        97 |              81 |             97 |
 | qpoases  |        24 |              19 |             19 |
@@ -208,6 +216,7 @@ Percentage of problems where "solved" return codes are correct:
 | ecos     |        98 |              85 |             98 |
 | gurobi   |        81 |              55 |             81 |
 | highs    |        89 |              27 |             73 |
+| hpipm    |        73 |              87 |             81 |
 | osqp     |        63 |              90 |             77 |
 | proxqp   |        97 |              84 |             97 |
 | qpoases  |        69 |              65 |             68 |
@@ -233,6 +242,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | ecos     |    2057.1 |           239.0 |         2136.4 |
 | gurobi   |     262.6 |            30.5 |          252.6 |
 | highs    |     103.6 |            12.0 |           99.8 |
+| hpipm    |     338.1 |            54.6 |          416.9 |
 | osqp     |      27.8 |            39.3 |          194.2 |
 | proxqp   |       1.0 |             1.0 |            1.0 |
 | qpoases  |     293.6 |            37.6 |          326.9 |
@@ -266,6 +276,7 @@ Shifted geometric means of primal residuals (1.0 is the best):
 | ecos     |  745533.1 |             5.7 |           27.0 |
 | gurobi   |  372208.9 |             7.9 |           13.5 |
 | highs    |  232549.3 |             2.8 |            8.5 |
+| hpipm    | 7527265.0 |             3.7 |           16.6 |
 | osqp     | 4204778.0 |             3.7 |           14.5 |
 | proxqp   |       1.0 |             1.0 |            1.6 |
 | qpoases  | 6001873.6 |   40724546539.7 |       123757.7 |
@@ -297,6 +308,7 @@ Shifted geometric means of dual residuals (1.0 is the best):
 | ecos     |  1209371.0 |      28777958.1 |           96.2 |
 | gurobi   | 17512535.1 |   66691063931.3 |      1140327.0 |
 | highs    |   403411.7 |     142759814.4 |         2467.6 |
+| hpipm    |   655503.5 |             3.2 |           54.9 |
 | osqp     |  4635783.3 |             3.2 |           52.0 |
 | proxqp   |        1.0 |             1.0 |            1.0 |
 | qpoases  | 30019506.1 |  114700822389.8 |      1327588.7 |
@@ -330,6 +342,7 @@ Shifted geometric means of duality gaps (1.0 is the best):
 | ecos     |      25.7 |        992912.4 |            5.1 |
 | gurobi   |     645.8 |   44215628581.3 |       115512.4 |
 | highs    |      52.0 |    3123675547.7 |         8161.8 |
+| hpipm    |      14.6 |             5.5 |           20.6 |
 | osqp     |    3099.2 |             3.6 |          783.4 |
 | proxqp   |       5.8 |            72.0 |           52.5 |
 | qpoases  |      13.3 |             1.7 |            2.8 |
@@ -361,6 +374,7 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | ecos     |    1012.5 |           261.7 |         1720.7 |
 | gurobi   |     129.2 |            33.4 |          203.6 |
 | highs    |      51.1 |            13.2 |           80.5 |
+| hpipm    |     167.6 |           155.7 |          878.8 |
 | osqp     |     421.0 |            43.0 |          159.1 |
 | proxqp   |       1.0 |             1.0 |            1.0 |
 | qpoases  |     528.0 |           136.4 |          746.9 |
