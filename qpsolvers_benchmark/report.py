@@ -398,7 +398,7 @@ mind when drawing conclusions from the results.
 
 Solvers are compared over the whole test set by [shifted geometric
 mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better.
+(shm). Lower is better, 1.0 is the best.
 
 {df.to_markdown(index=True, floatfmt=".1f")}\n\n"""
             )
