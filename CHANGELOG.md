@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Added
+
+* New solver: HPIPM
+
+### Changed
+
+* Update to qpsolvers v3.5.0
+
 ## [1.0.0] - 2023/07/25
 
 ### Added
