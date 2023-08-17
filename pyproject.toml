@@ -32,6 +32,7 @@ dependencies = [
     "ecos >=2.0.10",
     "highspy >=1.1.2.dev3",
     "matplotlib >=3.6.2",
+    "numpy >=1.25.2",
     "osqp >=0.6.2",
     "pandas >=1.4.3",
     "proxsuite >=0.4.1",
