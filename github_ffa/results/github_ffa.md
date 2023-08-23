@@ -2,8 +2,8 @@
 
 | Version | 1.1.0rc0 |
 |:--------|:--------------------|
-| Date    | 2023-08-17 15:22:44.257029+00:00 |
-| CPU     | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| Date    | 2023-08-23 10:39:56.772242+00:00 |
+| CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
 ## Contents
@@ -11,6 +11,7 @@
 * [Description](#description)
 * [Solvers](#solvers)
 * [Settings](#settings)
+* [CPU info](#cpu-info)
 * [Known limitations](#known-limitations)
 * [Results by settings](#results-by-settings)
     * [Default](#default)
@@ -53,6 +54,31 @@ Problems in this test set:
 All solvers were called via
 [qpsolvers](https://github.com/stephane-caron/qpsolvers)
 v3.5.0.
+
+## CPU info
+
+| Property | Value |
+|----------|-------|
+| `arch` | X86_64 |
+| `arch_string_raw` | x86_64 |
+| `bits` | 64 |
+| `brand_raw` | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| `count` | 4 |
+| `cpuinfo_version_string` | 9.0.0 |
+| `family` | 6 |
+| `flags` | `3dnowprefetch`, `abm`, `acpi`, `adx`, `aes`, `aperfmperf`, `apic`, `arat`, `arch_capabilities`, `arch_perfmon`, `art`, `avx`, `avx2`, `bmi1`, `bmi2`, `bts`, `clflush`, `clflushopt`, `cmov`, `constant_tsc`, `cpuid`, `cpuid_fault`, `cx16`, `cx8`, `de`, `ds_cpl`, `dtes64`, `dtherm`, `dts`, `epb`, `ept`, `ept_ad`, `erms`, `est`, `f16c`, `flexpriority`, `flush_l1d`, `fma`, `fpu`, `fsgsbase`, `fxsr`, `ht`, `hwp`, `hwp_act_window`, `hwp_epp`, `hwp_notify`, `ibpb`, `ibrs`, `ida`, `intel_pt`, `invpcid`, `invpcid_single`, `lahf_lm`, `lm`, `mca`, `mce`, `md_clear`, `mmx`, `monitor`, `movbe`, `mpx`, `msr`, `mtrr`, `nonstop_tsc`, `nopl`, `nx`, `osxsave`, `pae`, `pat`, `pbe`, `pcid`, `pclmulqdq`, `pdcm`, `pdpe1gb`, `pebs`, `pge`, `pln`, `pni`, `popcnt`, `pse`, `pse36`, `pti`, `pts`, `rdrand`, `rdrnd`, `rdseed`, `rdtscp`, `rep_good`, `sdbg`, `sep`, `sgx`, `smap`, `smep`, `ss`, `ssbd`, `sse`, `sse2`, `sse4_1`, `sse4_2`, `ssse3`, `stibp`, `syscall`, `tm`, `tm2`, `tpr_shadow`, `tsc`, `tsc_adjust`, `tsc_deadline_timer`, `tscdeadline`, `vme`, `vmx`, `vnmi`, `vpid`, `x2apic`, `xgetbv1`, `xsave`, `xsavec`, `xsaveopt`, `xsaves`, `xtopology`, `xtpr` |
+| `hz_actual_friendly` | 2.6000 GHz |
+| `hz_advertised_friendly` | 2.5000 GHz |
+| `l1_data_cache_size` | 65536 |
+| `l1_instruction_cache_size` | 65536 |
+| `l2_cache_associativity` | 6 |
+| `l2_cache_line_size` | 256 |
+| `l2_cache_size` | 524288 |
+| `l3_cache_size` | 4194304 |
+| `model` | 78 |
+| `python_version` | 3.10.12.final.0 (64 bit) |
+| `stepping` | 3 |
+| `vendor_id_raw` | GenuineIntel |
 
 ## Settings
 
@@ -119,7 +145,7 @@ mind when drawing conclusions from the results.
 
 Solvers are compared over the whole test set by [shifted geometric
 mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better.
+(shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -141,7 +167,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 Solvers are compared over the whole test set by [shifted geometric
 mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better.
+(shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -163,7 +189,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 Solvers are compared over the whole test set by [shifted geometric
 mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better.
+(shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
