@@ -28,7 +28,12 @@ from .results import Results
 from .solver_settings import SolverSettings
 from .spdlog import logging
 from .test_set import TestSet
-from .utils import capitalize_settings, get_cpu_info, get_solver_versions
+from .utils import (
+    capitalize_settings,
+    get_cpu_info_summary,
+    get_cpu_info_table,
+    get_solver_versions,
+)
 from .version import get_version
 
 
@@ -248,6 +253,7 @@ class Report:
             self.__write_toc(fh)
             self.__write_description(fh)
             self.__write_solvers_section(fh)
+            self.__write_cpu_info_section(fh)
             self.__write_settings_section(fh)
             self.__write_limitations_section(fh)
             self.__write_results_by_settings(fh)
@@ -261,7 +267,7 @@ class Report:
             fh: Output file handle.
         """
         benchmark_version = get_version()
-        cpu_info = get_cpu_info()
+        cpu_info_summary = get_cpu_info_summary()
         date = str(datetime.datetime.now(datetime.timezone.utc))
         fh.write(
             f"""# {self.test_set.title}
@@ -269,7 +275,7 @@ class Report:
 | Version | {benchmark_version} |
 |:--------|:--------------------|
 | Date    | {date} |
-| CPU     | {cpu_info} |
+| CPU     | [{cpu_info_summary}](#cpu-info) |
 | Run by  | [@{self.author}](https://github.com/{self.author}/) |
 
 """
@@ -287,6 +293,7 @@ class Report:
         fh.write(
             """* [Solvers](#solvers)
 * [Settings](#settings)
+* [CPU info](#cpu-info)
 * [Known limitations](#known-limitations)
 * [Results by settings](#results-by-settings)\n"""
         )
@@ -329,6 +336,14 @@ All solvers were called via
 [qpsolvers](https://github.com/stephane-caron/qpsolvers)
 v{qpsolvers_version}.\n\n"""
         )
+
+    def __write_cpu_info_section(self, fh: io.TextIOWrapper) -> None:
+        """Write CPU info section.
+
+        Args:
+            fh: Output file handle.
+        """
+        fh.write(f"## CPU info\n\n{get_cpu_info_table()}\n\n")
 
     def __write_settings_section(self, fh: io.TextIOWrapper) -> None:
         """Write Settings section.
