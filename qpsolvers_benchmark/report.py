@@ -359,7 +359,7 @@ class Report:
         )
         fh.write(f"{self.get_tolerances_table()}\n\n")
         fh.write("Solvers for each settings are configured as follows:\n\n")
-        fh.write("{self.get_solver_settings_table()}\n\n")
+        fh.write(f"{self.get_solver_settings_table()}\n\n")
 
     def __write_limitations_section(self, fh: io.TextIOWrapper) -> None:
         """Write Known limitations section.
@@ -407,15 +407,15 @@ class Report:
                 "[Cost error](#cost-error) (shm)": self.__cost_df[settings],
             }
             df = pandas.DataFrame([], index=self.__gap_df.index).assign(**cols)
-            fh.write(
-                f"""### {capitalize_settings(settings)}
-
-Solvers are compared over the whole test set by [shifted geometric
-mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better, 1.0 is the best.
-
-{df.to_markdown(index=True, floatfmt=".1f")}\n\n"""
+            repo = "https://github.com/qpsolvers/qpsolvers_benchmark"
+            shm_desc = (
+                "Solvers are compared over the whole test set by "
+                f"[shifted geometric mean]({repo}#shifted-geometric-mean) "
+                "(shm). Lower is better, 1.0 is the best."
             )
+            fh.write(f"### {capitalize_settings(settings)}\n\n")
+            fh.write(f"{shm_desc}\n\n")
+            fh.write(f'{df.to_markdown(index=True, floatfmt=".1f")}\n\n')
 
     def __write_results_by_metric(self, fh: io.TextIOWrapper) -> None:
         """Write Results by metric.
