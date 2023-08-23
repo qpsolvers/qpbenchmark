@@ -350,19 +350,16 @@ class Report:
             fh: Output file handle.
         """
         italics_settings = [f"*{x}*" for x in self.solver_settings]
+        fh.write("## Settings\n\n")
         fh.write(
-            f"""## Settings
-
-There are {len(italics_settings)} settings: {", ".join(italics_settings[:-1])}
-and {italics_settings[-1]}. They validate solutions using the following
-tolerances:
-
-{self.get_tolerances_table()}
-
-Solvers for each settings are configured as follows:
-
-{self.get_solver_settings_table()}\n\n"""
+            f"There are {len(italics_settings)} settings: "
+            f'{", ".join(italics_settings[:-1])} '
+            f"and {italics_settings[-1]}. "
+            "They validate solutions using the following tolerances:\n\n"
         )
+        fh.write(f"{self.get_tolerances_table()}\n\n")
+        fh.write("Solvers for each settings are configured as follows:\n\n")
+        fh.write("{self.get_solver_settings_table()}\n\n")
 
     def __write_limitations_section(self, fh: io.TextIOWrapper) -> None:
         """Write Known limitations section.
@@ -370,16 +367,20 @@ Solvers for each settings are configured as follows:
         Args:
             fh: Output file handle.
         """
+        repo = "https://github.com/qpsolvers/qpsolvers_benchmark"
+        fh.write("## Known limitations\n\n")
         fh.write(
-            """## Known limitations
-
-The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues)
-have been identified as impacting the fairness of this benchmark. Keep them in
-mind when drawing conclusions from the results.
-
-- [#60](https://github.com/qpsolvers/qpsolvers_benchmark/issues/60):
-  Conversion to SOCP limits performance of ECOS\n\n"""
+            "The following "
+            f"[issues]({repo}/issues) have "
+            "been identified as impacting the fairness of this benchmark. "
+            "Keep them in mind when drawing conclusions from the results.\n\n"
         )
+        for number, desc in (
+            (60, "Conversion to SOCP limits performance of ECOS"),
+        ):
+            link = f"{repo}/issues/{number}"
+            fh.write(f"- [#{number}]({link}): {desc}\n")
+        fh.write("\n")
 
     def __write_results_by_settings(self, fh: io.TextIOWrapper) -> None:
         """Write Results by settings.

@@ -1,8 +1,8 @@
 # GitHub free-for-all test set
 
-| Version | 1.1.0rc0 |
+| Version | 1.1.0-pre |
 |:--------|:--------------------|
-| Date    | 2023-08-23 10:39:56.772242+00:00 |
+| Date    | 2023-08-23 11:09:06.772391+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -51,9 +51,7 @@ Problems in this test set:
 | quadprog | 0.1.11                |
 | scs      | 3.2.3                 |
 
-All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers)
-v3.5.0.
+All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v3.5.0.
 
 ## CPU info
 
