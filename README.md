@@ -46,11 +46,15 @@ The benchmark comes with standard and community test sets to represent different
 
 ## Results
 
-The outcome from running a test set is a standardized report. Here are the results obtained from running all test sets in this repository with the same computer:
+The outcome from running a test set is a standardized report. You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpsolvers_benchmark/discussions/categories/results) of the discussions forum.
 
-* [GitHub free-for-all](github_ffa/results/github_ffa.md)
-* [Maros-Meszaros](maros_meszaros/results/maros_meszaros.md)
-* [Maros-Meszaros dense](maros_meszaros/results/maros_meszaros_dense.md)
+Here are the results obtained from running the benchmark with the same computer:
+
+| Test set | Results | CPU info |
+| -------- | ------- | -------- |
+| **GitHub free-for-all** | [Full report](github_ffa/results/github_ffa.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| **Maros-Meszaros** | [Full report](maros_meszaros/results/maros_meszaros.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| **Maros-Meszaros dense** | [Full report](maros_meszaros/results/maros_meszaros_dense.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
 
 ## Metrics
 
