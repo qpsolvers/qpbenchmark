@@ -327,14 +327,12 @@ class Report:
             fh: Output file handle.
         """
         qpsolvers_version = metadata.version("qpsolvers")
+        fh.write("## Solvers\n\n")
+        fh.write(f"{self.get_solver_versions_table()}\n\n")
         fh.write(
-            f"""## Solvers
-
-{self.get_solver_versions_table()}
-
-All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers)
-v{qpsolvers_version}.\n\n"""
+            "All solvers were called via "
+            "[qpsolvers](https://github.com/stephane-caron/qpsolvers) "
+            f"v{qpsolvers_version}.\n\n"
         )
 
     def __write_cpu_info_section(self, fh: io.TextIOWrapper) -> None:
