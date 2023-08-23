@@ -52,6 +52,11 @@ def get_cpu_info_summary() -> str:
 
 
 def get_cpu_info_table() -> str:
+    """Get CPU information as a Markdown table.
+
+    Returns:
+        CPU information as a Markdown table.
+    """
     info = OrderedDict(sorted(cpuinfo.get_cpu_info().items()))
     skips = {
         "cpuinfo_version": "cpuinfo_version_string",
