@@ -17,24 +17,16 @@
 
 """Utility functions."""
 
-import platform
 from importlib import import_module, metadata
 from time import perf_counter
 from typing import Set, Tuple
 
+import cpuinfo
 import numpy as np
 import qpsolvers
 
 from .problem import Problem
 from .spdlog import logging
-
-try:
-    import cpuinfo
-except ImportError:
-    cpuinfo = None
-    logging.warning(
-        "Run ``pip install py-cpuinfo`` for more accurate CPU info"
-    )
 
 
 def capitalize_settings(name: str) -> str:
@@ -55,11 +47,7 @@ def get_cpu_info() -> str:
     Returns:
         CPU information.
     """
-    return (
-        platform.processor()
-        if cpuinfo is None
-        else cpuinfo.get_cpu_info()["brand_raw"]
-    )
+    return cpuinfo.get_cpu_info()["brand_raw"]
 
 
 def get_solver_versions(solvers: Set[str]):
