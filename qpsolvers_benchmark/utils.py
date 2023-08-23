@@ -17,6 +17,7 @@
 
 """Utility functions."""
 
+from collections import OrderedDict
 from importlib import import_module, metadata
 from time import perf_counter
 from typing import Set, Tuple
@@ -51,11 +52,20 @@ def get_cpu_info_summary() -> str:
 
 
 def get_cpu_info_table() -> str:
-    info = cpuinfo.get_cpu_info()
+    info = OrderedDict(sorted(cpuinfo.get_cpu_info().items()))
+    skips = {
+        "cpuinfo_version": "cpuinfo_version_string",
+        "hz_actual": "hz_actual_friendly",
+        "hz_advertised": "hz_advertised_friendly",
+    }
     table = "| Property | Value |\n"
     table += "|----------|-------|\n"
     for key, value in info.items():
-        table += f"| {key} | {value} |\n"
+        if key in skips and skips[key] in info.keys():
+            continue
+        if key == "flags":
+            value = ", ".join(f"`{flag}`" for flag in value)
+        table += f"| `{key}` | {value} |\n"
     return table
 
 
