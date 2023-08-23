@@ -343,7 +343,7 @@ v{qpsolvers_version}.\n\n"""
         Args:
             fh: Output file handle.
         """
-        fh.write(f"## CPU info\n\n{get_cpu_info_table()}\n\n")
+        fh.write(f"## CPU info\n\n{get_cpu_info_table()}\n")
 
     def __write_settings_section(self, fh: io.TextIOWrapper) -> None:
         """Write Settings section.
