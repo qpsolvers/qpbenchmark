@@ -606,3 +606,4 @@ class Report:
         )
 
         fh.write(f"{cost_error_table_desc}")
+        fh.write("\n")  # newline at end of file

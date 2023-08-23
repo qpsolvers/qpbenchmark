@@ -80,9 +80,7 @@ All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolv
 
 ## Settings
 
-There are 3 settings: *default*, *high_accuracy*
-and *low_accuracy*. They validate solutions using the following
-tolerances:
+There are 3 settings: *default*, *high_accuracy* and *low_accuracy*. They validate solutions using the following tolerances:
 
 | tolerance   |   default |   low_accuracy |   high_accuracy |
 |:------------|----------:|---------------:|----------------:|
@@ -130,20 +128,15 @@ Solvers for each settings are configured as follows:
 
 ## Known limitations
 
-The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues)
-have been identified as impacting the fairness of this benchmark. Keep them in
-mind when drawing conclusions from the results.
+The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues) have been identified as impacting the fairness of this benchmark. Keep them in mind when drawing conclusions from the results.
 
-- [#60](https://github.com/qpsolvers/qpsolvers_benchmark/issues/60):
-  Conversion to SOCP limits performance of ECOS
+- [#60](https://github.com/qpsolvers/qpsolvers_benchmark/issues/60): Conversion to SOCP limits performance of ECOS
 
 ## Results by settings
 
 ### Default
 
-Solvers are compared over the whole test set by [shifted geometric
-mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better, 1.0 is the best.
+Solvers are compared over the whole test set by [shifted geometric mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean) (shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -163,9 +156,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 ### High accuracy
 
-Solvers are compared over the whole test set by [shifted geometric
-mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better, 1.0 is the best.
+Solvers are compared over the whole test set by [shifted geometric mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean) (shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -185,9 +176,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 ### Low accuracy
 
-Solvers are compared over the whole test set by [shifted geometric
-mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better, 1.0 is the best.
+Solvers are compared over the whole test set by [shifted geometric mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean) (shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -227,12 +216,7 @@ Precentage of problems each solver is able to solve:
 | quadprog |        75 |              50 |             75 |
 | scs      |        58 |              50 |             58 |
 
-Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
-that a solver successfully solved a problem when (1) it returned with a success
-status and (2) its solution satisfies optimality conditions within
-[tolerance](#settings). The second table below summarizes the frequency at
-which solvers return success (1) and the corresponding solution did indeed pass
-tolerance checks.
+Rows are [solvers](#solvers) and columns are [settings](#settings). We consider that a solver successfully solved a problem when (1) it returned with a success status and (2) its solution satisfies optimality conditions within [tolerance](#settings). The second table below summarizes the frequency at which solvers return success (1) and the corresponding solution did indeed pass tolerance checks.
 
 Percentage of problems where "solved" return codes are correct:
 
@@ -254,11 +238,7 @@ Percentage of problems where "solved" return codes are correct:
 
 ### Computation time
 
-We compare solver computation times over the whole test set using the shifted
-geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of
-Y is Y times slower than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+We compare solver computation times over the whole test set using the shifted geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of Y is Y times slower than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
@@ -278,21 +258,13 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | quadprog |    1604.7 |          1103.1 |         1119.6 |
 | scs      |    3330.4 |          3090.7 |         2323.6 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
-the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
-limit](#settings) when it fails to solve a problem.
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time limit](#settings) when it fails to solve a problem.
 
 ### Optimality conditions
 
 #### Primal residual
 
-The primal residual measures the maximum (equality and inequality) constraint
-violation in the solution returned by a solver. We use the shifted geometric
-mean to compare solver primal residuals over the whole test set. Intuitively, a
-solver with a shifted-geometric-mean primal residual of Y is Y times less
-precise on constraints than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The primal residual measures the maximum (equality and inequality) constraint violation in the solution returned by a solver. We use the shifted geometric mean to compare solver primal residuals over the whole test set. Intuitively, a solver with a shifted-geometric-mean primal residual of Y is Y times less precise on constraints than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of primal residuals (1.0 is the best):
 
@@ -312,19 +284,11 @@ Shifted geometric means of primal residuals (1.0 is the best):
 | quadprog |       1.5 |             1.5 |            3.0 |
 | scs      |       2.5 |             3.0 |            5.0 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal residual equal to the
-full [primal tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a primal residual equal to the full [primal tolerance](#settings).
 
 #### Dual residual
 
-The dual residual measures the maximum violation of the dual feasibility
-condition in the solution returned by a solver. We use the shifted geometric
-mean to compare solver dual residuals over the whole test set. Intuitively, a
-solver with a shifted-geometric-mean dual residual of Y is Y times less precise
-on the dual feasibility condition than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The dual residual measures the maximum violation of the dual feasibility condition in the solution returned by a solver. We use the shifted geometric mean to compare solver dual residuals over the whole test set. Intuitively, a solver with a shifted-geometric-mean dual residual of Y is Y times less precise on the dual feasibility condition than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of dual residuals (1.0 is the best):
 
@@ -344,21 +308,11 @@ Shifted geometric means of dual residuals (1.0 is the best):
 | quadprog |       1.5 |        144070.8 |            1.6 |
 | scs      |       2.5 |             3.0 |            2.5 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a dual residual equal to the full
-[dual tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a dual residual equal to the full [dual tolerance](#settings).
 
 #### Duality gap
 
-The duality gap measures the consistency of the primal and dual solutions
-returned by a solver. A duality gap close to zero ensures that the
-complementarity slackness optimality condition is satisfied. We use the shifted
-geometric mean to compare solver duality gaps over the whole test set.
-Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times
-less precise on the complementarity slackness condition than the best solver
-over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The duality gap measures the consistency of the primal and dual solutions returned by a solver. A duality gap close to zero ensures that the complementarity slackness optimality condition is satisfied. We use the shifted geometric mean to compare solver duality gaps over the whole test set. Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times less precise on the complementarity slackness condition than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of duality gaps (1.0 is the best):
 
@@ -378,19 +332,11 @@ Shifted geometric means of duality gaps (1.0 is the best):
 | quadprog |       1.5 |        121774.3 |            1.6 |
 | scs      |       2.7 |             3.3 |            2.5 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a duality gap equal to the full
-[gap tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a duality gap equal to the full [gap tolerance](#settings).
 
 ### Cost error
 
-The cost error measures the difference between the known optimal objective and
-the objective at the solution returned by a solver. We use the shifted
-geometric mean to compare solver cost errors over the whole test set.
-Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times
-less precise on the optimal cost than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The cost error measures the difference between the known optimal objective and the objective at the solution returned by a solver. We use the shifted geometric mean to compare solver cost errors over the whole test set. Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times less precise on the optimal cost than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
@@ -410,6 +356,4 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | quadprog |       2.8 |             2.8 |            2.8 |
 | scs      |       5.0 |             7.7 |            5.0 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a cost error equal to the [cost
-tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a cost error equal to the [cost tolerance](#settings).
