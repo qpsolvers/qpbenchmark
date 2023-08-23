@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+* Don't hard-wrap report lines, as it doesn't render well in Discussions
 * Improve reporting of shifted geometric mean errors
 * Make `cpuinfo` a proper dependency
 * Refactor results class to allow finer `check_results` sessions

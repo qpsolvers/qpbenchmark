@@ -473,7 +473,7 @@ class Report:
             "(1.0 is the best):\n\n"
         )
         fh.write(
-            f'{self.__runtime_df.to_markdown(index=True, floatfmt=".1f")}'
+            f'{self.__runtime_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
         )
 
         comp_times_table_desc = (
@@ -503,7 +503,9 @@ class Report:
             "Shifted geometric means of primal residuals "
             "(1.0 is the best):\n\n"
         )
-        fh.write(f'{self.__primal_df.to_markdown(index=True, floatfmt=".1f")}')
+        fh.write(
+            f'{self.__primal_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+        )
 
         primal_residual_table_desc = (
             "Rows are solvers and columns are solver settings. "
@@ -531,7 +533,9 @@ class Report:
             "Shifted geometric means of dual residuals "
             "(1.0 is the best):\n\n"
         )
-        fh.write(f'{self.__dual_df.to_markdown(index=True, floatfmt=".1f")}')
+        fh.write(
+            f'{self.__dual_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+        )
 
         dual_residual_table_desc = (
             "Rows are solvers and columns are solver settings. "
@@ -560,7 +564,9 @@ class Report:
         fh.write(
             "Shifted geometric means of duality gaps " "(1.0 is the best):\n\n"
         )
-        fh.write(f'{self.__gap_df.to_markdown(index=True, floatfmt=".1f")}')
+        fh.write(
+            f'{self.__gap_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+        )
 
         duality_gap_table_desc = (
             "Rows are solvers and columns are solver settings. "
@@ -588,7 +594,9 @@ class Report:
             "Shifted geometric means of solver cost errors "
             "(1.0 is the best):\n\n"
         )
-        fh.write(f'{self.__cost_df.to_markdown(index=True, floatfmt=".1f")}')
+        fh.write(
+            f'{self.__cost_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+        )
 
         cost_error_table_desc = (
             "Rows are solvers and columns are solver settings. "
