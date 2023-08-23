@@ -1,8 +1,8 @@
 # GitHub free-for-all test set
 
-| Version | 1.1.0-pre |
+| Version | 1.1.0-rc1 |
 |:--------|:--------------------|
-| Date    | 2023-08-23 11:41:33.424962+00:00 |
+| Date    | 2023-08-23 14:01:36.260224+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -45,13 +45,14 @@ Problems in this test set:
 | gurobi   | 10.0.2 (size-limited) |
 | highs    | 1.5.3                 |
 | osqp     | 0.6.3                 |
+| piqp     | 0.2.2                 |
 | proxqp   | 0.4.1                 |
 | qpoases  | 3.2.1                 |
 | qpswift  | 1.0.0                 |
 | quadprog | 0.1.11                |
 | scs      | 3.2.3                 |
 
-All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v3.5.0.
+All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v3.6.0rc1.
 
 ## CPU info
 
@@ -65,7 +66,7 @@ All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolv
 | `cpuinfo_version_string` | 9.0.0 |
 | `family` | 6 |
 | `flags` | `3dnowprefetch`, `abm`, `acpi`, `adx`, `aes`, `aperfmperf`, `apic`, `arat`, `arch_capabilities`, `arch_perfmon`, `art`, `avx`, `avx2`, `bmi1`, `bmi2`, `bts`, `clflush`, `clflushopt`, `cmov`, `constant_tsc`, `cpuid`, `cpuid_fault`, `cx16`, `cx8`, `de`, `ds_cpl`, `dtes64`, `dtherm`, `dts`, `epb`, `ept`, `ept_ad`, `erms`, `est`, `f16c`, `flexpriority`, `flush_l1d`, `fma`, `fpu`, `fsgsbase`, `fxsr`, `ht`, `hwp`, `hwp_act_window`, `hwp_epp`, `hwp_notify`, `ibpb`, `ibrs`, `ida`, `intel_pt`, `invpcid`, `invpcid_single`, `lahf_lm`, `lm`, `mca`, `mce`, `md_clear`, `mmx`, `monitor`, `movbe`, `mpx`, `msr`, `mtrr`, `nonstop_tsc`, `nopl`, `nx`, `osxsave`, `pae`, `pat`, `pbe`, `pcid`, `pclmulqdq`, `pdcm`, `pdpe1gb`, `pebs`, `pge`, `pln`, `pni`, `popcnt`, `pse`, `pse36`, `pti`, `pts`, `rdrand`, `rdrnd`, `rdseed`, `rdtscp`, `rep_good`, `sdbg`, `sep`, `sgx`, `smap`, `smep`, `ss`, `ssbd`, `sse`, `sse2`, `sse4_1`, `sse4_2`, `ssse3`, `stibp`, `syscall`, `tm`, `tm2`, `tpr_shadow`, `tsc`, `tsc_adjust`, `tsc_deadline_timer`, `tscdeadline`, `vme`, `vmx`, `vnmi`, `vpid`, `x2apic`, `xgetbv1`, `xsave`, `xsavec`, `xsaveopt`, `xsaves`, `xtopology`, `xtpr` |
-| `hz_actual_friendly` | 2.9585 GHz |
+| `hz_actual_friendly` | 2.6000 GHz |
 | `hz_advertised_friendly` | 2.5000 GHz |
 | `l1_data_cache_size` | 65536 |
 | `l1_instruction_cache_size` | 65536 |
@@ -114,6 +115,11 @@ Solvers for each settings are configured as follows:
 | osqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | osqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | osqp     | ``time_limit``                   | 100.0     | 100.0                  | 100.0                 |
+| piqp     | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
+| piqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
+| piqp     | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
+| piqp     | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
+| piqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | proxqp   | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
 | proxqp   | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
@@ -148,6 +154,7 @@ Solvers are compared over the whole test set by [shifted geometric mean](https:/
 | highs    |                                41.7 |                                981.7 |                                         1.0 |                                  1234.3 |                               612.5 |                               1.0 |
 | hpipm    |                                63.6 |                                  1.0 |                                         1.1 |                                    15.0 |                               206.6 |                            5692.1 |
 | osqp     |                                50.0 |                               2396.7 |                                         2.0 |                                    85.0 |                                 2.0 |                               6.6 |
+| piqp     |                                72.7 |                               1063.5 |                                         1.1 |                                     1.1 |                                33.1 |                               3.4 |
 | proxqp   |                                50.0 |                               3330.4 |                                         2.5 |                                     2.5 |                                25.3 |                               7.0 |
 | qpoases  |                                66.7 |                                953.6 |                                         1.0 |                                     2.0 |                                 1.0 |                               2.4 |
 | qpswift  |                                 0.0 |                              19408.6 |                                         6.2 |                                     6.2 |                                 6.2 |                              85.1 |
@@ -168,6 +175,7 @@ Solvers are compared over the whole test set by [shifted geometric mean](https:/
 | highs    |                                 0.0 |                                673.7 |                                         1.0 |                         1163315301303.3 |                      576790866538.3 |                               1.0 |
 | hpipm    |                                45.5 |                                  1.0 |                                1048846709.2 |                           14407044547.8 |                      197992946197.5 |                            5692.1 |
 | osqp     |                                50.0 |                               3090.7 |                                         3.0 |                                     3.0 |                                 3.0 |                               7.7 |
+| piqp     |                                63.6 |                               1856.6 |                                         2.2 |                                     2.2 |                                 2.2 |                               3.7 |
 | proxqp   |                                58.3 |                               2289.2 |                                         5.0 |                                     2.5 |                                 5.0 |                               5.0 |
 | qpoases  |                                58.3 |                                655.5 |                                         1.0 |                             916283906.9 |                            121766.3 |                               2.4 |
 | qpswift  |                                 0.0 |                              13341.1 |                                         6.0 |                                     6.0 |                                 6.0 |                              85.1 |
@@ -188,6 +196,7 @@ Solvers are compared over the whole test set by [shifted geometric mean](https:/
 | highs    |                                25.0 |                                684.3 |                                         2.0 |                               1166285.7 |                            578264.2 |                               1.0 |
 | hpipm    |                                54.5 |                                  1.0 |                                      2097.8 |                                 14443.6 |                            198495.0 |                            5692.1 |
 | osqp     |                                58.3 |                               1765.6 |                                         5.1 |                                     4.3 |                                 3.8 |                               6.6 |
+| piqp     |                                81.8 |                                741.5 |                                         2.7 |                                     1.4 |                                 1.8 |                               2.0 |
 | proxqp   |                                58.3 |                               2323.5 |                                        10.0 |                                     2.5 |                                 5.5 |                               5.0 |
 | qpoases  |                                66.7 |                                302.6 |                                         1.0 |                                 70347.3 |                             70823.2 |                               2.1 |
 | qpswift  |                                 0.0 |                              13540.9 |                                        12.0 |                                     6.0 |                                 6.0 |                              85.1 |
@@ -210,6 +219,7 @@ Precentage of problems each solver is able to solve:
 | highs    |        42 |               0 |             25 |
 | hpipm    |        64 |              45 |             55 |
 | osqp     |        50 |              50 |             58 |
+| piqp     |        73 |              64 |             82 |
 | proxqp   |        50 |              58 |             58 |
 | qpoases  |        67 |              58 |             67 |
 | qpswift  |         0 |               0 |              0 |
@@ -230,6 +240,7 @@ Percentage of problems where "solved" return codes are correct:
 | highs    |        58 |              17 |             42 |
 | hpipm    |        64 |              45 |             55 |
 | osqp     |        83 |             100 |             92 |
+| piqp     |        91 |             100 |            100 |
 | proxqp   |        92 |             100 |            100 |
 | qpoases  |        83 |              75 |             75 |
 | qpswift  |       100 |             100 |            100 |
@@ -252,6 +263,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | highs    |     981.7 |           673.7 |          684.3 |
 | hpipm    |       1.0 |             1.0 |            1.0 |
 | osqp     |    2396.7 |          3090.7 |         1765.6 |
+| piqp     |    1063.5 |          1856.6 |          741.5 |
 | proxqp   |    3330.4 |          2289.2 |         2323.5 |
 | qpoases  |     953.6 |           655.5 |          302.6 |
 | qpswift  |   19408.6 |         13341.1 |        13540.9 |
@@ -278,6 +290,7 @@ Shifted geometric means of primal residuals (1.0 is the best):
 | highs    |       1.0 |             1.0 |            2.0 |
 | hpipm    |       1.1 |    1048846709.2 |         2097.8 |
 | osqp     |       2.0 |             3.0 |            5.1 |
+| piqp     |       1.1 |             2.2 |            2.7 |
 | proxqp   |       2.5 |             5.0 |           10.0 |
 | qpoases  |       1.0 |             1.0 |            1.0 |
 | qpswift  |       6.2 |             6.0 |           12.0 |
@@ -302,6 +315,7 @@ Shifted geometric means of dual residuals (1.0 is the best):
 | highs    |    1234.3 | 1163315301303.3 |      1166285.7 |
 | hpipm    |      15.0 |   14407044547.8 |        14443.6 |
 | osqp     |      85.0 |             3.0 |            4.3 |
+| piqp     |       1.1 |             2.2 |            1.4 |
 | proxqp   |       2.5 |             2.5 |            2.5 |
 | qpoases  |       2.0 |     916283906.9 |        70347.3 |
 | qpswift  |       6.2 |             6.0 |            6.0 |
@@ -326,6 +340,7 @@ Shifted geometric means of duality gaps (1.0 is the best):
 | highs    |     612.5 |  576790866538.3 |       578264.2 |
 | hpipm    |     206.6 |  197992946197.5 |       198495.0 |
 | osqp     |       2.0 |             3.0 |            3.8 |
+| piqp     |      33.1 |             2.2 |            1.8 |
 | proxqp   |      25.3 |             5.0 |            5.5 |
 | qpoases  |       1.0 |        121766.3 |        70823.2 |
 | qpswift  |       6.2 |             6.0 |            6.0 |
@@ -350,6 +365,7 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | highs    |       1.0 |             1.0 |            1.0 |
 | hpipm    |    5692.1 |          5692.1 |         5692.1 |
 | osqp     |       6.6 |             7.7 |            6.6 |
+| piqp     |       3.4 |             3.7 |            2.0 |
 | proxqp   |       7.0 |             5.0 |            5.0 |
 | qpoases  |       2.4 |             2.4 |            2.1 |
 | qpswift  |      85.1 |            85.1 |           85.1 |
