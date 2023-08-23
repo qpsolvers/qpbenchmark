@@ -1,8 +1,8 @@
 # Maros-Meszaros test set
 
-| Version | 1.1.0rc0 |
+| Version | 1.1.0-pre |
 |:--------|:--------------------|
-| Date    | 2023-08-23 10:35:41.681460+00:00 |
+| Date    | 2023-08-23 11:41:27.391824+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -42,40 +42,36 @@ Standard set of problems designed to be difficult.
 | proxqp   | 0.4.1                 |
 | scs      | 3.2.3                 |
 
-All solvers were called via
-[qpsolvers](https://github.com/stephane-caron/qpsolvers)
-v3.5.0.
+All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v3.5.0.
 
 ## CPU info
 
 | Property | Value |
 |----------|-------|
-| ``arch`` | X86_64 |
-| ``arch_string_raw`` | x86_64 |
-| ``bits`` | 64 |
-| ``brand_raw`` | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
-| ``count`` | 4 |
-| ``cpuinfo_version_string`` | 9.0.0 |
-| ``family`` | 6 |
-| ``flags`` | `3dnowprefetch`, `abm`, `acpi`, `adx`, `aes`, `aperfmperf`, `apic`, `arat`, `arch_capabilities`, `arch_perfmon`, `art`, `avx`, `avx2`, `bmi1`, `bmi2`, `bts`, `clflush`, `clflushopt`, `cmov`, `constant_tsc`, `cpuid`, `cpuid_fault`, `cx16`, `cx8`, `de`, `ds_cpl`, `dtes64`, `dtherm`, `dts`, `epb`, `ept`, `ept_ad`, `erms`, `est`, `f16c`, `flexpriority`, `flush_l1d`, `fma`, `fpu`, `fsgsbase`, `fxsr`, `ht`, `hwp`, `hwp_act_window`, `hwp_epp`, `hwp_notify`, `ibpb`, `ibrs`, `ida`, `intel_pt`, `invpcid`, `invpcid_single`, `lahf_lm`, `lm`, `mca`, `mce`, `md_clear`, `mmx`, `monitor`, `movbe`, `mpx`, `msr`, `mtrr`, `nonstop_tsc`, `nopl`, `nx`, `osxsave`, `pae`, `pat`, `pbe`, `pcid`, `pclmulqdq`, `pdcm`, `pdpe1gb`, `pebs`, `pge`, `pln`, `pni`, `popcnt`, `pse`, `pse36`, `pti`, `pts`, `rdrand`, `rdrnd`, `rdseed`, `rdtscp`, `rep_good`, `sdbg`, `sep`, `sgx`, `smap`, `smep`, `ss`, `ssbd`, `sse`, `sse2`, `sse4_1`, `sse4_2`, `ssse3`, `stibp`, `syscall`, `tm`, `tm2`, `tpr_shadow`, `tsc`, `tsc_adjust`, `tsc_deadline_timer`, `tscdeadline`, `vme`, `vmx`, `vnmi`, `vpid`, `x2apic`, `xgetbv1`, `xsave`, `xsavec`, `xsaveopt`, `xsaves`, `xtopology`, `xtpr` |
-| ``hz_actual_friendly`` | 2.6000 GHz |
-| ``hz_advertised_friendly`` | 2.5000 GHz |
-| ``l1_data_cache_size`` | 65536 |
-| ``l1_instruction_cache_size`` | 65536 |
-| ``l2_cache_associativity`` | 6 |
-| ``l2_cache_line_size`` | 256 |
-| ``l2_cache_size`` | 524288 |
-| ``l3_cache_size`` | 4194304 |
-| ``model`` | 78 |
-| ``python_version`` | 3.10.12.final.0 (64 bit) |
-| ``stepping`` | 3 |
-| ``vendor_id_raw`` | GenuineIntel |
+| `arch` | X86_64 |
+| `arch_string_raw` | x86_64 |
+| `bits` | 64 |
+| `brand_raw` | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| `count` | 4 |
+| `cpuinfo_version_string` | 9.0.0 |
+| `family` | 6 |
+| `flags` | `3dnowprefetch`, `abm`, `acpi`, `adx`, `aes`, `aperfmperf`, `apic`, `arat`, `arch_capabilities`, `arch_perfmon`, `art`, `avx`, `avx2`, `bmi1`, `bmi2`, `bts`, `clflush`, `clflushopt`, `cmov`, `constant_tsc`, `cpuid`, `cpuid_fault`, `cx16`, `cx8`, `de`, `ds_cpl`, `dtes64`, `dtherm`, `dts`, `epb`, `ept`, `ept_ad`, `erms`, `est`, `f16c`, `flexpriority`, `flush_l1d`, `fma`, `fpu`, `fsgsbase`, `fxsr`, `ht`, `hwp`, `hwp_act_window`, `hwp_epp`, `hwp_notify`, `ibpb`, `ibrs`, `ida`, `intel_pt`, `invpcid`, `invpcid_single`, `lahf_lm`, `lm`, `mca`, `mce`, `md_clear`, `mmx`, `monitor`, `movbe`, `mpx`, `msr`, `mtrr`, `nonstop_tsc`, `nopl`, `nx`, `osxsave`, `pae`, `pat`, `pbe`, `pcid`, `pclmulqdq`, `pdcm`, `pdpe1gb`, `pebs`, `pge`, `pln`, `pni`, `popcnt`, `pse`, `pse36`, `pti`, `pts`, `rdrand`, `rdrnd`, `rdseed`, `rdtscp`, `rep_good`, `sdbg`, `sep`, `sgx`, `smap`, `smep`, `ss`, `ssbd`, `sse`, `sse2`, `sse4_1`, `sse4_2`, `ssse3`, `stibp`, `syscall`, `tm`, `tm2`, `tpr_shadow`, `tsc`, `tsc_adjust`, `tsc_deadline_timer`, `tscdeadline`, `vme`, `vmx`, `vnmi`, `vpid`, `x2apic`, `xgetbv1`, `xsave`, `xsavec`, `xsaveopt`, `xsaves`, `xtopology`, `xtpr` |
+| `hz_actual_friendly` | 2.6000 GHz |
+| `hz_advertised_friendly` | 2.5000 GHz |
+| `l1_data_cache_size` | 65536 |
+| `l1_instruction_cache_size` | 65536 |
+| `l2_cache_associativity` | 6 |
+| `l2_cache_line_size` | 256 |
+| `l2_cache_size` | 524288 |
+| `l3_cache_size` | 4194304 |
+| `model` | 78 |
+| `python_version` | 3.10.12.final.0 (64 bit) |
+| `stepping` | 3 |
+| `vendor_id_raw` | GenuineIntel |
 
 ## Settings
 
-There are 3 settings: *default*, *high_accuracy*
-and *low_accuracy*. They validate solutions using the following
-tolerances:
+There are 3 settings: *default*, *high_accuracy* and *low_accuracy*. They validate solutions using the following tolerances:
 
 | tolerance   |   default |   low_accuracy |   high_accuracy |
 |:------------|----------:|---------------:|----------------:|
@@ -113,20 +109,15 @@ Solvers for each settings are configured as follows:
 
 ## Known limitations
 
-The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues)
-have been identified as impacting the fairness of this benchmark. Keep them in
-mind when drawing conclusions from the results.
+The following [issues](https://github.com/qpsolvers/qpsolvers_benchmark/issues) have been identified as impacting the fairness of this benchmark. Keep them in mind when drawing conclusions from the results.
 
-- [#60](https://github.com/qpsolvers/qpsolvers_benchmark/issues/60):
-  Conversion to SOCP limits performance of ECOS
+- [#60](https://github.com/qpsolvers/qpsolvers_benchmark/issues/60): Conversion to SOCP limits performance of ECOS
 
 ## Results by settings
 
 ### Default
 
-Solvers are compared over the whole test set by [shifted geometric
-mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better, 1.0 is the best.
+Solvers are compared over the whole test set by [shifted geometric mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean) (shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -140,9 +131,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 ### High accuracy
 
-Solvers are compared over the whole test set by [shifted geometric
-mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better, 1.0 is the best.
+Solvers are compared over the whole test set by [shifted geometric mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean) (shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -156,9 +145,7 @@ mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
 
 ### Low accuracy
 
-Solvers are compared over the whole test set by [shifted geometric
-mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean)
-(shm). Lower is better, 1.0 is the best.
+Solvers are compared over the whole test set by [shifted geometric mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean) (shm). Lower is better, 1.0 is the best.
 
 |          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
 |:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
@@ -186,12 +173,7 @@ Precentage of problems each solver is able to solve:
 | proxqp   |        78 |              59 |             78 |
 | scs      |        60 |              43 |             71 |
 
-Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
-that a solver successfully solved a problem when (1) it returned with a success
-status and (2) its solution satisfies optimality conditions within
-[tolerance](#settings). The second table below summarizes the frequency at
-which solvers return success (1) and the corresponding solution did indeed pass
-tolerance checks.
+Rows are [solvers](#solvers) and columns are [settings](#settings). We consider that a solver successfully solved a problem when (1) it returned with a success status and (2) its solution satisfies optimality conditions within [tolerance](#settings). The second table below summarizes the frequency at which solvers return success (1) and the corresponding solution did indeed pass tolerance checks.
 
 Percentage of problems where "solved" return codes are correct:
 
@@ -207,11 +189,7 @@ Percentage of problems where "solved" return codes are correct:
 
 ### Computation time
 
-We compare solver computation times over the whole test set using the shifted
-geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of
-Y is Y times slower than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+We compare solver computation times over the whole test set using the shifted geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of Y is Y times slower than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
@@ -225,21 +203,13 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | proxqp   |       4.6 |             2.4 |            7.9 |
 | scs      |       2.1 |             8.0 |            9.3 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
-the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
-limit](#settings) when it fails to solve a problem.
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time limit](#settings) when it fails to solve a problem.
 
 ### Optimality conditions
 
 #### Primal residual
 
-The primal residual measures the maximum (equality and inequality) constraint
-violation in the solution returned by a solver. We use the shifted geometric
-mean to compare solver primal residuals over the whole test set. Intuitively, a
-solver with a shifted-geometric-mean primal residual of Y is Y times less
-precise on constraints than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The primal residual measures the maximum (equality and inequality) constraint violation in the solution returned by a solver. We use the shifted geometric mean to compare solver primal residuals over the whole test set. Intuitively, a solver with a shifted-geometric-mean primal residual of Y is Y times less precise on constraints than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of primal residuals (1.0 is the best):
 
@@ -253,19 +223,11 @@ Shifted geometric means of primal residuals (1.0 is the best):
 | proxqp   |       2.0 |             1.4 |            1.0 |
 | scs      |      37.5 |             2.5 |           31.3 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal residual equal to the
-full [primal tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a primal residual equal to the full [primal tolerance](#settings).
 
 #### Dual residual
 
-The dual residual measures the maximum violation of the dual feasibility
-condition in the solution returned by a solver. We use the shifted geometric
-mean to compare solver dual residuals over the whole test set. Intuitively, a
-solver with a shifted-geometric-mean dual residual of Y is Y times less precise
-on the dual feasibility condition than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The dual residual measures the maximum violation of the dual feasibility condition in the solution returned by a solver. We use the shifted geometric mean to compare solver dual residuals over the whole test set. Intuitively, a solver with a shifted-geometric-mean dual residual of Y is Y times less precise on the dual feasibility condition than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of dual residuals (1.0 is the best):
 
@@ -279,21 +241,11 @@ Shifted geometric means of dual residuals (1.0 is the best):
 | proxqp   |       1.0 |             1.0 |            1.0 |
 | scs      |       3.4 |             1.0 |            2.2 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a dual residual equal to the full
-[dual tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a dual residual equal to the full [dual tolerance](#settings).
 
 #### Duality gap
 
-The duality gap measures the consistency of the primal and dual solutions
-returned by a solver. A duality gap close to zero ensures that the
-complementarity slackness optimality condition is satisfied. We use the shifted
-geometric mean to compare solver duality gaps over the whole test set.
-Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times
-less precise on the complementarity slackness condition than the best solver
-over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The duality gap measures the consistency of the primal and dual solutions returned by a solver. A duality gap close to zero ensures that the complementarity slackness optimality condition is satisfied. We use the shifted geometric mean to compare solver duality gaps over the whole test set. Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times less precise on the complementarity slackness condition than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of duality gaps (1.0 is the best):
 
@@ -307,19 +259,11 @@ Shifted geometric means of duality gaps (1.0 is the best):
 | proxqp   |      11.5 |          5387.0 |           19.6 |
 | scs      |     133.1 |             1.0 |            1.6 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a duality gap equal to the full
-[gap tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a duality gap equal to the full [gap tolerance](#settings).
 
 ### Cost error
 
-The cost error measures the difference between the known optimal objective and
-the objective at the solution returned by a solver. We use the shifted
-geometric mean to compare solver cost errors over the whole test set.
-Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times
-less precise on the optimal cost than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
+The cost error measures the difference between the known optimal objective and the objective at the solution returned by a solver. We use the shifted geometric mean to compare solver cost errors over the whole test set. Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times less precise on the optimal cost than the best solver over the test set. See [Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for details.
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
@@ -333,6 +277,4 @@ Shifted geometric means of solver cost errors (1.0 is the best):
 | proxqp   |       2.2 |             2.2 |            2.9 |
 | scs      |       8.4 |             7.6 |            4.2 |
 
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a cost error equal to the [cost
-tolerance](#settings).
+Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a cost error equal to the [cost tolerance](#settings).
