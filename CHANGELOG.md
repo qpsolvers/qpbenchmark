@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 * Improve reporting of shifted geometric mean errors
+* Make `cpuinfo` a proper dependency
 * Refactor results class to allow finer `check_results` sessions
 * Update to qpsolvers v3.5.0
 
