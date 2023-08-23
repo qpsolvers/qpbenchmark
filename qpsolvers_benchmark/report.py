@@ -423,116 +423,178 @@ class Report:
         Args:
             fh: Output file handle.
         """
-        fh.write(
-            f"""## Results by metric
+        repo = "https://github.com/qpsolvers/qpsolvers_benchmark"
 
-### Success rate
+        fh.write("## Results by metric\n\n")
+        fh.write("### Success rate\n\n")
+        fh.write("Precentage of problems each solver is able to solve:\n\n")
 
-Precentage of problems each solver is able to solve:
-
-{self.__success_rate_df.to_markdown(index=True, floatfmt=".0f")}
-
-Rows are [solvers](#solvers) and columns are [settings](#settings). We consider
-that a solver successfully solved a problem when (1) it returned with a success
-status and (2) its solution satisfies optimality conditions within
-[tolerance](#settings). The second table below summarizes the frequency at
-which solvers return success (1) and the corresponding solution did indeed pass
-tolerance checks.
-
-Percentage of problems where "solved" return codes are correct:
-
-{self.__correct_rate_df.to_markdown(index=True, floatfmt=".0f")}
-
-### Computation time
-
-We compare solver computation times over the whole test set using the shifted
-geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of
-Y is Y times slower than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
-
-Shifted geometric mean of solver computation times (1.0 is the best):
-
-{self.__runtime_df.to_markdown(index=True, floatfmt=".1f")}
-
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in
-the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time
-limit](#settings) when it fails to solve a problem.
-
-### Optimality conditions
-
-#### Primal residual
-
-The primal residual measures the maximum (equality and inequality) constraint
-violation in the solution returned by a solver. We use the shifted geometric
-mean to compare solver primal residuals over the whole test set. Intuitively, a
-solver with a shifted-geometric-mean primal residual of Y is Y times less
-precise on constraints than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
-
-Shifted geometric means of primal residuals (1.0 is the best):
-
-{self.__primal_df.to_markdown(index=True, floatfmt=".1f")}
-
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a primal residual equal to the
-full [primal tolerance](#settings).
-
-#### Dual residual
-
-The dual residual measures the maximum violation of the dual feasibility
-condition in the solution returned by a solver. We use the shifted geometric
-mean to compare solver dual residuals over the whole test set. Intuitively, a
-solver with a shifted-geometric-mean dual residual of Y is Y times less precise
-on the dual feasibility condition than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
-
-Shifted geometric means of dual residuals (1.0 is the best):
-
-{self.__dual_df.to_markdown(index=True, floatfmt=".1f")}
-
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a dual residual equal to the full
-[dual tolerance](#settings).
-
-#### Duality gap
-
-The duality gap measures the consistency of the primal and dual solutions
-returned by a solver. A duality gap close to zero ensures that the
-complementarity slackness optimality condition is satisfied. We use the shifted
-geometric mean to compare solver duality gaps over the whole test set.
-Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times
-less precise on the complementarity slackness condition than the best solver
-over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
-
-Shifted geometric means of duality gaps (1.0 is the best):
-
-{self.__gap_df.to_markdown(index=True, floatfmt=".1f")}
-
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a duality gap equal to the full
-[gap tolerance](#settings).
-
-### Cost error
-
-The cost error measures the difference between the known optimal objective and
-the objective at the solution returned by a solver. We use the shifted
-geometric mean to compare solver cost errors over the whole test set.
-Intuitively, a solver with a shifted-geometric-mean cost error of Y is Y times
-less precise on the optimal cost than the best solver over the test set. See
-[Metrics](https://github.com/qpsolvers/qpsolvers_benchmark#metrics) for
-details.
-
-Shifted geometric means of solver cost errors (1.0 is the best):
-
-{self.__cost_df.to_markdown(index=True, floatfmt=".1f")}
-
-Rows are solvers and columns are solver settings. The shift is $sh = 10$. A
-solver that fails to find a solution receives a cost error equal to the [cost
-tolerance](#settings).
-"""
+        success_rate_table = self.__success_rate_df.to_markdown(
+            index=True, floatfmt=".0f"
         )
+        fh.write(f"{success_rate_table}\n\n")
+
+        success_rate_table_desc = (
+            "Rows are [solvers](#solvers) and "
+            "columns are [settings](#settings). "
+            "We consider that a solver successfully solved a problem when "
+            "(1) it returned with a success status and "
+            "(2) its solution satisfies optimality conditions "
+            "within [tolerance](#settings). "
+            "The second table below summarizes the frequency at which solvers "
+            "return success (1) and the corresponding solution did indeed "
+            "pass tolerance checks."
+        )
+
+        fh.write(f"{success_rate_table_desc}\n\n")
+        fh.write(
+            'Percentage of problems where "solved" return '
+            "codes are correct:\n\n"
+        )
+
+        correct_rate_table = self.__correct_rate_df.to_markdown(
+            index=True, floatfmt=".0f"
+        )
+
+        fh.write(f"{correct_rate_table}\n\n")
+        fh.write("### Computation time\n\n")
+
+        comp_times_shm_desc = (
+            "We compare solver computation times over the whole test set "
+            "using the shifted geometric mean. Intuitively, a solver with a "
+            "shifted-geometric-mean runtime of Y is Y times slower than the "
+            "best solver over the test set. "
+            f"See [Metrics]({repo}#metrics) for details."
+        )
+
+        fh.write(f"{comp_times_shm_desc}\n\n")
+        fh.write(
+            "Shifted geometric mean of solver computation times "
+            "(1.0 is the best):\n\n"
+        )
+        fh.write(
+            f'{self.__runtime_df.to_markdown(index=True, floatfmt=".1f")}'
+        )
+
+        comp_times_table_desc = (
+            "Rows are solvers and columns are solver settings. "
+            "The shift is $sh = 10$. As in the OSQP and ProxQP benchmarks, "
+            "we assume a solver's run time is at the "
+            "[time limit](#settings) when it fails to solve a problem."
+        )
+
+        fh.write(f"{comp_times_table_desc}\n\n")
+        fh.write("### Optimality conditions\n\n")
+        fh.write("#### Primal residual\n\n")
+
+        primal_residual_shm_desc = (
+            "The primal residual measures the maximum "
+            "(equality and inequality) constraint violation in the solution "
+            "returned by a solver. We use the shifted geometric mean to "
+            "compare solver primal residuals over the whole test set. "
+            "Intuitively, a solver with a shifted-geometric-mean primal "
+            "residual of Y is Y times less precise on constraints than the "
+            "best solver over the test set. "
+            f"See [Metrics]({repo}#metrics) for details."
+        )
+
+        fh.write(f"{primal_residual_shm_desc}\n\n")
+        fh.write(
+            "Shifted geometric means of primal residuals "
+            "(1.0 is the best):\n\n"
+        )
+        fh.write(f'{self.__primal_df.to_markdown(index=True, floatfmt=".1f")}')
+
+        primal_residual_table_desc = (
+            "Rows are solvers and columns are solver settings. "
+            "The shift is $sh = 10$. A solver that fails to find a solution "
+            "receives a primal residual equal to the full "
+            "[primal tolerance](#settings)."
+        )
+
+        fh.write(f"{primal_residual_table_desc}\n\n")
+        fh.write("#### Dual residual\n\n")
+
+        dual_residual_shm_desc = (
+            "The dual residual measures the maximum violation of the dual "
+            "feasibility condition in the solution returned by a solver. "
+            "We use the shifted geometric mean to compare solver dual "
+            "residuals over the whole test set. Intuitively, a solver with "
+            "a shifted-geometric-mean dual residual of Y is Y times less "
+            "precise on the dual feasibility condition than the best solver "
+            "over the test set. "
+            f"See [Metrics]({repo}#metrics) for details."
+        )
+
+        fh.write(f"{dual_residual_shm_desc}\n\n")
+        fh.write(
+            "Shifted geometric means of dual residuals "
+            "(1.0 is the best):\n\n"
+        )
+        fh.write(f'{self.__dual_df.to_markdown(index=True, floatfmt=".1f")}')
+
+        dual_residual_table_desc = (
+            "Rows are solvers and columns are solver settings. "
+            "The shift is $sh = 10$. A solver that fails to find a solution "
+            "receives a dual residual equal to the full "
+            "[dual tolerance](#settings)."
+        )
+
+        fh.write(f"{dual_residual_table_desc}\n\n")
+        fh.write("#### Duality gap\n\n")
+
+        duality_gap_shm_desc = (
+            "The duality gap measures the consistency of the primal "
+            "and dual solutions returned by a solver. "
+            "A duality gap close to zero ensures that the complementarity "
+            "slackness optimality condition is satisfied. We use the "
+            "shifted geometric mean to compare solver duality gaps over "
+            "the whole test set. Intuitively, a solver with a "
+            "shifted-geometric-mean duality gap of Y is Y times "
+            "less precise on the complementarity slackness condition than "
+            "the best solver over the test set. "
+            f"See [Metrics]({repo}#metrics) for details."
+        )
+
+        fh.write(f"{duality_gap_shm_desc}\n\n")
+        fh.write(
+            "Shifted geometric means of duality gaps " "(1.0 is the best):\n\n"
+        )
+        fh.write(f'{self.__gap_df.to_markdown(index=True, floatfmt=".1f")}')
+
+        duality_gap_table_desc = (
+            "Rows are solvers and columns are solver settings. "
+            "The shift is $sh = 10$. A solver that fails to find a solution "
+            "receives a duality gap equal to the full "
+            "[gap tolerance](#settings)."
+        )
+
+        fh.write(f"{duality_gap_table_desc}\n\n")
+        fh.write("### Cost error\n\n")
+
+        cost_error_shm_desc = (
+            "The cost error measures the difference between the known "
+            "optimal objective and the objective at the solution returned "
+            "by a solver. We use the shifted geometric mean to compare "
+            "solver cost errors over the whole test set. Intuitively, "
+            "a solver with a shifted-geometric-mean cost error of Y is "
+            "Y times less precise on the optimal cost than the best solver "
+            "over the test set. "
+            f"See [Metrics]({repo}#metrics) for details."
+        )
+
+        fh.write(f"{cost_error_shm_desc}\n\n")
+        fh.write(
+            "Shifted geometric means of solver cost errors "
+            "(1.0 is the best):\n\n"
+        )
+        fh.write(f'{self.__cost_df.to_markdown(index=True, floatfmt=".1f")}')
+
+        cost_error_table_desc = (
+            "Rows are solvers and columns are solver settings. "
+            "The shift is $sh = 10$. A solver that fails to find a "
+            "solution receives a cost error equal to the "
+            "[cost tolerance](#settings)."
+        )
+
+        fh.write(f"{cost_error_table_desc}")
