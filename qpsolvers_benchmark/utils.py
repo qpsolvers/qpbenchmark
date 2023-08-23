@@ -41,13 +41,22 @@ def capitalize_settings(name: str) -> str:
     return name.replace("_", " ").capitalize()
 
 
-def get_cpu_info() -> str:
-    """Get CPU information.
+def get_cpu_info_summary() -> str:
+    """Get CPU information summary as a single string.
 
     Returns:
-        CPU information.
+        CPU information as a single string.
     """
     return cpuinfo.get_cpu_info()["brand_raw"]
+
+
+def get_cpu_info_table() -> str:
+    info = cpuinfo.get_cpu_info()
+    table = "| Property | Value |\n"
+    table += "|----------|-------|\n"
+    for key, value in info.items():
+        table += f"| {key} | {value} |\n"
+    return table
 
 
 def get_solver_versions(solvers: Set[str]):
