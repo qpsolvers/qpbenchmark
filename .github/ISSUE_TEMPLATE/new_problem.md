@@ -1,6 +1,6 @@
 ---
 name: Submit a new problem
-about: Propose a new problem for a given test set
+about: Propose a new problem for the GitHub-FFA test set
 title: ''
 labels: ''
 assignees: ''
