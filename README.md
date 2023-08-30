@@ -6,10 +6,6 @@
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
-* **Results:** [GitHub-FFA](github_ffa/results/github_ffa.md), [Maros-Meszaros](maros_meszaros/results/maros_meszaros.md), [Maros-Meszaros-dense](maros_meszaros/results/maros_meszaros_dense.md)
-* **Install:** `pip install qpsolvers_benchmark`
-* **Run:** `qpsolvers_benchmark maros_meszaros/maros_meszaros.py run`
-
 The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/qpsolvers/qpsolvers_benchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpsolvers_benchmark`` command-line tool to run test sets directly. The main output of the benchmark are standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. This repository also distributes [results](#results) from running the benchmark on a reference computer.
 
 New test sets are welcome! The benchmark is designed so that each test-set comes in a standalone directory. Feel free to create a new one and [contribute it](CONTRIBUTING.md) here so that we grow the collection over time.
@@ -44,18 +40,6 @@ The benchmark comes with standard and community test sets to represent different
 | **Maros-Meszaros** | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
 | **Maros-Meszaros dense** | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
 
-## Results
-
-The outcome from running a test set is a standardized report. You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpsolvers_benchmark/discussions/categories/results) of the discussions forum.
-
-Here are the results obtained from running the benchmark with the same computer:
-
-| Test set | Results | CPU info |
-| -------- | ------- | -------- |
-| **GitHub free-for-all** | [Full report](github_ffa/results/github_ffa.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
-| **Maros-Meszaros** | [Full report](maros_meszaros/results/maros_meszaros.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
-| **Maros-Meszaros dense** | [Full report](maros_meszaros/results/maros_meszaros_dense.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
-
 ## Metrics
 
 We evaluate QP solvers based on the following metrics:
@@ -76,6 +60,18 @@ Here are some intuitive interpretations:
 
 - A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set.
 - A solver with a shifted-geometric-mean primal residual $R$ is $R$ times less accurate on equality and inequality constraints than the best solver over the test set.
+
+## Results
+
+The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results obtained on a reference computer:
+
+| Test set | Results | CPU info |
+| -------- | ------- | -------- |
+| **GitHub free-for-all** | [Full report](github_ffa/results/github_ffa.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| **Maros-Meszaros** | [Full report](maros_meszaros/results/maros_meszaros.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+| **Maros-Meszaros dense** | [Full report](maros_meszaros/results/maros_meszaros_dense.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+
+You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpsolvers_benchmark/discussions/categories/results) of the discussions forum.
 
 ## Limitations
 
