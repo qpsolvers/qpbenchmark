@@ -2,7 +2,7 @@
 
 | Version | 1.1.0 |
 |:--------|:--------------------|
-| Date    | 2023-08-23 14:51:42.612543+00:00 |
+| Date    | 2023-08-30 12:33:12.633624+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -48,7 +48,7 @@ Subset of the Maros-Meszaros test set restricted to smaller dense problems.
 | quadprog | 0.1.11                |
 | scs      | 3.2.3                 |
 
-All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v3.6.0rc1.
+All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v4.0.0.
 
 ## CPU info
 
@@ -111,7 +111,7 @@ Solvers for each settings are configured as follows:
 | osqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | osqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | osqp     | ``time_limit``                   | 1000.0    | 1000.0                 | 1000.0                |
-| piqp     | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
+| piqp     | ``check_duality_gap``            | -         | True                   | True                  |
 | piqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | piqp     | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | piqp     | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
@@ -150,7 +150,7 @@ Solvers are compared over the whole test set by [shifted geometric mean](https:/
 | highs    |                                61.3 |                                103.6 |                                    232549.3 |                                403411.7 |                                52.0 |                              51.1 |
 | hpipm    |                                24.2 |                                338.1 |                                   7527265.0 |                                655503.5 |                                14.6 |                             167.6 |
 | osqp     |                                51.6 |                                 27.8 |                                   4204778.0 |                               4635783.3 |                              3099.2 |                             421.0 |
-| piqp     |                                95.2 |                                  6.6 |                                     27044.4 |                                 42774.4 |                                 2.0 |                               3.9 |
+| piqp     |                                95.2 |                                  6.7 |                                     27044.4 |                                 42774.4 |                                 2.0 |                               3.9 |
 | proxqp   |                                96.8 |                                  1.0 |                                         1.0 |                                     1.0 |                                 5.8 |                               1.0 |
 | qpoases  |                                24.2 |                                293.6 |                                   6001873.6 |                              30019506.1 |                                13.3 |                             528.0 |
 | qpswift  |                                25.8 |                               1205.1 |                                    643550.4 |                               1017664.4 |                                22.2 |                             593.2 |
@@ -259,7 +259,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | highs    |     103.6 |            12.0 |           99.8 |
 | hpipm    |     338.1 |            54.6 |          416.9 |
 | osqp     |      27.8 |            39.3 |          194.2 |
-| piqp     |       6.6 |             3.2 |            9.9 |
+| piqp     |       6.7 |             3.2 |            9.9 |
 | proxqp   |       1.0 |             1.0 |            1.0 |
 | qpoases  |     293.6 |            37.6 |          326.9 |
 | qpswift  |    1205.1 |           140.0 |         1160.1 |
