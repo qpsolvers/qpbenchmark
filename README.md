@@ -6,7 +6,7 @@
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
-* **Results:** [`[GitHub-FFA]`](github_ffa/results/github_ffa.md), [`[Maros-Meszaros]`](maros_meszaros/results/maros_meszaros.md), [`[Maros-Meszaros-dense]`](maros_meszaros/results/maros_meszaros_dense.md)
+* **Results:** [GitHub-FFA](github_ffa/results/github_ffa.md), [Maros-Meszaros](maros_meszaros/results/maros_meszaros.md), [Maros-Meszaros-dense](maros_meszaros/results/maros_meszaros_dense.md)
 * **Install:** `pip install qpsolvers_benchmark`
 * **Run:** `qpsolvers_benchmark maros_meszaros/maros_meszaros.py run`
 
