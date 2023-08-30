@@ -2,7 +2,7 @@
 
 | Version | 1.1.0 |
 |:--------|:--------------------|
-| Date    | 2023-08-23 14:48:42.320992+00:00 |
+| Date    | 2023-08-30 12:34:20.028889+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
 | Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -48,7 +48,7 @@ Subset of the Maros-Meszaros test set restricted to smaller dense problems with 
 | quadprog | 0.1.11                |
 | scs      | 3.2.3                 |
 
-All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v3.6.0rc1.
+All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v4.0.0.
 
 ## CPU info
 
@@ -111,12 +111,12 @@ Solvers for each settings are configured as follows:
 | osqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | osqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
 | osqp     | ``time_limit``                   | 1000.0    | 1000.0                 | 1000.0                |
-| piqp     | ``check_duality_gap``            | -         | True                   | True                  |
+| piqp     | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
 | piqp     | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | piqp     | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | piqp     | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
 | piqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
-| proxqp   | ``check_duality_gap``            | -         | True                   | True                  |
+| proxqp   | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
 | proxqp   | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
@@ -150,7 +150,7 @@ Solvers are compared over the whole test set by [shifted geometric mean](https:/
 | highs    |                               100.0 |                                  4.5 |                                        22.6 |                                 10710.7 |                              3042.0 |                               1.7 |
 | hpipm    |                                52.6 |                               2226.7 |                              527740292191.2 |                             241565698.5 |                             15006.2 |                            6066.8 |
 | osqp     |                                78.9 |                                  1.0 |                              625462174256.2 |                            3618509430.8 |                           2295466.7 |                           14627.4 |
-| piqp     |                               100.0 |                                  1.5 |                                         1.0 |                                   195.1 |                                 1.0 |                               1.7 |
+| piqp     |                               100.0 |                                  1.8 |                                         1.0 |                                   195.1 |                                 1.0 |                               1.7 |
 | proxqp   |                                94.7 |                                  4.5 |                                   1049423.1 |                                  1210.9 |                              7967.4 |                              39.9 |
 | qpoases  |                                57.9 |                               3214.8 |                              254309453730.6 |                           23011750649.4 |                             18805.1 |                           15514.8 |
 | qpswift  |                                42.1 |                              18259.1 |                              339387409048.1 |                             676146407.1 |                             42199.8 |                           49767.5 |
@@ -192,7 +192,7 @@ Solvers are compared over the whole test set by [shifted geometric mean](https:/
 | highs    |                                78.9 |                                  4.0 |                                         1.0 |                                 10712.6 |                               266.7 |                               1.7 |
 | hpipm    |                                26.3 |                               7174.0 |                                  11472602.8 |                                605733.9 |                                38.1 |                           23164.3 |
 | osqp     |                                57.9 |                                751.6 |                                   5534128.0 |                                476956.1 |                              2859.0 |                            2500.4 |
-| piqp     |                               100.0 |                                  1.5 |                                       257.1 |                                239713.8 |                                 1.4 |                               1.7 |
+| piqp     |                               100.0 |                                  1.9 |                                       257.1 |                                239713.8 |                                 1.4 |                               1.7 |
 | proxqp   |                                89.5 |                                  4.1 |                                   3778405.3 |                                 39088.2 |                               191.1 |                               1.8 |
 | qpoases  |                                52.6 |                               2841.3 |                                4417036903.5 |                           22251703189.3 |                                 1.7 |                           15085.7 |
 | qpswift  |                                36.8 |                              16153.2 |                                  15300315.6 |                                730158.5 |                                44.0 |                           48410.2 |
@@ -259,7 +259,7 @@ Shifted geometric mean of solver computation times (1.0 is the best):
 | highs    |       4.5 |             1.0 |            4.0 |
 | hpipm    |    2226.7 |          1798.2 |         7174.0 |
 | osqp     |       1.0 |           493.9 |          751.6 |
-| piqp     |       1.5 |           188.5 |            1.5 |
+| piqp     |       1.8 |           188.5 |            1.9 |
 | proxqp   |       4.5 |            85.1 |            4.1 |
 | qpoases  |    3214.8 |           713.4 |         2841.3 |
 | qpswift  |   18259.1 |          4049.0 |        16153.2 |
