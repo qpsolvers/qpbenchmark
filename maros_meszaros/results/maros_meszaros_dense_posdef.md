@@ -1,6 +1,6 @@
 # Maros-Meszaros dense positive definite subset
 
-| Version | 1.1.0-rc1 |
+| Version | 1.1.0 |
 |:--------|:--------------------|
 | Date    | 2023-08-23 14:48:42.320992+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |

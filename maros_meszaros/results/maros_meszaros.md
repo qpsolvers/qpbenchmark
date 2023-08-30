@@ -1,6 +1,6 @@
 # Maros-Meszaros test set
 
-| Version | 1.1.0-pre |
+| Version | 1.1.0 |
 |:--------|:--------------------|
 | Date    | 2023-08-23 11:41:27.391824+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
