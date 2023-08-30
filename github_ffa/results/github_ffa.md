@@ -1,6 +1,6 @@
 # GitHub free-for-all test set
 
-| Version | 1.1.0-rc1 |
+| Version | 1.1.0 |
 |:--------|:--------------------|
 | Date    | 2023-08-23 14:01:36.260224+00:00 |
 | CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
