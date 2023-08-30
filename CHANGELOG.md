@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 * Check consistency after loading results
 * More CPU information in reports
 * New solver: HPIPM
+* New solver: PIQP
 
 ### Changed
 
@@ -16,7 +17,7 @@ All notable changes to this project will be documented in this file.
 * Improve reporting of shifted geometric mean errors
 * Make `cpuinfo` a proper dependency
 * Refactor results class to allow finer `check_results` sessions
-* Update to qpsolvers v3.5.0
+* Update to qpsolvers v4.0.0
 
 ### Fixed
 
