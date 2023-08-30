@@ -43,7 +43,7 @@ Standard set of problems designed to be difficult.
 | proxqp   | 0.4.1                 |
 | scs      | 3.2.3                 |
 
-All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v4.0.0.
+All solvers were called via [qpsolvers](https://github.com/qpsolvers/qpsolvers) v4.0.0.
 
 ## CPU info
 

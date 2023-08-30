@@ -1,8 +1,8 @@
 # QP solvers benchmark
 
-[![Build](https://img.shields.io/github/actions/workflow/status/stephane-caron/qpsolvers_benchmark/ci.yml?branch=main)](https://github.com/stephane-caron/qpsolvers_benchmark/actions)
+[![Build](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpsolvers_benchmark/ci.yml?branch=main)](https://github.com/qpsolvers/qpsolvers_benchmark/actions)
 [![PyPI version](https://img.shields.io/pypi/v/qpsolvers_benchmark)](https://pypi.org/project/qpsolvers_benchmark/)
-[![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/stephane-caron/qpsolvers_benchmark/tree/master/CONTRIBUTING.md)
+[![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/qpsolvers/qpsolvers_benchmark/tree/master/CONTRIBUTING.md)
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
@@ -10,7 +10,7 @@ Benchmark for quadratic programming (QP) solvers available in Python.
 * **Install:** `pip install qpsolvers_benchmark`
 * **Run:** `qpsolvers_benchmark maros_meszaros/maros_meszaros.py run`
 
-The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/stephane-caron/qpsolvers_benchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpsolvers_benchmark`` command-line tool to run test sets directly. The main output of the benchmark are standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. This repository also distributes [results](#results) from running the benchmark on a reference computer.
+The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/qpsolvers/qpsolvers_benchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpsolvers_benchmark`` command-line tool to run test sets directly. The main output of the benchmark are standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. This repository also distributes [results](#results) from running the benchmark on a reference computer.
 
 New test sets are welcome! The benchmark is designed so that each test-set comes in a standalone directory. Feel free to create a new one and [contribute it](CONTRIBUTING.md) here so that we grow the collection over time.
 
@@ -40,7 +40,7 @@ The benchmark comes with standard and community test sets to represent different
 
 | Test set | Keyword | Description |
 | -------- | ------- | ----------- |
-| **GitHub free-for-all** | ``github_ffa`` | Test set built by the community on GitHub, new problems [are welcome](https://github.com/stephane-caron/qpsolvers_benchmark/issues/new?assignees=&labels=&template=new_problem.md&title=)! |
+| **GitHub free-for-all** | ``github_ffa`` | Test set built by the community on GitHub, new problems [are welcome](https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?assignees=&labels=&template=new_problem.md&title=)! |
 | **Maros-Meszaros** | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
 | **Maros-Meszaros dense** | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
 
@@ -83,7 +83,7 @@ Here are some known areas of improvement for this benchmark:
 
 - *Cold start only:* we don't evaluate warm-start performance for now.
 
-Check out the [issue tracker](https://github.com/stephane-caron/qpsolvers_benchmark/issues) for ongoing works and future improvements.
+Check out the [issue tracker](https://github.com/qpsolvers/qpsolvers_benchmark/issues) for ongoing works and future improvements.
 
 ## Installation
 

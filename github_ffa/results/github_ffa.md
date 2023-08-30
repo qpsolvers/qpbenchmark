@@ -30,9 +30,9 @@
 
 Problems in this test set:
 
-- [GHFFA01](https://github.com/stephane-caron/qpsolvers_benchmark/issues/25): Project the origin on a 2D line that becomes vertical.
-- [GHFFA02](https://github.com/stephane-caron/qpsolvers_benchmark/issues/27): Linear system with two variables and a large condition number.
-- [GHFFA03](https://github.com/stephane-caron/qpsolvers_benchmark/issues/29): Ill-conditioned unconstrained least squares.
+- [GHFFA01](https://github.com/qpsolvers/qpsolvers_benchmark/issues/25): Project the origin on a 2D line that becomes vertical.
+- [GHFFA02](https://github.com/qpsolvers/qpsolvers_benchmark/issues/27): Linear system with two variables and a large condition number.
+- [GHFFA03](https://github.com/qpsolvers/qpsolvers_benchmark/issues/29): Ill-conditioned unconstrained least squares.
 
 ## Solvers
 
@@ -52,7 +52,7 @@ Problems in this test set:
 | quadprog | 0.1.11                |
 | scs      | 3.2.3                 |
 
-All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v3.6.0rc1.
+All solvers were called via [qpsolvers](https://github.com/qpsolvers/qpsolvers) v3.6.0rc1.
 
 ## CPU info
 

@@ -20,7 +20,7 @@
 This problem is inspired by "Geometric and numerical aspects of redundancy",
 Wieber, Escande, Dimitrov and Sherikov (2017).
 
-See https://github.com/stephane-caron/qpsolvers_benchmark/issues/25
+See https://github.com/qpsolvers/qpsolvers_benchmark/issues/25
 """
 
 import numpy as np

@@ -18,7 +18,7 @@
 """GHFFA03 problem.
 
 This problem is described at:
-https://github.com/stephane-caron/qpsolvers_benchmark/issues/29.
+https://github.com/qpsolvers/qpsolvers_benchmark/issues/29.
 """
 
 import numpy as np

@@ -331,7 +331,7 @@ class Report:
         fh.write(f"{self.get_solver_versions_table()}\n\n")
         fh.write(
             "All solvers were called via "
-            "[qpsolvers](https://github.com/stephane-caron/qpsolvers) "
+            "[qpsolvers](https://github.com/qpsolvers/qpsolvers) "
             f"v{qpsolvers_version}.\n\n"
         )
 

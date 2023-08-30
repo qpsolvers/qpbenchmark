@@ -32,13 +32,13 @@ class GithubFfa(TestSet):
     Note:
         This test set is open to proposals from the community. Feel free to
         `submit a new problem
-        <https://github.com/stephane-caron/qpsolvers_benchmark/issues/new?template=new_problem.md>`__.
+        <https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?template=new_problem.md>`__.
     """
 
     @property
     def description(self) -> str:
         """Description of the test set."""
-        issues = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
+        issues = "https://github.com/qpsolvers/qpsolvers_benchmark/issues"
         problems = (
             (
                 "GHFFA01",

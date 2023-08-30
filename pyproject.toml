@@ -48,9 +48,9 @@ keywords = ["quadratic programming", "benchmark", "solvers", "numerical optimiza
 qpsolvers_benchmark = "qpsolvers_benchmark.benchmark:main"
 
 [project.urls]
-Source = "https://github.com/stephane-caron/qpsolvers_benchmark"
-Tracker = "https://github.com/stephane-caron/qpsolvers_benchmark/issues"
-Changelog = "https://github.com/stephane-caron/qpsolvers_benchmark/blob/master/CHANGELOG.md"
+Source = "https://github.com/qpsolvers/qpsolvers_benchmark"
+Tracker = "https://github.com/qpsolvers/qpsolvers_benchmark/issues"
+Changelog = "https://github.com/qpsolvers/qpsolvers_benchmark/blob/master/CHANGELOG.md"
 
 [tool.black]
 line-length = 79

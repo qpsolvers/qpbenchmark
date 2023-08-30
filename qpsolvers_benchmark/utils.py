@@ -139,7 +139,7 @@ def time_solve_problem(
         solution = qpsolvers.solve_problem(problem, solver=solver, **kwargs)
     except Exception as e:  # pylint: disable=W0703
         # TODO(scaron): wait for qpsolvers update regarding exceptions
-        # See https://github.com/stephane-caron/qpsolvers/pull/139
+        # See https://github.com/qpsolvers/qpsolvers/pull/139
         logging.warning(f"Caught solver {type(e).__name__} exception: {e}")
         solution = qpsolvers.Solution(problem)
     runtime = perf_counter() - start_time

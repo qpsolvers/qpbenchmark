@@ -48,7 +48,7 @@ Subset of the Maros-Meszaros test set restricted to smaller dense problems with 
 | quadprog | 0.1.11                |
 | scs      | 3.2.3                 |
 
-All solvers were called via [qpsolvers](https://github.com/stephane-caron/qpsolvers) v4.0.0.
+All solvers were called via [qpsolvers](https://github.com/qpsolvers/qpsolvers) v4.0.0.
 
 ## CPU info
 
