@@ -10,6 +10,16 @@ The goal of this benchmark is to help users compare and select QP solvers. Its m
 
 New test sets are welcome! The benchmark is designed so that each test-set comes in a standalone directory. Feel free to create a new one and [contribute it](CONTRIBUTING.md) here so that we grow the collection over time.
 
+## Test sets
+
+The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
+
+| Test set | Num. of problems | Keyword | Description |
+| -------- | ---------------- | ------- | ----------- |
+| **Maros-Meszaros** | 138 | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
+| **Maros-Meszaros dense** | 62 | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
+| **GitHub free-for-all** | 12 | ``github_ffa`` | Test set built by the community on GitHub, new problems [are welcome](https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?assignees=&labels=&template=new_problem.md&title=)! |
+
 ## Solvers
 
 | Solver | Keyword | Algorithm | Matrices | License |
@@ -29,16 +39,6 @@ New test sets are welcome! The benchmark is designed so that each test-set comes
 | [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Interior point | Sparse | GPL-3.0 |
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Goldfarb-Idnani | Dense | GPL-2.0 |
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
-
-## Test sets
-
-The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
-
-| Test set | Keyword | Description |
-| -------- | ------- | ----------- |
-| **GitHub free-for-all** | ``github_ffa`` | Test set built by the community on GitHub, new problems [are welcome](https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?assignees=&labels=&template=new_problem.md&title=)! |
-| **Maros-Meszaros** | ``maros_meszaros`` | Standard set of problems designed to be difficult. |
-| **Maros-Meszaros dense** | ``maros_meszaros_dense`` | Subset of the Maros-Meszaros test set restricted to smaller dense problems. |
 
 ## Metrics
 
