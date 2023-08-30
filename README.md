@@ -14,11 +14,11 @@ New test sets are welcome! The benchmark is designed so that each test-set comes
 
 The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
 
-| Test set | Size | Keyword | Brief description |
-| -------- | ---- | ------- | ----------------- |
-| **Maros-Meszaros** | 138 | ``maros_meszaros`` | Standard, designed to be difficult. |
-| **Maros-Meszaros dense** | 62 | ``maros_meszaros_dense`` | Subset of Maros-Meszaros restricted to smaller dense problems. |
-| **GitHub free-for-all** | 12 | ``github_ffa`` | Community-built, new problems [are welcome](https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?template=new_problem.md)! |
+| Test set                 | Problems | Brief description |
+| ------------------------ | -------- | ----------------- |
+| **Maros-Meszaros**       | 138      | Standard, designed to be difficult. |
+| **Maros-Meszaros dense** | 62       | Subset of Maros-Meszaros restricted to smaller dense problems. |
+| **GitHub free-for-all**  | 12       | Community-built, new problems [are welcome](https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?template=new_problem.md)! |
 
 ## Solvers
 
