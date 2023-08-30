@@ -1,10 +1,10 @@
 # Maros-Meszaros test set
 
-| Version | 1.1.0 |
-|:--------|:--------------------|
-| Date    | 2023-08-30 11:53:20.451351+00:00 |
-| CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
-| Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
+| Benchmark version | 1.1.0 |
+|:------------------|:--------------------|
+| Date              | 2023-08-30 12:59:01.215497+00:00 |
+| CPU               | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
+| Run by            | [@stephane-caron](https://github.com/stephane-caron/) |
 
 ## Contents
 

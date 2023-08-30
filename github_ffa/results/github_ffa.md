@@ -1,10 +1,10 @@
 # GitHub free-for-all test set
 
-| Version | 1.1.0 |
-|:--------|:--------------------|
-| Date    | 2023-08-23 14:01:36.260224+00:00 |
-| CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
-| Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
+| Benchmark version | 1.1.0 |
+|:------------------|:--------------------|
+| Date              | 2023-08-30 12:59:26.197965+00:00 |
+| CPU               | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
+| Run by            | [@stephane-caron](https://github.com/stephane-caron/) |
 
 ## Contents
 
@@ -52,7 +52,7 @@ Problems in this test set:
 | quadprog | 0.1.11                |
 | scs      | 3.2.3                 |
 
-All solvers were called via [qpsolvers](https://github.com/qpsolvers/qpsolvers) v3.6.0rc1.
+All solvers were called via [qpsolvers](https://github.com/qpsolvers/qpsolvers) v4.0.0.
 
 ## CPU info
 
@@ -120,7 +120,7 @@ Solvers for each settings are configured as follows:
 | piqp     | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | piqp     | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
 | piqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
-| proxqp   | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
+| proxqp   | ``check_duality_gap``            | -         | True                   | True                  |
 | proxqp   | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |

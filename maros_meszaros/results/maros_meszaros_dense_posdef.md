@@ -1,10 +1,10 @@
 # Maros-Meszaros dense positive definite subset
 
-| Version | 1.1.0 |
-|:--------|:--------------------|
-| Date    | 2023-08-30 12:34:20.028889+00:00 |
-| CPU     | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
-| Run by  | [@stephane-caron](https://github.com/stephane-caron/) |
+| Benchmark version | 1.1.0 |
+|:------------------|:--------------------|
+| Date              | 2023-08-30 12:58:14.908876+00:00 |
+| CPU               | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
+| Run by            | [@stephane-caron](https://github.com/stephane-caron/) |
 
 ## Contents
 
@@ -116,7 +116,7 @@ Solvers for each settings are configured as follows:
 | piqp     | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | piqp     | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |
 | piqp     | ``eps_rel``                      | -         | 0.0                    | 0.0                   |
-| proxqp   | ``check_duality_gap``            | -         | 1.0                    | 1.0                   |
+| proxqp   | ``check_duality_gap``            | -         | True                   | True                  |
 | proxqp   | ``eps_abs``                      | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_abs``          | -         | 1e-09                  | 0.001                 |
 | proxqp   | ``eps_duality_gap_rel``          | -         | 0.0                    | 0.0                   |

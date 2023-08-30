@@ -272,11 +272,11 @@ class Report:
         fh.write(
             f"""# {self.test_set.title}
 
-| Version | {benchmark_version} |
-|:--------|:--------------------|
-| Date    | {date} |
-| CPU     | [{cpu_info_summary}](#cpu-info) |
-| Run by  | [@{self.author}](https://github.com/{self.author}/) |
+| Benchmark version | {benchmark_version} |
+|:------------------|:--------------------|
+| Date              | {date} |
+| CPU               | [{cpu_info_summary}](#cpu-info) |
+| Run by            | [@{self.author}](https://github.com/{self.author}/) |
 
 """
         )
