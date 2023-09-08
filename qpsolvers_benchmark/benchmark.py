@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This is the main script for the 'qpsolvers_benchmark' package.
+"""Main script for the `qpsolvers_benchmark` command-line utility.
 
 It provides tools to benchmark different Quadratic Programming (QP) solvers.
 """
@@ -234,6 +234,24 @@ def load_test_set(path: str) -> TestSet:
     return TestClass()
 
 
+def report(args, results):
+    """Write report to file.
+
+    Args:
+        args: Command-line arguments.
+        results: Benchmark results.
+    """
+    logging.info("Writing the overall report...")
+    author = (
+        args.author
+        if args.author
+        else input("GitHub username to write in the report? ")
+    )
+    report = Report(author, results)
+    md_path = results.csv_path.replace(".csv", ".md")
+    report.write(md_path)
+
+
 def main():
     """Main function of the script."""
     args = parse_command_line_arguments()
@@ -288,15 +306,7 @@ def main():
         )
 
     if args.command in ["report", "run"]:
-        logging.info("Writing the overall report...")
-        author = (
-            args.author
-            if args.author
-            else input("GitHub username to write in the report? ")
-        )
-        report = Report(author, results)
-        md_path = results.csv_path.replace(".csv", ".md")
-        report.write(md_path)
+        report(args, results)
 
 
 if __name__ == "__main__":
