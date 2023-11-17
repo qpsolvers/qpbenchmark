@@ -87,7 +87,7 @@ Check out the [issue tracker](https://github.com/qpsolvers/qpsolvers_benchmark/i
 You can install the benchmark and its dependencies in an isolated environment using ``conda``:
 
 ```console
-conda create -f environment.yaml
+conda env create -f environment.yaml
 conda activate qpsolvers_benchmark
 ```
 
