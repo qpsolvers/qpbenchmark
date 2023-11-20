@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you find this code helpful, please cite it as below."
+title: "qpsolvers_benchmark: Benchmark for quadratic programming solvers available in Python"
+version: 1.1.0
+date-released: 2023-09-08
+url: "https://github.com/qpsolvers/qpsolvers_benchmark"
+license: "Apache-2.0"
+authors:
+- family-names: "Caron"
+  given-names: "Stéphane"
+  orcid: "https://orcid.org/0000-0003-2906-692X"
+- family-names: "Arnström"
+  given-names: "Daniel"
+  orcid: "https://orcid.org/0000-0003-0970-0620"
+- family-names: "Carpentier"
+  given-names: "Justin"
+  orcid: "https://orcid.org/0000-0001-6585-2894"
+- family-names: "@ottapav"
