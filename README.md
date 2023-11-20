@@ -131,6 +131,10 @@ To generate the following plot:
 
 Contributions to improving this benchmark are welcome. You can for instance propose new problems, or share the runtimes you obtain on your machine. Check out the [contribution guidelines](CONTRIBUTING.md) for details.
 
+## Citation
+
+To cite this benchmark in your scientific works, follow the ``Cite this repository`` button on GitHub (top-right of the [repository page](https://github.com/qpsolvers/qpsolvers_benchmark/)).
+
 ## See also
 
 ### References
