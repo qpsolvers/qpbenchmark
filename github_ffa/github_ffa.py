@@ -82,6 +82,13 @@ class GithubFfa(TestSet):
                 gap=1.0,
                 runtime=100.0,
             ),
+            "high_accuracy": Tolerance(
+                cost=1000.0,
+                primal=1e-9,
+                dual=1e-9,
+                gap=1e-9,
+                runtime=100.0,
+            ),
             "low_accuracy": Tolerance(
                 cost=1000.0,
                 primal=1e-3,
@@ -89,11 +96,11 @@ class GithubFfa(TestSet):
                 gap=1e-3,
                 runtime=100.0,
             ),
-            "high_accuracy": Tolerance(
+            "mid_accuracy": Tolerance(
                 cost=1000.0,
-                primal=1e-9,
-                dual=1e-9,
-                gap=1e-9,
+                primal=1e-6,
+                dual=1e-6,
+                gap=1e-6,
                 runtime=100.0,
             ),
         }

@@ -89,10 +89,24 @@ class TestSet(abc.ABC):
         low_accuracy.set_param("qpoases", "predefined_options", "fast")
         low_accuracy.set_time_limit(self.tolerances["low_accuracy"].runtime)
 
+        mid_accuracy = SolverSettings()
+        mid_accuracy.set_eps_abs(1e-6)
+        mid_accuracy.set_eps_rel(0.0)
+        mid_accuracy.set_param("clarabel", "tol_gap_abs", 1e-6)
+        mid_accuracy.set_param("clarabel", "tol_gap_rel", 0.0)
+        mid_accuracy.set_param("piqp", "check_duality_gap", True)
+        mid_accuracy.set_param("piqp", "eps_duality_gap_abs", 1e-6)
+        mid_accuracy.set_param("piqp", "eps_duality_gap_rel", 0.0)
+        mid_accuracy.set_param("proxqp", "check_duality_gap", True)
+        mid_accuracy.set_param("proxqp", "eps_duality_gap_abs", 1e-6)
+        mid_accuracy.set_param("proxqp", "eps_duality_gap_rel", 0.0)
+        mid_accuracy.set_time_limit(self.tolerances["mid_accuracy"].runtime)
+
         self.solver_settings = {
             "default": default,
             "high_accuracy": high_accuracy,
             "low_accuracy": low_accuracy,
+            "mid_accuracy": mid_accuracy,
         }
 
     @property
