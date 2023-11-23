@@ -72,6 +72,7 @@ def skip_solver_timeout(
         ("AUG2DCQP", "proxqp", "high_accuracy"): 20 * minutes,
         ("AUG2DQP", "proxqp", "high_accuracy"): 30 * minutes,
         ("BOYD1", "proxqp", "*"): 30 * minutes,
+        ("BOYD2", "cvxopt", "mid_accuracy"): 30 * minutes,
         ("BOYD2", "proxqp", "*"): 20 * minutes,
         ("CONT-101", "proxqp", "*"): 30 * minutes,
         ("CONT-200", "proxqp", "*"): 20 * minutes,
