@@ -63,6 +63,7 @@ def skip_solver_timeout(
         `problem` when using the solver parameters defined in `settings`.
     """
     minutes = 60.0
+    # TODO: these timeouts should be moved to test sets themselves
     known_timeout_settings: Dict[Tuple[str, str, str], float] = {
         ("AUG2D", "highs", "*"): 40 * minutes,
         ("AUG2D", "proxqp", "high_accuracy"): 40 * minutes,
@@ -90,6 +91,7 @@ def skip_solver_timeout(
         ("LISWET1", "proxqp", "*"): 20 * minutes,
         ("LISWET10", "proxqp", "*"): 50 * minutes,
         ("LISWET11", "proxqp", "high_accuracy"): 40 * minutes,
+        ("LISWET11", "proxqp", "mid_accuracy"): 30 * minutes,
         ("LISWET12", "proxqp", "high_accuracy"): 20 * minutes,
         ("LISWET12", "proxqp", "low_accuracy"): 60 * minutes,
         ("LISWET12", "proxqp", "mid_accuracy"): 60 * minutes,
