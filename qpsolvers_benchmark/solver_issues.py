@@ -102,6 +102,7 @@ def skip_solver_timeout(
         ("LISWET4", "proxqp", "high_accuracy"): 20 * minutes,
         ("LISWET5", "proxqp", "high_accuracy"): 20 * minutes,
         ("LISWET6", "proxqp", "high_accuracy"): 20 * minutes,
+        ("LISWET6", "proxqp", "mid_accuracy"): 20 * minutes,
         ("LISWET7", "proxqp", "high_accuracy"): 30 * minutes,
         ("LISWET8", "proxqp", "high_accuracy"): 30 * minutes,
         ("LISWET9", "proxqp", "high_accuracy"): 30 * minutes,

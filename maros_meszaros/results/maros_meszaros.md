@@ -1,8 +1,8 @@
 # Maros-Meszaros test set
 
-| Benchmark version | 1.1.0 |
+| Benchmark version | 1.2.0 |
 |:------------------|:--------------------|
-| Date              | 2023-08-30 12:59:01.215497+00:00 |
+| Date              | 2023-11-23 20:32:11.976859+00:00 |
 | CPU               | [Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz](#cpu-info) |
 | Run by            | [@stephane-caron](https://github.com/stephane-caron/) |
 
@@ -17,6 +17,7 @@
     * [Default](#default)
     * [High accuracy](#high-accuracy)
     * [Low accuracy](#low-accuracy)
+    * [Mid accuracy](#mid-accuracy)
 * [Results by metric](#results-by-metric)
     * [Success rate](#success-rate)
     * [Computation time](#computation-time)
@@ -57,7 +58,7 @@ All solvers were called via [qpsolvers](https://github.com/qpsolvers/qpsolvers) 
 | `cpuinfo_version_string` | 9.0.0 |
 | `family` | 6 |
 | `flags` | `3dnowprefetch`, `abm`, `acpi`, `adx`, `aes`, `aperfmperf`, `apic`, `arat`, `arch_capabilities`, `arch_perfmon`, `art`, `avx`, `avx2`, `bmi1`, `bmi2`, `bts`, `clflush`, `clflushopt`, `cmov`, `constant_tsc`, `cpuid`, `cpuid_fault`, `cx16`, `cx8`, `de`, `ds_cpl`, `dtes64`, `dtherm`, `dts`, `epb`, `ept`, `ept_ad`, `erms`, `est`, `f16c`, `flexpriority`, `flush_l1d`, `fma`, `fpu`, `fsgsbase`, `fxsr`, `ht`, `hwp`, `hwp_act_window`, `hwp_epp`, `hwp_notify`, `ibpb`, `ibrs`, `ida`, `intel_pt`, `invpcid`, `invpcid_single`, `lahf_lm`, `lm`, `mca`, `mce`, `md_clear`, `mmx`, `monitor`, `movbe`, `mpx`, `msr`, `mtrr`, `nonstop_tsc`, `nopl`, `nx`, `osxsave`, `pae`, `pat`, `pbe`, `pcid`, `pclmulqdq`, `pdcm`, `pdpe1gb`, `pebs`, `pge`, `pln`, `pni`, `popcnt`, `pse`, `pse36`, `pti`, `pts`, `rdrand`, `rdrnd`, `rdseed`, `rdtscp`, `rep_good`, `sdbg`, `sep`, `sgx`, `smap`, `smep`, `ss`, `ssbd`, `sse`, `sse2`, `sse4_1`, `sse4_2`, `ssse3`, `stibp`, `syscall`, `tm`, `tm2`, `tpr_shadow`, `tsc`, `tsc_adjust`, `tsc_deadline_timer`, `tscdeadline`, `vme`, `vmx`, `vnmi`, `vpid`, `x2apic`, `xgetbv1`, `xsave`, `xsavec`, `xsaveopt`, `xsaves`, `xtopology`, `xtpr` |
-| `hz_actual_friendly` | 3.0029 GHz |
+| `hz_actual_friendly` | 3.0041 GHz |
 | `hz_advertised_friendly` | 2.5000 GHz |
 | `l1_data_cache_size` | 65536 |
 | `l1_instruction_cache_size` | 65536 |
@@ -72,46 +73,46 @@ All solvers were called via [qpsolvers](https://github.com/qpsolvers/qpsolvers) 
 
 ## Settings
 
-There are 3 settings: *default*, *high_accuracy* and *low_accuracy*. They validate solutions using the following tolerances:
+There are 4 settings: *default*, *high_accuracy*, *low_accuracy* and *mid_accuracy*. They validate solutions using the following tolerances:
 
-| tolerance   |   default |   low_accuracy |   high_accuracy |
-|:------------|----------:|---------------:|----------------:|
-| ``cost``    |      1000 |       1000     |        1000     |
-| ``dual``    |         1 |          0.001 |           1e-09 |
-| ``gap``     |         1 |          0.001 |           1e-09 |
-| ``primal``  |         1 |          0.001 |           1e-09 |
-| ``runtime`` |      1000 |       1000     |        1000     |
+| tolerance   |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:------------|----------:|----------------:|---------------:|---------------:|
+| ``cost``    |      1000 |        1000     |       1000     |       1000     |
+| ``dual``    |         1 |           1e-09 |          0.001 |          1e-06 |
+| ``gap``     |         1 |           1e-09 |          0.001 |          1e-06 |
+| ``primal``  |         1 |           1e-09 |          0.001 |          1e-06 |
+| ``runtime`` |      1000 |        1000     |       1000     |       1000     |
 
 Solvers for each settings are configured as follows:
 
-| solver   | parameter                        | default   |   high_accuracy |   low_accuracy |
-|:---------|:---------------------------------|:----------|----------------:|---------------:|
-| clarabel | ``tol_feas``                     | -         |           1e-09 |          0.001 |
-| clarabel | ``tol_gap_abs``                  | -         |           1e-09 |          0.001 |
-| clarabel | ``tol_gap_rel``                  | -         |           0     |          0     |
-| cvxopt   | ``feastol``                      | -         |           1e-09 |          0.001 |
-| gurobi   | ``FeasibilityTol``               | -         |           1e-09 |          0.001 |
-| gurobi   | ``OptimalityTol``                | -         |           1e-09 |          0.001 |
-| gurobi   | ``TimeLimit``                    | 1000.0    |        1000     |       1000     |
-| highs    | ``dual_feasibility_tolerance``   | -         |           1e-09 |          0.001 |
-| highs    | ``primal_feasibility_tolerance`` | -         |           1e-09 |          0.001 |
-| highs    | ``time_limit``                   | 1000.0    |        1000     |       1000     |
-| osqp     | ``eps_abs``                      | -         |           1e-09 |          0.001 |
-| osqp     | ``eps_rel``                      | -         |           0     |          0     |
-| osqp     | ``time_limit``                   | 1000.0    |        1000     |       1000     |
-| piqp     | ``check_duality_gap``            | -         |           1     |          1     |
-| piqp     | ``eps_abs``                      | -         |           1e-09 |          0.001 |
-| piqp     | ``eps_duality_gap_abs``          | -         |           1e-09 |          0.001 |
-| piqp     | ``eps_duality_gap_rel``          | -         |           0     |          0     |
-| piqp     | ``eps_rel``                      | -         |           0     |          0     |
-| proxqp   | ``check_duality_gap``            | -         |           1     |          1     |
-| proxqp   | ``eps_abs``                      | -         |           1e-09 |          0.001 |
-| proxqp   | ``eps_duality_gap_abs``          | -         |           1e-09 |          0.001 |
-| proxqp   | ``eps_duality_gap_rel``          | -         |           0     |          0     |
-| proxqp   | ``eps_rel``                      | -         |           0     |          0     |
-| scs      | ``eps_abs``                      | -         |           1e-09 |          0.001 |
-| scs      | ``eps_rel``                      | -         |           0     |          0     |
-| scs      | ``time_limit_secs``              | 1000.0    |        1000     |       1000     |
+| solver   | parameter                        | default   |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|:---------------------------------|:----------|----------------:|---------------:|---------------:|
+| clarabel | ``tol_feas``                     | -         |           1e-09 |          0.001 |          1e-06 |
+| clarabel | ``tol_gap_abs``                  | -         |           1e-09 |          0.001 |          1e-06 |
+| clarabel | ``tol_gap_rel``                  | -         |           0     |          0     |          0     |
+| cvxopt   | ``feastol``                      | -         |           1e-09 |          0.001 |          1e-06 |
+| gurobi   | ``FeasibilityTol``               | -         |           1e-09 |          0.001 |          1e-06 |
+| gurobi   | ``OptimalityTol``                | -         |           1e-09 |          0.001 |          1e-06 |
+| gurobi   | ``TimeLimit``                    | 1000.0    |        1000     |       1000     |       1000     |
+| highs    | ``dual_feasibility_tolerance``   | -         |           1e-09 |          0.001 |          1e-06 |
+| highs    | ``primal_feasibility_tolerance`` | -         |           1e-09 |          0.001 |          1e-06 |
+| highs    | ``time_limit``                   | 1000.0    |        1000     |       1000     |       1000     |
+| osqp     | ``eps_abs``                      | -         |           1e-09 |          0.001 |          1e-06 |
+| osqp     | ``eps_rel``                      | -         |           0     |          0     |          0     |
+| osqp     | ``time_limit``                   | 1000.0    |        1000     |       1000     |       1000     |
+| piqp     | ``check_duality_gap``            | -         |           1     |          1     |          1     |
+| piqp     | ``eps_abs``                      | -         |           1e-09 |          0.001 |          1e-06 |
+| piqp     | ``eps_duality_gap_abs``          | -         |           1e-09 |          0.001 |          1e-06 |
+| piqp     | ``eps_duality_gap_rel``          | -         |           0     |          0     |          0     |
+| piqp     | ``eps_rel``                      | -         |           0     |          0     |          0     |
+| proxqp   | ``check_duality_gap``            | -         |           1     |          1     |          1     |
+| proxqp   | ``eps_abs``                      | -         |           1e-09 |          0.001 |          1e-06 |
+| proxqp   | ``eps_duality_gap_abs``          | -         |           1e-09 |          0.001 |          1e-06 |
+| proxqp   | ``eps_duality_gap_rel``          | -         |           0     |          0     |          0     |
+| proxqp   | ``eps_rel``                      | -         |           0     |          0     |          0     |
+| scs      | ``eps_abs``                      | -         |           1e-09 |          0.001 |          1e-06 |
+| scs      | ``eps_rel``                      | -         |           0     |          0     |          0     |
+| scs      | ``time_limit_secs``              | 1000.0    |        1000     |       1000     |       1000     |
 
 ## Known limitations
 
@@ -166,37 +167,52 @@ Solvers are compared over the whole test set by [shifted geometric mean](https:/
 | proxqp   |                                78.3 |                                 18.0 |                                         1.0 |                                     1.4 |                                19.6 |                               3.6 |
 | scs      |                                71.0 |                                 21.1 |                                        31.3 |                                     3.0 |                                 1.6 |                               5.3 |
 
+### Mid accuracy
+
+Solvers are compared over the whole test set by [shifted geometric mean](https://github.com/qpsolvers/qpsolvers_benchmark#shifted-geometric-mean) (shm). Lower is better, 1.0 is the best.
+
+|          |   [Success rate](#success-rate) (%) |   [Runtime](#computation-time) (shm) |   [Primal residual](#primal-residual) (shm) |   [Dual residual](#dual-residual) (shm) |   [Duality gap](#duality-gap) (shm) |   [Cost error](#cost-error) (shm) |
+|:---------|------------------------------------:|-------------------------------------:|--------------------------------------------:|----------------------------------------:|------------------------------------:|----------------------------------:|
+| clarabel |                                89.6 |                                  1.6 |                                         1.5 |                                     1.1 |                                54.8 |                               1.7 |
+| cvxopt   |                                22.9 |                                 18.2 |                                         6.8 |                                    67.9 |                           7187946.2 |                               7.3 |
+| gurobi   |                                14.6 |                                143.4 |                                        17.3 |                             112397299.2 |                          28207653.7 |                              52.9 |
+| highs    |                                14.6 |                                 41.4 |                                       100.3 |                               7647462.1 |                           1739900.5 |                              13.9 |
+| osqp     |                                29.2 |                                 38.2 |                                        14.0 |                                     8.7 |                             56031.3 |                              14.0 |
+| piqp     |                                93.8 |                                  1.0 |                                         1.0 |                                     1.0 |                                25.4 |                               1.0 |
+| proxqp   |                                83.3 |                                  8.6 |                                         3.9 |                                     2.1 |                                20.6 |                               2.7 |
+| scs      |                                64.6 |                                 20.4 |                                         9.7 |                                     6.1 |                                 1.0 |                               7.1 |
+
 ## Results by metric
 
 ### Success rate
 
 Precentage of problems each solver is able to solve:
 
-|          |   default |   high_accuracy |   low_accuracy |
-|:---------|----------:|----------------:|---------------:|
-| clarabel |        90 |              62 |             91 |
-| cvxopt   |        54 |               6 |             43 |
-| gurobi   |        17 |               5 |             17 |
-| highs    |        54 |               0 |             38 |
-| osqp     |        41 |              26 |             21 |
-| piqp     |        94 |              67 |             95 |
-| proxqp   |        78 |              59 |             78 |
-| scs      |        60 |              43 |             71 |
+|          |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|----------:|----------------:|---------------:|---------------:|
+| clarabel |        90 |              62 |             91 |             90 |
+| cvxopt   |        54 |               6 |             43 |             23 |
+| gurobi   |        17 |               5 |             17 |             15 |
+| highs    |        54 |               0 |             38 |             15 |
+| osqp     |        41 |              26 |             21 |             29 |
+| piqp     |        94 |              67 |             95 |             94 |
+| proxqp   |        78 |              59 |             78 |             83 |
+| scs      |        60 |              43 |             71 |             65 |
 
 Rows are [solvers](#solvers) and columns are [settings](#settings). We consider that a solver successfully solved a problem when (1) it returned with a success status and (2) its solution satisfies optimality conditions within [tolerance](#settings). The second table below summarizes the frequency at which solvers return success (1) and the corresponding solution did indeed pass tolerance checks.
 
 Percentage of problems where "solved" return codes are correct:
 
-|          |   default |   high_accuracy |   low_accuracy |
-|:---------|----------:|----------------:|---------------:|
-| clarabel |        97 |              80 |             95 |
-| cvxopt   |        91 |              49 |             78 |
-| gurobi   |        91 |              79 |             91 |
-| highs    |        91 |              38 |             75 |
-| osqp     |        55 |              89 |             61 |
-| piqp     |        96 |              91 |             96 |
-| proxqp   |        92 |              88 |             95 |
-| scs      |        72 |              97 |             95 |
+|          |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|----------:|----------------:|---------------:|---------------:|
+| clarabel |        97 |              80 |             95 |             96 |
+| cvxopt   |        91 |              49 |             78 |             52 |
+| gurobi   |        91 |              79 |             91 |             90 |
+| highs    |        91 |              38 |             75 |             62 |
+| osqp     |        55 |              89 |             61 |             77 |
+| piqp     |        96 |              91 |             96 |             98 |
+| proxqp   |        92 |              88 |             95 |             98 |
+| scs      |        72 |              97 |             95 |            100 |
 
 ### Computation time
 
@@ -204,16 +220,16 @@ We compare solver computation times over the whole test set using the shifted ge
 
 Shifted geometric mean of solver computation times (1.0 is the best):
 
-|          |   default |   high_accuracy |   low_accuracy |
-|:---------|----------:|----------------:|---------------:|
-| clarabel |       4.2 |             1.0 |            2.3 |
-| cvxopt   |      57.1 |             5.8 |           49.6 |
-| gurobi   |     239.8 |            19.2 |          242.4 |
-| highs    |      46.7 |             3.7 |           47.2 |
-| osqp     |       7.6 |            11.5 |           44.8 |
-| piqp     |       1.0 |             1.3 |            1.0 |
-| proxqp   |      19.1 |             2.4 |           18.0 |
-| scs      |       8.8 |             8.0 |           21.1 |
+|          |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|----------:|----------------:|---------------:|---------------:|
+| clarabel |       4.2 |             1.0 |            2.3 |            1.6 |
+| cvxopt   |      57.1 |             5.8 |           49.6 |           18.2 |
+| gurobi   |     239.8 |            19.2 |          242.4 |          143.4 |
+| highs    |      46.7 |             3.7 |           47.2 |           41.4 |
+| osqp     |       7.6 |            11.5 |           44.8 |           38.2 |
+| piqp     |       1.0 |             1.3 |            1.0 |            1.0 |
+| proxqp   |      19.1 |             2.4 |           18.0 |            8.6 |
+| scs      |       8.8 |             8.0 |           21.1 |           20.4 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. As in the OSQP and ProxQP benchmarks, we assume a solver's run time is at the [time limit](#settings) when it fails to solve a problem.
 
@@ -225,16 +241,16 @@ The primal residual measures the maximum (equality and inequality) constraint vi
 
 Shifted geometric means of primal residuals (1.0 is the best):
 
-|          |   default |   high_accuracy |   low_accuracy |
-|:---------|----------:|----------------:|---------------:|
-| clarabel |       4.9 |             1.0 |            1.8 |
-| cvxopt   |      26.0 |       1484115.0 |            3.5 |
-| gurobi   |      51.8 |             4.3 |            3.6 |
-| highs    |      26.0 |          5416.6 |            1.8 |
-| osqp     |     289.6 |             2.8 |            2.9 |
-| piqp     |       1.0 |             1.0 |            2.9 |
-| proxqp   |       9.9 |             1.4 |            1.0 |
-| scs      |     185.1 |             2.5 |           31.3 |
+|          |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|----------:|----------------:|---------------:|---------------:|
+| clarabel |       4.9 |             1.0 |            1.8 |            1.5 |
+| cvxopt   |      26.0 |       1484115.0 |            3.5 |            6.8 |
+| gurobi   |      51.8 |             4.3 |            3.6 |           17.3 |
+| highs    |      26.0 |          5416.6 |            1.8 |          100.3 |
+| osqp     |     289.6 |             2.8 |            2.9 |           14.0 |
+| piqp     |       1.0 |             1.0 |            2.9 |            1.0 |
+| proxqp   |       9.9 |             1.4 |            1.0 |            3.9 |
+| scs      |     185.1 |             2.5 |           31.3 |            9.7 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a primal residual equal to the full [primal tolerance](#settings).
 
@@ -244,16 +260,16 @@ The dual residual measures the maximum violation of the dual feasibility conditi
 
 Shifted geometric means of dual residuals (1.0 is the best):
 
-|          |   default |   high_accuracy |   low_accuracy |
-|:---------|----------:|----------------:|---------------:|
-| clarabel |      19.0 |       1162631.8 |         1480.4 |
-| cvxopt   |      26.4 |           197.7 |            5.3 |
-| gurobi   |     377.3 |   11216402921.9 |        32236.4 |
-| highs    |      26.5 |       1384810.5 |            6.9 |
-| osqp     |     227.4 |             1.9 |            4.4 |
-| piqp     |       1.0 |             1.0 |            1.0 |
-| proxqp   |      10.1 |             1.6 |            1.4 |
-| scs      |      33.9 |             1.6 |            3.0 |
+|          |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|----------:|----------------:|---------------:|---------------:|
+| clarabel |      19.0 |       1162631.8 |         1480.4 |            1.1 |
+| cvxopt   |      26.4 |           197.7 |            5.3 |           67.9 |
+| gurobi   |     377.3 |   11216402921.9 |        32236.4 |    112397299.2 |
+| highs    |      26.5 |       1384810.5 |            6.9 |      7647462.1 |
+| osqp     |     227.4 |             1.9 |            4.4 |            8.7 |
+| piqp     |       1.0 |             1.0 |            1.0 |            1.0 |
+| proxqp   |      10.1 |             1.6 |            1.4 |            2.1 |
+| scs      |      33.9 |             1.6 |            3.0 |            6.1 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a dual residual equal to the full [dual tolerance](#settings).
 
@@ -263,16 +279,16 @@ The duality gap measures the consistency of the primal and dual solutions return
 
 Shifted geometric means of duality gaps (1.0 is the best):
 
-|          |   default |   high_accuracy |   low_accuracy |
-|:---------|----------:|----------------:|---------------:|
-| clarabel |       1.0 |            44.9 |            1.0 |
-| cvxopt   |      22.9 |    1612205372.0 |         6604.3 |
-| gurobi   |      94.0 |    9769259351.6 |        26882.1 |
-| highs    |      21.2 |    1987500500.6 |         5469.8 |
-| osqp     |    1950.7 |          3235.1 |         4982.6 |
-| piqp     |       6.6 |          7236.2 |            1.3 |
-| proxqp   |      11.5 |          5387.0 |           19.6 |
-| scs      |     133.1 |             1.0 |            1.6 |
+|          |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|----------:|----------------:|---------------:|---------------:|
+| clarabel |       1.0 |            44.9 |            1.0 |           54.8 |
+| cvxopt   |      22.9 |    1612205372.0 |         6604.3 |      7187946.2 |
+| gurobi   |      94.0 |    9769259351.6 |        26882.1 |     28207653.7 |
+| highs    |      21.2 |    1987500500.6 |         5469.8 |      1739900.5 |
+| osqp     |    1950.7 |          3235.1 |         4982.6 |        56031.3 |
+| piqp     |       6.6 |          7236.2 |            1.3 |           25.4 |
+| proxqp   |      11.5 |          5387.0 |           19.6 |           20.6 |
+| scs      |     133.1 |             1.0 |            1.6 |            1.0 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a duality gap equal to the full [gap tolerance](#settings).
 
@@ -282,15 +298,15 @@ The cost error measures the difference between the known optimal objective and t
 
 Shifted geometric means of solver cost errors (1.0 is the best):
 
-|          |   default |   high_accuracy |   low_accuracy |
-|:---------|----------:|----------------:|---------------:|
-| clarabel |       1.9 |             1.0 |            1.3 |
-| cvxopt   |      12.3 |             5.0 |            9.3 |
-| gurobi   |      64.9 |            19.8 |           57.4 |
-| highs    |      11.3 |             3.5 |           10.0 |
-| osqp     |      79.0 |            11.7 |           14.6 |
-| piqp     |       1.0 |             1.7 |            1.0 |
-| proxqp   |       4.1 |             2.2 |            3.6 |
-| scs      |      15.7 |             7.6 |            5.3 |
+|          |   default |   high_accuracy |   low_accuracy |   mid_accuracy |
+|:---------|----------:|----------------:|---------------:|---------------:|
+| clarabel |       1.9 |             1.0 |            1.3 |            1.7 |
+| cvxopt   |      12.3 |             5.0 |            9.3 |            7.3 |
+| gurobi   |      64.9 |            19.8 |           57.4 |           52.9 |
+| highs    |      11.3 |             3.5 |           10.0 |           13.9 |
+| osqp     |      79.0 |            11.7 |           14.6 |           14.0 |
+| piqp     |       1.0 |             1.7 |            1.0 |            1.0 |
+| proxqp   |       4.1 |             2.2 |            3.6 |            2.7 |
+| scs      |      15.7 |             7.6 |            5.3 |            7.1 |
 
 Rows are solvers and columns are solver settings. The shift is $sh = 10$. A solver that fails to find a solution receives a cost error equal to the [cost tolerance](#settings).
