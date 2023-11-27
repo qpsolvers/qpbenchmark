@@ -21,5 +21,5 @@ dependencies:
         - clarabel >= 0.4.1
         - highspy >= 1.5.2
         - py-cpuinfo
-        - qpsolvers_benchmark >= 1.1.0
+        - qpsolvers_benchmark >= 1.2.0
         - scs >= 3.2.2
