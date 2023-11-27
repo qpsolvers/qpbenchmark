@@ -2,7 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.0] - 2023/09/08
+## Unreleased
+
+## [1.1.0] - 2023-09-08
 
 ### Added
 
@@ -24,7 +26,7 @@ All notable changes to this project will be documented in this file.
 * Correct `None` values to `False` in found column
 * Make sure found column has only boolean values
 
-## [1.0.0] - 2023/07/25
+## [1.0.0] - 2023-07-25
 
 ### Added
 
@@ -41,7 +43,7 @@ All notable changes to this project will be documented in this file.
 
 * Plot whiskers on solutions beyond tolerance requirements (thanks to @ottapav)
 
-## [0.1.0-beta] - 2022/01/26
+## [0.1.0-beta] - 2022-01-26
 
 ### Added
 
@@ -68,7 +70,7 @@ All notable changes to this project will be documented in this file.
 * Conform to linter standards
 * Sparse matrix conversion
 
-## [0.1.0-alpha] - 2022/12/21
+## [0.1.0-alpha] - 2022-12-21
 
 ### Added
 
