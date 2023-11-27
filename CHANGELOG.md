@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [Unreleased]
+
+## [1.2.0] - 2023-11-27
+
+### Added
+
+* Citation file to refer to the benchmark in scientific works
+* Medium accuracy settings
+* Note in the readme on CPU throttling
 
 ## [1.1.0] - 2023-09-08
 
