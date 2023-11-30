@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+* Rename the project from to "qpbenchmark"
+
 ## [1.2.0] - 2023-11-27
 
 ### Added
