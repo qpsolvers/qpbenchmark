@@ -93,9 +93,9 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpsolvers_benchmark/compare/v1.2.0...HEAD
-[1.2.0]: https://github.com/qpsolvers/qpsolvers_benchmark/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/qpsolvers/qpsolvers_benchmark/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/qpsolvers/qpsolvers_benchmark/compare/v0.1.0-beta...v1.0.0
-[0.1.0-beta]: https://github.com/qpsolvers/qpsolvers_benchmark/compare/v0.1.0-alpha...v0.1.0-beta
-[0.1.0-alpha]: https://github.com/qpsolvers/qpsolvers_benchmark/releases/tag/v0.1.0-alpha
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/qpsolvers/qpbenchmark/compare/v0.1.0-beta...v1.0.0
+[0.1.0-beta]: https://github.com/qpsolvers/qpbenchmark/compare/v0.1.0-alpha...v0.1.0-beta
+[0.1.0-alpha]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v0.1.0-alpha

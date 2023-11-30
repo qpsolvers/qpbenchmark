@@ -3,7 +3,7 @@ requires = ["flit_core >=2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "qpsolvers_benchmark"
+name = "qpbenchmark"
 readme = "README.md"
 authors = [
     {name = "Stéphane Caron", email = "stephane.caron@normalesup.org"},
@@ -45,12 +45,12 @@ dependencies = [
 keywords = ["quadratic programming", "benchmark", "solvers", "numerical optimization"]
 
 [project.scripts]
-qpsolvers_benchmark = "qpsolvers_benchmark.benchmark:main"
+qpbenchmark = "qpbenchmark.benchmark:main"
 
 [project.urls]
-Source = "https://github.com/qpsolvers/qpsolvers_benchmark"
-Tracker = "https://github.com/qpsolvers/qpsolvers_benchmark/issues"
-Changelog = "https://github.com/qpsolvers/qpsolvers_benchmark/blob/master/CHANGELOG.md"
+Source = "https://github.com/qpsolvers/qpbenchmark"
+Tracker = "https://github.com/qpsolvers/qpbenchmark/issues"
+Changelog = "https://github.com/qpsolvers/qpbenchmark/blob/master/CHANGELOG.md"
 
 [tool.black]
 line-length = 79

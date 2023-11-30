@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Main script for the `qpsolvers_benchmark` command-line utility.
+"""Main script for the `qpbenchmark` command-line utility.
 
 It provides tools to benchmark different Quadratic Programming (QP) solvers.
 """

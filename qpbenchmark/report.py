@@ -367,7 +367,7 @@ class Report:
         Args:
             fh: Output file handle.
         """
-        repo = "https://github.com/qpsolvers/qpsolvers_benchmark"
+        repo = "https://github.com/qpsolvers/qpbenchmark"
         fh.write("## Known limitations\n\n")
         fh.write(
             "The following "
@@ -407,7 +407,7 @@ class Report:
                 "[Cost error](#cost-error) (shm)": self.__cost_df[settings],
             }
             df = pandas.DataFrame([], index=self.__gap_df.index).assign(**cols)
-            repo = "https://github.com/qpsolvers/qpsolvers_benchmark"
+            repo = "https://github.com/qpsolvers/qpbenchmark"
             shm_desc = (
                 "Solvers are compared over the whole test set by "
                 f"[shifted geometric mean]({repo}#shifted-geometric-mean) "
@@ -423,7 +423,7 @@ class Report:
         Args:
             fh: Output file handle.
         """
-        repo = "https://github.com/qpsolvers/qpsolvers_benchmark"
+        repo = "https://github.com/qpsolvers/qpbenchmark"
 
         fh.write("## Results by metric\n\n")
         fh.write("### Success rate\n\n")

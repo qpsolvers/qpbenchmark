@@ -18,12 +18,12 @@
 """GHFFA03 problem.
 
 This problem is described at:
-https://github.com/qpsolvers/qpsolvers_benchmark/issues/29.
+https://github.com/qpsolvers/qpbenchmark/issues/29.
 """
 
 import numpy as np
 
-from qpsolvers_benchmark.problem import Problem
+from qpbenchmark.problem import Problem
 
 
 def get_problem(n: int):

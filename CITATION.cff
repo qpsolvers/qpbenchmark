@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you find this code helpful, please cite it as below."
-title: "qpsolvers_benchmark: Benchmark for quadratic programming solvers available in Python"
+title: "qpbenchmark: Benchmark for quadratic programming solvers available in Python"
 version: 1.2.0
 date-released: 2023-11-27
-url: "https://github.com/qpsolvers/qpsolvers_benchmark"
+url: "https://github.com/qpsolvers/qpbenchmark"
 license: "Apache-2.0"
 authors:
 - family-names: "Caron"

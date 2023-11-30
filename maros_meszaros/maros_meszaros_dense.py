@@ -20,7 +20,7 @@
 from typing import Iterator
 
 from maros_meszaros import MarosMeszaros
-from qpsolvers_benchmark.problem import Problem
+from qpbenchmark.problem import Problem
 
 
 class MarosMeszarosDense(MarosMeszaros):

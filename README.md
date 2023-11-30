@@ -1,12 +1,12 @@
 # QP solvers benchmark
 
-[![Build](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpsolvers_benchmark/ci.yml?branch=main)](https://github.com/qpsolvers/qpsolvers_benchmark/actions)
-[![PyPI version](https://img.shields.io/pypi/v/qpsolvers_benchmark)](https://pypi.org/project/qpsolvers_benchmark/)
-[![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/qpsolvers/qpsolvers_benchmark/tree/master/CONTRIBUTING.md)
+[![Build](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/ci.yml?branch=main)](https://github.com/qpsolvers/qpbenchmark/actions)
+[![PyPI version](https://img.shields.io/pypi/v/qpbenchmark)](https://pypi.org/project/qpbenchmark/)
+[![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/qpsolvers/qpbenchmark/tree/master/CONTRIBUTING.md)
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
-The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/qpsolvers/qpsolvers_benchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpsolvers_benchmark`` command-line tool to run test sets directly. The main output of the benchmark are standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. This repository also distributes [results](#results) from running the benchmark on a reference computer.
+The goal of this benchmark is to help users compare and select QP solvers. Its methodology is open to [discussions](https://github.com/qpsolvers/qpbenchmark/discussions). The benchmark ships standard and community [test sets](#test-sets), as well as a ``qpbenchmark`` command-line tool to run test sets directly. The main output of the benchmark are standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. This repository also distributes [results](#results) from running the benchmark on a reference computer.
 
 New test sets are welcome! The benchmark is designed so that each test-set comes in a standalone directory. Feel free to create a new one and [contribute it](CONTRIBUTING.md) here so that we grow the collection over time.
 
@@ -18,7 +18,7 @@ The benchmark comes with standard and community test sets to represent different
 | ------------------------ | -------- | ----------------- |
 | **Maros-Meszaros**       | 138      | Standard, designed to be difficult. |
 | **Maros-Meszaros dense** | 62       | Subset of Maros-Meszaros restricted to smaller dense problems. |
-| **GitHub free-for-all**  | 12       | Community-built, new problems [are welcome](https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?template=new_problem.md)! |
+| **GitHub free-for-all**  | 12       | Community-built, new problems [are welcome](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md)! |
 
 ## Solvers
 
@@ -72,16 +72,16 @@ The outcome from running a test set is a standardized report comparing [solvers]
 | **Maros-Meszaros** | [Full report](maros_meszaros/results/maros_meszaros.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
 | **Maros-Meszaros dense** | [Full report](maros_meszaros/results/maros_meszaros_dense.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
 
-You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpsolvers_benchmark/discussions/categories/results) of the discussions forum.
+You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpbenchmark/discussions/categories/results) of the discussions forum.
 
 ## Limitations
 
 Here are some known areas of improvement for this benchmark:
 
 - *Cold start only:* we don't evaluate warm-start performance for now.
-- *CPU thermal throttling:* the benchmark currently does not check the status of CPU thermal throttling. Adding this feature is a [good way to start contributing](https://github.com/qpsolvers/qpsolvers_benchmark/labels/good%20first%20issue) to the benchmark.
+- *CPU thermal throttling:* the benchmark currently does not check the status of CPU thermal throttling. Adding this feature is a [good way to start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
 
-Check out the [issue tracker](https://github.com/qpsolvers/qpsolvers_benchmark/issues) for ongoing works and future improvements.
+Check out the [issue tracker](https://github.com/qpsolvers/qpbenchmark/issues) for ongoing works and future improvements.
 
 ## Installation
 
@@ -89,39 +89,39 @@ You can install the benchmark and its dependencies in an isolated environment us
 
 ```console
 conda env create -f environment.yaml
-conda activate qpsolvers_benchmark
+conda activate qpbenchmark
 ```
 
 Alternatively, you can install the benchmark on your system using ``pip``:
 
 ```console
-pip install qpsolvers_benchmark
+pip install qpbenchmark
 ```
 
 By default, the benchmark will run all supported solvers it finds.
 
 ## Running the benchmark
 
-Once the benchmark is installed, you will be able to run the ``qpsolvers_benchmark`` command. Provide it with the script corresponding to the [test set](#test-sets) you want to run, followed by a benchmark command such as "run". For instance, let's run the "dense" subset of the Maros-Meszaros test set:
+Once the benchmark is installed, you will be able to run the ``qpbenchmark`` command. Provide it with the script corresponding to the [test set](#test-sets) you want to run, followed by a benchmark command such as "run". For instance, let's run the "dense" subset of the Maros-Meszaros test set:
 
 ```console
-qpsolvers_benchmark maros_meszaros/maros_meszaros_dense.py run
+qpbenchmark maros_meszaros/maros_meszaros_dense.py run
 ```
 
 You can also run a specific solver, problem or set of solver settings:
 
 ```console
-qpsolvers_benchmark maros_meszaros/maros_meszaros_dense.py run --solver proxqp --settings default
+qpbenchmark maros_meszaros/maros_meszaros_dense.py run --solver proxqp --settings default
 ```
 
-Check out ``qpsolvers_benchmark --help`` for a list of available commands and arguments.
+Check out ``qpbenchmark --help`` for a list of available commands and arguments.
 
 ## Plots
 
 The command line ships a ``plot`` command to compare solver performances over a test set for a specific metric. For instance, run:
 
 ```console
-qpsolvers_benchmark maros_meszaros/maros_meszaros_dense.py plot runtime high_accuracy
+qpbenchmark maros_meszaros/maros_meszaros_dense.py plot runtime high_accuracy
 ```
 
 To generate the following plot:
@@ -134,7 +134,7 @@ Contributions to improving this benchmark are welcome. You can for instance prop
 
 ## Citation
 
-To cite this benchmark in your scientific works, follow the ``Cite this repository`` button on GitHub (top-right of the [repository page](https://github.com/qpsolvers/qpsolvers_benchmark/)).
+To cite this benchmark in your scientific works, click the ``Cite this repository`` button at the top-right corner of the [repository page](https://github.com/qpsolvers/qpbenchmark/) on GitHub.
 
 ## See also
 

@@ -21,9 +21,9 @@ from typing import Iterator
 
 from problems import github_ffa_problems
 
-from qpsolvers_benchmark.problem import Problem
-from qpsolvers_benchmark.test_set import TestSet
-from qpsolvers_benchmark.tolerance import Tolerance
+from qpbenchmark.problem import Problem
+from qpbenchmark.test_set import TestSet
+from qpbenchmark.tolerance import Tolerance
 
 
 class GithubFfa(TestSet):
@@ -32,13 +32,13 @@ class GithubFfa(TestSet):
     Note:
         This test set is open to proposals from the community. Feel free to
         `submit a new problem
-        <https://github.com/qpsolvers/qpsolvers_benchmark/issues/new?template=new_problem.md>`__.
+        <https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md>`__.
     """
 
     @property
     def description(self) -> str:
         """Description of the test set."""
-        issues = "https://github.com/qpsolvers/qpsolvers_benchmark/issues"
+        issues = "https://github.com/qpsolvers/qpbenchmark/issues"
         problems = (
             (
                 "GHFFA01",

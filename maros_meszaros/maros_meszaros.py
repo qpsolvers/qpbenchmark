@@ -25,9 +25,9 @@ import numpy as np
 import scipy.io as spio
 import scipy.sparse as spa
 
-from qpsolvers_benchmark.problem import Problem
-from qpsolvers_benchmark.test_set import TestSet
-from qpsolvers_benchmark.tolerance import Tolerance
+from qpbenchmark.problem import Problem
+from qpbenchmark.test_set import TestSet
+from qpbenchmark.tolerance import Tolerance
 
 
 class MarosMeszaros(TestSet):
