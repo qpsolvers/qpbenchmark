@@ -134,7 +134,21 @@ Contributions to improving this benchmark are welcome. You can for instance prop
 
 ## Citation
 
-To cite this benchmark in your scientific works, click the ``Cite this repository`` button at the top-right corner of the [repository page](https://github.com/qpsolvers/qpbenchmark/) on GitHub.
+To cite this benchmark in your scientific works:
+
+```bibtex
+@software{qpbenchmark_2023,
+  author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin},
+  license = {Apache-2.0},
+  month = nov,
+  title = {{qpbenchmark: Benchmark for quadratic programming solvers available in Python}},
+  url = {https://github.com/qpsolvers/qpbenchmark},
+  version = {1.2.0},
+  year = {2023}
+}
+```
+
+You can also click on the ``Cite this repository`` button on GitHub, at the top-right of the [repository page](https://github.com/qpsolvers/qpbenchmark/).
 
 ## See also
 
