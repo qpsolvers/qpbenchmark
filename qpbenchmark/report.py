@@ -103,12 +103,17 @@ class Report:
                     for name in names
                 }
             )
-            df = pandas.concat(
-                [
-                    df,
-                    pandas.DataFrame(row),
-                ],
-                ignore_index=True,
+            row_df = pandas.DataFrame(row)
+            df = (
+                row_df
+                if df.empty
+                else pandas.concat(
+                    [
+                        df,
+                        row_df,
+                    ],
+                    ignore_index=True,
+                )
             )
         df = df.sort_values(by="tolerance")
         return df.to_markdown(index=False)
@@ -146,12 +151,17 @@ class Report:
                     for name in names
                 }
             )
-            df = pandas.concat(
-                [
-                    df,
-                    pandas.DataFrame(row),
-                ],
-                ignore_index=True,
+            row_df = pandas.DataFrame(row)
+            df = (
+                row_df
+                if df.empty
+                else pandas.concat(
+                    [
+                        df,
+                        row_df,
+                    ],
+                    ignore_index=True,
+                )
             )
         df = df.sort_values(by=["solver", "parameter"])
         return df.to_markdown(index=False)
