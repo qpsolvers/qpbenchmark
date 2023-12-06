@@ -85,20 +85,20 @@ Check out the [issue tracker](https://github.com/qpsolvers/qpbenchmark/issues) f
 
 ## Installation
 
-You can install the benchmark and its dependencies in an isolated environment using ``conda``:
+The recommended process is to install the benchmark and all solvers in an isolated environment using ``conda``:
 
 ```console
 conda env create -f environment.yaml
 conda activate qpbenchmark
 ```
 
-Alternatively, you can install the benchmark on your system using ``pip``:
+Alternatively, you can install the benchmarking tool individually using ``pip``:
 
 ```console
 pip install qpbenchmark
 ```
 
-By default, the benchmark will run all supported solvers it finds.
+In that case, the benchmark will run all supported solvers it finds.
 
 ## Running the benchmark
 
