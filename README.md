@@ -98,7 +98,7 @@ Alternatively, you can install the benchmarking tool individually using ``pip``:
 pip install qpbenchmark
 ```
 
-In that case, the benchmark will run all supported solvers it finds.
+In that case, the benchmark will run all supported solvers it finds. (Quick way to install open source solvers from PyPI: ``pip install qpsolvers[open_source_solvers]``.)
 
 ## Running the benchmark
 
