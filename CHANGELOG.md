@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-* Rename the project from to "qpbenchmark"
+* Don't install solvers by default from PyPI
+* Rename the project "qpbenchmark"
 
 ## [1.2.0] - 2023-11-27
 
