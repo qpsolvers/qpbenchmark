@@ -7,7 +7,12 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 * Don't install solvers by default from PyPI
+* Move solver issue and timeout listings to test-set themselves
 * Rename the project "qpbenchmark"
+
+### Removed
+
+* Module-wide skip solver issue/timeout functions
 
 ## [1.2.0] - 2023-11-27
 
