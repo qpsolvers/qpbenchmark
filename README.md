@@ -134,7 +134,7 @@ Contributions to improving this benchmark are welcome. You can for instance prop
 
 ## Citation
 
-To cite this benchmark in your scientific works:
+If you use `qpbenchmark` in your scientific works, please cite it *e.g.* as follows:
 
 ```bibtex
 @software{qpbenchmark_2023,
@@ -148,7 +148,7 @@ To cite this benchmark in your scientific works:
 }
 ```
 
-You can also click on the ``Cite this repository`` button on GitHub, at the top-right of the [repository page](https://github.com/qpsolvers/qpbenchmark/).
+You can also click on ``Cite this repository`` at the top-right of the [repository page](https://github.com/qpsolvers/qpbenchmark/).
 
 ## See also
 

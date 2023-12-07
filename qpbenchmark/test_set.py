@@ -18,7 +18,7 @@
 """Base class for test sets."""
 
 import abc
-from typing import Dict, Iterator, Optional
+from typing import Dict, Iterator, Optional, Set, Tuple
 
 import qpsolvers
 
@@ -39,6 +39,8 @@ class TestSet(abc.ABC):
         tolerances: Validation tolerances.
     """
 
+    known_solver_issues: Set[Tuple[str, str]]
+    known_solver_timeouts: Dict[Tuple[str, str, str], float]
     solver_settings: Dict[str, SolverSettings]
     tolerances: Dict[str, Tolerance]
 
@@ -136,6 +138,8 @@ class TestSet(abc.ABC):
                 f"Solver '{solver}' is available but skipped "
                 "as its settings are unknown"
             )
+        self.known_solver_issues = set()
+        self.known_solver_timeouts = {}
         self.solver_settings = {}
         self.solvers = solvers
         self.tolerances = {}
@@ -193,3 +197,38 @@ class TestSet(abc.ABC):
             f"problem '{name}' not found "
             f"in the {self.__class__.__name__} test set"
         )
+
+    def skip_solver_timeout(
+        self, time_limit: float, problem: Problem, solver: str, settings: str
+    ) -> bool:
+        """Skip known solver timeouts.
+
+        Args:
+            time_limit: Time limit in seconds.
+            problem: Problem to solve.
+            solver: QP solver.
+            settings: QP solver settings.
+
+        Note:
+            This function only checks for timeouts that the solvers are not
+            able to handle by themselves, e.g. for those who do not provide a
+            time limit parameter.
+
+        Returns:
+            True if `solver` is known to take more than `time_limit` seconds on
+            `problem` when using the solver parameters defined in `settings`.
+        """
+        timeout = (
+            self.known_solver_timeouts[(problem.name, solver, settings)]
+            if (problem.name, solver, settings) in self.known_solver_timeouts
+            else self.known_solver_timeouts[(problem.name, solver, "*")]
+            if (problem.name, solver, "*") in self.known_solver_timeouts
+            else 0.0
+        )
+        if timeout > time_limit:
+            logging.warning(
+                f"Skipping {problem.name} with {solver} at {settings} "
+                f"as it is known to take {timeout} > {time_limit} seconds..."
+            )
+            return True
+        return False

@@ -24,7 +24,6 @@ import qpsolvers
 from qpsolvers.exceptions import SolverNotFound
 
 from .results import Results
-from .solver_issues import skip_solver_issue, skip_solver_timeout
 from .spdlog import logging
 from .test_set import TestSet
 from .utils import time_solve_problem
@@ -80,7 +79,7 @@ def run(
         for solver in filtered_solvers:
             for settings in filtered_settings:
                 time_limit = test_set.tolerances[settings].runtime
-                if skip_solver_issue(problem, solver):
+                if (problem, solver) in test_set.known_solver_issues:
                     failure = (
                         problem,
                         solver,
@@ -90,7 +89,9 @@ def run(
                     )
                     results.update(*failure)
                     continue
-                if skip_solver_timeout(time_limit, problem, solver, settings):
+                if test_set.skip_solver_timeout(
+                    time_limit, problem, solver, settings
+                ):
                     failure = (
                         problem,
                         solver,
