@@ -55,28 +55,24 @@ class MarosMeszaros(TestSet):
         """Define test set tolerances."""
         self.tolerances = {
             "default": Tolerance(
-                cost=1000.0,
                 primal=1.0,
                 dual=1.0,
                 gap=1.0,
                 runtime=1000.0,
             ),
             "high_accuracy": Tolerance(
-                cost=1000.0,
                 primal=1e-9,
                 dual=1e-9,
                 gap=1e-9,
                 runtime=1000.0,
             ),
             "low_accuracy": Tolerance(
-                cost=1000.0,
                 primal=1e-3,
                 dual=1e-3,
                 gap=1e-3,
                 runtime=1000.0,
             ),
             "mid_accuracy": Tolerance(
-                cost=1000.0,
                 primal=1e-6,
                 dual=1e-6,
                 gap=1e-6,

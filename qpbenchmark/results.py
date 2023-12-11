@@ -72,7 +72,6 @@ class Results:
                 "primal_residual",
                 "dual_residual",
                 "duality_gap",
-                "cost_error",
             ],
         ).astype(
             {
@@ -84,7 +83,6 @@ class Results:
                 "primal_residual": float,
                 "dual_residual": float,
                 "duality_gap": float,
-                "cost_error": float,
             }
         )
         if os.path.exists(csv_path):
@@ -167,7 +165,6 @@ class Results:
                         "primal_residual": [solution.primal_residual()],
                         "dual_residual": [solution.dual_residual()],
                         "duality_gap": [solution.duality_gap()],
-                        "cost_error": [problem.cost_error(solution)],
                     }
                 ),
             ],
@@ -179,7 +176,6 @@ class Results:
         primal_tolerances: Dict[str, float],
         dual_tolerances: Dict[str, float],
         gap_tolerances: Dict[str, float],
-        cost_tolerances: Dict[str, float],
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """Build the success-rate data frame.
 
@@ -187,7 +183,6 @@ class Results:
             primal_tolerances: Primal-residual tolerance for each settings.
             dual_tolerances: Dual-residual tolerance for each settings.
             gap_tolerances: Duality-gap tolerance for each settings.
-            cost_tolerances: Cost tolerance for each settings.
 
         Returns:
             Success-rate data frames.
@@ -200,7 +195,6 @@ class Results:
             & (df["primal_residual"] < primal_tolerances[settings])
             & (df["dual_residual"] < dual_tolerances[settings])
             & (df["duality_gap"] < gap_tolerances[settings])
-            & (df["cost_error"].abs() < cost_tolerances[settings])
             for settings in all_settings
         }
         success_rate_df = (
@@ -229,7 +223,6 @@ class Results:
         primal_tolerances: Dict[str, float],
         dual_tolerances: Dict[str, float],
         gap_tolerances: Dict[str, float],
-        cost_tolerances: Dict[str, float],
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """Build the correctness-rate data frame.
 
@@ -237,7 +230,6 @@ class Results:
             primal_tolerances: Primal-residual tolerance for each settings.
             dual_tolerances: Dual-residual tolerance for each settings.
             gap_tolerances: Duality-gap tolerance for each settings.
-            cost_tolerances: Cost tolerance for each settings.
 
         Returns:
             Correctness-rate data frames.
@@ -250,7 +242,6 @@ class Results:
             & (df["primal_residual"] < primal_tolerances[settings])
             & (df["dual_residual"] < dual_tolerances[settings])
             & (df["duality_gap"] < gap_tolerances[settings])
-            & (df["cost_error"].abs() < cost_tolerances[settings])
             for settings in all_settings
         }
         correctness_rate_df = (

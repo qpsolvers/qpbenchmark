@@ -31,12 +31,10 @@ class Problem(qpsolvers.Problem):
         cost_offset: Cost offset, used to compare solution cost to a known
             optimal one. Defaults to zero.
         name: Name of the problem, for reporting.
-        optimal_cost: If known, cost at the optimum of the problem.
     """
 
     cost_offset: float
     name: str
-    optimal_cost: Optional[float]
 
     def __init__(
         self,
@@ -49,14 +47,12 @@ class Problem(qpsolvers.Problem):
         lb: Optional[np.ndarray],
         ub: Optional[np.ndarray],
         name: str,
-        optimal_cost: Optional[float] = None,
         cost_offset: float = 0.0,
     ):
         """Quadratic program in qpsolvers format."""
         super().__init__(P, q, G, h, A, b, lb, ub)
         self.cost_offset = cost_offset
         self.name = name
-        self.optimal_cost = optimal_cost
 
     def to_dense(self):
         """Return dense version.
@@ -74,7 +70,6 @@ class Problem(qpsolvers.Problem):
             self.lb,
             self.ub,
             name=self.name,
-            optimal_cost=self.optimal_cost,
             cost_offset=self.cost_offset,
         )
 
@@ -95,26 +90,5 @@ class Problem(qpsolvers.Problem):
             self.lb,
             self.ub,
             name=self.name,
-            optimal_cost=self.optimal_cost,
             cost_offset=self.cost_offset,
         )
-
-    def cost_error(self, solution: qpsolvers.Solution) -> Optional[float]:
-        """Compute difference between found cost and the optimal one.
-
-        Args:
-            solution: Problem solution.
-
-        Returns:
-            Cost error, i.e. deviation from the (known) optimal cost.
-
-        Note:
-            Cost errors can be negative when the primal residual is large. We
-            count that as errors as well using absolute values.
-        """
-        x = solution.x
-        if not solution.found or x is None or self.optimal_cost is None:
-            return None
-        P, q = self.P, self.q
-        cost = 0.5 * x.dot(P.dot(x)) + q.dot(x) + self.cost_offset
-        return abs(cost - self.optimal_cost)
