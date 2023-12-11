@@ -38,6 +38,7 @@ class SolverSettings:
             "osqp",
             "piqp",
             "proxqp",
+            "qpalm",
             "qpoases",
             "qpswift",
             "quadprog",
@@ -112,13 +113,14 @@ class SolverSettings:
         # https://github.com/ERGO-Code/HiGHS/issues/996#issuecomment-1561890995
         self.__settings["highs"]["primal_feasibility_tolerance"] = eps_abs
 
+        self.__settings["hpipm"]["tol_comp"] = eps_abs
         self.__settings["hpipm"]["tol_eq"] = eps_abs
         self.__settings["hpipm"]["tol_ineq"] = eps_abs
-        self.__settings["hpipm"]["tol_comp"] = eps_abs
         self.__settings["hpipm"]["tol_stat"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
         self.__settings["piqp"]["eps_abs"] = eps_abs
         self.__settings["proxqp"]["eps_abs"] = eps_abs
+        self.__settings["qpalm"]["eps_abs"] = eps_abs
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
         self.__settings["scs"]["eps_abs"] = eps_abs
 
@@ -131,6 +133,7 @@ class SolverSettings:
         self.__settings["osqp"]["eps_rel"] = eps_rel
         self.__settings["piqp"]["eps_rel"] = eps_rel
         self.__settings["proxqp"]["eps_rel"] = eps_rel
+        self.__settings["qpalm"]["eps_rel"] = eps_rel
         self.__settings["scs"]["eps_rel"] = eps_rel
 
     def set_time_limit(self, time_limit: float) -> None:
@@ -142,6 +145,7 @@ class SolverSettings:
         self.__settings["gurobi"]["TimeLimit"] = time_limit
         self.__settings["highs"]["time_limit"] = time_limit
         self.__settings["osqp"]["time_limit"] = time_limit
+        self.__settings["qpalm"]["time_limit"] = time_limit
         self.__settings["qpoases"]["time_limit"] = time_limit
         self.__settings["scs"]["time_limit_secs"] = time_limit
 
