@@ -8,7 +8,22 @@ Benchmark for quadratic programming (QP) solvers available in Python.
 
 The objective is to compare and select the best QP solvers for given use cases. The benchmarking methodology is open to [discussions](https://github.com/qpsolvers/qpbenchmark/discussions). Standard and community [test sets](#test-sets) are available: all of them can be processed using the ``qpbenchmark`` command-line tool, resulting in standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine.
 
-New test sets are welcome! The benchmark is designed so that each test set comes in a standalone directory. Check out the existing test sets below, and feel free to create a new one that better matches your particular use cases.
+## Installation
+
+The recommended process is to install the benchmark and all solvers in an isolated environment using ``conda``:
+
+```console
+conda env create -f environment.yaml
+conda activate qpbenchmark
+```
+
+Alternatively, you can install the benchmarking tool individually using ``pip``:
+
+```console
+pip install qpbenchmark
+```
+
+In that case, the benchmark will run all supported solvers it finds. (Quick way to install open source solvers from PyPI: ``pip install qpsolvers[open_source_solvers]``.)
 
 ## Test sets
 
@@ -19,6 +34,8 @@ The benchmark comes with standard and community test sets to represent different
 | **Maros-Meszaros**       | 138      | Standard, designed to be difficult. |
 | **Maros-Meszaros dense** | 62       | Subset of Maros-Meszaros restricted to smaller dense problems. |
 | **GitHub free-for-all**  | 12       | Community-built, new problems [are welcome](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md)! |
+
+New test sets are welcome! The benchmark is designed so that each test set comes in a standalone directory. Check out the existing test sets below, and feel free to create a new one that better matches your particular use cases.
 
 ## Solvers
 
@@ -82,23 +99,6 @@ Here are some known areas of improvement for this benchmark:
 - *CPU thermal throttling:* the benchmark currently does not check the status of CPU thermal throttling. Adding this feature is a [good way to start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
 
 Check out the [issue tracker](https://github.com/qpsolvers/qpbenchmark/issues) for ongoing works and future improvements.
-
-## Installation
-
-The recommended process is to install the benchmark and all solvers in an isolated environment using ``conda``:
-
-```console
-conda env create -f environment.yaml
-conda activate qpbenchmark
-```
-
-Alternatively, you can install the benchmarking tool individually using ``pip``:
-
-```console
-pip install qpbenchmark
-```
-
-In that case, the benchmark will run all supported solvers it finds. (Quick way to install open source solvers from PyPI: ``pip install qpsolvers[open_source_solvers]``.)
 
 ## Running the benchmark
 
