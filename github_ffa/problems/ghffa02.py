@@ -42,7 +42,6 @@ def get_problem(alpha: float):
         lb=None,
         ub=None,
         name=f"GHFFA02_{alpha=}",
-        optimal_cost=0.5 / alpha**2,
     )
 
 
