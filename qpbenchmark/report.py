@@ -51,7 +51,6 @@ class Report:
     # Reports are big and linear, thus with many instance attributes.
 
     __correct_rate_df: pandas.DataFrame
-    __cost_df: pandas.DataFrame
     __dual_df: pandas.DataFrame
     __gap_df: pandas.DataFrame
     __primal_df: pandas.DataFrame
@@ -70,7 +69,6 @@ class Report:
             results: Results from which the report should be generated.
         """
         self.__correct_rate_df = pandas.DataFrame()
-        self.__cost_df = pandas.DataFrame()
         self.__dual_df = pandas.DataFrame()
         self.__gap_df = pandas.DataFrame()
         self.__primal_df = pandas.DataFrame()
@@ -92,7 +90,7 @@ class Report:
             [],
             columns=["tolerance"] + names,
         )
-        tolerances = ["cost", "primal", "dual", "gap", "runtime"]
+        tolerances = ["primal", "dual", "gap", "runtime"]
         for tolerance in tolerances:
             row = {
                 "tolerance": [f"``{tolerance}``"],
@@ -198,10 +196,6 @@ class Report:
             name: tolerance.gap
             for name, tolerance in self.test_set.tolerances.items()
         }
-        cost_tolerances = {
-            name: tolerance.cost
-            for name, tolerance in self.test_set.tolerances.items()
-        }
         runtime_tolerances = {
             name: tolerance.runtime
             for name, tolerance in self.test_set.tolerances.items()
@@ -210,13 +204,11 @@ class Report:
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
-            cost_tolerances,
         )
         self.__correct_rate_df = self.results.build_correct_rate_df(
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
-            cost_tolerances,
         )
         self.__runtime_df = self.results.build_shgeom_df(
             metric="runtime",
@@ -237,11 +229,6 @@ class Report:
             metric="duality_gap",
             shift=10.0,
             not_found_values=gap_tolerances,
-        )
-        self.__cost_df = self.results.build_shgeom_df(
-            metric="cost_error",
-            shift=10.0,
-            not_found_values=cost_tolerances,
         )
 
     def write(self, path: str) -> None:
@@ -415,7 +402,6 @@ class Report:
                     settings
                 ],
                 "[Duality gap](#duality-gap) (shm)": self.__gap_df[settings],
-                "[Cost error](#cost-error) (shm)": self.__cost_df[settings],
             }
             df = pandas.DataFrame([], index=self.__gap_df.index).assign(**cols)
             repo = "https://github.com/qpsolvers/qpbenchmark"
@@ -586,35 +572,5 @@ class Report:
             "[gap tolerance](#settings)."
         )
 
-        fh.write(f"{duality_gap_table_desc}\n\n")
-        fh.write("### Cost error\n\n")
-
-        cost_error_shm_desc = (
-            "The cost error measures the difference between the known "
-            "optimal objective and the objective at the solution returned "
-            "by a solver. We use the shifted geometric mean to compare "
-            "solver cost errors over the whole test set. Intuitively, "
-            "a solver with a shifted-geometric-mean cost error of Y is "
-            "Y times less precise on the optimal cost than the best solver "
-            "over the test set. "
-            f"See [Metrics]({repo}#metrics) for details."
-        )
-
-        fh.write(f"{cost_error_shm_desc}\n\n")
-        fh.write(
-            "Shifted geometric means of solver cost errors "
-            "(1.0 is the best):\n\n"
-        )
-        fh.write(
-            f'{self.__cost_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
-        )
-
-        cost_error_table_desc = (
-            "Rows are solvers and columns are solver settings. "
-            "The shift is $sh = 10$. A solver that fails to find a "
-            "solution receives a cost error equal to the "
-            "[cost tolerance](#settings)."
-        )
-
-        fh.write(f"{cost_error_table_desc}")
+        fh.write(f"{duality_gap_table_desc}")
         fh.write("\n")  # newline at end of file

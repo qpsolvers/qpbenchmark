@@ -27,14 +27,12 @@ class Tolerance:
     """Tolerances on solver solution validation.
 
     Attributes:
-        cost: Cost tolerance.
         primal: Tolerance on primal residuals.
         dual: Tolerance on dual residuals.
         gap: Tolerance on duality gaps.
         runtime: Time limit in seconds.
     """
 
-    cost: float
     primal: float
     dual: float
     gap: float
@@ -57,6 +55,4 @@ class Tolerance:
             return self.gap
         if metric == "runtime":
             return self.runtime
-        if metric == "cost_error":
-            return self.cost
         raise BenchmarkError(f"unknown metric '{metric}'")
