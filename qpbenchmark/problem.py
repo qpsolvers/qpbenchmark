@@ -28,12 +28,9 @@ class Problem(qpsolvers.Problem):
     """Quadratic program.
 
     Attributes:
-        cost_offset: Cost offset, used to compare solution cost to a known
-            optimal one. Defaults to zero.
         name: Name of the problem, for reporting.
     """
 
-    cost_offset: float
     name: str
 
     def __init__(
@@ -47,11 +44,9 @@ class Problem(qpsolvers.Problem):
         lb: Optional[np.ndarray],
         ub: Optional[np.ndarray],
         name: str,
-        cost_offset: float = 0.0,
     ):
         """Quadratic program in qpsolvers format."""
         super().__init__(P, q, G, h, A, b, lb, ub)
-        self.cost_offset = cost_offset
         self.name = name
 
     def to_dense(self):
@@ -70,7 +65,6 @@ class Problem(qpsolvers.Problem):
             self.lb,
             self.ub,
             name=self.name,
-            cost_offset=self.cost_offset,
         )
 
     def to_sparse(self):
@@ -90,5 +84,4 @@ class Problem(qpsolvers.Problem):
             self.lb,
             self.ub,
             name=self.name,
-            cost_offset=self.cost_offset,
         )
