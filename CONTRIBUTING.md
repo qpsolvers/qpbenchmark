@@ -8,6 +8,7 @@ This project's goal is to facilitate the comparison of quadratic programming sol
 
 ## Add a solver to the benchmark
 
+- Add a corresponding entry (in the Added section of the upcoming version) to the changelog
 - Add the solver name to the `IMPLEMENTED_SOLVERS` list in `solver_settings.py`
 - Add the solver to `environment.yaml` (update the version of `qpsolvers` if applicable)
 - Add the solver to the Solvers table in the readme

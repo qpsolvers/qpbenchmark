@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+* New solver: QPALM
+
 ### Changed
 
 * Don't install solvers by default from PyPI
