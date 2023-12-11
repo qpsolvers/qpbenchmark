@@ -387,6 +387,7 @@ class Report:
         )
         for number, desc in (
             (60, "Conversion to SOCP limits performance of ECOS"),
+            (88, "CPU thermal throttling"),
         ):
             link = f"{repo}/issues/{number}"
             fh.write(f"- [#{number}]({link}): {desc}\n")

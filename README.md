@@ -96,8 +96,8 @@ You can check out results from a variety of machines, and share the reports prod
 
 Here are some known areas of improvement for this benchmark:
 
-- *Cold start only:* we don't evaluate warm-start performance for now.
-- *CPU thermal throttling:* the benchmark currently does not check the status of CPU thermal throttling. Adding this feature is a [good way to start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
+- [Cold start only:](https://github.com/qpsolvers/qpbenchmark/issues/101) we don't evaluate warm-start performance for now.
+- [CPU thermal throttling:](https://github.com/qpsolvers/qpbenchmark/issues/88) the benchmark currently does not check the status of CPU thermal throttling. Adding this feature is a [good way to start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
 
 Check out the [issue tracker](https://github.com/qpsolvers/qpbenchmark/issues) for ongoing works and future improvements.
 
