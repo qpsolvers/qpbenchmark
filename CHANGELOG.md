@@ -4,15 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.0] - 2023-12-11
+
 ### Added
 
 * New solver: QPALM
 
 ### Changed
 
+* **Breaking:** Rename the project "qpbenchmark"
 * Don't install solvers by default from PyPI
 * Move solver issue and timeout listings to test-set themselves
-* Rename the project "qpbenchmark"
 
 ### Removed
 
@@ -107,7 +109,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.2.0...v2.0.0
 [1.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/qpsolvers/qpbenchmark/compare/v0.1.0-beta...v1.0.0

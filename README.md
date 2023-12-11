@@ -138,13 +138,13 @@ Contributions to improving this benchmark are welcome. You can for instance prop
 If you use `qpbenchmark` in your scientific works, please cite it *e.g.* as follows:
 
 ```bibtex
-@software{qpbenchmark_2023,
+@software{qpbenchmark2023,
   author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin},
   license = {Apache-2.0},
-  month = nov,
+  month = dec,
   title = {{qpbenchmark: Benchmark for quadratic programming solvers available in Python}},
   url = {https://github.com/qpsolvers/qpbenchmark},
-  version = {1.2.0},
+  version = {2.0.0},
   year = {2023}
 }
 ```
