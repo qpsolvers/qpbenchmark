@@ -69,7 +69,6 @@ We evaluate QP solvers based on the following metrics:
     - **Primal residual:** maximum error on equality and inequality constraints at the returned solution.
     - **Dual residual:** maximum error on the dual feasibility condition at the returned solution.
     - **Duality gap:** value of the duality gap at the returned solution.
-- **Cost error:** difference between the solution cost and the known optimal cost.
 
 ### Shifted geometric mean
 

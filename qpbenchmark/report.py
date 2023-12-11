@@ -304,8 +304,7 @@ class Report:
     * [Optimality conditions](#optimality-conditions)
         * [Primal residual](#primal-residual)
         * [Dual residual](#dual-residual)
-        * [Duality gap](#duality-gap)
-    * [Cost error](#cost-error)\n\n"""
+        * [Duality gap](#duality-gap)\n\n"""
         )
 
     def __write_description(self, fh: io.TextIOWrapper) -> None:
