@@ -16,3 +16,12 @@ This project's goal is to facilitate the comparison of quadratic programming sol
 - Set the solver's absolute tolerance in the `set_eps_abs` function in `solver_settings.py`
 - Set the solver's relative tolerance in the `set_eps_rel` function in `solver_settings.py`
 - Set the solver's time limit (if applicable) in the `set_time_limit` function in `solver_settings.py`
+
+## Creating a new test set
+
+- Create a new repository for your test set
+- Add a main Python file named after the test set, say ``foo_bar.py``
+- Implement a `FooBar` class in this file deriving from `qpbenchmark.TestCase`
+    - The class name should match the file name in PascalCase)
+
+Check out how this is done in *e.g.* the [Maros-Meszaros test set](https://github.com/qpsolvers/maros_meszaros_qpbenchmark).

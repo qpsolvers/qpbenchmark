@@ -8,34 +8,15 @@ Benchmark for quadratic programming (QP) solvers available in Python.
 
 The objective is to compare and select the best QP solvers for given use cases. The benchmarking methodology is open to [discussions](https://github.com/qpsolvers/qpbenchmark/discussions). Standard and community [test sets](#test-sets) are available: all of them can be processed using the ``qpbenchmark`` command-line tool, resulting in standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine.
 
-## Installation
-
-The recommended process is to install the benchmark and all solvers in an isolated environment using ``conda``:
-
-```console
-conda env create -f environment.yaml
-conda activate qpbenchmark
-```
-
-Alternatively, you can install the benchmarking tool individually using ``pip``:
-
-```console
-pip install qpbenchmark
-```
-
-In that case, the benchmark will run all supported solvers it finds. (Quick way to install open source solvers from PyPI: ``pip install qpsolvers[open_source_solvers]``.)
-
 ## Test sets
 
 The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
 
-| Test set                 | Problems | Brief description |
-| ------------------------ | -------- | ----------------- |
-| **Maros-Meszaros**       | 138      | Standard, designed to be difficult. |
-| **Maros-Meszaros dense** | 62       | Subset of Maros-Meszaros restricted to smaller dense problems. |
-| **GitHub free-for-all**  | 12       | Community-built, new problems [are welcome](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md)! |
+- **GitHub free-for-all**: community-built, new problems [are welcome](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md)!
+- [Maros-Meszaros](https://github.com/qpsolvers/maros_meszaros_qpbenchmark): a standard test set with problems designed to be difficult.
+- [Model predictive control](https://github.com/qpsolvers/mpc_qpbenchmark): model predictive control problems arising *e.g.* in robotics.
 
-New test sets are welcome! The benchmark is designed so that each test set comes in a standalone directory. Check out the existing test sets below, and feel free to create a new one that better matches your particular use cases.
+New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to wrap up a new test set without re-implementing the benchmark methodology. Check out [creating a new test set](CONTRIBUTING.md).
 
 ## Solvers
 
@@ -100,18 +81,35 @@ Here are some known areas of improvement for this benchmark:
 
 Check out the [issue tracker](https://github.com/qpsolvers/qpbenchmark/issues) for ongoing works and future improvements.
 
-## Running the benchmark
+## Installation
 
-Once the benchmark is installed, you will be able to run the ``qpbenchmark`` command. Provide it with the script corresponding to the [test set](#test-sets) you want to run, followed by a benchmark command such as "run". For instance, let's run the "dense" subset of the Maros-Meszaros test set:
+The recommended process is to install the benchmark and all solvers in an isolated environment using ``conda``:
 
 ```console
-qpbenchmark maros_meszaros/maros_meszaros_dense.py run
+conda env create -f environment.yaml
+conda activate qpbenchmark
 ```
 
-You can also run a specific solver, problem or set of solver settings:
+Alternatively, you can install the benchmarking tool individually using ``pip``:
 
 ```console
-qpbenchmark maros_meszaros/maros_meszaros_dense.py run --solver proxqp --settings default
+pip install qpbenchmark
+```
+
+In that case, the benchmark will run all supported solvers it finds. (Quick way to install open source solvers from PyPI: ``pip install qpsolvers[open_source_solvers]``.)
+
+## Usage
+
+The benchmark works by running ``qpbenchmark`` on a Python script describing the test set. For instance:
+
+```console
+qpbenchmark github_ffa/github_ffa.py run
+```
+
+The test-set script is followed by a benchmark command, such as "run" here. We can add optional arguments to run a specific solver, problem, or solver settings:
+
+```console
+qpbenchmark github_ffa/github_ffa.py run --solver proxqp --settings default
 ```
 
 Check out ``qpbenchmark --help`` for a list of available commands and arguments.
