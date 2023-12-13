@@ -37,13 +37,12 @@ if __name__ == "__main__":
     x = solve_qp(*args, solver="...")
 ```
 
-### Parameter range
+### Context
 
 <!--
-    If the problem has parameters, explain what their sensible values are.
+    Context around this problem: how did it arise? Why is it interesting to add
+    it to the benchmark?
 -->
-
-### Motivation
 
 This problem is interesting because...
 
