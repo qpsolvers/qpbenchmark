@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 * Expose `Problem` from top-level module
 * `Problem.load` utility function
 
+### Removed
+
+* Move Maros-Meszaros test set to [its own repository](https://github.com/qpsolvers/maros_meszaros_qpbenchmark)
+
 ## [2.0.0] - 2023-12-11
 
 ### Added
