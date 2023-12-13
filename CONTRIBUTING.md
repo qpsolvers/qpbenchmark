@@ -4,7 +4,7 @@ This project's goal is to facilitate the comparison of quadratic programming sol
 
 - [Add a solver to the benchmark](#add-a-solver-to-the-benchmark)
 - [Submit a new problem](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md), *e.g.* one that reflects an application you are working on.
-- Create a new test set, distribute it in its own repository, and open a PR to reference it here
+- [Create a new test set](#creating-a-new-test-set), distribute it in its own repository, and open a PR to reference it here
 
 ## Add a solver to the benchmark
 
