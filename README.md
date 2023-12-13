@@ -62,13 +62,11 @@ Here are some intuitive interpretations:
 
 ## Results
 
-The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results obtained on a reference computer:
+The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results for the GitHub free-for-all test set:
 
-| Test set | Results | CPU info |
-| -------- | ------- | -------- |
-| **GitHub free-for-all** | [Full report](github_ffa/results/github_ffa.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
-| **Maros-Meszaros** | [Full report](maros_meszaros/results/maros_meszaros.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
-| **Maros-Meszaros dense** | [Full report](maros_meszaros/results/maros_meszaros_dense.md) | Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz |
+<div align=center>
+  📈 <a href="https://github.com/qpsolvers/qpbenchmark/blob/main/github_ffa/results/github_ffa.md"><strong>GitHub free-for-all test set results</strong></a>
+</div>
 
 You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpbenchmark/discussions/categories/results) of the discussions forum.
 
