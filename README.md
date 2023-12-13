@@ -64,9 +64,9 @@ Here are some intuitive interpretations:
 
 The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results for the GitHub free-for-all test set:
 
-<div align=center>
+<p align=center>
   📈 <a href="https://github.com/qpsolvers/qpbenchmark/blob/main/github_ffa/results/github_ffa.md"><strong>GitHub free-for-all test set results</strong></a>
-</div>
+</p>
 
 You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpbenchmark/discussions/categories/results) of the discussions forum.
 
