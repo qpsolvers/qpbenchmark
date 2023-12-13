@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+* Expose `Problem` from top-level module
+* `Problem.load` utility function
+
 ## [2.0.0] - 2023-12-11
 
 ### Added
