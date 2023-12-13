@@ -85,3 +85,24 @@ class Problem(qpsolvers.Problem):
             self.ub,
             name=self.name,
         )
+
+    @staticmethod
+    def load(file: str, name: str):
+        """Load problem from file.
+
+        Args:
+            file: Path to the file to read.
+            name: Problem name.
+        """
+        loaded = qpsolvers.Problem.load(file)
+        return Problem(
+            loaded.P,
+            loaded.q,
+            loaded.G,
+            loaded.h,
+            loaded.A,
+            loaded.b,
+            loaded.lb,
+            loaded.ub,
+            name,
+        )
