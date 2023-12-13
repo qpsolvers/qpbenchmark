@@ -12,29 +12,26 @@ I propose to add the following problem to the *GitHub free-for-all* test set. Th
 
 ```python
 import numpy as np
-from qpsolvers import solve_qp
+import qpsolvers
 
-def build_problem():  # add parameters if applicable
+def build_problem():
     # Cost: x^T P x + q^T x
     P = ...
     q = ...
-
     # Inequality constraints: G x <= h
     G = ...
     h = ...
-
     # Equality constraints: A x == b
     A = ...
     b = ...
-
     # Box constraints: lb <= x <= ub
     lb = ...
     ub = ...
-    return P, q, G, h, A, b, lb, ub
+    return qpsolvers.Problem(P, q, G, h, A, b, lb, ub)
 
 if __name__ == "__main__":
-    args = build_problem()
-    x = solve_qp(*args, solver="...")
+    solver = "proxqp"  # your favorite solver here
+    x = qpsolvers.solve_problem(build_problem(), solver=solver)
 ```
 
 ### Context
