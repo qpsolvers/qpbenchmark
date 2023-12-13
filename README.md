@@ -112,7 +112,7 @@ qpbenchmark github_ffa/github_ffa.py run --solver proxqp --settings default
 
 Check out ``qpbenchmark --help`` for a list of available commands and arguments.
 
-## Plots
+### Plots
 
 The command line ships a ``plot`` command to compare solver performances over a test set for a specific metric. For instance, run:
 
