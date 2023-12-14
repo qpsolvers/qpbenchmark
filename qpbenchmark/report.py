@@ -263,17 +263,19 @@ class Report:
         Args:
             fh: Output file handle.
         """
+        nb_problems = len(set(self.results.df["problem"]))
         benchmark_version = get_version()
         cpu_info_summary = get_cpu_info_summary()
         date = str(datetime.datetime.now(datetime.timezone.utc))
         fh.write(
             f"""# {self.test_set.title}
 
-| Benchmark version | {benchmark_version} |
-|:------------------|:--------------------|
-| Date              | {date} |
-| CPU               | [{cpu_info_summary}](#cpu-info) |
-| Run by            | [@{self.author}](https://github.com/{self.author}/) |
+| Number of problems | {nb_problems} |
+|:-------------------|:--------------------|
+| Benchmark version  | {benchmark_version} |
+| Date               | {date} |
+| CPU                | [{cpu_info_summary}](#cpu-info) |
+| Run by             | [@{self.author}](https://github.com/{self.author}/) |
 
 """
         )
