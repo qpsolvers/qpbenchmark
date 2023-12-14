@@ -12,7 +12,7 @@ The objective is to compare and select the best QP solvers for given use cases. 
 
 The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
 
-- **GitHub free-for-all**: community-built, new problems [are welcome](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md)!
+- [Free-for-all](https://github.com/qpsolvers/free_for_all_qpbenchmark): community-built test set, new problems [are welcome](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md)!
 - [Maros-Meszaros](https://github.com/qpsolvers/maros_meszaros_qpbenchmark): a standard test set with problems designed to be difficult.
 - [Model predictive control](https://github.com/qpsolvers/mpc_qpbenchmark): model predictive control problems arising *e.g.* in robotics.
 
@@ -62,13 +62,13 @@ Here are some intuitive interpretations:
 
 ## Results
 
-The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results for the GitHub free-for-all test set:
+The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results for the various ``qpbenchmark`` test sets:
 
-<p align=center>
-  📈 <a href="https://github.com/qpsolvers/qpbenchmark/blob/main/github_ffa/results/github_ffa.md"><strong>GitHub free-for-all test set results</strong></a>
-</p>
+- [Free-for-all results](https://github.com/qpsolvers/free_for_all_qpbenchmark/blob/main/results/free_for_all_qpbenchmark_ref.md)
+- [Maros-Meszaros results](https://github.com/qpsolvers/maros_meszaros_qpbenchmark/blob/main/results/maros_meszaros_ref.md)
+- [Model predictive control results](https://github.com/qpsolvers/mpc_qpbenchmark/blob/main/results/mpc_qpbenchmark_ref.md)
 
-You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the [Results category](https://github.com/qpsolvers/qpbenchmark/discussions/categories/results) of the discussions forum.
+You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the Results category of the discussions forum of each test set.
 
 ## Limitations
 
@@ -77,7 +77,7 @@ Here are some known areas of improvement for this benchmark:
 - [Cold start only:](https://github.com/qpsolvers/qpbenchmark/issues/101) we don't evaluate warm-start performance for now.
 - [CPU thermal throttling:](https://github.com/qpsolvers/qpbenchmark/issues/88) the benchmark currently does not check the status of CPU thermal throttling. Adding this feature is a [good way to start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
 
-Check out the [issue tracker](https://github.com/qpsolvers/qpbenchmark/issues) for ongoing works and future improvements.
+Check out the issue tracker for ongoing works and future improvements.
 
 ## Installation
 
