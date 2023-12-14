@@ -12,7 +12,7 @@ The objective is to compare and select the best QP solvers for given use cases. 
 
 The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
 
-- [Free-for-all](https://github.com/qpsolvers/free_for_all_qpbenchmark): community-built test set, new problems [are welcome](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md)!
+- [Free-for-all](https://github.com/qpsolvers/free_for_all_qpbenchmark): community-built test set, new problems [are welcome](https://github.com/qpsolvers/free_for_all_qpbenchmark/issues/new?template=new_problem.md&title=)!
 - [Maros-Meszaros](https://github.com/qpsolvers/maros_meszaros_qpbenchmark): a standard test set with problems designed to be difficult.
 - [Model predictive control](https://github.com/qpsolvers/mpc_qpbenchmark): model predictive control problems arising *e.g.* in robotics.
 
