@@ -50,8 +50,6 @@ line-length = 79
 exclude = [
     ".github",
     ".gitignore",
-    "github_ffa",
-    "maros_meszaros",
 ]
 
 [tool.isort]

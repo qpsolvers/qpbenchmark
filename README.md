@@ -101,13 +101,13 @@ In that case, the benchmark will run all supported solvers it finds. (Quick way 
 The benchmark works by running ``qpbenchmark`` on a Python script describing the test set. For instance:
 
 ```console
-qpbenchmark github_ffa/github_ffa.py run
+qpbenchmark my_benchmark.py run
 ```
 
 The test-set script is followed by a benchmark command, such as "run" here. We can add optional arguments to run a specific solver, problem, or solver settings:
 
 ```console
-qpbenchmark github_ffa/github_ffa.py run --solver proxqp --settings default
+qpbenchmark my_benchmark.py run --solver proxqp --settings default
 ```
 
 Check out ``qpbenchmark --help`` for a list of available commands and arguments.
@@ -117,7 +117,7 @@ Check out ``qpbenchmark --help`` for a list of available commands and arguments.
 The command line ships a ``plot`` command to compare solver performances over a test set for a specific metric. For instance, run:
 
 ```console
-qpbenchmark maros_meszaros/maros_meszaros_dense.py plot runtime high_accuracy
+qpbenchmark maros_meszaros_dense.py plot runtime high_accuracy
 ```
 
 To generate the following plot:
