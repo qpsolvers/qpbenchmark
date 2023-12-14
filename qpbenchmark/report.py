@@ -277,6 +277,11 @@ class Report:
 
 """
         )
+        fh.write(
+            "Benchmark reports are copious as we aim to document "
+            "comparison factors as much as possible. You can also "
+            "[jump to results](#results-by-settings) directly.\n\n"
+        )
 
     def __write_toc(self, fh: io.TextIOWrapper) -> None:
         """Write table of contents.

@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * Expose `Problem` from top-level module
+* Link in report header to go to results tables directly
 * `Problem.load` utility function
 
 ### Removed
