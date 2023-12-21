@@ -9,10 +9,15 @@ All notable changes to this project will be documented in this file.
 * Expose `Problem` from top-level module
 * Link in report header to go to results tables directly
 * Number of problems in report header
-* `Problem.load` utility function
+* Utility function to load a problem from file
+
+### Changed
+
+* **Breaking:** Remove the cost error from benchmark metrics
 
 ### Removed
 
+* Move the GitHub Free-for-all test set to [its own repository](https://github.com/qpsolvers/free_for_all_qpbenchmark)
 * Move Maros-Meszaros test set to [its own repository](https://github.com/qpsolvers/maros_meszaros_qpbenchmark)
 
 ## [2.0.0] - 2023-12-11
