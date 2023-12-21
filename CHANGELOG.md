@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [2.1.0] - 2023-12-21
 
 ### Added
 
@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 * **Breaking:** Remove the cost error from benchmark metrics
+* Include Python 3.8 in supported versions
 
 ### Removed
 
