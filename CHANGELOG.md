@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-* Log info message when skipping known solver issue
+* Log a warning message when skipping known solver issue
 
 ### Fixed
 

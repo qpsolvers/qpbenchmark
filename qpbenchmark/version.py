@@ -9,4 +9,4 @@
 
 def get_version() -> str:
     """Get benchmark version as a string."""
-    return "2.1.0"
+    return "2.2.0rc1"

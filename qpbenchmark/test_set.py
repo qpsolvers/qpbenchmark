@@ -187,6 +187,21 @@ class TestSet(abc.ABC):
             f"in the {self.__class__.__name__} test set"
         )
 
+    def skip_solver_issue(self, problem: Problem, solver: str) -> bool:
+        """Skip known solver issue.
+
+        Args:
+            problem: Problem to solve.
+            solver: QP solver.
+
+        Returns:
+            True if `solver` is known to fail on `problem`.
+        """
+        logging.warning(
+            f"Skipping {problem.name} with {solver} as a known solver issue..."
+        )
+        return (problem.name, solver) in self.known_solver_issues
+
     def skip_solver_timeout(
         self, time_limit: float, problem: Problem, solver: str, settings: str
     ) -> bool:
