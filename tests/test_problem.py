@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2016-2022 Stéphane Caron and the qpsolvers contributors.
-# SPDX-License-Identifier: LGPL-3.0-or-later
+# SPDX-License-Identifier: Apache-2.0
 
 """Unit tests for utility functions."""
 
