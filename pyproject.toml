@@ -40,7 +40,7 @@ qpbenchmark = "qpbenchmark.benchmark:main"
 [project.urls]
 Source = "https://github.com/qpsolvers/qpbenchmark"
 Tracker = "https://github.com/qpsolvers/qpbenchmark/issues"
-Changelog = "https://github.com/qpsolvers/qpbenchmark/blob/master/CHANGELOG.md"
+Changelog = "https://github.com/qpsolvers/qpbenchmark/blob/main/CHANGELOG.md"
 
 [tool.black]
 line-length = 79
