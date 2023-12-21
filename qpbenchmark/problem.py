@@ -17,6 +17,7 @@
 
 """Matrix-vector representation of a quadratic program."""
 
+import os
 from typing import Optional, Union
 
 import numpy as np
@@ -87,13 +88,13 @@ class Problem(qpsolvers.Problem):
         )
 
     @staticmethod
-    def load(file: str, name: str):
+    def load(file: str):
         """Load problem from file.
 
         Args:
             file: Path to the file to read.
-            name: Problem name.
         """
+        name = os.path.splitext(os.path.basename(file))[0]
         loaded = qpsolvers.Problem.load(file)
         return Problem(
             loaded.P,

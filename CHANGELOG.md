@@ -23,7 +23,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-* **Breaking:** Rename the project "qpbenchmark"
+* **Breaking:** Rename the project to "qpbenchmark"
 * Don't install solvers by default from PyPI
 * Move solver issue and timeout listings to test-set themselves
 
