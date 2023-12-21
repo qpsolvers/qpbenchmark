@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+* Log info message when skipping known solver issue
+
+### Fixed
+
+* Handling of known solver issues
+
 ## [2.1.0] - 2023-12-21
 
 ### Added

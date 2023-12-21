@@ -68,7 +68,11 @@ def run(
         for solver in filtered_solvers:
             for settings in filtered_settings:
                 time_limit = test_set.tolerances[settings].runtime
-                if (problem, solver) in test_set.known_solver_issues:
+                if (problem.name, solver) in test_set.known_solver_issues:
+                    logging.info(
+                        f"Skipping {problem.name} with {solver} "
+                        "as a known solver issue..."
+                    )
                     failure = (
                         problem,
                         solver,
