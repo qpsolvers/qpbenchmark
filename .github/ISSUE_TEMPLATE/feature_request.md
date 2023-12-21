@@ -6,7 +6,7 @@ labels: 'enhancement'
 assignees: ''
 ---
 
-### Is your proposal related to a problem?
+### Is there a specific problem you are facing?
 
 <!--
   Provide a clear and concise description of what the problem is.
@@ -23,12 +23,12 @@ assignees: ''
 ### Describe alternatives you've considered
 
 <!--
-  Let us know about other solutions you've tried or researched.
+  Last, let us know about other solutions you've tried or researched.
 -->
 
 ### Additional context
 
 <!--
   Is there anything else you can add about the proposal?
-  You might want to link to related issues here, if you haven't already.
+  If you haven't already, you may want to link to related issues here.
 -->
