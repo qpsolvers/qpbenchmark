@@ -126,7 +126,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.2.0...v2.0.0
 [1.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.0.0...v1.1.0
