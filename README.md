@@ -1,6 +1,6 @@
 # QP solvers benchmark
 
-[![Build](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/ci.yml?branch=main)](https://github.com/qpsolvers/qpbenchmark/actions)
+[![CI](https://github.com/qpsolvers/qpbenchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/qpsolvers/qpbenchmark/actions/workflows/ci.yml)
 [![PyPI version](https://img.shields.io/pypi/v/qpbenchmark)](https://pypi.org/project/qpbenchmark/)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/qpsolvers/qpbenchmark/tree/master/CONTRIBUTING.md)
 
