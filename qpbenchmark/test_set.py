@@ -42,55 +42,77 @@ class TestSet(abc.ABC):
     def description(self) -> str:
         """Test set description."""
 
+    @property
     @abc.abstractmethod
-    def define_tolerances(self) -> None:
-        """Define validation tolerances."""
+    def sparse_only(self) -> bool:
+        """If True, restrict test set to solvers with a sparse matrix API."""
+
+    @property
+    @abc.abstractmethod
+    def title(self) -> str:
+        """Report title."""
+
+    def define_tolerances(self, runtime: float = 10.0) -> None:
+        """Define validation tolerances.
+
+        Args:
+            runtime: Maximum QP solver runtime in seconds.
+        """
+        self.tolerances = {
+            "default": Tolerance(
+                primal=1.0,
+                dual=1.0,
+                gap=1.0,
+                runtime=runtime,
+            ),
+            "high_accuracy": Tolerance(
+                primal=1e-9,
+                dual=1e-9,
+                gap=1e-9,
+                runtime=runtime,
+            ),
+            "low_accuracy": Tolerance(
+                primal=1e-3,
+                dual=1e-3,
+                gap=1e-3,
+                runtime=runtime,
+            ),
+            "mid_accuracy": Tolerance(
+                primal=1e-6,
+                dual=1e-6,
+                gap=1e-6,
+                runtime=runtime,
+            ),
+        }
 
     def define_solver_settings(self) -> None:
         """Define solver settings."""
         default = SolverSettings()
         default.set_param("qpoases", "predefined_options", "default")
         default.set_time_limit(self.tolerances["default"].runtime)
+        self.solver_settings["default"] = default
 
         high_accuracy = SolverSettings()
         high_accuracy.set_eps_abs(1e-9)
         high_accuracy.set_eps_rel(0.0)
-        high_accuracy.set_param("clarabel", "tol_gap_abs", 1e-9)
-        high_accuracy.set_param("clarabel", "tol_gap_rel", 0.0)
         high_accuracy.set_param("piqp", "check_duality_gap", True)
-        high_accuracy.set_param("piqp", "eps_duality_gap_abs", 1e-9)
-        high_accuracy.set_param("piqp", "eps_duality_gap_rel", 0.0)
         high_accuracy.set_param("proxqp", "check_duality_gap", True)
-        high_accuracy.set_param("proxqp", "eps_duality_gap_abs", 1e-9)
-        high_accuracy.set_param("proxqp", "eps_duality_gap_rel", 0.0)
         high_accuracy.set_param("qpoases", "predefined_options", "reliable")
         high_accuracy.set_time_limit(self.tolerances["high_accuracy"].runtime)
 
         low_accuracy = SolverSettings()
         low_accuracy.set_eps_abs(1e-3)
         low_accuracy.set_eps_rel(0.0)
-        low_accuracy.set_param("clarabel", "tol_gap_abs", 1e-3)
-        low_accuracy.set_param("clarabel", "tol_gap_rel", 0.0)
         low_accuracy.set_param("piqp", "check_duality_gap", True)
-        low_accuracy.set_param("piqp", "eps_duality_gap_abs", 1e-3)
-        low_accuracy.set_param("piqp", "eps_duality_gap_rel", 0.0)
         low_accuracy.set_param("proxqp", "check_duality_gap", True)
-        low_accuracy.set_param("proxqp", "eps_duality_gap_abs", 1e-3)
-        low_accuracy.set_param("proxqp", "eps_duality_gap_rel", 0.0)
         low_accuracy.set_param("qpoases", "predefined_options", "fast")
         low_accuracy.set_time_limit(self.tolerances["low_accuracy"].runtime)
 
         mid_accuracy = SolverSettings()
         mid_accuracy.set_eps_abs(1e-6)
         mid_accuracy.set_eps_rel(0.0)
-        mid_accuracy.set_param("clarabel", "tol_gap_abs", 1e-6)
-        mid_accuracy.set_param("clarabel", "tol_gap_rel", 0.0)
         mid_accuracy.set_param("piqp", "check_duality_gap", True)
-        mid_accuracy.set_param("piqp", "eps_duality_gap_abs", 1e-6)
-        mid_accuracy.set_param("piqp", "eps_duality_gap_rel", 0.0)
         mid_accuracy.set_param("proxqp", "check_duality_gap", True)
-        mid_accuracy.set_param("proxqp", "eps_duality_gap_abs", 1e-6)
-        mid_accuracy.set_param("proxqp", "eps_duality_gap_rel", 0.0)
         mid_accuracy.set_time_limit(self.tolerances["mid_accuracy"].runtime)
 
         self.solver_settings = {

@@ -87,6 +87,7 @@ class SolverSettings:
             for more details.
         """
         self.__settings["clarabel"]["tol_feas"] = eps_abs
+        self.__settings["clarabel"]["tol_gap_abs"] = eps_abs
         self.__settings["cvxopt"]["feastol"] = eps_abs
         self.__settings["daqp"]["dual_tol"] = eps_abs
         self.__settings["daqp"]["primal_tol"] = eps_abs
@@ -108,7 +109,9 @@ class SolverSettings:
         self.__settings["hpipm"]["tol_stat"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
         self.__settings["piqp"]["eps_abs"] = eps_abs
+        self.__settings["piqp"]["eps_duality_gap_abs"] = eps_abs
         self.__settings["proxqp"]["eps_abs"] = eps_abs
+        self.__settings["proxqp"]["eps_duality_gap_abs"] = eps_abs
         self.__settings["qpalm"]["eps_abs"] = eps_abs
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
         self.__settings["scs"]["eps_abs"] = eps_abs
@@ -117,10 +120,13 @@ class SolverSettings:
         """Set relative tolerances for solvers that support it.
 
         Args:
-            eps_rel: Relative primal feasibility tolerance.
+            eps_rel: Relative primal, dual and duality-gap tolerance.
         """
+        self.__settings["clarabel"]["tol_gap_rel"] = eps_rel
         self.__settings["osqp"]["eps_rel"] = eps_rel
+        self.__settings["piqp"]["eps_duality_gap_rel"] = eps_rel
         self.__settings["piqp"]["eps_rel"] = eps_rel
+        self.__settings["proxqp"]["eps_duality_gap_rel"] = eps_rel
         self.__settings["proxqp"]["eps_rel"] = eps_rel
         self.__settings["qpalm"]["eps_rel"] = eps_rel
         self.__settings["scs"]["eps_rel"] = eps_rel

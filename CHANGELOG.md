@@ -6,7 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+* Clarabel: set ``tol_gap_abs`` settings in ``set_eps_abs``
+* Clarabel: set ``tol_gap_rel`` settings in ``set_eps_rel``
 * Log a warning message when skipping known solver issue
+* PIQP: set ``eps_duality_gap_abs`` settings in ``set_eps_abs``
+* PIQP: set ``eps_duality_gap_rel`` settings in ``set_eps_rel``
+* ProxQP: set ``eps_duality_gap_abs`` settings in ``set_eps_abs``
+* ProxQP: set ``eps_duality_gap_rel`` settings in ``set_eps_rel``
 
 ### Fixed
 
