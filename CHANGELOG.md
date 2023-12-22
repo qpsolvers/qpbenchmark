@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.1.1] - 2023-12-22
+
 ### Changed
 
 * Clarabel: set ``tol_gap_abs`` settings in ``set_eps_abs``

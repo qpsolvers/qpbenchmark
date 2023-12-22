@@ -139,7 +139,7 @@ If you use `qpbenchmark` in your scientific works, please cite it *e.g.* as foll
   month = dec,
   title = {{qpbenchmark: Benchmark for quadratic programming solvers available in Python}},
   url = {https://github.com/qpsolvers/qpbenchmark},
-  version = {2.1.0},
+  version = {2.1.1},
   year = {2023}
 }
 ```
