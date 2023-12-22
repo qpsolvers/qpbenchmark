@@ -122,16 +122,6 @@ class TestSet(abc.ABC):
             "mid_accuracy": mid_accuracy,
         }
 
-    @property
-    @abc.abstractmethod
-    def sparse_only(self) -> bool:
-        """If True, restrict test set to solvers with a sparse matrix API."""
-
-    @property
-    @abc.abstractmethod
-    def title(self) -> str:
-        """Report title."""
-
     def __init__(self):
         """Initialize test set."""
         candidate_solvers = set(
@@ -154,12 +144,15 @@ class TestSet(abc.ABC):
         self.solver_settings = {}
         self.solvers = solvers
         self.tolerances = {}
-        #
+
+        # Definitions customized by child classes
         self.define_tolerances()
         self.define_solver_settings()
-        self.check_definitions()
 
-    def check_definitions(self):
+        # Check tolerance-settings consistency
+        self.__check_definitions()
+
+    def __check_definitions(self):
         """Check that settings and tolerance definitions are consistent.
 
         Raises:
