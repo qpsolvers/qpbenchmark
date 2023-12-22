@@ -214,7 +214,11 @@ class TestSet(abc.ABC):
         """
         if (problem.name, solver) not in self.known_solver_issues:
             return False
-        logging.warning( "Skipping %s with %s as a known solver issue...", problem.name, solver,)
+        logging.warning(
+            "Skipping %s with %s as a known solver issue...",
+            problem.name,
+            solver,
+        )
         return True
 
     def skip_solver_timeout(
