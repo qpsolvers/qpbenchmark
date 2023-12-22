@@ -212,10 +212,10 @@ class TestSet(abc.ABC):
         Returns:
             True if `solver` is known to fail on `problem`.
         """
-        logging.warning(
-            f"Skipping {problem.name} with {solver} as a known solver issue..."
-        )
-        return (problem.name, solver) in self.known_solver_issues
+        if (problem.name, solver) not in self.known_solver_issues:
+            return False
+        logging.warning( "Skipping %s with %s as a known solver issue...", problem.name, solver,)
+        return True
 
     def skip_solver_timeout(
         self, time_limit: float, problem: Problem, solver: str, settings: str
