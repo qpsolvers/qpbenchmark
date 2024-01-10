@@ -13,6 +13,7 @@ import argparse
 import os
 import sys
 from importlib import import_module  # type: ignore
+from typing import Optional
 
 from .plot_metric import plot_metric
 from .report import Report
@@ -22,8 +23,13 @@ from .spdlog import logging
 from .test_set import TestSet
 
 
-def parse_command_line_arguments() -> argparse.Namespace:
+def parse_command_line_arguments(
+    test_set: Optional[str] = None,
+) -> argparse.Namespace:
     """Extracts and interprets command line arguments passed to the script.
+
+    Args:
+        test_set_path: If set, don't add test set path argument.
 
     Returns:
         args: arguments of the command line.
@@ -31,9 +37,10 @@ def parse_command_line_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
-    parser.add_argument(
-        "test_set_path", help="path to the test set python file"
-    )
+    if test_set is None:
+        parser.add_argument(
+            "test_set_path", help="path to the test set python file"
+        )
     parser.add_argument(
         "-v",
         "--verbose",
@@ -163,11 +170,12 @@ def parse_command_line_arguments() -> argparse.Namespace:
     return args
 
 
-def find_results_file(args: argparse.Namespace) -> str:
+def find_results_file(args: argparse.Namespace, test_set_path: str) -> str:
     """Find the path to the results file.
 
     Args:
         args: The arguments passed in the command line.
+        test_set_path: Path to the main test-set script.
 
     Raises:
         FileNotFoundError: If the file was not found.
@@ -180,9 +188,9 @@ def find_results_file(args: argparse.Namespace) -> str:
             os.path.abspath(args.results_file)
             if args.results_file
             else os.path.join(
-                os.path.dirname(os.path.abspath(args.test_set_path)),
+                os.path.dirname(os.path.abspath(test_set_path)),
                 "results",
-                os.path.split(args.test_set_path)[1].replace(".py", ".csv"),
+                os.path.split(test_set_path)[1].replace(".py", ".csv"),
             )
         )
         if not os.path.exists(results_file):
@@ -191,13 +199,13 @@ def find_results_file(args: argparse.Namespace) -> str:
         if args.command == "run" and args.results_path:
             results_dir = os.path.abspath(args.results_path)
         else:
-            testset_dir = os.path.dirname(args.test_set_path)
+            testset_dir = os.path.dirname(test_set_path)
             results_dir = os.path.join(testset_dir, "results")
         if not os.path.exists(results_dir):
             os.mkdir(results_dir)
         results_file = os.path.join(
             results_dir,
-            os.path.split(args.test_set_path)[1].replace(".py", ".csv"),
+            os.path.split(test_set_path)[1].replace(".py", ".csv"),
         )
     return results_file
 
@@ -241,13 +249,19 @@ def report(args, results):
     report.write(md_path)
 
 
-def main():
-    """Main function of the script."""
-    args = parse_command_line_arguments()
+def main(test_set_path: Optional[str] = None):
+    """Main function of the script.
+
+    Args:
+        test_set_path: If set, load test set from this Python file.
+    """
+    args = parse_command_line_arguments(test_set_path)
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
-    test_set = load_test_set(os.path.abspath(args.test_set_path))
-    results = Results(find_results_file(args), test_set)
+    if test_set_path is None:
+        test_set_path = args.test_set_path
+    test_set = load_test_set(os.path.abspath(test_set_path))
+    results = Results(find_results_file(args, test_set_path), test_set)
 
     if args.command == "run":
         run(
