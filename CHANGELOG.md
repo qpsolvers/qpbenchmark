@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+* Test set path argument to the main function of the command-line interface
+
 ## [2.1.1] - 2023-12-22
 
 ### Changed
