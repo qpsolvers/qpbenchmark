@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2016-2022 Stéphane Caron and the qpsolvers contributors.
 # SPDX-License-Identifier: Apache-2.0
+# Copyright 2023 Inria
 
 """Unit tests for test sets."""
 
