@@ -24,7 +24,7 @@ from .test_set import TestSet
 
 
 def parse_command_line_arguments(
-    test_set: Optional[str] = None,
+    test_set_path: Optional[str] = None,
 ) -> argparse.Namespace:
     """Extracts and interprets command line arguments passed to the script.
 
@@ -37,7 +37,7 @@ def parse_command_line_arguments(
     parser = argparse.ArgumentParser(
         description="Benchmark quadratic programming solvers"
     )
-    if test_set is None:
+    if test_set_path is None:
         parser.add_argument(
             "test_set_path", help="path to the test set python file"
         )
