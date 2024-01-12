@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/qpsolvers/qpbenchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/qpsolvers/qpbenchmark/actions/workflows/ci.yml)
 [![PyPI version](https://img.shields.io/pypi/v/qpbenchmark)](https://pypi.org/project/qpbenchmark/)
-[![Contributing](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/qpsolvers/qpbenchmark/tree/main/CONTRIBUTING.md)
+[![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/qpsolvers/qpbenchmark/tree/main/CONTRIBUTING.md)
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
