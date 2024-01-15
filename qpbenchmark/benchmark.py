@@ -79,6 +79,7 @@ def parse_command_line_arguments(
     )
     parser_plot.add_argument(
         "metric",
+        choices=["runtime", "primal_residual", "dual_residual", "duality_gap"],
         help='name of the metric to evaluate (e.g. "duality_gap")',
     )
     parser_plot.add_argument(
