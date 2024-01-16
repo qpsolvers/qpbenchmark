@@ -9,18 +9,14 @@ dependencies:
     - matplotlib
     - numpy >= 1.25.2
     - osqp >= 0.6.2
-    - pandas
     - pip
     - piqp >= 0.2.2
     - proxsuite >= 0.4.1
     - qpoases >= 3.2.0
-    - qpsolvers >= 4.1.1
+    - qpbenchmark
     - quadprog >= 0.1.11
-    - tabulate
     - pip:
         - clarabel >= 0.4.1
         - highspy >= 1.5.2
-        - py-cpuinfo
         - qpalm >= 1.2.1
-        - qpbenchmark >= 1.2.0
         - scs >= 3.2.2
