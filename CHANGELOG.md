@@ -6,7 +6,12 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+* Distribute [on conda-forge](https://anaconda.org/conda-forge/qpbenchmark)
 * Test set path argument to the main function of the command-line interface
+
+### Changed
+
+* Update environment file to install from conda-forge
 
 ## [2.1.1] - 2023-12-22
 
