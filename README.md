@@ -88,26 +88,20 @@ conda env create -f environment.yaml
 conda activate qpbenchmark
 ```
 
-Alternatively, you can install the benchmarking tool individually using ``pip``:
-
-```console
-pip install qpbenchmark
-```
-
-In that case, the benchmark will run all supported solvers it can import.
+Alternatively, you can install the benchmarking tool individually by ``pip install qpbenchmark``. In that case, the benchmark will run on all supported solvers it can import.
 
 ## Usage
 
 The benchmark works by running ``qpbenchmark`` on a Python script describing the test set. For instance:
 
 ```console
-qpbenchmark my_benchmark.py run
+qpbenchmark my_test_set.py run
 ```
 
 The test-set script is followed by a benchmark command, such as "run" here. We can add optional arguments to run a specific solver, problem, or solver settings:
 
 ```console
-qpbenchmark my_benchmark.py run --solver proxqp --settings default
+qpbenchmark my_test_set.py run --solver proxqp --settings default
 ```
 
 Check out ``qpbenchmark --help`` for a list of available commands and arguments.
