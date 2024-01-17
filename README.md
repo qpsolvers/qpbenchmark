@@ -139,8 +139,6 @@ If you use `qpbenchmark` in your scientific works, please cite it *e.g.* as foll
 }
 ```
 
-You can also click on ``Cite this repository`` at the top-right of the [repository page](https://github.com/qpsolvers/qpbenchmark/).
-
 ## See also
 
 ### References
@@ -152,5 +150,5 @@ You can also click on ``Cite this repository`` at the top-right of the [reposito
 
 - [Benchmarks for optimization software](http://plato.asu.edu/bench.html) by Hans Mittelmann, which includes reports on the Maros-Meszaros test set.
 - [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks): benchmark of QP solvers available in C++.
-- [osqp\_benchmark](https://github.com/osqp/osqp_benchmarks): benchmark examples for the OSQP solver.
+- [osqp\_benchmarks](https://github.com/osqp/osqp_benchmarks): benchmark examples for the OSQP solver.
 - [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark): benchmark examples for the ProxQP solver.
