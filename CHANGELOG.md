@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+* Update qpsolvers to v4.3.1 which fixes a bug in the Gurobi interface
+
 ## [2.2.0] - 2024-01-16
 
 ### Added
