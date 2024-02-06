@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.2.1] - 2024-02-06
+
 ### Changed
 
-* Update qpsolvers to v4.3.1 which fixes a bug in the Gurobi interface
+* Update qpsolvers to v4.3.1 to fix the Gurobi interface (thanks @563925743)
 
 ## [2.2.0] - 2024-01-16
 
@@ -159,7 +161,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.0...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.0.0...v2.1.0
