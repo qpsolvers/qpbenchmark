@@ -129,12 +129,12 @@ If you use `qpbenchmark` in your scientific works, please cite it *e.g.* as foll
 
 ```bibtex
 @software{qpbenchmark2024,
-  author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin},
+  author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin and Yang, Fengyu},
   license = {Apache-2.0},
-  month = jan,
+  month = feb,
   title = {{qpbenchmark: Benchmark for quadratic programming solvers available in Python}},
   url = {https://github.com/qpsolvers/qpbenchmark},
-  version = {2.2.0},
+  version = {2.2.1},
   year = {2024}
 }
 ```
