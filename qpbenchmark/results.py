@@ -288,9 +288,11 @@ class Results:
             ]
             column_values = np.array(
                 [
-                    solver_df.at[i, metric]
-                    if solver_df.at[i, "found"]
-                    else not_found_value
+                    (
+                        solver_df.at[i, metric]
+                        if solver_df.at[i, "found"]
+                        else not_found_value
+                    )
                     for i in solver_df.index
                 ]
             )

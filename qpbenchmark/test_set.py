@@ -244,9 +244,11 @@ class TestSet(abc.ABC):
         timeout = (
             self.known_solver_timeouts[(problem.name, solver, settings)]
             if (problem.name, solver, settings) in self.known_solver_timeouts
-            else self.known_solver_timeouts[(problem.name, solver, "*")]
-            if (problem.name, solver, "*") in self.known_solver_timeouts
-            else 0.0
+            else (
+                self.known_solver_timeouts[(problem.name, solver, "*")]
+                if (problem.name, solver, "*") in self.known_solver_timeouts
+                else 0.0
+            )
         )
         if timeout > time_limit:
             logging.warning(
