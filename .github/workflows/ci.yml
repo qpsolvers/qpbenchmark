@@ -25,6 +25,9 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install tox
+                  # the following to be removed after
+                  # https://github.com/qpsolvers/qpsolvers/pull/286
+                  python -m pip install quadprog  # temporary
 
             - name: "Check code format"
               run: |
@@ -52,6 +55,9 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install tox tox-gh-actions
+                  # the following to be removed after
+                  # https://github.com/qpsolvers/qpsolvers/pull/286
+                  python -m pip install quadprog  # temporary
 
             - name: "Test with tox for ${{ matrix.os }}"
               env:
