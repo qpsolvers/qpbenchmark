@@ -24,3 +24,4 @@ class CustomTestSet(qpbenchmark.TestSet):
 
     def __iter__(self):
         yield custom_problem(name="custom")
+        yield custom_problem(name="custom_again")  # test only_problem
