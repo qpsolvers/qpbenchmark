@@ -8,20 +8,20 @@
 
 import unittest
 
-from qpbenchmark import Tolerance
+from qpbenchmark import Tolerance, BenchmarkError
 
 
 class TestTolerance(unittest.TestCase):
-    def test_tolerance(self):
-        tolerance = (
-            Tolerance(
-                primal=1.0,
-                dual=2.0,
-                gap=3.0,
-                runtime=4.0,
-            )
+    def test_from_metric(self):
+        tolerance = Tolerance(
+            primal=1.0,
+            dual=2.0,
+            gap=3.0,
+            runtime=4.0,
         )
-        self.assertAlmostEqual(tolerance.primal, 1.0)
-        self.assertAlmostEqual(tolerance.dual, 2.0)
-        self.assertAlmostEqual(tolerance.gap, 3.0)
-        self.assertAlmostEqual(tolerance.runtime, 4.0)
+        self.assertAlmostEqual(tolerance.from_metric("primal_residual"), 1.0)
+        self.assertAlmostEqual(tolerance.from_metric("dual_residual"), 2.0)
+        self.assertAlmostEqual(tolerance.from_metric("duality_gap"), 3.0)
+        self.assertAlmostEqual(tolerance.from_metric("runtime"), 4.0)
+        with self.assertRaises(BenchmarkError):
+            tolerance.from_metric("foo")
