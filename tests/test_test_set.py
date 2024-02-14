@@ -8,40 +8,8 @@
 
 import unittest
 
-import numpy as np
-
-import qpbenchmark
-
-
-def custom_problem(name: str) -> qpbenchmark.Problem:
-    return qpbenchmark.Problem(
-        P=np.eye(3),
-        q=np.ones(3),
-        G=None,
-        h=None,
-        A=None,
-        b=None,
-        lb=None,
-        ub=None,
-        name=name,
-    )
-
-
-class CustomTestSet(qpbenchmark.TestSet):
-    @property
-    def description(self) -> str:
-        return "Unit test test set"
-
-    @property
-    def title(self) -> str:
-        return "Unit test test set"
-
-    @property
-    def sparse_only(self) -> bool:
-        return False
-
-    def __iter__(self):
-        yield custom_problem(name="custom")
+from .custom_problem import custom_problem
+from .custom_test_set import CustomTestSet
 
 
 class TestTestSet(unittest.TestCase):

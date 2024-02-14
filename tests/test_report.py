@@ -8,10 +8,15 @@
 
 import unittest
 
-from qpbenchmark import Report
+from qpbenchmark import Report, Results
+
+from .custom_test_set import CustomTestSet
 
 
 class TestReport(unittest.TestCase):
-    def test_report(self):
-        report = Report(author="foobar", results=None)
-        self.assertEqual(report.name, "foobar")
+    def setUp(self):
+        self.results = Results(csv_path="", test_set=CustomTestSet())
+        self.report = Report(author="foobar", results=self.results)
+
+    def test_author(self):
+        self.assertEqual(self.report.author, "foobar")
