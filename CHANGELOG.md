@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+* Expose exceptions from top-level module
+
 ### Fixed
 
 * Bump Python version to actual requirement of 3.9 or above
