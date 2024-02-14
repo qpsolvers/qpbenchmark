@@ -13,6 +13,7 @@ from qpsolvers import available_solvers
 
 import qpbenchmark
 from qpbenchmark import Results
+from qpsolvers import SolverNotFound
 
 from .custom_test_set import CustomTestSet
 
@@ -47,3 +48,23 @@ class TestRun(unittest.TestCase):
             include_timeouts=False,
         )
         self.assertEqual(len(self.results.df), 1)
+
+    def test_settings_not_found(self):
+        with self.assertRaises(ValueError):
+            qpbenchmark.run(
+                self.test_set,
+                self.results,
+                only_settings="unknown",
+                rerun=False,
+                include_timeouts=False,
+            )
+
+    def test_solver_not_found(self):
+        with self.assertRaises(SolverNotFound):
+            qpbenchmark.run(
+                self.test_set,
+                self.results,
+                only_solver="unknown",
+                rerun=False,
+                include_timeouts=False,
+            )
