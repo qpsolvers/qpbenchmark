@@ -148,6 +148,7 @@ If you use `qpbenchmark` in your scientific works, please cite it *e.g.* as foll
 
 ### Other benchmarks
 
+- [BenchOpt](https://github.com/benchopt/benchOpt): a benchmarking suite tailored for machine learning workflows.
 - [Benchmarks for optimization software](http://plato.asu.edu/bench.html) by Hans Mittelmann, which includes reports on the Maros-Meszaros test set.
 - [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks): benchmark of QP solvers available in C++.
 - [osqp\_benchmarks](https://github.com/osqp/osqp_benchmarks): benchmark examples for the OSQP solver.
