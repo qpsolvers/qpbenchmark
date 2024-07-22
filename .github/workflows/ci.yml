@@ -59,7 +59,7 @@ jobs:
                   tox -e lint
 
     test:
-        name: "Test ${{ matrix.os }} with python-${{ matrix.python-version }}"
+        name: "Test ${{ matrix.os }} with Python ${{ matrix.python-version }}"
         runs-on: ${{ matrix.os }}
 
         strategy:
