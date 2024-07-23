@@ -59,6 +59,13 @@ line_length = 79
 
 [tool.ruff]
 line-length = 79
+
+[tool.lint]
+ignore = [
+    "D401",  # good for methods but not for class docstrings
+    "D405",  # British-style section names are also "proper"!
+    "E741",  # we have a variable called 'l'
+]
 select = [
     # pyflakes
     "F",
@@ -70,11 +77,6 @@ select = [
     # pydocstyle
     "D"
 ]
-ignore = [
-    "D401",  # good for methods but not for class docstrings
-    "D405",  # British-style section names are also "proper"!
-    "E741",  # we have a variable called 'l'
-]
 
-[tool.ruff.pydocstyle]
+[tool.lint.pydocstyle]
 convention = "google"
