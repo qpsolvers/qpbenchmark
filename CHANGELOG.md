@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.2.2] - 2024-07-31
+
 ### Added
 
 * Expose exceptions from top-level module
@@ -171,7 +173,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.1...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.2...HEAD
+[2.2.2]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.0...v2.1.1
