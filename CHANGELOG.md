@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 * Bump Python version to actual requirement of 3.9 or above
+* Handle no-op conversion from dense to dense properly
+* Handle no-op conversion from sparse to sparse properly
 
 ## [2.2.1] - 2024-02-06
 

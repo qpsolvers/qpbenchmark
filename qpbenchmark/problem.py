@@ -14,6 +14,44 @@ import qpsolvers
 import scipy.sparse as spa
 
 
+def ensure_dense(
+    M: Optional[Union[np.ndarray, spa.csc_matrix]]
+) -> Optional[np.ndarray]:
+    """Get dense representation of a matrix.
+
+    Args:
+        M: Matrix to get a dense representation of.
+
+    Returns:
+        Dense representation of the matrix.
+    """
+    if M is None:
+        return None
+    elif isinstance(M, np.ndarray):
+        return M
+    else:  # isinstance(M, spa.csc_matrix):
+        return M.toarray().astype(float)
+
+
+def ensure_sparse(
+    M: Optional[Union[np.ndarray, spa.csc_matrix]]
+) -> Optional[spa.csc_matrix]:
+    """Get sparse representation of a matrix.
+
+    Args:
+        M: Matrix to get a sparse representation of.
+
+    Returns:
+        Sparse representation of the matrix.
+    """
+    if M is None:
+        return None
+    elif isinstance(M, np.ndarray):
+        return spa.csc_matrix(M)
+    else:  # isinstance(M, spa.csc_matrix):
+        return M
+
+
 class Problem(qpsolvers.Problem):
     """Quadratic program.
 
@@ -46,11 +84,11 @@ class Problem(qpsolvers.Problem):
             Dense version of the present problem.
         """
         return Problem(
-            self.P.toarray().astype(float),
+            ensure_dense(self.P),
             self.q,
-            self.G.toarray().astype(float) if self.G is not None else None,
+            ensure_dense(self.G),
             self.h,
-            self.A.toarray().astype(float) if self.A is not None else None,
+            ensure_dense(self.A),
             self.b,
             self.lb,
             self.ub,
@@ -65,11 +103,11 @@ class Problem(qpsolvers.Problem):
         """
         P, G, A = self.P, self.G, self.A
         return Problem(
-            spa.csc_matrix(P) if isinstance(P, np.ndarray) else P,
+            ensure_sparse(P),
             self.q,
-            spa.csc_matrix(G) if isinstance(G, np.ndarray) else G,
+            ensure_sparse(G),
             self.h,
-            spa.csc_matrix(A) if isinstance(A, np.ndarray) else A,
+            ensure_sparse(A),
             self.b,
             self.lb,
             self.ub,
