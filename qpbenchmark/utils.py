@@ -77,6 +77,7 @@ def get_solver_versions(solvers: Set[str]):
         {
             "gurobi": "gurobipy",
             "highs": "highspy",
+            "hpipm": "hpipm_python",
             "proxqp": "proxsuite",
         }
     )
