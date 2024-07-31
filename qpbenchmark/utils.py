@@ -72,15 +72,16 @@ def get_solver_versions(solvers: Set[str]):
     Returns:
         Dictionary mapping solver names to their versions.
     """
-    package_name = {solver: solver for solver in solvers}
-    package_name.update(
-        {
-            "gurobi": "gurobipy",
-            "highs": "highspy",
-            "hpipm": "hpipm_python",
-            "proxqp": "proxsuite",
-        }
-    )
+    diff = {
+        "gurobi": "gurobipy",
+        "highs": "highspy",
+        "hpipm": "hpipm_python",
+        "proxqp": "proxsuite",
+    }
+    package_name = {
+        solver: solver if solver not in diff else diff[solver]
+        for solver in solvers
+    }
     versions = {}
     for solver, package in package_name.items():
         try:
