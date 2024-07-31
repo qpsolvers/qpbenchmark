@@ -125,11 +125,11 @@ Contributions to improving this benchmark are welcome. You can for instance prop
 
 ## Citation
 
-If you use `qpbenchmark` in your scientific works, please cite it *e.g.* as follows:
+If you use `qpbenchmark` in your works, please cite all its contributors as follows:
 
 ```bibtex
 @software{qpbenchmark2024,
-  author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin and Yang, Fengyu},
+  author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin and Yang, Fengyu and Leziart, Pierre-Alexandre},
   license = {Apache-2.0},
   month = feb,
   title = {{qpbenchmark: Benchmark for quadratic programming solvers available in Python}},
