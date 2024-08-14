@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.2.3] - 2024-08-14
+
 ### Fixed
 
 - Fix reporting of solver versions when some solvers are excluded
@@ -177,7 +179,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.2...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.3...HEAD
+[2.2.3]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.1...v2.2.0
