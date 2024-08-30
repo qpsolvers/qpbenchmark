@@ -13,11 +13,11 @@ The objective is to compare and select the best QP solvers for given use cases. 
 
 The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
 
-- [Free-for-all](https://github.com/qpsolvers/free_for_all_qpbenchmark): community-built test set, new problems [are welcome](https://github.com/qpsolvers/free_for_all_qpbenchmark/issues/new?template=new_problem.md&title=)!
+- [Free-for-all](https://github.com/qpsolvers/free_for_all_qpbenchmark): community-built test set, new problems welcome!
 - [Maros-Meszaros](https://github.com/qpsolvers/maros_meszaros_qpbenchmark): a standard test set with problems designed to be difficult.
 - [Model predictive control](https://github.com/qpsolvers/mpc_qpbenchmark): model predictive control problems arising *e.g.* in robotics.
 
-New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to wrap up a new test set without re-implementing the benchmark methodology. Check out [creating a new test set](CONTRIBUTING.md).
+New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to wrap up a new test set without re-implementing the benchmark methodology. Check out the [contribution guidelines](CONTRIBUTING.md) to get started.
 
 ## Solvers
 
@@ -56,10 +56,7 @@ We evaluate QP solvers based on the following metrics:
 
 Each metric (computation time, primal and dual residuals, duality gap) produces a different ranking of solvers for each problem. To aggregate those rankings into a single metric over the whole test set, we use the *shifted geometric mean* (shm), which is a standard to aggregate computation times in [benchmarks for optimization software](#other-benchmarks). This mean has the advantage of being compromised by neither large outliers (as opposed to the arithmetic mean) nor by small outliers (in contrast to the geometric geometric mean). Check out the [references](#references) below for further details.
 
-Here are some intuitive interpretations:
-
-- A solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set.
-- A solver with a shifted-geometric-mean primal residual $R$ is $R$ times less accurate on equality and inequality constraints than the best solver over the test set.
+Intuitively, a solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times slower than the best solver over the test set. Similarly, a solver with a shifted-geometric-mean primal residual $R$ is $R$ times less accurate on equality and inequality constraints than the best solver over the test set.
 
 ## Results
 
@@ -76,13 +73,14 @@ You can check out results from a variety of machines, and share the reports prod
 Here are some known areas of improvement for this benchmark:
 
 - [Cold start only:](https://github.com/qpsolvers/qpbenchmark/issues/101) we don't evaluate warm-start performance for now.
-- [CPU thermal throttling:](https://github.com/qpsolvers/qpbenchmark/issues/88) the benchmark currently does not check the status of CPU thermal throttling. Adding this feature is a [good way to start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
+- [CPU thermal throttling:](https://github.com/qpsolvers/qpbenchmark/issues/88) the benchmark currently does not check the status of CPU thermal throttling.
+    - Adding this feature is a good way to [start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
 
 Check out the issue tracker for ongoing works and future improvements.
 
 ## Installation
 
-The recommended process is to install the benchmark and all solvers in an isolated environment using ``conda``:
+We recommend installing the benchmark and all solvers in an isolated environment using ``conda``:
 
 ```console
 conda env create -f environment.yaml

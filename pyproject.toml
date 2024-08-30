@@ -40,6 +40,7 @@ keywords = ["quadratic programming", "benchmark", "solvers", "numerical optimiza
 qpbenchmark = "qpbenchmark.benchmark:main"
 
 [project.urls]
+Homepage = "https://github.com/qpsolvers/qpbenchmark"
 Source = "https://github.com/qpsolvers/qpbenchmark"
 Tracker = "https://github.com/qpsolvers/qpbenchmark/issues"
 Changelog = "https://github.com/qpsolvers/qpbenchmark/blob/main/CHANGELOG.md"
