@@ -39,8 +39,12 @@ def parse_command_line_arguments(
     )
     if test_set_path is None:
         parser.add_argument(
-            "test_set_path", help="path to the test set python file"
+            "test_set_path", help="path to the test set Python source"
         )
+    parser.add_argument(
+        "--results-file",
+        help="path to a specific results CSV file to work with",
+    )
     parser.add_argument(
         "-v",
         "--verbose",
@@ -63,13 +67,9 @@ def parse_command_line_arguments(
     )
 
     # check_results
-    parser_check_results = subparsers.add_parser(
+    subparsers.add_parser(
         "check_results",
         help="evaluate test set results interactively",
-    )
-    parser_check_results.add_argument(
-        "--results-file",
-        help="path to the results CSV file",
     )
 
     # plot
@@ -84,9 +84,6 @@ def parse_command_line_arguments(
     parser_plot.add_argument(
         "settings",
         help='settings to compare solvers on (e.g. "high_accuracy")',
-    )
-    parser_plot.add_argument(
-        "--results-file", help="path to the CSV file where results are stored"
     )
     parser_plot.add_argument(
         "--linewidth",
@@ -114,10 +111,6 @@ def parse_command_line_arguments(
         help="write report from test set results",
     )
     parser_report.add_argument(
-        "--results-file",
-        help="report test set results from this specific CSV file",
-    )
-    parser_report.add_argument(
         "--author",
         help="author field in the report",
     )
@@ -126,9 +119,6 @@ def parse_command_line_arguments(
     parser_run = subparsers.add_parser(
         "run",
         help="run all tests from the test set",
-    )
-    parser_run.add_argument(
-        "--results-path", help="write results in a specific directory"
     )
     parser_run.add_argument(
         "--include-timeouts",
@@ -261,7 +251,7 @@ def main(test_set_path: Optional[str] = None):
     if test_set_path is None:
         test_set_path = args.test_set_path
     test_set = load_test_set(os.path.abspath(test_set_path))
-    results = Results(find_results_file(args, test_set_path), test_set)
+    results = Results(args.results_file or results_path, test_set)
 
     if args.command == "run":
         run(
