@@ -160,46 +160,6 @@ def parse_command_line_arguments(
     return args
 
 
-def find_results_file(args: argparse.Namespace, test_set_path: str) -> str:
-    """Find the path to the results file.
-
-    Args:
-        args: The arguments passed in the command line.
-        test_set_path: Path to the main test-set script.
-
-    Raises:
-        FileNotFoundError: If the file was not found.
-
-    Returns:
-        str: The path to the results file.
-    """
-    if args.command in ["check_results", "report", "plot"]:
-        results_file = (
-            os.path.abspath(args.results_file)
-            if args.results_file
-            else os.path.join(
-                os.path.dirname(os.path.abspath(test_set_path)),
-                "results",
-                os.path.split(test_set_path)[1].replace(".py", ".csv"),
-            )
-        )
-        if not os.path.exists(results_file):
-            raise FileNotFoundError(f"results file '{results_file}' not found")
-    else:
-        if args.command == "run" and args.results_path:
-            results_dir = os.path.abspath(args.results_path)
-        else:
-            testset_dir = os.path.dirname(test_set_path)
-            results_dir = os.path.join(testset_dir, "results")
-        if not os.path.exists(results_dir):
-            os.mkdir(results_dir)
-        results_file = os.path.join(
-            results_dir,
-            os.path.split(test_set_path)[1].replace(".py", ".csv"),
-        )
-    return results_file
-
-
 def load_test_set(path: str) -> TestSet:
     """Load a test set.
 
@@ -239,12 +199,18 @@ def report(args, results):
     report.write(md_path)
 
 
-def main(test_set_path: Optional[str] = None):
+def main(
+    test_set_path: Optional[str] = None,
+    results_path: Optional[str] = None,
+):
     """Main function of the script.
 
     Args:
         test_set_path: If set, load test set from this Python file.
+        results_path: Path to the results CSV file.
     """
+    assert test_set_path.endswith(".py")
+    assert results_path.endswith(".csv")
     args = parse_command_line_arguments(test_set_path)
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)

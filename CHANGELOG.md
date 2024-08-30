@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Add `results_file` argument to the `main` function
+
+### Changed
+
+- CLI: Make results file an argument to all commands
+
 ## [2.2.3] - 2024-08-14
 
 ### Fixed
