@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - CLI: Make results file an argument to all commands
+- Rename "include timeouts" argument to "rerun timeouts"
 
 ## [2.2.3] - 2024-08-14
 

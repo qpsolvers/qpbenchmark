@@ -9,11 +9,10 @@
 import tempfile
 import unittest
 
-from qpsolvers import available_solvers
+from qpsolvers import SolverNotFound, available_solvers
 
 import qpbenchmark
 from qpbenchmark import Results
-from qpsolvers import SolverNotFound
 
 from .custom_test_set import CustomTestSet
 
@@ -32,7 +31,7 @@ class TestRun(unittest.TestCase):
             only_problem="custom",
             only_settings="default",
             rerun=False,
-            include_timeouts=False,
+            rerun_timeouts=False,
         )
         self.assertEqual(len(self.results.df), len(available_solvers))
 
@@ -45,7 +44,7 @@ class TestRun(unittest.TestCase):
             only_settings="default",
             only_solver="daqp",  # listed in tox.ini
             rerun=False,
-            include_timeouts=False,
+            rerun_timeouts=False,
         )
         self.assertEqual(len(self.results.df), 1)
 
@@ -56,7 +55,7 @@ class TestRun(unittest.TestCase):
                 self.results,
                 only_settings="unknown",
                 rerun=False,
-                include_timeouts=False,
+                rerun_timeouts=False,
             )
 
     def test_solver_not_found(self):
@@ -66,5 +65,5 @@ class TestRun(unittest.TestCase):
                 self.results,
                 only_solver="unknown",
                 rerun=False,
-                include_timeouts=False,
+                rerun_timeouts=False,
             )

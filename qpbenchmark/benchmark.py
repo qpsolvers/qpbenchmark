@@ -121,12 +121,6 @@ def parse_command_line_arguments(
         help="run all tests from the test set",
     )
     parser_run.add_argument(
-        "--include-timeouts",
-        default=False,
-        action="store_true",
-        help="include timeouts when --rerunning the test set",
-    )
-    parser_run.add_argument(
         "--problem",
         help="limit run to a specific problem",
     )
@@ -134,7 +128,13 @@ def parse_command_line_arguments(
         "--rerun",
         default=False,
         action="store_true",
-        help="rerun test set even on problems with saved results",
+        help="rerun problems that are already in results (except timeouts)",
+    )
+    parser_run.add_argument(
+        "--rerun-timeouts",
+        default=False,
+        action="store_true",
+        help="include timeouts when rerunning all problems of the test set",
     )
     parser_run.add_argument(
         "--settings",
@@ -227,7 +227,7 @@ def main(
             only_settings=args.settings,
             only_solver=args.solver,
             rerun=args.rerun,
-            include_timeouts=args.include_timeouts,
+            rerun_timeouts=args.rerun_timeouts,
         )
 
     if args.command == "check_problem":

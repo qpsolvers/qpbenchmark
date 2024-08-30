@@ -25,7 +25,7 @@ def run(
     only_settings: Optional[str] = None,
     only_solver: Optional[str] = None,
     rerun: bool = False,
-    include_timeouts: bool = False,
+    rerun_timeouts: bool = False,
 ) -> None:
     """Run a given test set and store results.
 
@@ -36,7 +36,7 @@ def run(
         only_settings: If set, only run with these solver settings.
         only_solver: If set, only run that specific solver.
         rerun: If set, rerun instances that already have a result.
-        include_timeouts: If set, also rerun known timeouts.
+        rerun_timeouts: If set, also rerun known timeouts.
     """
     if only_settings and only_settings not in test_set.solver_settings:
         raise ValueError(
@@ -97,7 +97,7 @@ def run(
                             f"with {settings} settings..."
                         )
                         continue
-                    if not include_timeouts and results.is_timeout(
+                    if not rerun_timeouts and results.is_timeout(
                         problem, solver, settings, time_limit
                     ):
                         logging.info(
