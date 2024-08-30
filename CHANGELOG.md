@@ -6,11 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Add `results_file` argument to the `main` function
+- Add `results_path` argument to the `main` function
 
 ### Changed
 
-- CLI: Make results file an argument to all commands
+- CLI: Make results path an argument to all commands
 - Rename "include timeouts" argument to "rerun timeouts"
 
 ## [2.2.3] - 2024-08-14

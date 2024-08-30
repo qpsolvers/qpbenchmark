@@ -42,7 +42,7 @@ def parse_command_line_arguments(
             "test_set_path", help="path to the test set Python source"
         )
     parser.add_argument(
-        "--results-file",
+        "--results-path",
         help="path to a specific results CSV file to work with",
     )
     parser.add_argument(
@@ -217,7 +217,7 @@ def main(
     if test_set_path is None:
         test_set_path = args.test_set_path
     test_set = load_test_set(os.path.abspath(test_set_path))
-    results = Results(args.results_file or results_path, test_set)
+    results = Results(args.results_path or results_path, test_set)
 
     if args.command == "run":
         run(
