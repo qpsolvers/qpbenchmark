@@ -181,12 +181,13 @@ def load_test_set(path: str) -> TestSet:
     return TestClass()
 
 
-def report(args, results):
+def report(args, results: Results, test_set_path: str):
     """Write report to file.
 
     Args:
         args: Command-line arguments.
         results: Benchmark results.
+        test_set_path: Path to the test set Python source.
     """
     logging.info("Writing the overall report...")
     author = (
@@ -195,7 +196,9 @@ def report(args, results):
         else input("GitHub username to write in the report? ")
     )
     report = Report(author, results)
-    md_path = results.csv_path.replace(".csv", ".md")
+    results_dir = os.path.dirname(results.csv_path)
+    test_set_name = os.path.basename(test_set_path).replace(".py", "")
+    md_path = f"{results_dir}/{test_set_name}.md"
     report.write(md_path)
 
 
@@ -212,10 +215,10 @@ def main(
     assert test_set_path.endswith(".py")
     assert results_path.endswith(".csv")
     args = parse_command_line_arguments(test_set_path)
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
     if test_set_path is None:
         test_set_path = args.test_set_path
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
     test_set = load_test_set(os.path.abspath(test_set_path))
     results = Results(args.results_path or results_path, test_set)
 
@@ -265,7 +268,7 @@ def main(
         )
 
     if args.command in ["report", "run"]:
-        report(args, results)
+        report(args, results, test_set_path)
 
 
 if __name__ == "__main__":
