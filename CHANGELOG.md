@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Add `results_path` argument to the `main` function
+- Special handling to get CVXOPT version number properly
 
 ### Changed
 

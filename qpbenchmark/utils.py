@@ -78,20 +78,18 @@ def get_solver_versions(solvers: Set[str]):
         "hpipm": "hpipm_python",
         "proxqp": "proxsuite",
     }
-    package_name = {
-        solver: solver if solver not in diff else diff[solver]
-        for solver in solvers
-    }
+    package_names = {solver: diff.get(solver, solver) for solver in solvers}
     versions = {}
-    for solver, package in package_name.items():
+    for solver, package_name in package_names.items():
         try:
-            versions[solver] = metadata.version(package)
+            versions[solver] = metadata.version(package_name)
         except metadata.PackageNotFoundError:
             pass
-        if solver in versions:
+        if solver in versions and solver != "cvxopt":
+            # For some reason, metadata.versions("cvxopt") returns 0.0.0
             continue
         try:
-            module = import_module(package)
+            module = import_module(package_name)
             versions[solver] = module.__version__
         except AttributeError:
             pass
