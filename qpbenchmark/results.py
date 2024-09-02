@@ -78,15 +78,23 @@ class Results:
             logging.info(f"Loading existing results from {csv_path}")
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         Results.check_df(df)
+
+        # Filter out problems from the CSV that are in the test set
+        problems = set(problem.name for problem in test_set)
+        test_set_df = df[df["problem"].isin(problems)]
+        complementary_df = df[~df["problem"].isin(problems)]
+
+        self.__complementary_df = complementary_df
         self.csv_path = csv_path
-        self.df = df
+        self.df = test_set_df
         self.test_set = test_set
 
     def write(self) -> None:
         """Write results to their CSV file for persistence."""
         logging.debug(f"Test set results written to {self.csv_path}")
-        self.df = self.df.sort_values(by=["problem", "solver", "settings"])
-        self.df.to_csv(self.csv_path, index=False)
+        save_df = pandas.concat([self.df, self.__complementary_df])
+        save_df = save_df.sort_values(by=["problem", "solver", "settings"])
+        save_df.to_csv(self.csv_path, index=False)
 
     def has(self, problem: Problem, solver: str, settings: str) -> bool:
         """Check if results contain a given run of a solver on a problem.
