@@ -15,6 +15,7 @@ import sys
 from importlib import import_module  # type: ignore
 from typing import Optional
 
+from .exceptions import BenchmarkError
 from .plot_metric import plot_metric
 from .report import Report
 from .results import Results
@@ -196,6 +197,8 @@ def report(args, results: Results, test_set_path: str):
         else input("GitHub username to write in the report? ")
     )
     report = Report(author, results)
+    if results.csv_path is None:
+        raise BenchmarkError("not sure where to save report: no results file")
     results_dir = os.path.dirname(results.csv_path)
     test_set_name = os.path.basename(test_set_path).replace(".py", "")
     md_path = f"{results_dir}/{test_set_name}.md"
@@ -212,15 +215,15 @@ def main(
         test_set_path: If set, load test set from this Python file.
         results_path: Path to the results CSV file.
     """
-    assert test_set_path.endswith(".py")
-    assert results_path.endswith(".csv")
+    assert test_set_path is None or test_set_path.endswith(".py")
+    assert results_path is None or results_path.endswith(".csv")
     args = parse_command_line_arguments(test_set_path)
     if test_set_path is None:
         test_set_path = args.test_set_path
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
     test_set = load_test_set(os.path.abspath(test_set_path))
-    results = Results(args.results_path or results_path, test_set)
+    results = Results(results_path or args.results_path, test_set)
 
     if args.command == "run":
         run(
