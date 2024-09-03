@@ -4,15 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.3.0] - 2024-09-03
+
 ### Added
 
 - Add `results_path` argument to the `main` function
-- Results: Handle loading/saving CSV files with out-of-test-set problems
+- Results: handle loading/saving CSV files with out-of-test-set problems
 - Special handling to get CVXOPT version number properly
 
 ### Changed
 
-- CLI: Make results path an argument to all commands
+- CLI: make results path an argument to all commands
 - Rename "include timeouts" argument to "rerun timeouts"
 
 ## [2.2.3] - 2024-08-14
@@ -190,7 +192,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.3...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.3...v2.3.0
 [2.2.3]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.0...v2.2.1
