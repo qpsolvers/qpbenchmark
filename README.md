@@ -1,6 +1,6 @@
 # QP solvers benchmark
 
-[![CI](https://github.com/qpsolvers/qpbenchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/qpsolvers/qpbenchmark/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/ci.yml?branch=main)](https://github.com/qpsolvers/qpbenchmark/actions)
 [![Coverage](https://coveralls.io/repos/github/qpsolvers/qpbenchmark/badge.svg?branch=main)](https://coveralls.io/github/qpsolvers/qpbenchmark?branch=main)
 [![Conda version](https://img.shields.io/conda/vn/conda-forge/qpbenchmark.svg)](https://anaconda.org/conda-forge/qpbenchmark)
 [![PyPI version](https://img.shields.io/pypi/v/qpbenchmark)](https://pypi.org/project/qpbenchmark/)
