@@ -7,7 +7,7 @@
 """Test case results."""
 
 import os.path
-from typing import Dict, Tuple
+from typing import Dict, Optional, Tuple
 
 import numpy as np
 import pandas
@@ -29,7 +29,7 @@ class Results:
         test_set: Test set from which results were produced.
     """
 
-    csv_path: str
+    csv_path: Optional[str]
     df: pandas.DataFrame
     test_set: TestSet
 
@@ -43,7 +43,7 @@ class Results:
         if not isinstance(df["found"].dtype, np.dtypes.BoolDType):
             raise ResultsError('"found" column has some non-boolean values')
 
-    def __init__(self, csv_path: str, test_set: TestSet):
+    def __init__(self, csv_path: Optional[str], test_set: TestSet):
         """Initialize results.
 
         Args:
@@ -74,7 +74,7 @@ class Results:
                 "duality_gap": float,
             }
         )
-        if os.path.exists(csv_path):
+        if csv_path is not None and os.path.exists(csv_path):
             logging.info(f"Loading existing results from {csv_path}")
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         Results.check_df(df)
@@ -89,12 +89,19 @@ class Results:
         self.df = test_set_df
         self.test_set = test_set
 
-    def write(self) -> None:
-        """Write results to their CSV file for persistence."""
-        logging.debug(f"Test set results written to {self.csv_path}")
+    def write(self, path: Optional[str] = None) -> None:
+        """Write results to their CSV file for persistence.
+
+        Args:
+            path: Optional path to a separate file to write to.
+        """
+        save_path: Optional[str] = path or self.csv_path
+        if save_path is None:
+            raise BenchmarkError("no path to save results to")
+        logging.debug(f"Test set results written to {save_path}")
         save_df = pandas.concat([self.df, self.__complementary_df])
         save_df = save_df.sort_values(by=["problem", "solver", "settings"])
-        save_df.to_csv(self.csv_path, index=False)
+        save_df.to_csv(save_path, index=False)
 
     def has(self, problem: Problem, solver: str, settings: str) -> bool:
         """Check if results contain a given run of a solver on a problem.
