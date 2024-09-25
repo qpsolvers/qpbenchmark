@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Optionally add a GPU summary line to reports
+
 ### Changed
 
 - Update skip logic in CPU info table

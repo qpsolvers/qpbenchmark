@@ -40,6 +40,24 @@ def get_cpu_info_summary() -> str:
     return cpuinfo.get_cpu_info()["brand_raw"]
 
 
+def get_gpu_info_summary() -> str:
+    """Get GPU information summary as a single string.
+
+    Note:
+        This function only works if PyTorch is installed (for instance via
+        `conda install pytorch`).
+
+    Returns:
+        GPU information string, if available, empty string otherwise.
+    """
+    try:
+        import torch
+
+        return torch.cuda.get_device_name()
+    except ModuleNotFoundError:
+        return ""
+
+
 def get_cpu_info_table() -> str:
     """Get CPU information as a Markdown table.
 

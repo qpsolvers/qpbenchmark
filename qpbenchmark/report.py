@@ -21,6 +21,7 @@ from .utils import (
     capitalize_settings,
     get_cpu_info_summary,
     get_cpu_info_table,
+    get_gpu_info_summary,
     get_solver_versions,
 )
 from .version import get_version
@@ -255,6 +256,12 @@ class Report:
         nb_problems = len(set(self.results.df["problem"]))
         benchmark_version = get_version()
         cpu_info_summary = get_cpu_info_summary()
+        gpu_info_summary = get_gpu_info_summary()
+        optional_gpu_line = (
+            f"\n| GPU                | {gpu_info_summary} |"
+            if gpu_info_summary
+            else ""
+        )
         date = str(datetime.datetime.now(datetime.timezone.utc))
         fh.write(
             f"""# {self.test_set.title}
@@ -263,7 +270,7 @@ class Report:
 |:-------------------|:--------------------|
 | Benchmark version  | {benchmark_version} |
 | Date               | {date} |
-| CPU                | [{cpu_info_summary}](#cpu-info) |
+| CPU                | [{cpu_info_summary}](#cpu-info) |{optional_gpu_line}
 | Run by             | [@{self.author}](https://github.com/{self.author}/) |
 
 """
