@@ -47,15 +47,19 @@ def get_cpu_info_table() -> str:
         CPU information as a Markdown table.
     """
     info = OrderedDict(sorted(cpuinfo.get_cpu_info().items()))
-    skips = {
-        "cpuinfo_version": "cpuinfo_version_string",
-        "hz_actual": "hz_actual_friendly",
-        "hz_advertised": "hz_advertised_friendly",
-    }
+    skips = set(
+        [
+            "cpuinfo_version",
+            "cpuinfo_version_string",
+            "hz_actual",
+            "hz_actual_friendly",
+            "hz_advertised",
+        ]
+    )
     table = "| Property | Value |\n"
     table += "|----------|-------|\n"
     for key, value in info.items():
-        if key in skips and skips[key] in info.keys():
+        if key in skips:
             continue
         if key == "flags":
             value = ", ".join(f"`{flag}`" for flag in value)

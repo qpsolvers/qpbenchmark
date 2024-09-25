@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Update skip logic in CPU info table
+
 ## [2.3.0] - 2024-09-03
 
 ### Added
