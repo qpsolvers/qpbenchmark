@@ -54,6 +54,7 @@ def get_cpu_info_table() -> str:
             "hz_actual",
             "hz_actual_friendly",
             "hz_advertised",
+            "hz_advertised_friendly",
         ]
     )
     table = "| Property | Value |\n"
