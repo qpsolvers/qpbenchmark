@@ -151,3 +151,4 @@ If you use `qpbenchmark` in your works, please cite all its contributors as foll
 - [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks): benchmark of QP solvers available in C++.
 - [osqp\_benchmarks](https://github.com/osqp/osqp_benchmarks): benchmark examples for the OSQP solver.
 - [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark): benchmark examples for the ProxQP solver.
+- [qpmad\_benchmark](https://github.com/asherikov/qpmad_benchmark): benchmark examples for the qpmad solver.
