@@ -7,6 +7,7 @@
 """Benchmark for quadratic programming solvers available in Python."""
 
 from .exceptions import BenchmarkError, ProblemNotFound, ResultsError
+from .parquet_test_set import ParquetTestSet
 from .problem import Problem
 from .problem_list import ProblemList
 from .report import Report
@@ -21,6 +22,7 @@ __version__ = get_version()
 
 __all__ = [
     "BenchmarkError",
+    "ParquetTestSet",
     "Problem",
     "ProblemList",
     "ProblemNotFound",

@@ -6,10 +6,8 @@
 
 """List of problems saved to and read from Parquet files."""
 
-from pathlib import Path
-from typing import Iterator, Union
+from typing import List, Union
 
-import numpy as np
 import pandas
 
 from .problem import Problem
@@ -24,7 +22,7 @@ class ProblemList:
         """Initialize to an empty list."""
         self.data = {key: [] for key in self.KEYS}
 
-    def append(self, problem: Problem):
+    def append(self, problem: Problem) -> None:
         """Append a problem to the list.
 
         Args:
@@ -36,6 +34,25 @@ class ProblemList:
             if hasattr(value, "flatten"):  # only for NumPy arrays
                 value = value.flatten()
             self.data[key].append(value)
+
+    def extend(
+        self, problem_list: Union["ProblemList", List[Problem]]
+    ) -> None:
+        """Extend problem list with another.
+
+        Args:
+            problems: Other problem list.
+        """
+        if isinstance(problem_list, ProblemList):
+            for key in self.KEYS:
+                self.data[key].extend(problem_list.data[key])
+        elif isinstance(problem_list, list):
+            for problem in problem_list:
+                self.append(problem)
+        else:  # invalid type
+            raise TypeError(
+                f"problem list has unknown type {type(problem_list)}"
+            )
 
     def to_parquet(self, path: str) -> None:
         """Save sequence of problems to a Parquet file.
@@ -49,29 +66,3 @@ class ProblemList:
             engine="pyarrow",
             index=False,
         )
-
-    @classmethod
-    def yield_from_parquet(cls, path: Union[str, Path]) -> Iterator[Problem]:
-        """Yield sequence of problems from a Parquet file.
-
-        Args:
-            path: Path to the Parquet file to read problems from.
-
-        Yields:
-            Problem object read from file.
-        """
-        df = pandas.read_parquet(path, engine="pyarrow")
-        for _, row in df.iterrows():
-            n = row["q"].size
-            pb_data = {}
-            for key in cls.KEYS:
-                if isinstance(row[key], np.ndarray):
-                    # Make a copy as DAQP doesn't support read-only inputs
-                    # TODO(scaron): check separately and report an issue
-                    pb_data[key] = row[key].copy()
-                    if key in ("P", "G", "A"):
-                        m = pb_data[key].size // n
-                        pb_data[key] = pb_data[key].reshape((m, n))
-                else:  # string or None
-                    pb_data[key] = row[key]
-            yield Problem(**pb_data)
