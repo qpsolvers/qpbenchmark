@@ -194,14 +194,6 @@ class TestSet(abc.ABC):
         for problem in self:
             if problem.name == name:
                 return problem
-        set_name = str(self.__class__.__name__)
-        problem_names = "\n- ".join(problem.name for problem in self)
-        logging.info(
-            "Problems in the %s test set:\n- %s\n"
-            "Requested problem is not one of them",
-            set_name,
-            problem_names,
-        )
         raise ProblemNotFound(
             f"problem '{name}' not found "
             f"in the {self.__class__.__name__} test set"
