@@ -46,7 +46,7 @@ class ProblemList:
         df.to_parquet(
             path,
             engine="pyarrow",
-            index=None,  # save the RangeIndex as a range
+            index=False,
         )
 
     @classmethod
@@ -60,7 +60,7 @@ class ProblemList:
             Problem object read from file.
         """
         df = pandas.read_parquet(path, engine="pyarrow")
-        for index, row in df.iterrows():
+        for _, row in df.iterrows():
             n = row["q"].size
             pb_data = {}
             for key in cls.KEYS:
@@ -71,6 +71,6 @@ class ProblemList:
                     if key in ("P", "G", "A"):
                         m = pb_data[key].size // n
                         pb_data[key] = pb_data[key].reshape((m, n))
-                else:  # name or None values
+                else:  # string or None
                     pb_data[key] = row[key]
             yield Problem(**pb_data)
