@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add `ProblemList` class that can be saved and loaded from Parquet files
+- CLI: Add `list_problems` command
 - Optionally add a GPU summary line to reports
 
 ### Changed
