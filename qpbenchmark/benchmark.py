@@ -73,6 +73,12 @@ def parse_command_line_arguments(
         help="evaluate test set results interactively",
     )
 
+    # list_problems
+    subparsers.add_parser(
+        "list_problems",
+        help="list all problems contained in the test set",
+    )
+
     # plot
     parser_plot = subparsers.add_parser(
         "plot",
@@ -240,6 +246,14 @@ def main(
         problem = test_set.get_problem(args.problem)
         _ = problem  # dummy variable, to pass ruff linting
         logging.info(f"Check out `problem` for the {args.problem} problem")
+
+    if args.command == "list_problems":
+        test_set_name = str(test_set.__class__.__name__)
+        logging.info(
+            "Listing problems from the %s test set to the standard output",
+            test_set_name,
+        )
+        print("\n".join(problem.name for problem in test_set))
 
     if args.command == "check_results":
         logging.info("Check out `results` for the full results data")
