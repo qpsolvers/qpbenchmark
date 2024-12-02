@@ -8,6 +8,7 @@
 
 from .exceptions import BenchmarkError, ProblemNotFound, ResultsError
 from .problem import Problem
+from .problem_list import ProblemList
 from .report import Report
 from .results import Results
 from .run import run
@@ -21,6 +22,7 @@ __version__ = get_version()
 __all__ = [
     "BenchmarkError",
     "Problem",
+    "ProblemList",
     "ProblemNotFound",
     "Report",
     "Results",
