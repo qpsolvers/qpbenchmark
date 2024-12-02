@@ -35,7 +35,7 @@ class TestSet(abc.ABC):
 
     @abc.abstractmethod
     def __iter__(self) -> Iterator[Problem]:
-        """Yield test problems one by one."""
+        """Yield test-set problems one by one."""
 
     @property
     @abc.abstractmethod
@@ -54,6 +54,8 @@ class TestSet(abc.ABC):
 
     def define_tolerances(self, runtime: float = 10.0) -> None:
         """Define validation tolerances.
+
+        This function can be overridden by child test-set classes.
 
         Args:
             runtime: Maximum QP solver runtime in seconds.
@@ -86,7 +88,10 @@ class TestSet(abc.ABC):
         }
 
     def define_solver_settings(self) -> None:
-        """Define solver settings."""
+        """Define solver settings.
+
+        This function can be overridden by child test-set classes.
+        """
         default = SolverSettings()
         default.set_param("qpoases", "predefined_options", "default")
         default.set_time_limit(self.tolerances["default"].runtime)
@@ -145,11 +150,11 @@ class TestSet(abc.ABC):
         self.solvers = solvers
         self.tolerances = {}
 
-        # Definitions customized by child classes
+        # Definitions that can be customized by child classes
         self.define_tolerances()
         self.define_solver_settings()
 
-        # Check tolerance-settings consistency
+        # Check that in fine settings are consistent
         self.__check_definitions()
 
     def __check_definitions(self):

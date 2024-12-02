@@ -77,6 +77,20 @@ class Problem(qpsolvers.Problem):
         super().__init__(P, q, G, h, A, b, lb, ub)
         self.name = name
 
+    @staticmethod
+    def from_qpsolvers(qp: qpsolvers.Problem, name: str) -> "Problem":
+        return Problem(
+            qp.P,
+            qp.q,
+            qp.G,
+            qp.h,
+            qp.A,
+            qp.b,
+            qp.lb,
+            qp.ub,
+            name=name,
+        )
+
     def to_dense(self):
         """Return dense version.
 
