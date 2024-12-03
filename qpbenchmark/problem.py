@@ -79,6 +79,14 @@ class Problem(qpsolvers.Problem):
 
     @staticmethod
     def from_qpsolvers(qp: qpsolvers.Problem, name: str) -> "Problem":
+        """Stick a name to a generic problem from qpsolvers.
+
+        Args:
+            name: Name of the problem.
+
+        Returns:
+            Benchmark version of the problem.
+        """
         return Problem(
             qp.P,
             qp.q,
