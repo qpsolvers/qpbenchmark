@@ -82,6 +82,7 @@ class Problem(qpsolvers.Problem):
         """Stick a name to a generic problem from qpsolvers.
 
         Args:
+            qp: Quadratic program.
             name: Name of the problem.
 
         Returns:
