@@ -16,6 +16,7 @@ from .problem import Problem
 
 
 class ProblemList:
+    """List of problems saved to and read from Parquet files."""
 
     KEYS = ("P", "q", "G", "h", "A", "b", "lb", "ub", "name")
 
@@ -54,7 +55,7 @@ class ProblemList:
         """Yield sequence of problems from a Parquet file.
 
         Args:
-            file: Path to the Parquet file to read problems from.
+            path: Path to the Parquet file to read problems from.
 
         Yields:
             Problem object read from file.
