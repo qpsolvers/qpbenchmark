@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Allow strings or paths as arguments to the main function
 - CLI: Add `list_problems` command
 - Optionally add a GPU summary line to reports
+- New dependency: tqdm
 
 ### Changed
 
