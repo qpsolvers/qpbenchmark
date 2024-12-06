@@ -13,7 +13,8 @@ import argparse
 import os
 import sys
 from importlib import import_module  # type: ignore
-from typing import Optional
+from pathlib import Path
+from typing import Optional, Union
 
 from .exceptions import BenchmarkError
 from .plot_metric import plot_metric

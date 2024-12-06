@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Save results to file after problem is done rather than at each solver call
 - Update skip logic in CPU info table
 
 ## [2.3.0] - 2024-09-03

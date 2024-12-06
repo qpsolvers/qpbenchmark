@@ -114,8 +114,10 @@ def run(
                     problem, solver, **kwargs
                 )
                 results.update(problem, solver, settings, solution, runtime)
-                results.write()
                 nb_called += 1
+
+        # save results to file after problem has been fully processed
+        results.write()
 
     duration = perf_counter() - start_counter
     logging.info(f"Ran the test set in {duration:.0f} seconds")
