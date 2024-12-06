@@ -66,11 +66,15 @@ def run(
     start_counter = perf_counter()
     last_save = perf_counter()
 
-    nb_problems = 1 if only_problem else test_set.count_problems()
-    nb_solvers = len(filtered_solvers)
-    nb_settings = len(filtered_settings)
-    tqdm_total = nb_problems * nb_solvers * nb_settings
-    progress_bar = None if verbose else tqdm(total=tqdm_total)
+    progress_bar = None
+    if not verbose:
+        nb_problems = 1 if only_problem else test_set.count_problems()
+        nb_solvers = len(filtered_solvers)
+        nb_settings = len(filtered_settings)
+        progress_bar = tqdm(
+            total=nb_problems * nb_solvers * nb_settings,
+            initial=results.nb_rows,
+        )
 
     for problem in test_set:
         if only_problem and problem.name != only_problem:
