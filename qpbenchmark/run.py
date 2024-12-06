@@ -62,6 +62,7 @@ def run(
 
     nb_called = 0
     start_counter = perf_counter()
+    last_save = perf_counter()
     for problem in test_set:
         if only_problem and problem.name != only_problem:
             continue
@@ -116,8 +117,10 @@ def run(
                 results.update(problem, solver, settings, solution, runtime)
                 nb_called += 1
 
-        # save results to file after problem has been fully processed
-        results.write()
+        # Save results to file after problem has been fully processed
+        if perf_counter() - last_save > 10.0:
+            results.write()
+            last_save = perf_counter()
 
     duration = perf_counter() - start_counter
     logging.info(f"Ran the test set in {duration:.0f} seconds")

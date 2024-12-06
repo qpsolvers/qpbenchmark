@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Don't save results more frequently than every 10 seconds
 - Save results to file after problem is done rather than at each solver call
 - Update skip logic in CPU info table
 
