@@ -89,6 +89,11 @@ class Results:
         self.df = test_set_df
         self.test_set = test_set
 
+    @property
+    def nb_rows(self) -> int:
+        """Number of rows in the dataframe."""
+        return self.df.shape[0]
+
     def write(self, path: Optional[str] = None) -> None:
         """Write results to their CSV file for persistence.
 

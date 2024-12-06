@@ -11,8 +11,9 @@ All notable changes to this project will be documented in this file.
 - Add `ProblemList` class that can be saved to Parquet files
 - Allow strings or paths as arguments to the main function
 - CLI: Add `list_problems` command
-- Optionally add a GPU summary line to reports
 - New dependency: tqdm
+- Optionally add a GPU summary line to reports
+- Results property to get the number of result rows
 - Very-verbose mode for extra debug messages
 
 ### Changed
