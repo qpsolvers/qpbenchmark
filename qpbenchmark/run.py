@@ -27,6 +27,7 @@ def run(
     only_solver: Optional[str] = None,
     rerun: bool = False,
     rerun_timeouts: bool = False,
+    verbose: bool = False,
 ) -> None:
     """Run a given test set and store results.
 

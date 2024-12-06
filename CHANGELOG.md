@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - CLI: Add `list_problems` command
 - Optionally add a GPU summary line to reports
 - New dependency: tqdm
+- Very-verbose mode for extra debug messages
 
 ### Changed
 

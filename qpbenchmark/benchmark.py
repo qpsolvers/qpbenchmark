@@ -54,6 +54,13 @@ def parse_command_line_arguments(
         action="store_true",
         help="verbose mode",
     )
+    parser.add_argument(
+        "-vv",
+        "--very-verbose",
+        default=False,
+        action="store_true",
+        help="even more verbose than the verbose mode",
+    )
     subparsers = parser.add_subparsers(
         title="command", dest="command", required=True
     )
@@ -238,7 +245,7 @@ def main(
     args = parse_command_line_arguments(test_set_path)
     if test_set_path is None:
         test_set_path = args.test_set_path
-    if args.verbose:
+    if args.very_verbose:
         logging.getLogger().setLevel(logging.DEBUG)
     test_set = load_test_set(os.path.abspath(test_set_path))
     results = Results(results_path or args.results_path, test_set)
@@ -252,6 +259,7 @@ def main(
             only_solver=args.solver,
             rerun=args.rerun,
             rerun_timeouts=args.rerun_timeouts,
+            verbose=args.verbose,
         )
 
     if args.command == "check_problem":
