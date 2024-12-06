@@ -11,6 +11,7 @@ from typing import Optional
 
 import qpsolvers
 from qpsolvers.exceptions import SolverNotFound
+from tqdm import tqdm
 
 from .results import Results
 from .spdlog import logging
@@ -63,11 +64,20 @@ def run(
     nb_called = 0
     start_counter = perf_counter()
     last_save = perf_counter()
+
+    nb_problems = 1 if only_problem else test_set.count_problems()
+    nb_solvers = len(filtered_solvers)
+    nb_settings = len(filtered_settings)
+    tqdm_total = nb_problems * nb_solvers * nb_settings
+    progress_bar = None if verbose else tqdm(total=tqdm_total)
+
     for problem in test_set:
         if only_problem and problem.name != only_problem:
             continue
         for solver in filtered_solvers:
             for settings in filtered_settings:
+                if progress_bar is not None:
+                    progress_bar.update(1)
                 time_limit = test_set.tolerances[settings].runtime
                 if test_set.skip_solver_issue(problem, solver):
                     failure = (
@@ -106,10 +116,11 @@ def run(
                             f"{settings} settings as a previous timeout..."
                         )
                         continue
-                logging.info(
-                    f"Solving {problem.name} by {solver} "
-                    f"with {settings} settings..."
-                )
+                if verbose:
+                    logging.info(
+                        f"Solving {problem.name} by {solver} "
+                        f"with {settings} settings..."
+                    )
                 kwargs = test_set.solver_settings[settings][solver]
                 solution, runtime = time_solve_problem(
                     problem, solver, **kwargs
@@ -125,3 +136,4 @@ def run(
     duration = perf_counter() - start_counter
     logging.info(f"Ran the test set in {duration:.0f} seconds")
     logging.info(f"Made {nb_called} QP solver calls")
+    progress_bar.close()
