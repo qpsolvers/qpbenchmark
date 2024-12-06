@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Add `ParquetTestSet` class for test sets loaded from Parquet files
 - Add `Problem.from_qpsolvers` shorthand function
 - Add `ProblemList` class that can be saved to Parquet files
+- Allow strings or paths as arguments to the main function
 - CLI: Add `list_problems` command
 - Optionally add a GPU summary line to reports
 

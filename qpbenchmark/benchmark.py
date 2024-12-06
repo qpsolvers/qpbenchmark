@@ -213,8 +213,8 @@ def report(args, results: Results, test_set_path: str):
 
 
 def main(
-    test_set_path: Optional[str] = None,
-    results_path: Optional[str] = None,
+    test_set_path: Optional[Union[str, Path]] = None,
+    results_path: Optional[Union[str, Path]] = None,
 ):
     """Main function of the script.
 
@@ -222,8 +222,19 @@ def main(
         test_set_path: If set, load test set from this Python file.
         results_path: Path to the results CSV file.
     """
-    assert test_set_path is None or test_set_path.endswith(".py")
-    assert results_path is None or results_path.endswith(".csv")
+    if test_set_path is not None:
+        test_set_path = Path(test_set_path)
+        if test_set_path.suffix != ".py":
+            raise BenchmarkError(
+                "Test set path '{test_set_path}' is not a Python script"
+            )
+    if results_path is not None:
+        results_path = Path(results_path)
+        if results_path.suffix != ".csv":
+            raise BenchmarkError(
+                "Results path '{results_path}' is not a CSV file"
+            )
+
     args = parse_command_line_arguments(test_set_path)
     if test_set_path is None:
         test_set_path = args.test_set_path
