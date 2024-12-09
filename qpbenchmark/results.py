@@ -49,7 +49,8 @@ class Results:
         """Initialize results.
 
         Args:
-            csv_path: Path to the results CSV file.
+            csv_path: Path to the results CSV file, or `None` if there is no
+                file associated with these results.
             test_set: Test set from which results were produced.
         """
         df = pandas.DataFrame(
