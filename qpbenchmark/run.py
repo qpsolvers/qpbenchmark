@@ -39,6 +39,7 @@ def run(
         only_solver: If set, only run that specific solver.
         rerun: If set, rerun instances that already have a result.
         rerun_timeouts: If set, also rerun known timeouts.
+        verbose: If set, log info messages for each QP solver call.
     """
     if only_settings and only_settings not in test_set.solver_settings:
         raise ValueError(

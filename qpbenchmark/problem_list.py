@@ -41,7 +41,7 @@ class ProblemList:
         """Extend problem list with another.
 
         Args:
-            problems: Other problem list.
+            problem_list: Other problem list.
         """
         if isinstance(problem_list, ProblemList):
             for key in self.KEYS:

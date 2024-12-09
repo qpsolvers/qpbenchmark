@@ -21,6 +21,11 @@ class ParquetTestSet(TestSet):
     """Test set read from a Parquet file."""
 
     def __init__(self, path: Union[str, Path]):
+        """Initialize test set.
+
+        Args:
+            path: Path to Parquet file to read problems from.
+        """
         super().__init__()
         self.__df = pandas.read_parquet(path, engine="pyarrow")
 
