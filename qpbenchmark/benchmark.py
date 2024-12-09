@@ -26,7 +26,7 @@ from .test_set import TestSet
 
 
 def parse_command_line_arguments(
-    test_set_path: Optional[str] = None,
+    test_set_path: Optional[Union[str, Path]] = None,
 ) -> argparse.Namespace:
     """Extracts and interprets command line arguments passed to the script.
 
