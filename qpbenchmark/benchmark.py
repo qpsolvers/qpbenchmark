@@ -26,7 +26,7 @@ from .test_set import TestSet
 
 
 def parse_command_line_arguments(
-    test_set_path: Optional[Union[str, Path]] = None,
+    test_set_path: Optional[Union[Path, str]] = None,
 ) -> argparse.Namespace:
     """Extracts and interprets command line arguments passed to the script.
 
@@ -196,7 +196,7 @@ def load_test_set(path: str) -> TestSet:
     return TestClass()
 
 
-def report(args, results: Results, test_set_path: str):
+def report(args, results: Results, test_set_path: Union[Path, str]):
     """Write report to file.
 
     Args:
@@ -213,15 +213,15 @@ def report(args, results: Results, test_set_path: str):
     report = Report(author, results)
     if results.csv_path is None:
         raise BenchmarkError("not sure where to save report: no results file")
-    results_dir = os.path.dirname(results.csv_path)
-    test_set_name = os.path.basename(test_set_path).replace(".py", "")
+    results_dir = results.csv_path.parent
+    test_set_name = Path(test_set_path).name.replace(".py", "")
     md_path = f"{results_dir}/{test_set_name}.md"
     report.write(md_path)
 
 
 def main(
-    test_set_path: Optional[Union[str, Path]] = None,
-    results_path: Optional[Union[str, Path]] = None,
+    test_set_path: Optional[Union[Path, str]] = None,
+    results_path: Optional[Union[Path, str]] = None,
 ):
     """Main function of the script.
 

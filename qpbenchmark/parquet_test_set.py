@@ -20,7 +20,7 @@ from .test_set import TestSet
 class ParquetTestSet(TestSet):
     """Test set read from a Parquet file."""
 
-    def __init__(self, path: Union[str, Path]):
+    def __init__(self, path: Union[Path, str]):
         """Initialize test set.
 
         Args:
