@@ -29,7 +29,7 @@ class Results:
         test_set: Test set from which results were produced.
     """
 
-    csv_path: Optional[str]
+    csv_path: Optional[Path]
     df: pandas.DataFrame
     test_set: TestSet
 
@@ -87,7 +87,7 @@ class Results:
         complementary_df = df[~df["problem"].isin(problems)]
 
         self.__complementary_df = complementary_df
-        self.csv_path = csv_path
+        self.csv_path = Path(csv_path) if csv_path is not None else None
         self.df = test_set_df
         self.test_set = test_set
 
@@ -96,13 +96,14 @@ class Results:
         """Number of rows in the dataframe."""
         return self.df.shape[0]
 
-    def write(self, path: Optional[str] = None) -> None:
+    def write(self, path: Optional[Union[str, Path]] = None) -> None:
         """Write results to their CSV file for persistence.
 
         Args:
             path: Optional path to a separate file to write to.
         """
-        save_path: Optional[str] = path or self.csv_path
+        path_path = Path(path) if path is not None else None
+        save_path: Optional[Path] = path_path or self.csv_path
         if save_path is None:
             raise BenchmarkError("no path to save results to")
         logging.debug(f"Test set results written to {save_path}")
