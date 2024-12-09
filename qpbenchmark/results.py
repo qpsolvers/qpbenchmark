@@ -6,8 +6,8 @@
 
 """Test case results."""
 
-import os.path
-from typing import Dict, Optional, Tuple
+from pathlib import Path
+from typing import Dict, Optional, Tuple, Union
 
 import numpy as np
 import pandas
@@ -43,7 +43,9 @@ class Results:
         if not isinstance(df["found"].dtype, np.dtypes.BoolDType):
             raise ResultsError('"found" column has some non-boolean values')
 
-    def __init__(self, csv_path: Optional[str], test_set: TestSet):
+    def __init__(
+        self, csv_path: Optional[Union[str, Path]], test_set: TestSet
+    ):
         """Initialize results.
 
         Args:
@@ -74,7 +76,7 @@ class Results:
                 "duality_gap": float,
             }
         )
-        if csv_path is not None and os.path.exists(csv_path):
+        if csv_path is not None and Path(csv_path).exists():
             logging.info(f"Loading existing results from {csv_path}")
             df = pandas.concat([df, pandas.read_csv(csv_path)])
         Results.check_df(df)
