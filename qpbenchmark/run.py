@@ -142,4 +142,5 @@ def run(
     duration = perf_counter() - start_counter
     logging.info(f"Ran the test set in {duration:.0f} seconds")
     logging.info(f"Made {nb_called} QP solver calls")
-    progress_bar.close()
+    if progress_bar is not None:
+        progress_bar.close()
