@@ -118,7 +118,7 @@ class Results:
         """Number of rows in the dataframe."""
         return self.df.shape[0]
 
-    def write(self, path: Optional[Union[Path, str]] = None) -> None:
+    def write(self, path: Optional[Union[str, Path]] = None) -> None:
         """Write results to their CSV file for persistence.
 
         Args:
