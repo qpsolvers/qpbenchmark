@@ -118,7 +118,7 @@ class Results:
 
         self.__complementary_df = complementary_df
         self.df = test_set_df
-        self.file_path = file_path
+        self.file_path = Path(file_path) if file_path is not None else None
         self.test_set = test_set
 
     @property
@@ -132,9 +132,10 @@ class Results:
         Args:
             path: Optional path to a separate file to write to.
         """
-        if path is None and self.file_path is None:
+        path_check = path or self.file_path
+        if path_check is None:
             raise BenchmarkError("no path to save results to")
-        save_path = Path(path or self.file_path)
+        save_path = Path(path_check)
         save_df = pandas.concat([self.df, self.__complementary_df])
         save_df = save_df.sort_values(by=["problem", "solver", "settings"])
         if save_path.suffix == ".csv":
