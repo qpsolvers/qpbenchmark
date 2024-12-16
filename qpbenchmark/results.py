@@ -45,6 +45,14 @@ class Results:
 
     @staticmethod
     def read_from_file(path: Union[str, Path]) -> Optional[pandas.DataFrame]:
+        """Load a pandas dataframe from a CSV or Parquet file.
+
+        Args:
+            path: Path to the file to load.
+
+        Returns:
+            Loaded dataframe, or None if the file does not exist.
+        """
         file_path = Path(path)
         if not file_path.exists():
             return None
