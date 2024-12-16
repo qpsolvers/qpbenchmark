@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.4.0] - 2024-12-16
+
 ### Added
 
 - Add `ParquetTestSet` class for test sets loaded from Parquet files
@@ -219,7 +221,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.3.0...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.3...v2.3.0
 [2.2.3]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.1...v2.2.2
