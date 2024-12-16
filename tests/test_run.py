@@ -20,7 +20,7 @@ from .custom_test_set import CustomTestSet
 class TestRun(unittest.TestCase):
     def setUp(self):
         csv_path = tempfile.mktemp(".csv")
-        self.results = Results(csv_path=csv_path, test_set=CustomTestSet())
+        self.results = Results(file_path=csv_path, test_set=CustomTestSet())
         self.test_set = CustomTestSet()
 
     def test_run_available_solvers(self):
