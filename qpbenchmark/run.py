@@ -63,7 +63,8 @@ def run(
         if only_settings is None or settings == only_settings
     ]
 
-    nb_called = 0
+    nb_calls = 0
+    nb_calls_since_last_save = 0
     start_counter = perf_counter()
     last_save = perf_counter()
 
@@ -74,7 +75,7 @@ def run(
         nb_settings = len(filtered_settings)
         progress_bar = tqdm(
             total=nb_problems * nb_solvers * nb_settings,
-            initial=results.nb_rows,
+            initial=0,
         )
 
     for problem in test_set:
@@ -82,9 +83,28 @@ def run(
             continue
         for solver in filtered_solvers:
             for settings in filtered_settings:
-                if progress_bar is not None:
-                    progress_bar.update(1)
                 time_limit = test_set.tolerances[settings].runtime
+                if results.has(problem, solver, settings):
+                    if not rerun:
+                        logging.debug(
+                            f"{problem.name} already solved by {solver} "
+                            f"with {settings} settings..."
+                        )
+                        if progress_bar is not None:
+                            # We don't count existing results beforehand
+                            progress_bar.update(1)
+                        continue
+                    if not rerun_timeouts and results.is_timeout(
+                        problem, solver, settings, time_limit
+                    ):
+                        logging.info(
+                            f"Skipping {problem.name} with {solver} and "
+                            f"{settings} settings as a previous timeout..."
+                        )
+                        if progress_bar is not None:
+                            # We don't count existing results beforehand
+                            progress_bar.update(1)
+                        continue
                 if test_set.skip_solver_issue(problem, solver):
                     failure = (
                         problem,
@@ -94,6 +114,8 @@ def run(
                         0.0,
                     )
                     results.update(*failure)
+                    if progress_bar is not None:
+                        progress_bar.update(1)
                     continue
                 if test_set.skip_solver_timeout(
                     time_limit, problem, solver, settings
@@ -106,22 +128,9 @@ def run(
                         0.0,
                     )
                     results.update(*failure)
+                    if progress_bar is not None:
+                        progress_bar.update(1)
                     continue
-                if results.has(problem, solver, settings):
-                    if not rerun:
-                        logging.debug(
-                            f"{problem.name} already solved by {solver} "
-                            f"with {settings} settings..."
-                        )
-                        continue
-                    if not rerun_timeouts and results.is_timeout(
-                        problem, solver, settings, time_limit
-                    ):
-                        logging.info(
-                            f"Skipping {problem.name} with {solver} and "
-                            f"{settings} settings as a previous timeout..."
-                        )
-                        continue
                 if verbose:
                     logging.info(
                         f"Solving {problem.name} by {solver} "
@@ -131,16 +140,20 @@ def run(
                 solution, runtime = time_solve_problem(
                     problem, solver, **kwargs
                 )
+                nb_calls += 1
+                nb_calls_since_last_save += 1
                 results.update(problem, solver, settings, solution, runtime)
-                nb_called += 1
+                if progress_bar is not None:
+                    progress_bar.update(1)
 
         # Save results to file after problem has been fully processed
-        if perf_counter() - last_save > 10.0:
+        if perf_counter() - last_save > 10.0 and nb_calls_since_last_save > 0:
             results.write()
             last_save = perf_counter()
+            nb_calls_since_last_save = 0
 
     duration = perf_counter() - start_counter
     logging.info(f"Ran the test set in {duration:.0f} seconds")
-    logging.info(f"Made {nb_called} QP solver calls")
+    logging.info(f"Made {nb_calls} QP solver calls")
     if progress_bar is not None:
         progress_bar.close()
