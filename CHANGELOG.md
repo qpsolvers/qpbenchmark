@@ -26,6 +26,10 @@ All notable changes to this project will be documented in this file.
 - Save results to file after problem is done rather than at each solver call
 - Update skip logic in CPU info table
 
+### Fixed
+
+- CLI: Only allow `--solver` to be an available solver for the `run` command
+
 ## [2.3.0] - 2024-09-03
 
 ### Added
