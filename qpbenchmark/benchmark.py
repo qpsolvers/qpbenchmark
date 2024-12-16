@@ -16,6 +16,8 @@ from importlib import import_module  # type: ignore
 from pathlib import Path
 from typing import Optional, Union
 
+import qpsolvers
+
 from .exceptions import BenchmarkError
 from .plot_metric import plot_metric
 from .report import Report
@@ -158,6 +160,7 @@ def parse_command_line_arguments(
     parser_run.add_argument(
         "--solver",
         help="limit run to a specific solver",
+        choices=qpsolvers.available_solvers,
     )
     parser_run.add_argument(
         "--author",
@@ -211,9 +214,10 @@ def report(args, results: Results, test_set_path: Union[Path, str]):
         else input("GitHub username to write in the report? ")
     )
     report = Report(author, results)
-    if results.csv_path is None:
+    if results.file_path is None:
         raise BenchmarkError("not sure where to save report: no results file")
-    results_dir = results.csv_path.parent
+    results_file = Path(results.file_path)
+    results_dir = results_file.parent
     test_set_name = Path(test_set_path).name.replace(".py", "")
     md_path = f"{results_dir}/{test_set_name}.md"
     report.write(md_path)
@@ -234,12 +238,6 @@ def main(
         if test_set_path.suffix != ".py":
             raise BenchmarkError(
                 "Test set path '{test_set_path}' is not a Python script"
-            )
-    if results_path is not None:
-        results_path = Path(results_path)
-        if results_path.suffix != ".csv":
-            raise BenchmarkError(
-                "Results path '{results_path}' is not a CSV file"
             )
 
     args = parse_command_line_arguments(test_set_path)
