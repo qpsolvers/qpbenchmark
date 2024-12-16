@@ -24,13 +24,13 @@ class Results:
     """Test set results.
 
     Attributes:
-        csv_path: Path to the results CSV file.
         df: Data frame storing the results.
+        file_path: Path to the results CSV file.
         test_set: Test set from which results were produced.
     """
 
-    csv_path: Optional[Path]
     df: pandas.DataFrame
+    file_path: Optional[Path]
     test_set: TestSet
 
     @staticmethod
@@ -43,14 +43,34 @@ class Results:
         if not isinstance(df["found"].dtype, np.dtypes.BoolDType):
             raise ResultsError('"found" column has some non-boolean values')
 
+    @staticmethod
+    def read_from_file(path: Union[str, Path]) -> Optional[pandas.DataFrame]:
+        file_path = Path(path)
+        if not file_path.exists():
+            return None
+        elif file_path.suffix not in (".csv", ".parquet"):
+            raise BenchmarkError(
+                "unknown file extension to read results from "
+                f"in '{file_path}'"
+            )
+        logging.info("Loading existing results from '%s'...", file_path)
+        read_func = (
+            pandas.read_csv
+            if file_path.suffix == ".csv"
+            else pandas.read_parquet
+        )
+        df = read_func(file_path)
+        logging.info("Loaded %d rows from '%s'", df.shape[0], file_path)
+        return df
+
     def __init__(
-        self, csv_path: Optional[Union[Path, str]], test_set: TestSet
+        self, file_path: Optional[Union[str, Path]], test_set: TestSet
     ):
         """Initialize results.
 
         Args:
-            csv_path: Path to the results CSV file, or `None` if there is no
-                file associated with these results.
+            file_path: Path to the results file (format: CSV or Parquet), or
+                `None` if there is no file associated with these results.
             test_set: Test set from which results were produced.
         """
         df = pandas.DataFrame(
@@ -77,9 +97,10 @@ class Results:
                 "duality_gap": float,
             }
         )
-        if csv_path is not None and Path(csv_path).exists():
-            logging.info(f"Loading existing results from {csv_path}")
-            df = pandas.concat([df, pandas.read_csv(csv_path)])
+        if file_path is not None:
+            df_from_file = Results.read_from_file(file_path)
+            if df_from_file is not None:
+                df = pandas.concat([df, df_from_file])
         Results.check_df(df)
 
         # Filter out problems from the CSV that are in the test set
@@ -88,8 +109,8 @@ class Results:
         complementary_df = df[~df["problem"].isin(problems)]
 
         self.__complementary_df = complementary_df
-        self.csv_path = Path(csv_path) if csv_path is not None else None
         self.df = test_set_df
+        self.file_path = file_path
         self.test_set = test_set
 
     @property
@@ -103,14 +124,24 @@ class Results:
         Args:
             path: Optional path to a separate file to write to.
         """
-        path_path = Path(path) if path is not None else None
-        save_path: Optional[Path] = path_path or self.csv_path
-        if save_path is None:
+        if path is None and self.file_path is None:
             raise BenchmarkError("no path to save results to")
-        logging.debug(f"Test set results written to {save_path}")
+        save_path = Path(path or self.file_path)
         save_df = pandas.concat([self.df, self.__complementary_df])
         save_df = save_df.sort_values(by=["problem", "solver", "settings"])
-        save_df.to_csv(save_path, index=False)
+        if save_path.suffix == ".csv":
+            save_df.to_csv(save_path, index=False)
+        elif save_path.suffix == ".parquet":
+            save_df.to_parquet(save_path, index=False)
+        else:  # unknown file extension
+            raise BenchmarkError(
+                f"unknown results file extension in '{save_path}'"
+            )
+        logging.debug(
+            "Test set results written to '%s' (%d rows saved)",
+            save_path,
+            save_df.shape[0],
+        )
 
     def has(self, problem: Problem, solver: str, settings: str) -> bool:
         """Check if results contain a given run of a solver on a problem.

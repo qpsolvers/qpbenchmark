@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - CLI: Add `list_problems` command
 - New dependency: tqdm
 - Optionally add a GPU summary line to reports
+- Results can now be read and save from and to Parquet files
 - Results property to get the number of result rows
 - Support Python 3.12
 - Very-verbose mode for extra debug messages
