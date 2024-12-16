@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - New dependency: tqdm
 - Optionally add a GPU summary line to reports
 - Results property to get the number of result rows
+- Support Python 3.12
 - Very-verbose mode for extra debug messages
 
 ### Changed
