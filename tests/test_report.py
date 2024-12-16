@@ -15,7 +15,7 @@ from .custom_test_set import CustomTestSet
 
 class TestReport(unittest.TestCase):
     def setUp(self):
-        self.results = Results(file_path="", test_set=CustomTestSet())
+        self.results = Results(file_path=None, test_set=CustomTestSet())
         self.report = Report(author="foobar", results=self.results)
 
     def test_author(self):
