@@ -15,7 +15,7 @@ import scipy.sparse as spa
 
 
 def ensure_dense(
-    M: Optional[Union[np.ndarray, spa.csc_matrix]]
+    M: Optional[Union[np.ndarray, spa.csc_matrix]],
 ) -> Optional[np.ndarray]:
     """Get dense representation of a matrix.
 
@@ -34,7 +34,7 @@ def ensure_dense(
 
 
 def ensure_sparse(
-    M: Optional[Union[np.ndarray, spa.csc_matrix]]
+    M: Optional[Union[np.ndarray, spa.csc_matrix]],
 ) -> Optional[spa.csc_matrix]:
     """Get sparse representation of a matrix.
 
