@@ -24,3 +24,4 @@ dependencies:
         - highspy >= 1.5.2
         - qpalm >= 1.2.1
         - qpax
+        - sip_qp_python >= 0.0.2

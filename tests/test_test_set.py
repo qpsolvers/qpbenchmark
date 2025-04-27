@@ -22,6 +22,12 @@ class TestTestSet(unittest.TestCase):
         self.assertTrue(self.test_set.skip_solver_issue(foo, "bar"))
         self.assertFalse(self.test_set.skip_solver_issue(foo, "baz"))
 
+    def test_high_accuracy_sip_settings(self):
+        settings = self.test_set.solver_settings["high_accuracy"]["sip"]
+        self.assertEqual(settings["eps_abs"], 1e-9)
+        self.assertEqual(settings["eps_rel"], 0.0)
+        self.assertEqual(settings["time_limit"], 10.0)
+
     def test_skip_solver_timeout_specific(self):
         foo = custom_problem(name="foo")
         self.test_set.known_solver_timeouts[("foo", "bar", "default")] = 1.0

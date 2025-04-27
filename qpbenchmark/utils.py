@@ -101,6 +101,7 @@ def get_solver_versions(solvers: Set[str]):
         "hpipm": "hpipm_python",
         "jaxopt_osqp": "jaxopt",
         "proxqp": "proxsuite",
+        "sip": "sip_qp_python",
     }
     package_names = {solver: diff.get(solver, solver) for solver in solvers}
     versions = {}
