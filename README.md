@@ -135,6 +135,8 @@ If you use `qpbenchmark` in your works, please cite all its contributors as foll
 }
 ```
 
+Don't forget to add yourself to the BibTeX above and to `CITATION.cff` if you contribute to this repository.
+
 ## See also
 
 ### References
