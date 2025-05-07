@@ -30,6 +30,7 @@ New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to
 | [Gurobi](https://www.gurobi.com/) | ``gurobi`` | Interior point | Sparse | Commercial |
 | [HiGHS](https://highs.dev/) | ``highs`` | Active set | Sparse | MIT |
 | [HPIPM](https://github.com/giaf/hpipm) | ``hpipm`` | Interior point | Dense | BSD-2-Clause |
+| [jaxopt.OSQP](https://jaxopt.github.io/stable/_autosummary/jaxopt.OSQP.html) | ``jaxopt_osqp`` | Augmented Lagrangian | Dense | Apache-2.0 |
 | [KVXOPT](https://github.com/sanurielf/kvxopt) | ``kvxopt`` | Interior point | Dense & Sparse | GPL-3.0 |
 | [MOSEK](https://mosek.com/) | ``mosek`` | Interior point | Sparse | Commercial |
 | NPPro | ``nppro`` | Active set | Dense | Commercial |
