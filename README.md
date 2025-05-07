@@ -37,6 +37,7 @@ New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to
 | [PIQP](https://github.com/PREDICT-EPFL/piqp) | ``piqp`` | Proximal Interior Point | Dense & Sparse | BSD-2-Clause |
 | [ProxQP](https://github.com/Simple-Robotics/proxsuite) | ``proxqp`` | Augmented Lagrangian | Dense & Sparse | BSD-2-Clause |
 | [QPALM](https://github.com/kul-optec/QPALM) | ``qpalm`` | Augmented Lagrangian | Sparse | LGPL-3.0 |
+| [qpax](https://github.com/kevin-tracy/qpax/) | ``qpax`` | Interior point | Dense | MIT |
 | [qpOASES](https://github.com/coin-or/qpOASES) | ``qpoases`` | Active set | Dense | LGPL-2.1 |
 | [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Interior point | Sparse | GPL-3.0 |
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Goldfarb-Idnani | Dense | GPL-2.0 |
@@ -76,6 +77,7 @@ Here are some known areas of improvement for this benchmark:
 - [Cold start only:](https://github.com/qpsolvers/qpbenchmark/issues/101) we don't evaluate warm-start performance for now.
 - [CPU thermal throttling:](https://github.com/qpsolvers/qpbenchmark/issues/88) the benchmark currently does not check the status of CPU thermal throttling.
     - Adding this feature is a good way to [start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
+- [QPAX evaluation:](https://github.com/qpsolvers/qpbenchmark/issues/122) currently we evaluate QPAX against a duality-gap tolerance but the solver check is based on KKT residuals.
 
 Check out the issue tracker for ongoing works and future improvements.
 
