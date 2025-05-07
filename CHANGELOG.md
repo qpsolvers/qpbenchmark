@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Add KVXOPT solver with the same settings as CVXOPT
+
 ### Changed
 
 - CICD: Update checkout action to v4
