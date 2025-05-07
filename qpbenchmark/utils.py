@@ -99,6 +99,7 @@ def get_solver_versions(solvers: Set[str]):
         "gurobi": "gurobipy",
         "highs": "highspy",
         "hpipm": "hpipm_python",
+        "jaxopt_osqp": "jaxopt",
         "proxqp": "proxsuite",
     }
     package_names = {solver: diff.get(solver, solver) for solver in solvers}
