@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.5.0] - 2025-05-07
+
 ### Added
 
 - Add jaxopt.OSQP solver
@@ -231,7 +233,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.4.0...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.3...v2.3.0
 [2.2.3]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.2...v2.2.3
