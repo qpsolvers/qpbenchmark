@@ -14,7 +14,7 @@ This project's goal is to facilitate the comparison of quadratic programming sol
 - Add the solver to the Solvers table in the readme
 - Set any other relevant solver settings in the `define_solver_settings` function in `test_set.py`
 - Set the solver's absolute tolerance in the `set_eps_abs` function in `solver_settings.py`
-- Set the solver's relative tolerance in the `set_eps_rel` function in `solver_settings.py`
+- Set the solver's relative tolerance (if applicable) in the `set_eps_rel` function in `solver_settings.py`
 - Set the solver's time limit (if applicable) in the `set_time_limit` function in `solver_settings.py`
 
 ## Creating a new test set

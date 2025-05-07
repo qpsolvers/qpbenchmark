@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add jaxopt.OSQP solver
 - Add KVXOPT solver with the same settings as CVXOPT
 - Add QPAX solver and document its choice of settings
 

@@ -23,6 +23,7 @@ class SolverSettings:
             "gurobi",
             "highs",
             "hpipm",
+            "jaxopt_osqp",
             "kvxopt",
             "nppro",
             "osqp",
@@ -109,6 +110,7 @@ class SolverSettings:
         self.__settings["hpipm"]["tol_eq"] = eps_abs
         self.__settings["hpipm"]["tol_ineq"] = eps_abs
         self.__settings["hpipm"]["tol_stat"] = eps_abs
+        self.__settings["jaxopt_osqp"]["tol"] = eps_abs
         self.__settings["kvxopt"]["feastol"] = eps_abs
         self.__settings["osqp"]["eps_abs"] = eps_abs
         self.__settings["piqp"]["eps_abs"] = eps_abs
