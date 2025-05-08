@@ -240,11 +240,11 @@ class Report:
             self.__write_toc(fh)
             self.__write_description(fh)
             self.__write_solvers_section(fh)
-            self.__write_cpu_info_section(fh)
-            self.__write_settings_section(fh)
-            self.__write_limitations_section(fh)
             self.__write_results_by_settings(fh)
             self.__write_results_by_metric(fh)
+            self.__write_settings_section(fh)
+            self.__write_limitations_section(fh)
+            self.__write_cpu_info_section(fh)
         logging.info(f"Wrote report to {path}")
 
     def __write_header(self, fh: io.TextIOWrapper) -> None:
@@ -292,14 +292,13 @@ class Report:
             fh.write("* [Description](#description)\n")
         fh.write(
             """* [Solvers](#solvers)
-* [Settings](#settings)
-* [CPU info](#cpu-info)
-* [Known limitations](#known-limitations)
 * [Results by settings](#results-by-settings)\n"""
         )
         for name in self.solver_settings:
             link = name.replace("_", "-")
-            fh.write(f"    * [{capitalize_settings(name)}](#{link})\n")
+            fh.write(
+                f"    * [{capitalize_settings(name)} settings](#{link}-settings)\n"
+            )
         fh.write(
             """* [Results by metric](#results-by-metric)
     * [Success rate](#success-rate)
@@ -307,7 +306,10 @@ class Report:
     * [Optimality conditions](#optimality-conditions)
         * [Primal residual](#primal-residual)
         * [Dual residual](#dual-residual)
-        * [Duality gap](#duality-gap)\n\n"""
+        * [Duality gap](#duality-gap)
+* [Settings](#settings)
+* [Known limitations](#known-limitations)
+* [CPU info](#cpu-info)\n\n"""
         )
 
     def __write_description(self, fh: io.TextIOWrapper) -> None:
@@ -412,7 +414,7 @@ class Report:
                 f"[shifted geometric mean]({repo}#shifted-geometric-mean) "
                 "(shm). Lower is better, 1.0 is the best."
             )
-            fh.write(f"### {capitalize_settings(settings)}\n\n")
+            fh.write(f"### {capitalize_settings(settings)} settings\n\n")
             fh.write(f"{shm_desc}\n\n")
             fh.write(f'{df.to_markdown(index=True, floatfmt=".1f")}\n\n')
 
@@ -574,5 +576,4 @@ class Report:
             "[gap tolerance](#settings)."
         )
 
-        fh.write(f"{duality_gap_table_desc}")
-        fh.write("\n")  # newline at end of file
+        fh.write(f"{duality_gap_table_desc}\n\n")

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Reorganize report sections to move results up and details down
+
 ## [2.5.0] - 2025-05-07
 
 ### Added
