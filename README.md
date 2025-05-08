@@ -21,6 +21,8 @@ New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to
 
 ## Solvers
 
+The benchmark includes the following solvers:
+
 | Solver | Keyword | Algorithm | Matrices | License |
 | ------ | ------- | --------- | -------- | ------- |
 | [Clarabel](https://github.com/oxfordcontrol/Clarabel.rs) | ``clarabel`` | Interior point | Sparse | Apache-2.0 |
@@ -43,6 +45,8 @@ New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to
 | [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Interior point | Sparse | GPL-3.0 |
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Goldfarb-Idnani | Dense | GPL-2.0 |
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
+
+Solvers are interfaced via [qpsolvers](https://github.com/qpsolvers/qpsolvers) and configured in [`solver_settings.py`](qpbenchmark/solver_settings.py).
 
 ## Metrics
 
