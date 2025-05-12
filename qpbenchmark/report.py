@@ -295,9 +295,9 @@ class Report:
 * [Results by settings](#results-by-settings)\n"""
         )
         for name in self.solver_settings:
-            link = name.replace("_", "-")
+            sec_id = name.replace("_", "-") + "-settings"
             fh.write(
-                f"    * [{capitalize_settings(name)} settings](#{link}-settings)\n"
+                f"    * [{capitalize_settings(name)} settings](#{sec_id})\n"
             )
         fh.write(
             """* [Results by metric](#results-by-metric)
