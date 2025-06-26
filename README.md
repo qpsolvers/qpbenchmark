@@ -79,10 +79,11 @@ You can check out results from a variety of machines, and share the reports prod
 
 Here are some known areas of improvement for this benchmark:
 
-- [Cold start only:](https://github.com/qpsolvers/qpbenchmark/issues/101) we don't evaluate warm-start performance for now.
-- [CPU thermal throttling:](https://github.com/qpsolvers/qpbenchmark/issues/88) the benchmark currently does not check the status of CPU thermal throttling.
+- [Cold start only](https://github.com/qpsolvers/qpbenchmark/issues/101): we don't evaluate warm-start performance for now.
+- [CPU thermal throttling](https://github.com/qpsolvers/qpbenchmark/issues/88): the benchmark currently does not check the status of CPU thermal throttling.
     - Adding this feature is a good way to [start contributing](https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue) to the benchmark.
-- [QPAX evaluation:](https://github.com/qpsolvers/qpbenchmark/issues/122) currently we evaluate QPAX against a duality-gap tolerance but the solver check is based on KKT residuals.
+- [QPAX evaluation](https://github.com/qpsolvers/qpbenchmark/issues/122): currently we evaluate QPAX against a duality-gap tolerance but the solver check is based on KKT residuals.
+- [Wrapper times included](https://github.com/qpsolvers/qpbenchmark/issues/12): solver runtimes include a sliver of wrapper runtime as well.
 
 Check out the issue tracker for ongoing works and future improvements.
 
