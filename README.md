@@ -69,9 +69,9 @@ Intuitively, a solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times 
 
 The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results for the various ``qpbenchmark`` test sets:
 
-- [Free-for-all results](https://github.com/qpsolvers/free_for_all_qpbenchmark/blob/main/results/free_for_all_qpbenchmark_ref.md)
-- [Maros-Meszaros results](https://github.com/qpsolvers/maros_meszaros_qpbenchmark/blob/main/results/maros_meszaros_ref.md)
-- [Model predictive control results](https://github.com/qpsolvers/mpc_qpbenchmark/blob/main/results/mpc_qpbenchmark_ref.md)
+- [Free-for-all results](https://github.com/qpsolvers/free_for_all_qpbenchmark/blob/main/results/free_for_all.md)
+- [Maros-Meszaros results](https://github.com/qpsolvers/maros_meszaros_qpbenchmark/blob/main/results/maros_meszaros.md)
+- [Model predictive control results](https://github.com/qpsolvers/mpc_qpbenchmark/blob/main/results/mpc_qpbenchmark.md)
 
 You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the Results category of the discussions forum of each test set.
 
