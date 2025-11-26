@@ -22,6 +22,7 @@ This project's goal is to facilitate the comparison of quadratic programming sol
 The benchmark is organized into *test sets*. A test set is a Git repository that contains QP problems and results from running the benchmark (all solvers, all settings) on them. To create a new test set:
 
 - Create a new repository for your test set
+    - You can name your repository `X_qpbenchmark` to indicate the topic `X` and that it is a qpbenchmark test set (examples: `mpc_qpbenchmark`, `ik_qpbenchmark`, ...)
     - Store your QP problem files in a `data/` sub-directory
     - Create a `results/` sub-directory to store the solver performance database and test-set report
 - Add a main Python file named after the test set, say ``foo_bar.py``
