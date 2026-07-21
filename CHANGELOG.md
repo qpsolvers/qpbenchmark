@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Add SIP solver
+
 ### Changed
 
 - Reorganize report sections to move results up and details down

@@ -45,6 +45,7 @@ The benchmark includes the following solvers:
 | [qpSWIFT](https://qpswift.github.io/) | ``qpswift`` | Interior point | Sparse | GPL-3.0 |
 | [quadprog](https://pypi.python.org/pypi/quadprog/) | ``quadprog`` | Goldfarb-Idnani | Dense | GPL-2.0 |
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
+| [SIP](https://github.com/joaospinto/sip/) | ``sip`` | Augmented Barrier Lagrangian | Sparse | MIT |
 
 Solvers are interfaced via [qpsolvers](https://github.com/qpsolvers/qpsolvers) and configured in [`solver_settings.py`](qpbenchmark/solver_settings.py).
 

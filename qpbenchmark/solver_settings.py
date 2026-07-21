@@ -35,6 +35,7 @@ class SolverSettings:
             "qpswift",
             "quadprog",
             "scs",
+            "sip",
         ]
     )
 
@@ -125,6 +126,7 @@ class SolverSettings:
 
         self.__settings["qpswift"]["RELTOL"] = eps_abs * np.sqrt(3.0)
         self.__settings["scs"]["eps_abs"] = eps_abs
+        self.__settings["sip"]["eps_abs"] = eps_abs
 
     def set_eps_rel(self, eps_rel: float) -> None:
         """Set relative tolerances for solvers that support it.
@@ -140,6 +142,7 @@ class SolverSettings:
         self.__settings["proxqp"]["eps_rel"] = eps_rel
         self.__settings["qpalm"]["eps_rel"] = eps_rel
         self.__settings["scs"]["eps_rel"] = eps_rel
+        self.__settings["sip"]["eps_rel"] = eps_rel
 
     def set_time_limit(self, time_limit: float) -> None:
         """Apply time limits to all solvers that support it.
@@ -153,6 +156,7 @@ class SolverSettings:
         self.__settings["qpalm"]["time_limit"] = time_limit
         self.__settings["qpoases"]["time_limit"] = time_limit
         self.__settings["scs"]["time_limit_secs"] = time_limit
+        self.__settings["sip"]["time_limit"] = time_limit
 
     def set_verbosity(self, verbose: bool) -> None:
         """Apply verbosity settings to all solvers.
