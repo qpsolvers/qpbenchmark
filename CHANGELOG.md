@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-07-22
+
 ### Added
 
-- Add SIP solver
+- Add SIP solver (thanks to @joaospinto)
 - Mention file name and checksum in reports
 
 ### Changed
@@ -242,19 +244,20 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.5.0...HEAD
-[2.5.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.4.0...v2.5.0
-[2.4.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.3.0...v2.4.0
-[2.3.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.3...v2.3.0
-[2.2.3]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.2...v2.2.3
-[2.2.2]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.1...v2.2.2
-[2.2.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.2.0...v2.2.1
-[2.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.1...v2.2.0
-[2.1.1]: https://github.com/qpsolvers/qpbenchmark/compare/v2.1.0...v2.1.1
-[2.1.0]: https://github.com/qpsolvers/qpbenchmark/compare/v2.0.0...v2.1.0
-[2.0.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.2.0...v2.0.0
-[1.2.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/qpsolvers/qpbenchmark/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/qpsolvers/qpbenchmark/compare/v0.1.0-beta...v1.0.0
-[0.1.0-beta]: https://github.com/qpsolvers/qpbenchmark/compare/v0.1.0-alpha...v0.1.0-beta
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.6.0
+[2.5.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.5.0
+[2.4.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.4.0
+[2.3.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.3.0
+[2.2.3]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.2.3
+[2.2.2]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.2.2
+[2.2.1]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.2.1
+[2.2.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.2.0
+[2.1.1]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.1.1
+[2.1.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.1.0
+[2.0.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.0.0
+[1.2.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v1.2.0
+[1.1.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v1.1.0
+[1.0.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v1.0.0
+[0.1.0-beta]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v0.1.0-beta
 [0.1.0-alpha]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v0.1.0-alpha
