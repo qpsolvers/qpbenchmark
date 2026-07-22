@@ -51,8 +51,13 @@ line-length = 79
 
 [tool.flit.sdist]
 exclude = [
-    ".github",
-    ".gitignore",
+    ".git*",
+    "CITATION.cff",
+    "CONTRIBUTING.md",
+    "pixi.lock",
+    "tests/",
+    "tox.ini",
+    "uv.lock",
 ]
 
 [tool.isort]
