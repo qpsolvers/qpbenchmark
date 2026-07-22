@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 #
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2022 Stéphane Caron
 
 """Report written from test set results."""
 
 import datetime
 import io
 from importlib import metadata
+from pathlib import Path
 from typing import Dict
 
 import pandas
@@ -21,6 +21,7 @@ from .utils import (
     capitalize_settings,
     get_cpu_info_summary,
     get_cpu_info_table,
+    get_file_checksum,
     get_gpu_info_summary,
     get_solver_versions,
 )
@@ -272,9 +273,16 @@ class Report:
 | Date               | {date} |
 | CPU                | [{cpu_info_summary}](#cpu-info) |{optional_gpu_line}
 | Run by             | [@{self.author}](https://github.com/{self.author}/) |
-
 """
         )
+        if self.results.file_path is not None:
+            results_basename = Path(self.results.file_path).name
+            results_checksum = get_file_checksum(self.results.file_path)
+            fh.write(
+                f"| Results file       | {results_basename} |\n"
+                f"| Results checksum   | sha256:{results_checksum} |\n"
+            )
+        fh.write("\n")
         fh.write(
             "Benchmark reports are copious as we aim to document "
             "comparison factors as much as possible. You can also "

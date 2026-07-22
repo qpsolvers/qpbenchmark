@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you find this code helpful, please cite it as below."
 title: "qpbenchmark: Benchmark for quadratic programming solvers available in Python"
-version: 2.5.0
-date-released: 2025-05-07
+version: 2.6.0
+date-released: 2026-07-22
 url: "https://github.com/qpsolvers/qpbenchmark"
 license: "Apache-2.0"
 authors:
@@ -25,3 +25,6 @@ authors:
 - family-names: "Leziart"
   given-names: "Pierre-Alexandre"
   orcid: "https://orcid.org/0000-0002-5653-4613"
+- family-names: "Sousa Pinto"
+  given-names: "João"
+  orcid: "https://orcid.org/0000-0003-2469-2809"
