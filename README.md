@@ -137,7 +137,7 @@ If you use `qpbenchmark` in your works, please cite all its contributors as foll
 ```bibtex
 @software{qpbenchmark,
   title = {{qpbenchmark: Benchmark for quadratic programming solvers available in Python}},
-  author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin and Yang, Fengyu and Leziart, Pierre-Alexandre},
+  author = {Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin and Yang, Fengyu and Leziart, Pierre-Alexandre and Sousa Pinto, João},
   url = {https://github.com/qpsolvers/qpbenchmark},
   license = {Apache-2.0},
   version = {2.5.0},
