@@ -265,14 +265,6 @@ class Report:
             else ""
         )
         date = str(datetime.datetime.now(datetime.timezone.utc))
-        results_file_lines = ""
-        if self.results.file_path is not None:
-            results_basename = Path(self.results.file_path).name
-            results_checksum = get_file_checksum(self.results.file_path)
-            results_file_lines = (
-                f"\n| Results file       | {results_basename} |"
-                f"\n| Results checksum   | sha256:{results_checksum} |"
-            )
         fh.write(
             f"""# {self.test_set.title}
 
@@ -281,10 +273,17 @@ class Report:
 | Benchmark version  | {benchmark_version} |
 | Date               | {date} |
 | CPU                | [{cpu_info_summary}](#cpu-info) |{optional_gpu_line}
-| Run by             | [@{self.author}](https://github.com/{self.author}/) |{results_file_lines}
-
+| Run by             | [@{self.author}](https://github.com/{self.author}/) |
 """
         )
+        if self.results.file_path is not None:
+            results_basename = Path(self.results.file_path).name
+            results_checksum = get_file_checksum(self.results.file_path)
+            fh.write(
+                f"| Results file       | {results_basename} |\n"
+                f"| Results checksum   | sha256:{results_checksum} |\n"
+            )
+        fh.write("\n")
         fh.write(
             "Benchmark reports are copious as we aim to document "
             "comparison factors as much as possible. You can also "
