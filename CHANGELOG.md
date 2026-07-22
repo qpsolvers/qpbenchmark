@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Add SIP solver
+- Mention file name and checksum in reports
 
 ### Changed
 

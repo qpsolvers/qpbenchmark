@@ -6,10 +6,12 @@
 
 """Utility functions."""
 
+import hashlib
 from collections import OrderedDict
 from importlib import import_module, metadata
+from pathlib import Path
 from time import perf_counter
-from typing import Set, Tuple
+from typing import Set, Tuple, Union
 
 import cpuinfo
 import numpy as np
@@ -17,6 +19,22 @@ import qpsolvers
 
 from .problem import Problem
 from .spdlog import logging
+
+
+def get_file_checksum(path: Union[str, Path]) -> str:
+    """Compute the SHA-256 checksum of a file.
+
+    Args:
+        path: Path to the file.
+
+    Returns:
+        Hexadecimal SHA-256 digest of the file contents.
+    """
+    sha256 = hashlib.sha256()
+    with open(path, "rb") as file:
+        for chunk in iter(lambda: file.read(65536), b""):
+            sha256.update(chunk)
+    return sha256.hexdigest()
 
 
 def capitalize_settings(name: str) -> str:
