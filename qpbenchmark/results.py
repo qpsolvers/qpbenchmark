@@ -329,6 +329,7 @@ class Results:
         settings: str,
         shift: float,
         not_found_value: float,
+        floor: Optional[float] = None,
     ) -> Dict[str, float]:
         """Get shifted geometric means for a given metric with given settings.
 
@@ -338,6 +339,10 @@ class Results:
             shift: Shift of the shifted geometric mean.
             not_found_value: Value to apply when a solver has not found a
                 solution.
+            floor: If set, clip metric values from below to this value before
+                averaging. This is used to floor residuals at the requested
+                tolerance, so that over-accuracy (e.g. 1e-15 versus a 1e-9
+                residual) is neither penalized nor rewarded.
 
         Returns:
             Dictionary with the shifted geometric mean of each solver.
@@ -359,6 +364,8 @@ class Results:
                     for i in solver_df.index
                 ]
             )
+            if floor is not None:
+                column_values = np.maximum(column_values, floor)
             try:
                 means[solver] = shgeom(column_values, shift)
             except BenchmarkError as exn:
@@ -369,7 +376,11 @@ class Results:
         return {solver: means[solver] / best_mean for solver in solvers}
 
     def build_shgeom_df(
-        self, metric: str, shift: float, not_found_values: Dict[str, float]
+        self,
+        metric: str,
+        shift: float,
+        not_found_values: Dict[str, float],
+        floors: Optional[Dict[str, float]] = None,
     ) -> pandas.DataFrame:
         """Compute the shifted geometric mean for a given metric.
 
@@ -379,6 +390,9 @@ class Results:
             not_found_values: Values to apply when a solver has not found a
                 solution (one per settings). For instance, time limits are used
                 for the runtime of a solver that fails to solve a problem.
+            floors: Per-settings lower bounds applied to metric values before
+                averaging (see :func:`get_shgeom_for_metric_and_settings`).
+                Used to clip residuals at their corresponding tolerances.
 
         Returns:
             Shifted geometric mean of the prescribed column.
@@ -392,6 +406,9 @@ class Results:
                         settings,
                         shift=shift,
                         not_found_value=not_found_values[settings],
+                        floor=(
+                            floors[settings] if floors is not None else None
+                        ),
                     )
                     for settings in all_settings
                 }
