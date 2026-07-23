@@ -151,6 +151,7 @@ def run(
             last_save = perf_counter()
             nb_calls_since_last_save = 0
 
+    results.write()  # save any call since last save
     duration = perf_counter() - start_counter
     logging.info(f"Ran the test set in {duration:.0f} seconds")
     logging.info(f"Made {nb_calls} QP solver calls")
