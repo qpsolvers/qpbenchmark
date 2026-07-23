@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- Save remaining last calls after the main run loop
+
 ## [2.7.0] - 2026-07-23
 
 ### Added

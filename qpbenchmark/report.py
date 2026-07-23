@@ -282,8 +282,8 @@ class Report:
             results_basename = Path(self.results.file_path).name
             results_checksum = get_file_checksum(self.results.file_path)
             fh.write(
-                f"| Results file       | {results_basename} |\n"
-                f"| Results checksum   | sha256:{results_checksum} |\n"
+                f"| Results file       | ``{results_basename}`` |\n"
+                f"| Results checksum   | ``{results_checksum}`` |\n"
             )
         fh.write("\n")
         fh.write(
