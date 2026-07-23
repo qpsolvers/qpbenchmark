@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.7.0] - 2026-07-23
+
 ### Added
 
 - Tests for the `Results` class
@@ -252,7 +254,8 @@ All notable changes to this project will be documented in this file.
 - SolverSettings class
 - TestSet class
 
-[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.6.0...HEAD
+[unreleased]: https://github.com/qpsolvers/qpbenchmark/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.7.0
 [2.6.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.6.0
 [2.5.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.5.0
 [2.4.0]: https://github.com/qpsolvers/qpbenchmark/releases/tag/v2.4.0
