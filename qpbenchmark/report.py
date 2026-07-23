@@ -210,16 +210,19 @@ class Report:
             metric="primal_residual",
             shift=10.0,
             not_found_values=primal_tolerances,
+            floors=primal_tolerances,
         )
         self.__dual_df = self.results.build_shgeom_df(
             metric="dual_residual",
             shift=10.0,
             not_found_values=dual_tolerances,
+            floors=dual_tolerances,
         )
         self.__gap_df = self.results.build_shgeom_df(
             metric="duality_gap",
             shift=10.0,
             not_found_values=gap_tolerances,
+            floors=gap_tolerances,
         )
 
     def write(self, path: str) -> None:
