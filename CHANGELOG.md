@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Tests for the `Results` class
+
+### Fixed
+
+- Floor residuals at tolerance, fixing negative low-residual means
+
 ## [2.6.0] - 2026-07-22
 
 ### Added
