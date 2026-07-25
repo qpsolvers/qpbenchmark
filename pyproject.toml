@@ -4,6 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "qpbenchmark"
+version = "2.5.0"
 readme = "README.md"
 authors = [
     {name = "Stéphane Caron", email = "stephane.caron@normalesup.org"},
@@ -11,7 +12,7 @@ authors = [
 maintainers = [
     {name = "Stéphane Caron", email = "stephane.caron@normalesup.org"},
 ]
-dynamic = ['version', 'description']
+dynamic = ['description']
 requires-python = ">=3.9"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -82,8 +83,176 @@ select = [
     # isort
     "I001",
     # pydocstyle
-    "D"
+    "D",
 ]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.pixi.workspace]
+channels = ["conda-forge", "gurobi"]
+platforms = ["linux-64", "osx-64", "osx-arm64"]
+preview = ["pixi-build"]
+
+[tool.pixi.tasks]
+test = "python -m unittest discover"
+test-file = { cmd = "python -m unittest", description = "Run a specific test file, e.g.: pixi run test-file tests.test_run -v" }
+
+[tool.pixi.dependencies]
+python = ">=3.9"
+matplotlib = ">=3.6.2"
+numpy = ">=1.25.2"
+pandas = ">=1.4.3"
+psutil = ">=5.9.0"
+py-cpuinfo = ">=9.0.0"
+pyarrow = ">=15.0.0"
+qpsolvers = ">=4.3.1"
+tabulate = ">=0.9.0"
+tqdm = ">=4.67.1"
+clarabel = ">=0.4.1"
+cvxopt = ">=1.3.0"
+daqp = ">=0.5.1"
+ecos = ">=2.0.10"
+gurobi = ">=11.0.3"
+ipython = "*"
+jaxopt = "*"
+kvxopt = "*"
+osqp = ">=0.6.2"
+piqp = ">=0.2.2"
+proxsuite = ">=0.4.1"
+qpoases = ">=3.2.0"
+quadprog = ">=0.1.11"
+scs = ">=3.2.2"
+
+[tool.pixi.pypi-dependencies]
+highspy = ">=1.5.2"
+qpalm = ">=1.2.1"
+qpax = "*"
+
+# Pixi Package 
+[tool.pixi.package.build.backend]
+name = "pixi-build-python"
+version = "*"
+
+[tool.pixi.package.host-dependencies]
+python = ">=3.9"
+flit-core = ">=2,<4"
+matplotlib = ">=3.6.2"
+numpy = ">=1.25.2"
+pandas = ">=1.4.3"
+psutil = ">=5.9.0"
+py-cpuinfo = ">=9.0.0"
+pyarrow = ">=15.0.0"
+qpsolvers = ">=4.3.1"
+tabulate = ">=0.9.0"
+tqdm = ">=4.67.1"
+clarabel = ">=0.4.1"
+cvxopt = ">=1.3.0"
+daqp = ">=0.5.1"
+ecos = ">=2.0.10"
+gurobi = ">=11.0.3"
+ipython = "*"
+jaxopt = "*"
+kvxopt = "*"
+osqp = ">=0.6.2"
+piqp = ">=0.2.2"
+proxsuite = ">=0.4.1"
+qpoases = ">=3.2.0"
+quadprog = ">=0.1.11"
+scs = ">=3.2.2"
+
+[tool.pixi.package.run-dependencies]
+flit-core = ">=2,<4"
+matplotlib = ">=3.6.2"
+numpy = ">=1.25.2"
+pandas = ">=1.4.3"
+psutil = ">=5.9.0"
+py-cpuinfo = ">=9.0.0"
+pyarrow = ">=15.0.0"
+qpsolvers = ">=4.3.1"
+tabulate = ">=0.9.0"
+tqdm = ">=4.67.1"
+clarabel = ">=0.4.1"
+cvxopt = ">=1.3.0"
+daqp = ">=0.5.1"
+ecos = ">=2.0.10"
+gurobi = ">=11.0.3"
+jaxopt = "*"
+kvxopt = "*"
+osqp = ">=0.6.2"
+piqp = ">=0.2.2"
+proxsuite = ">=0.4.1"
+qpoases = ">=3.2.0"
+quadprog = ">=0.1.11"
+scs = ">=3.2.2"
+
+[tool.pylint.messages_control]
+# C0103: Argument name doesn't conform to snake_case naming style (we use uppercase for matrices)
+# R0801: Similar lines in * files (test set settings and tolerance definitions look alike)
+# R0913: Too many arguments (our functions have more than 5 arguments)
+# R0914: Too many local variables (some functions have more than 15 local variables)
+disable = ["C0103", "R0801", "R0913", "R0914"]
+
+[tool.mypy]
+ignore_missing_imports = true
+warn_no_return = true
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+lint = { features = ["lint"], no-default-feature = true }
+coverage = { features = ["coverage"], no-default-feature = true }
+py39 = { features = ["py39", "test"], no-default-feature = true }
+py310 = { features = ["py310", "test"], no-default-feature = true }
+py311 = { features = ["py311", "test"], no-default-feature = true }
+py312 = { features = ["py312", "test"], no-default-feature = true }
+py313 = { features = ["py313", "test"], no-default-feature = true }
+py314 = { features = ["py314", "test"], no-default-feature = true }
+
+[tool.pixi.feature.test.dependencies]
+qpbenchmark = { path = "." }
+
+[tool.pixi.feature.test.tasks]
+test = "python -m unittest discover -s tests -t . -v"
+
+[tool.pixi.feature.py39.dependencies]
+python = "3.9.*"
+
+[tool.pixi.feature.py310.dependencies]
+python = "3.10.*"
+
+[tool.pixi.feature.py311.dependencies]
+python = "3.11.*"
+
+[tool.pixi.feature.py312.dependencies]
+python = "3.12.*"
+
+[tool.pixi.feature.py313.dependencies]
+python = "3.13.*"
+
+[tool.pixi.feature.py314.dependencies]
+python = "3.14.*"
+
+[tool.pixi.feature.lint.dependencies]
+black = ">=22.10.0"
+ruff = ">=0.5.4"
+pylint = ">=2.8.2"
+mypy = ">=0.812"
+
+[tool.pixi.feature.lint.tasks]
+black = "black --check --diff qpbenchmark"
+ruff = "ruff check qpbenchmark"
+pylint = "pylint qpbenchmark --exit-zero"
+mypy = "mypy qpbenchmark"
+lint = { depends-on = ["black", "ruff", "pylint", "mypy"] }
+
+[tool.pixi.feature.coverage.dependencies]
+qpbenchmark = { path = "." }
+
+[tool.pixi.feature.coverage.pypi-dependencies]
+coverage = { version = ">=5.5", extras = ["toml"] }
+
+[tool.pixi.feature.coverage.tasks]
+coverage-erase = "coverage erase"
+coverage-run = "coverage run -m unittest discover"
+coverage-report = "coverage report --include='qpbenchmark/**'"
+coverage = { depends-on = ["coverage-erase", "coverage-run", "coverage-report"] }
