@@ -7,7 +7,10 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Pixi task `qpbenchmark` running the CLI in the `solvers` environment
-- Documentation website with the readme, one page per test-set report, and developer notes
+- docs: API documentation page
+- docs: Developer notes page
+- docs: Documentation website with the readme as its main page
+- docs: Include one page per test-set report
 
 ### Changed
 
