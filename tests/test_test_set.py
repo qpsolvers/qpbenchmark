@@ -9,22 +9,28 @@ from .custom_test_set import CustomTestSet
 
 
 class TestTestSet(unittest.TestCase):
+    """Test fixture for the TestSet class."""
+
     def setUp(self):
+        """Create a test set."""
         self.test_set = CustomTestSet()
 
     def test_skip_solver_issue(self):
+        """Skip only solvers with a known issue on the problem."""
         foo = custom_problem(name="foo")
         self.test_set.known_solver_issues.add(("foo", "bar"))
         self.assertTrue(self.test_set.skip_solver_issue(foo, "bar"))
         self.assertFalse(self.test_set.skip_solver_issue(foo, "baz"))
 
     def test_high_accuracy_sip_settings(self):
+        """High-accuracy settings apply tolerances and time limit to SIP."""
         settings = self.test_set.solver_settings["high_accuracy"]["sip"]
         self.assertEqual(settings["eps_abs"], 1e-9)
         self.assertEqual(settings["eps_rel"], 0.0)
         self.assertEqual(settings["time_limit"], 10.0)
 
     def test_skip_solver_timeout_specific(self):
+        """Skip known timeouts for specific settings above the time limit."""
         foo = custom_problem(name="foo")
         self.test_set.known_solver_timeouts[("foo", "bar", "default")] = 1.0
         self.assertFalse(
@@ -50,6 +56,7 @@ class TestTestSet(unittest.TestCase):
         )
 
     def test_skip_solver_timeout_pattern(self):
+        """Skip known timeouts for all settings above the time limit."""
         foo = custom_problem(name="foo")
         self.test_set.known_solver_timeouts[("foo", "bar", "*")] = 1.0
         self.assertFalse(

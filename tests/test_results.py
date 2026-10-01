@@ -44,7 +44,7 @@ def constant_rows(solver, settings, metric, value, count=3):
 
 
 class TestResults(unittest.TestCase):
-    """Test fixutre for the Results class."""
+    """Test fixture for the Results class."""
 
     SETTINGS = "high_accuracy"
     METRIC = "primal_residual"

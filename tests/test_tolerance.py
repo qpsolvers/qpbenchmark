@@ -8,7 +8,10 @@ from qpbenchmark import BenchmarkError, Tolerance
 
 
 class TestTolerance(unittest.TestCase):
+    """Test fixture for the Tolerance class."""
+
     def test_from_metric(self):
+        """Get each tolerance from its metric name."""
         tolerance = Tolerance(
             primal=1.0,
             dual=2.0,
