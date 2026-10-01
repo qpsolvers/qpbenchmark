@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-#
 # SPDX-License-Identifier: Apache-2.0
 
 """Unit tests for tolerance settings."""
 
 import unittest
 
-from qpbenchmark import Tolerance, BenchmarkError
+from qpbenchmark import BenchmarkError, Tolerance
 
 
 class TestTolerance(unittest.TestCase):
