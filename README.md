@@ -132,7 +132,7 @@ Contributions to improving this benchmark are welcome. You can for instance prop
 
 ## Citation
 
-If you use `qpbenchmark` in your works, please cite all its contributors as follows:
+If you use `qpbenchmark` in your work, please cite its contributors as follows:
 
 ```bibtex
 @software{qpbenchmark,

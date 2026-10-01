@@ -97,7 +97,7 @@ def run(
                         problem, solver, settings, time_limit
                     ):
                         logging.info(
-                            f"Skipping {problem.name} with {solver} and "
+                            f"Skipping {problem.name} for {solver} with "
                             f"{settings} settings as a previous timeout..."
                         )
                         if progress_bar is not None:

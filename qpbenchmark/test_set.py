@@ -211,7 +211,7 @@ class TestSet(abc.ABC):
         if (problem.name, solver) not in self.known_solver_issues:
             return False
         logging.warning(
-            "Skipping %s with %s as a known solver issue...",
+            "Skipping %s for %s as a known solver issue...",
             problem.name,
             solver,
         )
@@ -248,8 +248,9 @@ class TestSet(abc.ABC):
         )
         if timeout > time_limit:
             logging.warning(
-                f"Skipping {problem.name} with {solver} at {settings} "
-                f"as it is known to take {timeout} > {time_limit} seconds..."
+                f"Skipping {problem.name} for {solver} with {settings} "
+                f"settings as it is known to take {timeout} > {time_limit} "
+                "seconds..."
             )
             return True
         return False
