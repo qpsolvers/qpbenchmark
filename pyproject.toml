@@ -115,7 +115,9 @@ coveralls = "*"
 [tool.pixi.feature.docs.dependencies]
 mkdocs = ">=1.6"
 mkdocs-material = ">=9.5"
+mkdocstrings-python = ">=1.10"
 pymdown-extensions = ">=10.0"
+ruff = ">=0.5.4"
 
 [tool.pixi.feature.docs.tasks]
 docs-build = { cmd = "mkdocs build --strict", description = "Build the website from the readme and test-set reports" }

@@ -17,6 +17,7 @@ theme:
     features:
         - content.code.copy
         - navigation.indexes
+        - navigation.sections
         - navigation.top
         - search.highlight
         - toc.follow
@@ -34,20 +35,35 @@ theme:
               icon: material/brightness-4
               name: Switch to light mode
 
+plugins:
+    - search
+    - mkdocstrings:
+          handlers:
+              python:
+                  paths: [.]
+                  options:
+                      docstring_style: google
+                      filters:
+                          - "!^_[^_]"  # private members
+                          - "!^__.*(?<!__)$"  # name-mangled members, not dunders
+                      heading_level: 3
+                      members_order: source
+                      merge_init_into_class: true
+                      separate_signature: true
+                      show_root_full_path: false
+                      show_root_heading: true
+                      show_signature_annotations: true
+                      show_source: false
+                      show_symbol_type_heading: true
+
 markdown_extensions:
     - admonition
     - attr_list
-    - pymdownx.arithmatex:
-          generic: true
     - pymdownx.highlight
     - pymdownx.superfences
     - tables
     - toc:
           permalink: true
-
-extra_javascript:
-    - javascripts/mathjax.js
-    - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 validation:
     links:

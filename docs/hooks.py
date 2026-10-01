@@ -150,13 +150,16 @@ def on_config(config: MkDocsConfig) -> MkDocsConfig:
     Returns:
         Updated configuration.
     """
-    nav: list = ["index.md"]
+    test_sets = []
     for test_set in find_test_sets():
         section = [test_set.main.uri]
         section.extend(subset.uri for subset in test_set.subsets)
-        nav.append({test_set.main.title: section})
-    nav.append("developer-notes.md")
-    config.nav = nav
+        test_sets.append({test_set.main.title: section})
+    config.nav = [
+        "index.md",
+        {"Test sets": test_sets},
+        {"Development": ["api.md", "developer-notes.md"]},
+    ]
     return config
 
 
