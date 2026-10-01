@@ -1,7 +1,8 @@
 # QP solvers benchmark
 
+[![Results](https://img.shields.io/badge/benchmark-results-4051b5?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMiwyMUgyVjNINFYxOUg2VjEwSDEwVjE5SDEyVjZIMTZWMTlIMThWMTRIMjJWMjFaIi8+PC9zdmc+)](https://qpsolvers.github.io/qpbenchmark/#results)
 [![CI](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/ci.yml?branch=main)](https://github.com/qpsolvers/qpbenchmark/actions)
-[![Results](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/docs.yml?branch=main&label=results)](https://qpsolvers.github.io/qpbenchmark/)
+[![Documentation](https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/docs.yml?branch=main&label=docs)](https://qpsolvers.github.io/qpbenchmark/)
 [![Coverage](https://coveralls.io/repos/github/qpsolvers/qpbenchmark/badge.svg?branch=main)](https://coveralls.io/github/qpsolvers/qpbenchmark?branch=main)
 [![Conda version](https://img.shields.io/conda/vn/conda-forge/qpbenchmark.svg)](https://anaconda.org/conda-forge/qpbenchmark)
 [![PyPI version](https://img.shields.io/pypi/v/qpbenchmark)](https://pypi.org/project/qpbenchmark/)
@@ -71,9 +72,9 @@ Intuitively, a solver with a shifted-geometric-mean runtime of $Y$ is $Y$ times 
 
 The outcome from running a test set is a standardized report comparing [solvers](#solvers) against the different [metrics](#metrics). Here are the results for the various ``qpbenchmark`` test sets:
 
-- [Free-for-all results](https://github.com/qpsolvers/free_for_all_qpbenchmark/blob/main/results/free_for_all.md)
-- [Maros-Meszaros results](https://github.com/qpsolvers/maros_meszaros_qpbenchmark/blob/main/results/maros_meszaros.md)
-- [Model predictive control results](https://github.com/qpsolvers/mpc_qpbenchmark/blob/main/results/mpc_qpbenchmark.md)
+- [Free-for-all results](https://qpsolvers.github.io/qpbenchmark/free_for_all_qpbenchmark/)
+- [Maros-Meszaros results](https://qpsolvers.github.io/qpbenchmark/maros_meszaros_qpbenchmark/)
+- [Model predictive control results](https://qpsolvers.github.io/qpbenchmark/mpc_qpbenchmark/)
 
 You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the Results category of the discussions forum of each test set.
 
