@@ -23,7 +23,6 @@ class ProblemList:
 
         Args:
             problem: Problem to append.
-            time: Optional time (in seconds) corresponding to the problem.
         """
         for key in self.KEYS:
             value = problem.__dict__[key]
