@@ -2,10 +2,11 @@
 *.pyo
 .DS_Store
 .coverage
-.ropeproject
 .pixi
+.ropeproject
 MANIFEST
 build/
 dist/
+docs/html/
 gurobi.log
 htmlcov/
