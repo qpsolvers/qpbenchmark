@@ -29,4 +29,4 @@ The benchmark is organized into *test sets*. A test set is a Git repository that
 - Implement a `FooBar` class in this file deriving from `qpbenchmark.TestCase`
     - The class name should match the file name in PascalCase)
 
-Check out how this is done in *e.g.* the [Maros-Meszaros test set](https://github.com/qpsolvers/maros_meszaros_qpbenchmark).
+Check out how this is done in *e.g.* the [Maros-Meszaros test set](https://github.com/qpsolvers/maros_meszaros_qpbenchmark). Once your test set is ready and has generated its results, feel free to add it as a git submodule in the `test_sets/` directory.
