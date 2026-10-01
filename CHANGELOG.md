@@ -4,8 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Pixi task `qpbenchmark` running the CLI in the `solvers` environment
+
 ### Changed
 
+- **Breaking:** the test-set path is now passed as `--test-set <path>` rather than as a positional argument
 - Development: switch from tox to pixi tasks (`test`, `coverage`, `lint`, `format`)
 - Development: replace `environment.yaml` with a `solvers` pixi environment
 - Format code with ruff instead of black, and drop pylint from linters

@@ -93,23 +93,23 @@ Check out the issue tracker for ongoing works and future improvements.
 We recommend using [pixi](https://pixi.sh) to run the benchmark:
 
 ```console
-pixi run -e solvers qpbenchmark my_test_set.py run
+pixi run qpbenchmark --test-set my_test_set.py run
 ```
 
-Alternatively, you can install the benchmarking tool individually by ``pip install qpbenchmark``. The benchmark will run on the supported solvers it can import.
+Alternatively, you can install the benchmarking tool individually by ``pip install qpbenchmark``. The benchmark will then run using the supported solvers it can import in your Python environment.
 
 ## Usage
 
 The benchmark works by running ``qpbenchmark`` on a Python script describing the test set. For instance:
 
 ```console
-qpbenchmark my_test_set.py run
+qpbenchmark --test-set my_test_set.py run
 ```
 
-The test-set script is followed by a benchmark command, such as "run" here. We can add optional arguments to run a specific solver, problem, or solver settings:
+The test-set path is followed by a benchmark command, such as "run" here. We can add optional arguments to run a specific solver, problem, or solver settings:
 
 ```console
-qpbenchmark my_test_set.py run --solver proxqp --settings default
+qpbenchmark --test-set my_test_set.py run --solver proxqp --settings default
 ```
 
 Check out ``qpbenchmark --help`` for a list of available commands and arguments.
@@ -119,7 +119,7 @@ Check out ``qpbenchmark --help`` for a list of available commands and arguments.
 The command line ships a ``plot`` command to compare solver performances over a test set for a specific metric. For instance, run:
 
 ```console
-qpbenchmark maros_meszaros_dense.py plot runtime high_accuracy
+qpbenchmark --test-set maros_meszaros_dense.py plot runtime high_accuracy
 ```
 
 To generate the following plot:

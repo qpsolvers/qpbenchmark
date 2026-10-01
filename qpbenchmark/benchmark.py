@@ -42,7 +42,10 @@ def parse_command_line_arguments(
     )
     if test_set_path is None:
         parser.add_argument(
-            "test_set_path", help="path to the test set Python source"
+            "--test-set",
+            dest="test_set_path",
+            required=True,
+            help="path to the test set Python source",
         )
     parser.add_argument(
         "--results-path",
@@ -236,7 +239,7 @@ def main(
         test_set_path = Path(test_set_path)
         if test_set_path.suffix != ".py":
             raise BenchmarkError(
-                "Test set path '{test_set_path}' is not a Python script"
+                f"Test set path '{test_set_path}' is not a Python script"
             )
 
     args = parse_command_line_arguments(test_set_path)
