@@ -18,6 +18,12 @@ TEST_SETS = ROOT / "test_sets"
 # Markdown links whose target is neither absolute nor an anchor
 RELATIVE_LINK = re.compile(r"\]\((?!https?://|#|mailto:)([^)]+)\)")
 
+# Inline math such as $Y$ or $sh = 10$, as rendered by GitHub
+INLINE_MATH = re.compile(r"(?<![\\$\w])\$(?=\S)([^$\n]+?)(?<=\S)\$(?![$\w])")
+
+# Inline code spans, in which dollar signs are literal
+CODE_SPAN = re.compile(r"(`+).+?\1")
+
 
 @dataclass
 class Report:
@@ -105,6 +111,36 @@ def find_test_sets() -> List[TestSetReports]:
     return test_sets
 
 
+def italicize_inline_math(markdown: str) -> str:
+    """Render inline math as italics, outside of code blocks and spans.
+
+    Our pages only have a few short expressions such as $Y$ or $sh = 10$, for
+    which italics are enough and spare loading a math rendering library.
+
+    Args:
+        markdown: Markdown source of a page.
+
+    Returns:
+        Markdown source with inline math in italics.
+    """
+    lines = markdown.split("\n")
+    in_fence = False
+    for i, line in enumerate(lines):
+        if line.lstrip().startswith(("```", "~~~")):
+            in_fence = not in_fence
+        if in_fence or "$" not in line:
+            continue
+        parts = []
+        last = 0
+        for code in CODE_SPAN.finditer(line):
+            parts.append(INLINE_MATH.sub(r"*\1*", line[last : code.start()]))
+            parts.append(code.group(0))
+            last = code.end()
+        parts.append(INLINE_MATH.sub(r"*\1*", line[last:]))
+        lines[i] = "".join(parts)
+    return "\n".join(lines)
+
+
 def on_config(config: MkDocsConfig) -> MkDocsConfig:
     """Build the navigation menu from the test sets.
 
@@ -146,6 +182,19 @@ def on_files(files: Files, config: MkDocsConfig) -> Files:
                 File.generated(config, report.uri, abs_src_path=report.path)
             )
     return files
+
+
+def on_page_markdown(markdown: str, **kwargs) -> str:
+    """Process the Markdown source of each page.
+
+    Args:
+        markdown: Markdown source of the page.
+        kwargs: Page, configuration and files of the website.
+
+    Returns:
+        Processed Markdown source.
+    """
+    return italicize_inline_math(markdown)
 
 
 def on_serve(server: LiveReloadServer, config: MkDocsConfig, builder):
