@@ -126,9 +126,9 @@ mypy = ">=0.812"
 ruff = ">=0.5.4"
 
 [tool.pixi.feature.lint.tasks]
-format = { cmd = "ruff format qpbenchmark && ruff check --select I --fix qpbenchmark", description = "Format source code" }
-format-check = { cmd = "ruff format --check --diff qpbenchmark", description = "Check source code formatting" }
-ruff = { cmd = "ruff check qpbenchmark", description = "Lint source code with ruff" }
+format = { cmd = "ruff format qpbenchmark tests docs && ruff check --select I --fix qpbenchmark tests docs", description = "Format source code" }
+format-check = { cmd = "ruff format --check --diff qpbenchmark tests docs", description = "Check source code formatting" }
+ruff = { cmd = "ruff check qpbenchmark tests docs", description = "Lint source code with ruff" }
 mypy = { cmd = "mypy qpbenchmark", description = "Type-check source code" }
 lint = { depends-on = ["format-check", "ruff", "mypy"], description = "Run all linters" }
 
