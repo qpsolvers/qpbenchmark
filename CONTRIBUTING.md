@@ -10,7 +10,7 @@ This project's goal is to facilitate the comparison of quadratic programming sol
 
 - Add a corresponding entry (in the Added section of the upcoming version) to the changelog
 - Add the solver name to the `IMPLEMENTED_SOLVERS` list in `solver_settings.py`
-- Add the solver to `environment.yaml` (update the version of `qpsolvers` if applicable)
+- Add the solver to the `solvers` pixi feature in `pyproject.toml` (update the version of `qpsolvers` if applicable)
 - Add the solver to the Solvers table in the readme
 - Set any other relevant solver settings in the `define_solver_settings` function in `test_set.py`
 - Set the solver's absolute tolerance in the `set_eps_abs` function in `solver_settings.py`

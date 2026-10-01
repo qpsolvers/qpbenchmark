@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Development: switch from tox to pixi tasks (`test`, `coverage`, `lint`, `format`)
+- Development: replace `environment.yaml` with a `solvers` pixi environment
+- Format code with ruff instead of black, and drop pylint from linters
+
 ## [2.7.1] - 2026-07-23
 
 ### Fixed

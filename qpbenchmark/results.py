@@ -57,8 +57,7 @@ class Results:
             return None
         elif file_path.suffix not in (".csv", ".parquet"):
             raise BenchmarkError(
-                "unknown file extension to read results from "
-                f"in '{file_path}'"
+                f"unknown file extension to read results from in '{file_path}'"
             )
         logging.info("Loading existing results from '%s'...", file_path)
         read_func = (

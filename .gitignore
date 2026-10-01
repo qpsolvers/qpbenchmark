@@ -3,7 +3,7 @@
 .DS_Store
 .coverage
 .ropeproject
-.tox
+.pixi
 MANIFEST
 build/
 dist/

@@ -90,13 +90,13 @@ Check out the issue tracker for ongoing works and future improvements.
 
 ## Installation
 
-We recommend installing the benchmark in its own environment using ``conda``:
+We recommend using [pixi](https://pixi.sh) to run the benchmark:
 
 ```console
-conda install qpbenchmark
+pixi run -e solvers qpbenchmark my_test_set.py run
 ```
 
-Alternatively, you can install the benchmarking tool individually by ``pip install qpbenchmark``. In that case, the benchmark will run on all supported solvers it can import.
+Alternatively, you can install the benchmarking tool individually by ``pip install qpbenchmark``. The benchmark will run on the supported solvers it can import.
 
 ## Usage
 

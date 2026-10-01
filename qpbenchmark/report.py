@@ -365,7 +365,7 @@ class Report:
         fh.write("## Settings\n\n")
         fh.write(
             f"There are {len(italics_settings)} settings: "
-            f'{", ".join(italics_settings[:-1])} '
+            f"{', '.join(italics_settings[:-1])} "
             f"and {italics_settings[-1]}. "
             "They validate solutions using the following tolerances:\n\n"
         )
@@ -427,7 +427,7 @@ class Report:
             )
             fh.write(f"### {capitalize_settings(settings)} settings\n\n")
             fh.write(f"{shm_desc}\n\n")
-            fh.write(f'{df.to_markdown(index=True, floatfmt=".1f")}\n\n')
+            fh.write(f"{df.to_markdown(index=True, floatfmt='.1f')}\n\n")
 
     def __write_results_by_metric(self, fh: io.TextIOWrapper) -> None:
         """Write Results by metric.
@@ -485,7 +485,7 @@ class Report:
             "(1.0 is the best):\n\n"
         )
         fh.write(
-            f'{self.__runtime_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+            f"{self.__runtime_df.to_markdown(index=True, floatfmt='.1f')}\n\n"
         )
 
         comp_times_table_desc = (
@@ -516,7 +516,7 @@ class Report:
             "(1.0 is the best):\n\n"
         )
         fh.write(
-            f'{self.__primal_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+            f"{self.__primal_df.to_markdown(index=True, floatfmt='.1f')}\n\n"
         )
 
         primal_residual_table_desc = (
@@ -542,11 +542,10 @@ class Report:
 
         fh.write(f"{dual_residual_shm_desc}\n\n")
         fh.write(
-            "Shifted geometric means of dual residuals "
-            "(1.0 is the best):\n\n"
+            "Shifted geometric means of dual residuals (1.0 is the best):\n\n"
         )
         fh.write(
-            f'{self.__dual_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+            f"{self.__dual_df.to_markdown(index=True, floatfmt='.1f')}\n\n"
         )
 
         dual_residual_table_desc = (
@@ -574,10 +573,10 @@ class Report:
 
         fh.write(f"{duality_gap_shm_desc}\n\n")
         fh.write(
-            "Shifted geometric means of duality gaps " "(1.0 is the best):\n\n"
+            "Shifted geometric means of duality gaps (1.0 is the best):\n\n"
         )
         fh.write(
-            f'{self.__gap_df.to_markdown(index=True, floatfmt=".1f")}\n\n'
+            f"{self.__gap_df.to_markdown(index=True, floatfmt='.1f')}\n\n"
         )
 
         duality_gap_table_desc = (
