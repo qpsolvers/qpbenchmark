@@ -5,9 +5,10 @@
 import tempfile
 import unittest
 
+from qpsolvers import SolverNotFound, available_solvers
+
 import qpbenchmark
 from qpbenchmark import Results
-from qpsolvers import SolverNotFound, available_solvers
 
 from .custom_test_set import CustomTestSet
 
