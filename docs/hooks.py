@@ -154,13 +154,10 @@ def on_config(config: MkDocsConfig) -> MkDocsConfig:
     for test_set in find_test_sets():
         section = [test_set.main.uri]
         section.extend(subset.uri for subset in test_set.subsets)
-        # Titles are listed under "Test sets" in the menu, so we drop the
-        # redundant suffix, e.g. "Free-for-all test set" -> "Free-for-all"
-        title = re.sub(r"\s+test set$", "", test_set.main.title, flags=re.I)
-        test_sets.append({title: section})
+        test_sets.append({test_set.main.title: section})
     config.nav = [
         "index.md",
-        {"Test sets": test_sets},
+        {"Results": test_sets},
         {"Development": ["api.md", "developer-notes.md"]},
     ]
     return config
