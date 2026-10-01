@@ -1,0 +1,9 @@
+[submodule "test_sets/free_for_all_qpbenchmark"]
+	path = test_sets/free_for_all_qpbenchmark
+	url = https://github.com/qpsolvers/free_for_all_qpbenchmark.git
+[submodule "test_sets/maros_meszaros_qpbenchmark"]
+	path = test_sets/maros_meszaros_qpbenchmark
+	url = https://github.com/qpsolvers/maros_meszaros_qpbenchmark.git
+[submodule "test_sets/mpc_qpbenchmark"]
+	path = test_sets/mpc_qpbenchmark
+	url = https://github.com/qpsolvers/mpc_qpbenchmark.git
