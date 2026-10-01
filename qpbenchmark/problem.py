@@ -96,7 +96,7 @@ class Problem(qpsolvers.Problem):
             name=name,
         )
 
-    def to_dense(self):
+    def to_dense(self) -> "Problem":
         """Return dense version.
 
         Returns:
@@ -114,7 +114,7 @@ class Problem(qpsolvers.Problem):
             name=self.name,
         )
 
-    def to_sparse(self):
+    def to_sparse(self) -> "Problem":
         """Return sparse version.
 
         Returns:

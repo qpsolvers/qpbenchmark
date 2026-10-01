@@ -152,7 +152,7 @@ class Report:
         df = df.sort_values(by=["solver", "parameter"])
         return df.to_markdown(index=False)
 
-    def get_solver_versions_table(self):
+    def get_solver_versions_table(self) -> str:
         """Get Markdown table for solver versions.
 
         Returns:
