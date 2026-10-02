@@ -1,0 +1,3241 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmark for quadratic programming solvers available in Python">
+      
+      
+      
+        <link rel="canonical" href="https://qpsolvers.github.io/qpbenchmark/maros_meszaros_qpbenchmark/dense/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../dense_posdef/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Maros-Meszaros dense subset - qpbenchmark</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#maros-meszaros-dense-subset" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="qpbenchmark" class="md-header__button md-logo" aria-label="qpbenchmark" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            qpbenchmark
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Maros-Meszaros dense subset
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/qpsolvers/qpbenchmark" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qpsolvers/qpbenchmark
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="qpbenchmark" class="md-nav__button md-logo" aria-label="qpbenchmark" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    qpbenchmark
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/qpsolvers/qpbenchmark" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qpsolvers/qpbenchmark
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QP solvers benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Results
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../free_for_all_qpbenchmark/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Free-for-all test set
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Free-for-all test set
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../free_for_all_qpbenchmark/dense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Free-for-all dense subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros test set
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maros-Meszaros test set
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros dense subset
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros dense subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solvers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results-by-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results by settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results by settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mid-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mid accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results-by-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results by metric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results by metric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#success-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computation-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computation time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimality-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimality conditions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimality conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primal-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primal residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dual residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duality-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duality gap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dense_posdef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros dense positive definite subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros sparse subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../mpc_qpbenchmark/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model predictive control test set
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Model predictive control test set
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mpc_qpbenchmark/dense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model predictive control test set (dense)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mpc_qpbenchmark/sparse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model predictive control test set (sparse)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solvers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results-by-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results by settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results by settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mid-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mid accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results-by-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results by metric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results by metric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#success-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computation-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computation time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimality-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimality conditions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimality conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primal-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primal residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dual residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duality-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duality gap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="maros-meszaros-dense-subset">Maros-Meszaros dense subset<a class="headerlink" href="#maros-meszaros-dense-subset" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Number of problems</th>
+<th style="text-align: left;">62</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Benchmark version</td>
+<td style="text-align: left;">2.3.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">2024-09-07 14:57:17.966508+00:00</td>
+</tr>
+<tr>
+<td style="text-align: left;">CPU</td>
+<td style="text-align: left;"><a href="#cpu-info">Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Run by</td>
+<td style="text-align: left;"><a href="https://github.com/stephane-caron/">@stephane-caron</a></td>
+</tr>
+</tbody>
+</table>
+<p>Benchmark reports are copious as we aim to document comparison factors as much as possible. You can also <a href="#results-by-settings">jump to results</a> directly.</p>
+<h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#solvers">Solvers</a></li>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#cpu-info">CPU info</a></li>
+<li><a href="#known-limitations">Known limitations</a></li>
+<li><a href="#results-by-settings">Results by settings</a><ul>
+<li><a href="#default">Default</a></li>
+<li><a href="#high-accuracy">High accuracy</a></li>
+<li><a href="#low-accuracy">Low accuracy</a></li>
+<li><a href="#mid-accuracy">Mid accuracy</a></li>
+</ul>
+</li>
+<li><a href="#results-by-metric">Results by metric</a><ul>
+<li><a href="#success-rate">Success rate</a></li>
+<li><a href="#computation-time">Computation time</a></li>
+<li><a href="#optimality-conditions">Optimality conditions</a><ul>
+<li><a href="#primal-residual">Primal residual</a></li>
+<li><a href="#dual-residual">Dual residual</a></li>
+<li><a href="#duality-gap">Duality gap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p>Subset of the Maros-Meszaros test set restricted to smaller dense problems.</p>
+<h2 id="solvers">Solvers<a class="headerlink" href="#solvers" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">solver</th>
+<th style="text-align: left;">version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: left;">0.9.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: left;">1.3.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: left;">0.5.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: left;">2.0.14</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: left;">11.0.3 (size-limited)</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: left;">1.7.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: left;">0.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: left;">0.6.7.post0</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: left;">0.4.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: left;">0.6.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: left;">1.2.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: left;">3.2.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: left;">0.1.12</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: left;">3.2.6</td>
+</tr>
+</tbody>
+</table>
+<p>All solvers were called via <a href="https://github.com/qpsolvers/qpsolvers">qpsolvers</a> v4.3.3.</p>
+<h2 id="cpu-info">CPU info<a class="headerlink" href="#cpu-info" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>arch</code></td>
+<td>X86_64</td>
+</tr>
+<tr>
+<td><code>arch_string_raw</code></td>
+<td>x86_64</td>
+</tr>
+<tr>
+<td><code>bits</code></td>
+<td>64</td>
+</tr>
+<tr>
+<td><code>brand_raw</code></td>
+<td>Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz</td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>cpuinfo_version_string</code></td>
+<td>9.0.0</td>
+</tr>
+<tr>
+<td><code>family</code></td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>flags</code></td>
+<td><code>3dnowprefetch</code>, <code>abm</code>, <code>acpi</code>, <code>adx</code>, <code>aes</code>, <code>aperfmperf</code>, <code>apic</code>, <code>arat</code>, <code>arch_capabilities</code>, <code>arch_perfmon</code>, <code>art</code>, <code>avx</code>, <code>avx2</code>, <code>bmi1</code>, <code>bmi2</code>, <code>bts</code>, <code>clflush</code>, <code>clflushopt</code>, <code>cmov</code>, <code>constant_tsc</code>, <code>cpuid</code>, <code>cpuid_fault</code>, <code>cx16</code>, <code>cx8</code>, <code>de</code>, <code>ds_cpl</code>, <code>dtes64</code>, <code>dtherm</code>, <code>dts</code>, <code>epb</code>, <code>ept</code>, <code>ept_ad</code>, <code>erms</code>, <code>est</code>, <code>f16c</code>, <code>flexpriority</code>, <code>flush_l1d</code>, <code>fma</code>, <code>fpu</code>, <code>fsgsbase</code>, <code>fxsr</code>, <code>ht</code>, <code>hwp</code>, <code>hwp_act_window</code>, <code>hwp_epp</code>, <code>hwp_notify</code>, <code>ibpb</code>, <code>ibrs</code>, <code>ida</code>, <code>intel_pt</code>, <code>invpcid</code>, <code>invpcid_single</code>, <code>lahf_lm</code>, <code>lm</code>, <code>mca</code>, <code>mce</code>, <code>md_clear</code>, <code>mmx</code>, <code>monitor</code>, <code>movbe</code>, <code>mpx</code>, <code>msr</code>, <code>mtrr</code>, <code>nonstop_tsc</code>, <code>nopl</code>, <code>nx</code>, <code>osxsave</code>, <code>pae</code>, <code>pat</code>, <code>pbe</code>, <code>pcid</code>, <code>pclmulqdq</code>, <code>pdcm</code>, <code>pdpe1gb</code>, <code>pebs</code>, <code>pge</code>, <code>pln</code>, <code>pni</code>, <code>popcnt</code>, <code>pse</code>, <code>pse36</code>, <code>pti</code>, <code>pts</code>, <code>rdrand</code>, <code>rdrnd</code>, <code>rdseed</code>, <code>rdtscp</code>, <code>rep_good</code>, <code>sdbg</code>, <code>sep</code>, <code>sgx</code>, <code>smap</code>, <code>smep</code>, <code>ss</code>, <code>ssbd</code>, <code>sse</code>, <code>sse2</code>, <code>sse4_1</code>, <code>sse4_2</code>, <code>ssse3</code>, <code>stibp</code>, <code>syscall</code>, <code>tm</code>, <code>tm2</code>, <code>tpr_shadow</code>, <code>tsc</code>, <code>tsc_adjust</code>, <code>tsc_deadline_timer</code>, <code>tscdeadline</code>, <code>vme</code>, <code>vmx</code>, <code>vnmi</code>, <code>vpid</code>, <code>x2apic</code>, <code>xgetbv1</code>, <code>xsave</code>, <code>xsavec</code>, <code>xsaveopt</code>, <code>xsaves</code>, <code>xtopology</code>, <code>xtpr</code></td>
+</tr>
+<tr>
+<td><code>hz_actual_friendly</code></td>
+<td>2.6000 GHz</td>
+</tr>
+<tr>
+<td><code>hz_advertised_friendly</code></td>
+<td>2.5000 GHz</td>
+</tr>
+<tr>
+<td><code>l1_data_cache_size</code></td>
+<td>65536</td>
+</tr>
+<tr>
+<td><code>l1_instruction_cache_size</code></td>
+<td>65536</td>
+</tr>
+<tr>
+<td><code>l2_cache_associativity</code></td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>l2_cache_line_size</code></td>
+<td>256</td>
+</tr>
+<tr>
+<td><code>l2_cache_size</code></td>
+<td>524288</td>
+</tr>
+<tr>
+<td><code>l3_cache_size</code></td>
+<td>4194304</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>78</td>
+</tr>
+<tr>
+<td><code>python_version</code></td>
+<td>3.12.4.final.0 (64 bit)</td>
+</tr>
+<tr>
+<td><code>stepping</code></td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>vendor_id_raw</code></td>
+<td>GenuineIntel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h2>
+<p>There are 4 settings: <em>default</em>, <em>high_accuracy</em>, <em>low_accuracy</em> and <em>mid_accuracy</em>. They validate solutions using the following tolerances:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">tolerance</th>
+<th style="text-align: right;">default</th>
+<th style="text-align: right;">high_accuracy</th>
+<th style="text-align: right;">low_accuracy</th>
+<th style="text-align: right;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>dual</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1e-09</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gap</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1e-09</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>primal</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1e-09</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>runtime</code></td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1000</td>
+</tr>
+</tbody>
+</table>
+<p>Solvers for each settings are configured as follows:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">solver</th>
+<th style="text-align: left;">parameter</th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">high_accuracy</th>
+<th style="text-align: left;">low_accuracy</th>
+<th style="text-align: left;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: left;"><code>tol_feas</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: left;"><code>tol_gap_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: left;"><code>tol_gap_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: left;"><code>feastol</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: left;"><code>dual_tol</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: left;"><code>primal_tol</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: left;"><code>feastol</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: left;"><code>FeasibilityTol</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: left;"><code>OptimalityTol</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: left;"><code>TimeLimit</code></td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: left;"><code>dual_feasibility_tolerance</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: left;"><code>primal_feasibility_tolerance</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: left;"><code>time_limit</code></td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: left;"><code>tol_comp</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: left;"><code>tol_eq</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: left;"><code>tol_ineq</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: left;"><code>tol_stat</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: left;"><code>eps_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: left;"><code>eps_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: left;"><code>time_limit</code></td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: left;"><code>check_duality_gap</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: left;"><code>eps_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: left;"><code>eps_duality_gap_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: left;"><code>eps_duality_gap_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: left;"><code>eps_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: left;"><code>check_duality_gap</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: left;"><code>eps_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: left;"><code>eps_duality_gap_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: left;"><code>eps_duality_gap_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: left;"><code>eps_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: left;"><code>eps_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: left;"><code>eps_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: left;"><code>time_limit</code></td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: left;"><code>predefined_options</code></td>
+<td style="text-align: left;">default</td>
+<td style="text-align: left;">reliable</td>
+<td style="text-align: left;">fast</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: left;"><code>time_limit</code></td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: left;"><code>eps_abs</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">1e-06</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: left;"><code>eps_rel</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: left;"><code>time_limit_secs</code></td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+<td style="text-align: left;">1000.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="known-limitations">Known limitations<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h2>
+<p>The following <a href="https://github.com/qpsolvers/qpbenchmark/issues">issues</a> have been identified as impacting the fairness of this benchmark. Keep them in mind when drawing conclusions from the results.</p>
+<ul>
+<li><a href="https://github.com/qpsolvers/qpbenchmark/issues/60">#60</a>: Conversion to SOCP limits performance of ECOS</li>
+<li><a href="https://github.com/qpsolvers/qpbenchmark/issues/88">#88</a>: CPU thermal throttling</li>
+</ul>
+<h2 id="results-by-settings">Results by settings<a class="headerlink" href="#results-by-settings" title="Permanent link">&para;</a></h2>
+<h3 id="default">Default<a class="headerlink" href="#default" title="Permanent link">&para;</a></h3>
+<p>Solvers are compared over the whole test set by <a href="https://github.com/qpsolvers/qpbenchmark#shifted-geometric-mean">shifted geometric mean</a> (shm). Lower is better, 1.0 is the best.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;"><a href="#success-rate">Success rate</a> (%)</th>
+<th style="text-align: right;"><a href="#computation-time">Runtime</a> (shm)</th>
+<th style="text-align: right;"><a href="#primal-residual">Primal residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#dual-residual">Dual residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#duality-gap">Duality gap</a> (shm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">51.6</td>
+<td style="text-align: right;">20793.9</td>
+<td style="text-align: right;">304539748.1</td>
+<td style="text-align: right;">84505.9</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">66.1</td>
+<td style="text-align: right;">5835.1</td>
+<td style="text-align: right;">160672590.1</td>
+<td style="text-align: right;">44582.8</td>
+<td style="text-align: right;">5.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">30.6</td>
+<td style="text-align: right;">58795.1</td>
+<td style="text-align: right;">440931769.1</td>
+<td style="text-align: right;">122347.0</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">12.9</td>
+<td style="text-align: right;">126497.0</td>
+<td style="text-align: right;">547719105.2</td>
+<td style="text-align: right;">155901.6</td>
+<td style="text-align: right;">4.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">56.5</td>
+<td style="text-align: right;">16132.9</td>
+<td style="text-align: right;">273449877.0</td>
+<td style="text-align: right;">75875.2</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">72.6</td>
+<td style="text-align: right;">1364.7</td>
+<td style="text-align: right;">49787378.8</td>
+<td style="text-align: right;">14012.1</td>
+<td style="text-align: right;">23.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">24.2</td>
+<td style="text-align: right;">20794.6</td>
+<td style="text-align: right;">4812749808.5</td>
+<td style="text-align: right;">84501.8</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">51.6</td>
+<td style="text-align: right;">1409.0</td>
+<td style="text-align: right;">3404366339.9</td>
+<td style="text-align: right;">592424.2</td>
+<td style="text-align: right;">577.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">98.4</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">85.5</td>
+<td style="text-align: right;">2067.5</td>
+<td style="text-align: right;">79843142.0</td>
+<td style="text-align: right;">22154.3</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">59.7</td>
+<td style="text-align: right;">198.1</td>
+<td style="text-align: right;">448093182.1</td>
+<td style="text-align: right;">37815.9</td>
+<td style="text-align: right;">147.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">24.2</td>
+<td style="text-align: right;">17999.9</td>
+<td style="text-align: right;">4409382869.3</td>
+<td style="text-align: right;">3869853.2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">32.3</td>
+<td style="text-align: right;">54380.5</td>
+<td style="text-align: right;">430342953.5</td>
+<td style="text-align: right;">119408.9</td>
+<td style="text-align: right;">3.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">71.0</td>
+<td style="text-align: right;">440.7</td>
+<td style="text-align: right;">1837055027.2</td>
+<td style="text-align: right;">61344.3</td>
+<td style="text-align: right;">71.4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="high-accuracy">High accuracy<a class="headerlink" href="#high-accuracy" title="Permanent link">&para;</a></h3>
+<p>Solvers are compared over the whole test set by <a href="https://github.com/qpsolvers/qpbenchmark#shifted-geometric-mean">shifted geometric mean</a> (shm). Lower is better, 1.0 is the best.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;"><a href="#success-rate">Success rate</a> (%)</th>
+<th style="text-align: right;"><a href="#computation-time">Runtime</a> (shm)</th>
+<th style="text-align: right;"><a href="#primal-residual">Primal residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#dual-residual">Dual residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#duality-gap">Duality gap</a> (shm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">43.5</td>
+<td style="text-align: right;">20.1</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">1.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">8.1</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">7.7</td>
+<td style="text-align: right;">777.4</td>
+<td style="text-align: right;">841504147.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">24.2</td>
+<td style="text-align: right;">56.4</td>
+<td style="text-align: right;">299.6</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">1363649.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">112.3</td>
+<td style="text-align: right;">7.8</td>
+<td style="text-align: right;">24030498.5</td>
+<td style="text-align: right;">1008053.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">16.1</td>
+<td style="text-align: right;">14.3</td>
+<td style="text-align: right;">4.3</td>
+<td style="text-align: right;">581.0</td>
+<td style="text-align: right;">13358.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">14897.3</td>
+<td style="text-align: right;">5219407.6</td>
+<td style="text-align: right;">10340470841.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">41.9</td>
+<td style="text-align: right;">25.6</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">5.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">41.9</td>
+<td style="text-align: right;">18.5</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">3.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">80.6</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">5.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">75.8</td>
+<td style="text-align: right;">2.8</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">46.8</td>
+<td style="text-align: right;">6.9</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">291.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">19.4</td>
+<td style="text-align: right;">17.7</td>
+<td style="text-align: right;">55892436445.8</td>
+<td style="text-align: right;">95778787657.2</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">25.8</td>
+<td style="text-align: right;">48.3</td>
+<td style="text-align: right;">11.6</td>
+<td style="text-align: right;">13.0</td>
+<td style="text-align: right;">11.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">67.7</td>
+<td style="text-align: right;">7.6</td>
+<td style="text-align: right;">3.4</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="low-accuracy">Low accuracy<a class="headerlink" href="#low-accuracy" title="Permanent link">&para;</a></h3>
+<p>Solvers are compared over the whole test set by <a href="https://github.com/qpsolvers/qpbenchmark#shifted-geometric-mean">shifted geometric mean</a> (shm). Lower is better, 1.0 is the best.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;"><a href="#success-rate">Success rate</a> (%)</th>
+<th style="text-align: right;"><a href="#computation-time">Runtime</a> (shm)</th>
+<th style="text-align: right;"><a href="#primal-residual">Primal residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#dual-residual">Dual residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#duality-gap">Duality gap</a> (shm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">48.4</td>
+<td style="text-align: right;">26095.2</td>
+<td style="text-align: right;">150.7</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">2.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">51.6</td>
+<td style="text-align: right;">6589.8</td>
+<td style="text-align: right;">75.4</td>
+<td style="text-align: right;">2.8</td>
+<td style="text-align: right;">3672.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">25.8</td>
+<td style="text-align: right;">73786.0</td>
+<td style="text-align: right;">261.7</td>
+<td style="text-align: right;">7.7</td>
+<td style="text-align: right;">5.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">11.3</td>
+<td style="text-align: right;">171259.8</td>
+<td style="text-align: right;">271.3</td>
+<td style="text-align: right;">10.9</td>
+<td style="text-align: right;">3.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">56.5</td>
+<td style="text-align: right;">20245.5</td>
+<td style="text-align: right;">135.6</td>
+<td style="text-align: right;">4.8</td>
+<td style="text-align: right;">1.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">58.1</td>
+<td style="text-align: right;">510.1</td>
+<td style="text-align: right;">10.6</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">19917.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">35.5</td>
+<td style="text-align: right;">33412.9</td>
+<td style="text-align: right;">167.0</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">14.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">38.7</td>
+<td style="text-align: right;">15569.4</td>
+<td style="text-align: right;">145.6</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">563.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">100.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">82.3</td>
+<td style="text-align: right;">2593.5</td>
+<td style="text-align: right;">54.0</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">40.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">56.5</td>
+<td style="text-align: right;">250.6</td>
+<td style="text-align: right;">60.6</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">4435.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">19.4</td>
+<td style="text-align: right;">26184.2</td>
+<td style="text-align: right;">1244352.5</td>
+<td style="text-align: right;">150752.3</td>
+<td style="text-align: right;">2.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">32.3</td>
+<td style="text-align: right;">68246.7</td>
+<td style="text-align: right;">211.0</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">2.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">80.6</td>
+<td style="text-align: right;">4618.3</td>
+<td style="text-align: right;">94.1</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mid-accuracy">Mid accuracy<a class="headerlink" href="#mid-accuracy" title="Permanent link">&para;</a></h3>
+<p>Solvers are compared over the whole test set by <a href="https://github.com/qpsolvers/qpbenchmark#shifted-geometric-mean">shifted geometric mean</a> (shm). Lower is better, 1.0 is the best.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;"><a href="#success-rate">Success rate</a> (%)</th>
+<th style="text-align: right;"><a href="#computation-time">Runtime</a> (shm)</th>
+<th style="text-align: right;"><a href="#primal-residual">Primal residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#dual-residual">Dual residual</a> (shm)</th>
+<th style="text-align: right;"><a href="#duality-gap">Duality gap</a> (shm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">50.0</td>
+<td style="text-align: right;">116.6</td>
+<td style="text-align: right;">28.9</td>
+<td style="text-align: right;">8.4</td>
+<td style="text-align: right;">2.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">35.5</td>
+<td style="text-align: right;">27.1</td>
+<td style="text-align: right;">14.1</td>
+<td style="text-align: right;">90.7</td>
+<td style="text-align: right;">4185008.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">25.8</td>
+<td style="text-align: right;">303.4</td>
+<td style="text-align: right;">47.2</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">2879.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">652.7</td>
+<td style="text-align: right;">49.4</td>
+<td style="text-align: right;">7839634.2</td>
+<td style="text-align: right;">781855.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">41.9</td>
+<td style="text-align: right;">83.3</td>
+<td style="text-align: right;">25.2</td>
+<td style="text-align: right;">8.6</td>
+<td style="text-align: right;">30.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">41.9</td>
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">98.1</td>
+<td style="text-align: right;">17106.6</td>
+<td style="text-align: right;">22835974.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">41.9</td>
+<td style="text-align: right;">149.0</td>
+<td style="text-align: right;">31.7</td>
+<td style="text-align: right;">8.8</td>
+<td style="text-align: right;">5.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">41.9</td>
+<td style="text-align: right;">83.2</td>
+<td style="text-align: right;">27.7</td>
+<td style="text-align: right;">8.9</td>
+<td style="text-align: right;">10.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">98.4</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">87.1</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">11.1</td>
+<td style="text-align: right;">2.3</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">53.2</td>
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">13.8</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">20336.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">19.4</td>
+<td style="text-align: right;">85.3</td>
+<td style="text-align: right;">778371782.1</td>
+<td style="text-align: right;">311509421.3</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">32.3</td>
+<td style="text-align: right;">280.6</td>
+<td style="text-align: right;">39.2</td>
+<td style="text-align: right;">10.5</td>
+<td style="text-align: right;">3.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">74.2</td>
+<td style="text-align: right;">29.7</td>
+<td style="text-align: right;">18.4</td>
+<td style="text-align: right;">5.2</td>
+<td style="text-align: right;">1.8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="results-by-metric">Results by metric<a class="headerlink" href="#results-by-metric" title="Permanent link">&para;</a></h2>
+<h3 id="success-rate">Success rate<a class="headerlink" href="#success-rate" title="Permanent link">&para;</a></h3>
+<p>Precentage of problems each solver is able to solve:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">default</th>
+<th style="text-align: right;">high_accuracy</th>
+<th style="text-align: right;">low_accuracy</th>
+<th style="text-align: right;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">35</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">98</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">87</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">74</td>
+</tr>
+</tbody>
+</table>
+<p>Rows are <a href="#solvers">solvers</a> and columns are <a href="#settings">settings</a>. We consider that a solver successfully solved a problem when (1) it returned with a success status and (2) its solution satisfies optimality conditions within <a href="#settings">tolerance</a>. The second table below summarizes the frequency at which solvers return success (1) and the corresponding solution did indeed pass tolerance checks.</p>
+<p>Percentage of problems where "solved" return codes are correct:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">default</th>
+<th style="text-align: right;">high_accuracy</th>
+<th style="text-align: right;">low_accuracy</th>
+<th style="text-align: right;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">95</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">87</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">85</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">97</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">85</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">63</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
+<h3 id="computation-time">Computation time<a class="headerlink" href="#computation-time" title="Permanent link">&para;</a></h3>
+<p>We compare solver computation times over the whole test set using the shifted geometric mean. Intuitively, a solver with a shifted-geometric-mean runtime of Y is Y times slower than the best solver over the test set. See <a href="https://github.com/qpsolvers/qpbenchmark#metrics">Metrics</a> for details.</p>
+<p>Shifted geometric mean of solver computation times (1.0 is the best):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">default</th>
+<th style="text-align: right;">high_accuracy</th>
+<th style="text-align: right;">low_accuracy</th>
+<th style="text-align: right;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">20793.9</td>
+<td style="text-align: right;">20.1</td>
+<td style="text-align: right;">26095.2</td>
+<td style="text-align: right;">116.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">5835.1</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">6589.8</td>
+<td style="text-align: right;">27.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">58795.1</td>
+<td style="text-align: right;">56.4</td>
+<td style="text-align: right;">73786.0</td>
+<td style="text-align: right;">303.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">126497.0</td>
+<td style="text-align: right;">112.3</td>
+<td style="text-align: right;">171259.8</td>
+<td style="text-align: right;">652.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">16132.9</td>
+<td style="text-align: right;">14.3</td>
+<td style="text-align: right;">20245.5</td>
+<td style="text-align: right;">83.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">1364.7</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">510.1</td>
+<td style="text-align: right;">4.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">20794.6</td>
+<td style="text-align: right;">25.6</td>
+<td style="text-align: right;">33412.9</td>
+<td style="text-align: right;">149.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">1409.0</td>
+<td style="text-align: right;">18.5</td>
+<td style="text-align: right;">15569.4</td>
+<td style="text-align: right;">83.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">2067.5</td>
+<td style="text-align: right;">2.8</td>
+<td style="text-align: right;">2593.5</td>
+<td style="text-align: right;">10.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">198.1</td>
+<td style="text-align: right;">6.9</td>
+<td style="text-align: right;">250.6</td>
+<td style="text-align: right;">4.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">17999.9</td>
+<td style="text-align: right;">17.7</td>
+<td style="text-align: right;">26184.2</td>
+<td style="text-align: right;">85.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">54380.5</td>
+<td style="text-align: right;">48.3</td>
+<td style="text-align: right;">68246.7</td>
+<td style="text-align: right;">280.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">440.7</td>
+<td style="text-align: right;">7.6</td>
+<td style="text-align: right;">4618.3</td>
+<td style="text-align: right;">29.7</td>
+</tr>
+</tbody>
+</table>
+<p>Rows are solvers and columns are solver settings. The shift is <em>sh = 10</em>. As in the OSQP and ProxQP benchmarks, we assume a solver's run time is at the <a href="#settings">time limit</a> when it fails to solve a problem.</p>
+<h3 id="optimality-conditions">Optimality conditions<a class="headerlink" href="#optimality-conditions" title="Permanent link">&para;</a></h3>
+<h4 id="primal-residual">Primal residual<a class="headerlink" href="#primal-residual" title="Permanent link">&para;</a></h4>
+<p>The primal residual measures the maximum (equality and inequality) constraint violation in the solution returned by a solver. We use the shifted geometric mean to compare solver primal residuals over the whole test set. Intuitively, a solver with a shifted-geometric-mean primal residual of Y is Y times less precise on constraints than the best solver over the test set. See <a href="https://github.com/qpsolvers/qpbenchmark#metrics">Metrics</a> for details.</p>
+<p>Shifted geometric means of primal residuals (1.0 is the best):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">default</th>
+<th style="text-align: right;">high_accuracy</th>
+<th style="text-align: right;">low_accuracy</th>
+<th style="text-align: right;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">304539748.1</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">150.7</td>
+<td style="text-align: right;">28.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">160672590.1</td>
+<td style="text-align: right;">7.7</td>
+<td style="text-align: right;">75.4</td>
+<td style="text-align: right;">14.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">440931769.1</td>
+<td style="text-align: right;">299.6</td>
+<td style="text-align: right;">261.7</td>
+<td style="text-align: right;">47.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">547719105.2</td>
+<td style="text-align: right;">7.8</td>
+<td style="text-align: right;">271.3</td>
+<td style="text-align: right;">49.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">273449877.0</td>
+<td style="text-align: right;">4.3</td>
+<td style="text-align: right;">135.6</td>
+<td style="text-align: right;">25.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">49787378.8</td>
+<td style="text-align: right;">14897.3</td>
+<td style="text-align: right;">10.6</td>
+<td style="text-align: right;">98.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">4812749808.5</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">167.0</td>
+<td style="text-align: right;">31.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">3404366339.9</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">145.6</td>
+<td style="text-align: right;">27.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">79843142.0</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">54.0</td>
+<td style="text-align: right;">11.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">448093182.1</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">60.6</td>
+<td style="text-align: right;">13.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">4409382869.3</td>
+<td style="text-align: right;">55892436445.8</td>
+<td style="text-align: right;">1244352.5</td>
+<td style="text-align: right;">778371782.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">430342953.5</td>
+<td style="text-align: right;">11.6</td>
+<td style="text-align: right;">211.0</td>
+<td style="text-align: right;">39.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">1837055027.2</td>
+<td style="text-align: right;">3.4</td>
+<td style="text-align: right;">94.1</td>
+<td style="text-align: right;">18.4</td>
+</tr>
+</tbody>
+</table>
+<p>Rows are solvers and columns are solver settings. The shift is <em>sh = 10</em>. A solver that fails to find a solution receives a primal residual equal to the full <a href="#settings">primal tolerance</a>.</p>
+<h4 id="dual-residual">Dual residual<a class="headerlink" href="#dual-residual" title="Permanent link">&para;</a></h4>
+<p>The dual residual measures the maximum violation of the dual feasibility condition in the solution returned by a solver. We use the shifted geometric mean to compare solver dual residuals over the whole test set. Intuitively, a solver with a shifted-geometric-mean dual residual of Y is Y times less precise on the dual feasibility condition than the best solver over the test set. See <a href="https://github.com/qpsolvers/qpbenchmark#metrics">Metrics</a> for details.</p>
+<p>Shifted geometric means of dual residuals (1.0 is the best):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">default</th>
+<th style="text-align: right;">high_accuracy</th>
+<th style="text-align: right;">low_accuracy</th>
+<th style="text-align: right;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">84505.9</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">8.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">44582.8</td>
+<td style="text-align: right;">777.4</td>
+<td style="text-align: right;">2.8</td>
+<td style="text-align: right;">90.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">122347.0</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">7.7</td>
+<td style="text-align: right;">10.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">155901.6</td>
+<td style="text-align: right;">24030498.5</td>
+<td style="text-align: right;">10.9</td>
+<td style="text-align: right;">7839634.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">75875.2</td>
+<td style="text-align: right;">581.0</td>
+<td style="text-align: right;">4.8</td>
+<td style="text-align: right;">8.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">14012.1</td>
+<td style="text-align: right;">5219407.6</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">17106.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">84501.8</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">8.8</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">592424.2</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">8.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">22154.3</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">2.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">37815.9</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">3869853.2</td>
+<td style="text-align: right;">95778787657.2</td>
+<td style="text-align: right;">150752.3</td>
+<td style="text-align: right;">311509421.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">119408.9</td>
+<td style="text-align: right;">13.0</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">10.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">61344.3</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">5.2</td>
+</tr>
+</tbody>
+</table>
+<p>Rows are solvers and columns are solver settings. The shift is <em>sh = 10</em>. A solver that fails to find a solution receives a dual residual equal to the full <a href="#settings">dual tolerance</a>.</p>
+<h4 id="duality-gap">Duality gap<a class="headerlink" href="#duality-gap" title="Permanent link">&para;</a></h4>
+<p>The duality gap measures the consistency of the primal and dual solutions returned by a solver. A duality gap close to zero ensures that the complementarity slackness optimality condition is satisfied. We use the shifted geometric mean to compare solver duality gaps over the whole test set. Intuitively, a solver with a shifted-geometric-mean duality gap of Y is Y times less precise on the complementarity slackness condition than the best solver over the test set. See <a href="https://github.com/qpsolvers/qpbenchmark#metrics">Metrics</a> for details.</p>
+<p>Shifted geometric means of duality gaps (1.0 is the best):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">default</th>
+<th style="text-align: right;">high_accuracy</th>
+<th style="text-align: right;">low_accuracy</th>
+<th style="text-align: right;">mid_accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">2.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">cvxopt</td>
+<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">841504147.6</td>
+<td style="text-align: right;">3672.6</td>
+<td style="text-align: right;">4185008.3</td>
+</tr>
+<tr>
+<td style="text-align: left;">daqp</td>
+<td style="text-align: right;">3.4</td>
+<td style="text-align: right;">1363649.6</td>
+<td style="text-align: right;">5.4</td>
+<td style="text-align: right;">2879.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">ecos</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">1008053.0</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">781855.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">13358.4</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">30.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">highs</td>
+<td style="text-align: right;">23.6</td>
+<td style="text-align: right;">10340470841.6</td>
+<td style="text-align: right;">19917.3</td>
+<td style="text-align: right;">22835974.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">hpipm</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">5.2</td>
+<td style="text-align: right;">14.8</td>
+<td style="text-align: right;">5.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: right;">577.2</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">563.3</td>
+<td style="text-align: right;">10.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">piqp</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">5.3</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">proxqp</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpalm</td>
+<td style="text-align: right;">147.2</td>
+<td style="text-align: right;">291.1</td>
+<td style="text-align: right;">4435.3</td>
+<td style="text-align: right;">20336.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">qpoases</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr>
+<td style="text-align: left;">quadprog</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">2.8</td>
+<td style="text-align: right;">3.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">scs</td>
+<td style="text-align: right;">71.4</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">1.8</td>
+</tr>
+</tbody>
+</table>
+<p>Rows are solvers and columns are solver settings. The shift is <em>sh = 10</em>. A solver that fails to find a solution receives a duality gap equal to the full <a href="#settings">gap tolerance</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.indexes", "navigation.sections", "navigation.top", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

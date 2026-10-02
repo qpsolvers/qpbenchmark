@@ -1,0 +1,1626 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmark for quadratic programming solvers available in Python">
+      
+      
+      
+        <link rel="canonical" href="https://qpsolvers.github.io/qpbenchmark/">
+      
+      
+      
+        <link rel="next" href="free_for_all_qpbenchmark/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>qpbenchmark</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qp-solvers-benchmark" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="qpbenchmark" class="md-header__button md-logo" aria-label="qpbenchmark" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            qpbenchmark
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              QP solvers benchmark
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/qpsolvers/qpbenchmark" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qpsolvers/qpbenchmark
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="qpbenchmark" class="md-nav__button md-logo" aria-label="qpbenchmark" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    qpbenchmark
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/qpsolvers/qpbenchmark" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    qpsolvers/qpbenchmark
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QP solvers benchmark
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QP solvers benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#test-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test sets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solvers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shifted-geometric-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shifted geometric mean
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Citation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="See also">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Results
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="free_for_all_qpbenchmark/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Free-for-all test set
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Free-for-all test set
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="free_for_all_qpbenchmark/dense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Free-for-all dense subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="maros_meszaros_qpbenchmark/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros test set
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maros-Meszaros test set
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="maros_meszaros_qpbenchmark/dense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros dense subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="maros_meszaros_qpbenchmark/dense_posdef/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros dense positive definite subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="maros_meszaros_qpbenchmark/sparse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maros-Meszaros sparse subset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="mpc_qpbenchmark/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model predictive control test set
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Model predictive control test set
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mpc_qpbenchmark/dense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model predictive control test set (dense)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mpc_qpbenchmark/sparse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model predictive control test set (sparse)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#test-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test sets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solvers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shifted-geometric-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shifted geometric mean
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Citation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="See also">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="qp-solvers-benchmark">QP solvers benchmark<a class="headerlink" href="#qp-solvers-benchmark" title="Permanent link">&para;</a></h1>
+<p><a href="https://qpsolvers.github.io/qpbenchmark/#results"><img alt="Results" src="https://img.shields.io/badge/benchmark-results-4051b5?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMiwyMUgyVjNINFYxOUg2VjEwSDEwVjE5SDEyVjZIMTZWMTlIMThWMTRIMjJWMjFaIi8+PC9zdmc+" /></a>
+<a href="https://github.com/qpsolvers/qpbenchmark/actions"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/ci.yml?branch=main" /></a>
+<a href="https://qpsolvers.github.io/qpbenchmark/"><img alt="Documentation" src="https://img.shields.io/github/actions/workflow/status/qpsolvers/qpbenchmark/docs.yml?branch=main&amp;label=docs" /></a>
+<a href="https://coveralls.io/github/qpsolvers/qpbenchmark?branch=main"><img alt="Coverage" src="https://coveralls.io/repos/github/qpsolvers/qpbenchmark/badge.svg?branch=main" /></a>
+<a href="https://anaconda.org/conda-forge/qpbenchmark"><img alt="Conda version" src="https://img.shields.io/conda/vn/conda-forge/qpbenchmark.svg" /></a>
+<a href="https://pypi.org/project/qpbenchmark/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/qpbenchmark" /></a></p>
+<p>Benchmark for quadratic programming (QP) solvers available in Python.</p>
+<p>The objective is to compare and select the best QP solvers for given use cases. The benchmarking methodology is open to <a href="https://github.com/qpsolvers/qpbenchmark/discussions">discussions</a>. Standard and community <a href="#test-sets">test sets</a> are available: all of them can be processed using the <code>qpbenchmark</code> command-line tool, resulting in standardized reports evaluating all <a href="#metrics">metrics</a> across all QP solvers available on the test machine.</p>
+<h2 id="test-sets">Test sets<a class="headerlink" href="#test-sets" title="Permanent link">&para;</a></h2>
+<p>The benchmark comes with standard and community test sets to represent different use cases for QP solvers:</p>
+<ul>
+<li><a href="https://github.com/qpsolvers/free_for_all_qpbenchmark">Free-for-all</a>: community-built test set, new problems welcome!</li>
+<li><a href="https://github.com/qpsolvers/maros_meszaros_qpbenchmark">Maros-Meszaros</a>: a standard test set with problems designed to be difficult.</li>
+<li><a href="https://github.com/qpsolvers/mpc_qpbenchmark">Model predictive control</a>: model predictive control problems arising <em>e.g.</em> in robotics.</li>
+</ul>
+<p>New test sets are welcome! The <code>qpbenchmark</code> tool is designed to make it easy to wrap up a new test set without re-implementing the benchmark methodology. Check out the <a href="https://github.com/qpsolvers/qpbenchmark/blob/main/CONTRIBUTING.md">contribution guidelines</a> to get started.</p>
+<h2 id="solvers">Solvers<a class="headerlink" href="#solvers" title="Permanent link">&para;</a></h2>
+<p>The benchmark includes the following solvers:</p>
+<table>
+<thead>
+<tr>
+<th>Solver</th>
+<th>Keyword</th>
+<th>Algorithm</th>
+<th>Matrices</th>
+<th>License</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/oxfordcontrol/Clarabel.rs">Clarabel</a></td>
+<td><code>clarabel</code></td>
+<td>Interior point</td>
+<td>Sparse</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td><a href="http://cvxopt.org/">CVXOPT</a></td>
+<td><code>cvxopt</code></td>
+<td>Interior point</td>
+<td>Dense</td>
+<td>GPL-3.0</td>
+</tr>
+<tr>
+<td><a href="https://github.com/darnstrom/daqp">DAQP</a></td>
+<td><code>daqp</code></td>
+<td>Active set</td>
+<td>Dense</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://web.stanford.edu/~boyd/papers/ecos.html">ECOS</a></td>
+<td><code>ecos</code></td>
+<td>Interior point</td>
+<td>Sparse</td>
+<td>GPL-3.0</td>
+</tr>
+<tr>
+<td><a href="https://www.gurobi.com/">Gurobi</a></td>
+<td><code>gurobi</code></td>
+<td>Interior point</td>
+<td>Sparse</td>
+<td>Commercial</td>
+</tr>
+<tr>
+<td><a href="https://highs.dev/">HiGHS</a></td>
+<td><code>highs</code></td>
+<td>Active set</td>
+<td>Sparse</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/giaf/hpipm">HPIPM</a></td>
+<td><code>hpipm</code></td>
+<td>Interior point</td>
+<td>Dense</td>
+<td>BSD-2-Clause</td>
+</tr>
+<tr>
+<td><a href="https://jaxopt.github.io/stable/_autosummary/jaxopt.OSQP.html">jaxopt.OSQP</a></td>
+<td><code>jaxopt_osqp</code></td>
+<td>Augmented Lagrangian</td>
+<td>Dense</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sanurielf/kvxopt">KVXOPT</a></td>
+<td><code>kvxopt</code></td>
+<td>Interior point</td>
+<td>Dense &amp; Sparse</td>
+<td>GPL-3.0</td>
+</tr>
+<tr>
+<td><a href="https://mosek.com/">MOSEK</a></td>
+<td><code>mosek</code></td>
+<td>Interior point</td>
+<td>Sparse</td>
+<td>Commercial</td>
+</tr>
+<tr>
+<td>NPPro</td>
+<td><code>nppro</code></td>
+<td>Active set</td>
+<td>Dense</td>
+<td>Commercial</td>
+</tr>
+<tr>
+<td><a href="https://osqp.org/">OSQP</a></td>
+<td><code>osqp</code></td>
+<td>Douglas–Rachford</td>
+<td>Sparse</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PREDICT-EPFL/piqp">PIQP</a></td>
+<td><code>piqp</code></td>
+<td>Proximal Interior Point</td>
+<td>Dense &amp; Sparse</td>
+<td>BSD-2-Clause</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Simple-Robotics/proxsuite">ProxQP</a></td>
+<td><code>proxqp</code></td>
+<td>Augmented Lagrangian</td>
+<td>Dense &amp; Sparse</td>
+<td>BSD-2-Clause</td>
+</tr>
+<tr>
+<td><a href="https://github.com/kul-optec/QPALM">QPALM</a></td>
+<td><code>qpalm</code></td>
+<td>Augmented Lagrangian</td>
+<td>Sparse</td>
+<td>LGPL-3.0</td>
+</tr>
+<tr>
+<td><a href="https://github.com/kevin-tracy/qpax/">qpax</a></td>
+<td><code>qpax</code></td>
+<td>Interior point</td>
+<td>Dense</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/coin-or/qpOASES">qpOASES</a></td>
+<td><code>qpoases</code></td>
+<td>Active set</td>
+<td>Dense</td>
+<td>LGPL-2.1</td>
+</tr>
+<tr>
+<td><a href="https://qpswift.github.io/">qpSWIFT</a></td>
+<td><code>qpswift</code></td>
+<td>Interior point</td>
+<td>Sparse</td>
+<td>GPL-3.0</td>
+</tr>
+<tr>
+<td><a href="https://pypi.python.org/pypi/quadprog/">quadprog</a></td>
+<td><code>quadprog</code></td>
+<td>Goldfarb-Idnani</td>
+<td>Dense</td>
+<td>GPL-2.0</td>
+</tr>
+<tr>
+<td><a href="https://www.cvxgrp.org/scs/">SCS</a></td>
+<td><code>scs</code></td>
+<td>Douglas–Rachford</td>
+<td>Sparse</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/joaospinto/sip/">SIP</a></td>
+<td><code>sip</code></td>
+<td>Augmented Barrier Lagrangian</td>
+<td>Sparse</td>
+<td>MIT</td>
+</tr>
+</tbody>
+</table>
+<p>Solvers are interfaced via <a href="https://github.com/qpsolvers/qpsolvers">qpsolvers</a> and configured in <a href="https://github.com/qpsolvers/qpbenchmark/blob/main/qpbenchmark/solver_settings.py"><code>solver_settings.py</code></a>.</p>
+<h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
+<p>We evaluate QP solvers based on the following metrics:</p>
+<ul>
+<li><strong>Success rate:</strong> percentage of problems a solver is able to solve on a given test set.</li>
+<li><strong>Computation time:</strong> time a solver takes to solve a given problem.</li>
+<li><strong>Optimality conditions:</strong> we evaluate all three <a href="https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html">optimality conditions</a>:<ul>
+<li><strong>Primal residual:</strong> maximum error on equality and inequality constraints at the returned solution.</li>
+<li><strong>Dual residual:</strong> maximum error on the dual feasibility condition at the returned solution.</li>
+<li><strong>Duality gap:</strong> value of the duality gap at the returned solution.</li>
+</ul>
+</li>
+</ul>
+<h3 id="shifted-geometric-mean">Shifted geometric mean<a class="headerlink" href="#shifted-geometric-mean" title="Permanent link">&para;</a></h3>
+<p>Each metric (computation time, primal and dual residuals, duality gap) produces a different ranking of solvers for each problem. To aggregate those rankings into a single metric over the whole test set, we use the <em>shifted geometric mean</em> (shm), which is a standard to aggregate computation times in <a href="#other-benchmarks">benchmarks for optimization software</a>. This mean has the advantage of being compromised by neither large outliers (as opposed to the arithmetic mean) nor by small outliers (in contrast to the geometric geometric mean). Check out the <a href="#references">references</a> below for further details.</p>
+<p>Intuitively, a solver with a shifted-geometric-mean runtime of <em>Y</em> is <em>Y</em> times slower than the best solver over the test set. Similarly, a solver with a shifted-geometric-mean primal residual <em>R</em> is <em>R</em> times less accurate on equality and inequality constraints than the best solver over the test set.</p>
+<h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h2>
+<p>The outcome from running a test set is a standardized report comparing <a href="#solvers">solvers</a> against the different <a href="#metrics">metrics</a>. Here are the results for the various <code>qpbenchmark</code> test sets:</p>
+<ul>
+<li><a href="https://qpsolvers.github.io/qpbenchmark/free_for_all_qpbenchmark/">Free-for-all test set</a></li>
+<li><a href="https://qpsolvers.github.io/qpbenchmark/maros_meszaros_qpbenchmark/">Maros-Meszaros test set</a></li>
+<li><a href="https://qpsolvers.github.io/qpbenchmark/mpc_qpbenchmark/">Model predictive control test set</a></li>
+</ul>
+<p>You can check out results from a variety of machines, and share the reports produced by running the benchmark on your own machine, in the Results category of the discussions forum of each test set.</p>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<p>Here are some known areas of improvement for this benchmark:</p>
+<ul>
+<li><strong>Cold start only:</strong> we don't evaluate warm-start performance for now.</li>
+<li><a href="https://github.com/qpsolvers/qpbenchmark/issues/88">CPU thermal throttling</a>: the benchmark currently does not check the status of CPU thermal throttling.<ul>
+<li>Adding this feature is a good way to <a href="https://github.com/qpsolvers/qpbenchmark/labels/good%20first%20issue">start contributing</a> to the benchmark.</li>
+</ul>
+</li>
+<li><a href="https://github.com/qpsolvers/qpbenchmark/issues/122">QPAX evaluation</a>: currently we evaluate QPAX against a duality-gap tolerance but the solver check is based on KKT residuals.</li>
+<li><a href="https://github.com/qpsolvers/qpbenchmark/issues/12">Wrapper times included</a>: solver runtimes include a sliver of wrapper runtime as well.</li>
+</ul>
+<p>Check out the issue tracker for ongoing works and future improvements.</p>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>We recommend using <a href="https://pixi.sh">pixi</a> to run the benchmark:</p>
+<div class="highlight"><pre><span></span><code><span class="go">pixi run qpbenchmark --test-set my_test_set.py run</span>
+</code></pre></div>
+<p>Alternatively, you can install the benchmarking tool individually by <code>pip install qpbenchmark</code>. The benchmark will then run using the supported solvers it can import in your Python environment.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<p>The benchmark works by running <code>qpbenchmark</code> on a Python script describing the test set. For instance:</p>
+<div class="highlight"><pre><span></span><code><span class="go">qpbenchmark --test-set my_test_set.py run</span>
+</code></pre></div>
+<p>The test-set path is followed by a benchmark command, such as "run" here. We can add optional arguments to run a specific solver, problem, or solver settings:</p>
+<div class="highlight"><pre><span></span><code><span class="go">qpbenchmark --test-set my_test_set.py run --solver proxqp --settings default</span>
+</code></pre></div>
+<p>Check out <code>qpbenchmark --help</code> for a list of available commands and arguments.</p>
+<h3 id="plots">Plots<a class="headerlink" href="#plots" title="Permanent link">&para;</a></h3>
+<p>The command line ships a <code>plot</code> command to compare solver performances over a test set for a specific metric. For instance, run:</p>
+<div class="highlight"><pre><span></span><code><span class="go">qpbenchmark --test-set maros_meszaros_dense.py plot runtime high_accuracy</span>
+</code></pre></div>
+<p>To generate the following plot:</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/1189580/220150365-530cd685-fc90-49b5-90e0-0b243fa602d9.png" /></p>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<p>Contributions to improving this benchmark are welcome. You can for instance propose new problems, or share the runtimes you obtain on your machine. Check out the <a href="https://github.com/qpsolvers/qpbenchmark/blob/main/CONTRIBUTING.md">contribution guidelines</a> for details.</p>
+<h2 id="citation">Citation<a class="headerlink" href="#citation" title="Permanent link">&para;</a></h2>
+<p>If you use <code>qpbenchmark</code> in your work, please cite its contributors as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nc">@software</span><span class="p">{</span><span class="nl">qpbenchmark</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{{qpbenchmark: Benchmark for quadratic programming solvers available in Python}}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Caron, Stéphane and Zaki, Akram and Otta, Pavel and Arnström, Daniel and Carpentier, Justin and Yang, Fengyu and Leziart, Pierre-Alexandre and Sousa Pinto, João and Hoarau, Antoine}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://github.com/qpsolvers/qpbenchmark}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">license</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Apache-2.0}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">version</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2.7.1}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2026}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Don't forget to add yourself to the BibTeX above and to <code>CITATION.cff</code> if you contribute to this repository.</p>
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://www.cse.unsw.edu.au/~cs9242/18/papers/Fleming_Wallace_86.pdf">How not to lie with statistics: the correct way to summarize benchmark results</a>: why geometric means should always be used to summarize normalized results.</li>
+<li><a href="https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html">Optimality conditions and numerical tolerances in QP solvers</a>: note written while figuring out the <code>high_accuracy</code> settings of this benchmark.</li>
+</ul>
+<h3 id="other-benchmarks">Other benchmarks<a class="headerlink" href="#other-benchmarks" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/benchopt/benchOpt">BenchOpt</a>: a benchmarking suite tailored for machine learning workflows.</li>
+<li><a href="http://plato.asu.edu/bench.html">Benchmarks for optimization software</a> by Hans Mittelmann, which includes reports on the Maros-Meszaros test set.</li>
+<li><a href="https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks">jrl-qp/benchmarks</a>: benchmark of QP solvers available in C++.</li>
+<li><a href="https://github.com/osqp/osqp_benchmarks">osqp_benchmarks</a>: benchmark examples for the OSQP solver.</li>
+<li><a href="https://github.com/Simple-Robotics/proxqp_benchmark">proxqp_benchmark</a>: benchmark examples for the ProxQP solver.</li>
+<li><a href="https://github.com/asherikov/qpmad_benchmark">qpmad_benchmark</a>: benchmark examples for the qpmad solver.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "navigation.indexes", "navigation.sections", "navigation.top", "search.highlight", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
