@@ -19,6 +19,10 @@ All notable changes to this project will be documented in this file.
 - Development: replace `environment.yaml` with a `solvers` pixi environment
 - Format code with ruff instead of black, and drop pylint from linters
 
+### Removed
+
+- Table of contents at the top of reports
+
 ## [2.7.1] - 2026-07-23
 
 ### Fixed
