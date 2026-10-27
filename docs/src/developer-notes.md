@@ -12,6 +12,7 @@ The repository uses [pixi](https://pixi.sh) to manage environments and tasks:
 | `pixi run coverage` | Run unit tests with a coverage report |
 | `pixi run lint` | Check formatting, lint with ruff and type-check with mypy |
 | `pixi run format` | Format source code with ruff |
+| `pixi run check-test-sets` | Check that problems are well-formed in all test-set submodules |
 | `pixi run -e py39 test` | Run unit tests on a given Python version (`py39` to `py312`) |
 | `pixi run qpbenchmark --test-set my_test_set.py run` | Run the benchmark with all solvers of the `solvers` environment |
 | `pixi run docs-serve` | Serve this website locally, with live reload |
