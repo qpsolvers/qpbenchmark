@@ -67,7 +67,7 @@ Solvers are interfaced via [qpsolvers](https://github.com/qpsolvers/qpsolvers) a
 
 We evaluate QP solvers based on the following metrics:
 
-- **Success rate:** percentage of problems a solver is able to solve on a given test set.
+- **Success rate:** percentage of problems a solver is able to solve on a given test set. A problem counts as solved when the solver reports success *and* its solution satisfies optimality conditions, within tolerances that are the same for all solvers.
 - **Computation time:** time a solver takes to solve a given problem.
 - **Optimality conditions:** we evaluate all three [optimality conditions](https://scaron.info/blog/optimality-conditions-and-numerical-tolerances-in-qp-solvers.html):
     - **Primal residual:** maximum error on equality and inequality constraints at the returned solution.
