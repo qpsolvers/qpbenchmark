@@ -3,7 +3,7 @@
 This project's goal is to facilitate the comparison of quadratic programming solvers for the community of solver users. All contributions are welcome, for example here are some ways to help:
 
 - [Add a solver to the benchmark](#add-a-solver-to-the-benchmark)
-- [Submit a new problem](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md), *e.g.* one that reflects an application you are working on.
+- [Submit a new problem](https://github.com/qpsolvers/free_for_all_qpbenchmark/issues/new?template=new_problem.md) to the free-for-all test set, *e.g.* one that reflects an application you are working on.
 - [Create a new test set](#creating-a-new-test-set), distribute it in its own repository, and open a PR to reference it here
 - [Share your results](#share-your-results) from running the benchmark on your machine
 
