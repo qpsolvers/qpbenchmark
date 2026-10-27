@@ -106,6 +106,7 @@ coverage = ">=5.5"
 daqp = ">=0.5.1"
 
 [tool.pixi.feature.test.tasks]
+check-test-sets = { cmd = "python scripts/check_test_sets.py", description = "Check that problems are well-formed in all test-set submodules" }
 coverage = { cmd = "coverage erase && coverage run -m unittest discover && coverage report --include='qpbenchmark/**'", description = "Run unit tests and report code coverage" }
 test = { cmd = "python -m unittest discover", description = "Run unit tests" }
 
@@ -128,10 +129,10 @@ mypy = ">=0.812"
 ruff = ">=0.5.4"
 
 [tool.pixi.feature.lint.tasks]
-_format-check = { cmd = "ruff format --check --diff qpbenchmark tests docs", description = "Check source code formatting" }
+_format-check = { cmd = "ruff format --check --diff qpbenchmark tests docs scripts", description = "Check source code formatting" }
 _mypy = { cmd = "mypy qpbenchmark", description = "Type-check source code" }
-_ruff = { cmd = "ruff check qpbenchmark tests docs", description = "Lint source code with ruff" }
-format = { cmd = "ruff format qpbenchmark tests docs && ruff check --select I --fix qpbenchmark tests docs", description = "Format source code" }
+_ruff = { cmd = "ruff check qpbenchmark tests docs scripts", description = "Lint source code with ruff" }
+format = { cmd = "ruff format qpbenchmark tests docs scripts && ruff check --select I --fix qpbenchmark tests docs scripts", description = "Format source code" }
 lint = { depends-on = ["_format-check", "_ruff", "_mypy"], description = "Run all linters" }
 
 [tool.pixi.feature.solvers]
