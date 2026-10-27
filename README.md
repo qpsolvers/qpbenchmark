@@ -11,6 +11,18 @@ Benchmark for quadratic programming (QP) solvers available in Python.
 
 The objective is to compare and select the best QP solvers for given use cases. The benchmarking methodology is detailed and open to comments in the [discussions](https://github.com/qpsolvers/qpbenchmark/discussions). Standard and community [test sets](#test-sets) are available: all of them can be processed by the ``qpbenchmark`` command-line tool, resulting in standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. Each report records the solver versions, solver settings and CPU it was produced with, so that anyone can reproduce results on their own machine and share them for comparison.
 
+## Quick start
+
+Each test set lives in its own repository. To run one of them, for instance the [free-for-all](https://github.com/qpsolvers/free_for_all_qpbenchmark) test set, clone it and run it with [pixi](https://pixi.sh):
+
+```console
+git clone https://github.com/qpsolvers/free_for_all_qpbenchmark.git
+cd free_for_all_qpbenchmark
+pixi run free_for_all --rerun
+```
+
+Test sets come with existing results: the ``--rerun`` flag tells the benchmark to call QP solvers again on every problem (except known timeouts) so that the report written to ``results/free_for_all.md`` reflects your machine. See [Usage](#usage) for more options.
+
 ## Test sets
 
 The benchmark comes with standard and community test sets to represent different use cases for QP solvers:
