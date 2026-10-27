@@ -14,6 +14,7 @@ from typing import Optional, Union
 
 import qpsolvers
 
+from .check import check_test_set
 from .exceptions import BenchmarkError
 from .plot_metric import plot_metric
 from .report import Report
@@ -64,6 +65,12 @@ def parse_command_line_arguments(
     )
     subparsers = parser.add_subparsers(
         title="command", dest="command", required=True
+    )
+
+    # check
+    subparsers.add_parser(
+        "check",
+        help="check that test-set problems are well-formed",
     )
 
     # check_problem
@@ -245,6 +252,16 @@ def main(
     if args.very_verbose:
         logging.getLogger().setLevel(logging.DEBUG)
     test_set = load_test_set(os.path.abspath(test_set_path))
+
+    if args.command == "check":
+        issues = check_test_set(test_set)
+        for issue in issues:
+            logging.error(issue)
+        if issues:
+            sys.exit(1)
+        logging.info("All problems are well-formed")
+        return
+
     results = Results(results_path or args.results_path, test_set)
 
     if args.command == "run":
