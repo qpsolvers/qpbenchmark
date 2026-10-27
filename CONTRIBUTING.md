@@ -26,7 +26,48 @@ The benchmark is organized into *test sets*. A test set is a Git repository that
     - Store your QP problem files in a `data/` sub-directory
     - Create a `results/` sub-directory to store the solver performance database and test-set report
 - Add a main Python file named after the test set, say ``foo_bar.py``
-- Implement a `FooBar` class in this file deriving from `qpbenchmark.TestCase`
-    - The class name should match the file name in PascalCase)
+- Implement a `FooBar` class in this file deriving from `qpbenchmark.TestSet`
+    - The class name should match the file name in PascalCase
 
-Check out how this is done in *e.g.* the [Maros-Meszaros test set](https://github.com/qpsolvers/maros_meszaros_qpbenchmark). Once your test set is ready and has generated its results, feel free to add it as a git submodule in the `test_sets/` directory.
+For instance, here is a minimal ``foo_bar.py`` for problems saved in ``data/`` with ``qpbenchmark.Problem.save``:
+
+```python
+import os
+
+import qpbenchmark
+from qpbenchmark.benchmark import main
+
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+
+
+class FooBar(qpbenchmark.TestSet):
+    """Test set of problems stored in the data/ directory."""
+
+    @property
+    def description(self) -> str:
+        return "Problems arising from foo bar applications."
+
+    @property
+    def title(self) -> str:
+        return "Foo bar test set"
+
+    @property
+    def sparse_only(self) -> bool:
+        return False
+
+    def __iter__(self):
+        for file_name in sorted(os.listdir(DATA_DIR)):
+            if file_name.endswith(".npz"):
+                yield qpbenchmark.Problem.load(os.path.join(DATA_DIR, file_name))
+
+
+if __name__ == "__main__":
+    test_set_path = os.path.abspath(__file__)
+    test_set_dir = os.path.dirname(test_set_path)
+    main(
+        test_set_path=test_set_path,
+        results_path=f"{test_set_dir}/results/foo_bar.parquet",
+    )
+```
+
+You can then check your problems with ``python foo_bar.py check`` and run the benchmark over the test set with ``python foo_bar.py run``. You can check out the existing test sets for more complete examples. Once your test set is ready and has generated its results, feel free to add it as a git submodule in the `test_sets/` directory.
