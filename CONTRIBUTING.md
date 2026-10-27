@@ -5,6 +5,7 @@ This project's goal is to facilitate the comparison of quadratic programming sol
 - [Add a solver to the benchmark](#add-a-solver-to-the-benchmark)
 - [Submit a new problem](https://github.com/qpsolvers/qpbenchmark/issues/new?template=new_problem.md), *e.g.* one that reflects an application you are working on.
 - [Create a new test set](#creating-a-new-test-set), distribute it in its own repository, and open a PR to reference it here
+- [Share your results](#share-your-results) from running the benchmark on your machine
 
 ## Add a solver to the benchmark
 
@@ -71,3 +72,11 @@ if __name__ == "__main__":
 ```
 
 You can then check your problems with ``python foo_bar.py check`` and run the benchmark over the test set with ``python foo_bar.py run``. You can check out the existing test sets for more complete examples. Once your test set is ready and has generated its results, feel free to add it as a git submodule in the `test_sets/` directory.
+
+## Share your results
+
+Solver performance depends on the machine, so we welcome results from a variety of machines. To share yours:
+
+1. Run a test set as described in the [quick start](https://qpsolvers.github.io/qpbenchmark/#quick-start), with the ``--rerun`` flag so that all results are computed on your machine.
+2. Check out the report written to the ``results/`` directory of the test set: it records your CPU, solver versions and solver settings.
+3. Post the report in the Results category of the test set's discussions forum, for instance: [free-for-all](https://github.com/qpsolvers/free_for_all_qpbenchmark/discussions/categories/results), [Maros-Meszaros](https://github.com/qpsolvers/maros_meszaros_qpbenchmark/discussions/categories/results) or [model predictive control](https://github.com/qpsolvers/mpc_qpbenchmark/discussions/categories/results).
