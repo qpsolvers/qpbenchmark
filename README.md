@@ -160,6 +160,7 @@ Don't forget to add yourself to the BibTeX above and to `CITATION.cff` if you co
 
 - [BenchOpt](https://github.com/benchopt/benchOpt): a benchmarking suite tailored for machine learning workflows.
 - [Benchmarks for optimization software](http://plato.asu.edu/bench.html) by Hans Mittelmann, which includes reports on the Maros-Meszaros test set.
+- [cvxpy/solver-benchmarks](https://github.com/cvxpy/solver-benchmarks): benchmark of CVXPY solvers on LP, QP, SOCP, SDP and MIP problems.
 - [jrl-qp/benchmarks](https://github.com/jrl-umi3218/jrl-qp/tree/master/benchmarks): benchmark of QP solvers available in C++.
 - [osqp\_benchmarks](https://github.com/osqp/osqp_benchmarks): benchmark examples for the OSQP solver.
 - [proxqp\_benchmark](https://github.com/Simple-Robotics/proxqp_benchmark): benchmark examples for the ProxQP solver.
