@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file.
 - CLI: `check` command to check that test-set problems are well-formed
 - Pixi task `check-test-sets` checking all test sets in `test_sets/`
 - Pixi task `qpbenchmark` running the CLI in the `solvers` environment
+- Support Python 3.13
+- Support Python 3.14
+- Support Python 3.15
 - docs: API documentation page
 - docs: Developer notes page
 - docs: Documentation website with the readme as its main page
@@ -24,6 +27,8 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+- Support for Python 3.9 (reached end of life)
+- Support for Python 3.10 (reached end of life)
 - Table of contents at the top of reports
 
 ## [2.7.1] - 2026-07-23
