@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- CI: Check that problems are well-formed in all test-set submodules
 - CLI: `check` command to check that test-set problems are well-formed
 - Pixi task `check-test-sets` checking all test sets in `test_sets/`
 - Pixi task `qpbenchmark` running the CLI in the `solvers` environment

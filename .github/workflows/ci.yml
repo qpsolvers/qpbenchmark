@@ -8,6 +8,25 @@ on:
     workflow_dispatch:
 
 jobs:
+    check:
+        name: "Check test-set problems"
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: "Checkout sources"
+              uses: actions/checkout@v4
+              with:
+                  submodules: true
+
+            - name: "Set up pixi"
+              uses: prefix-dev/setup-pixi@v0.9.6
+              with:
+                  environments: default
+
+            - name: "Check problems in all test sets"
+              run: |
+                  pixi run check-test-sets
+
     coverage:
         name: "Coverage"
         runs-on: ubuntu-latest
