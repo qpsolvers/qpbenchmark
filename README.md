@@ -9,7 +9,7 @@
 
 Benchmark for quadratic programming (QP) solvers available in Python.
 
-The objective is to compare and select the best QP solvers for given use cases. The benchmarking methodology is open to [discussions](https://github.com/qpsolvers/qpbenchmark/discussions). Standard and community [test sets](#test-sets) are available: all of them can be processed using the ``qpbenchmark`` command-line tool, resulting in standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine.
+The objective is to compare and select the best QP solvers for given use cases. The benchmarking methodology is detailed and open to comments in the [discussions](https://github.com/qpsolvers/qpbenchmark/discussions). Standard and community [test sets](#test-sets) are available: all of them can be processed by the ``qpbenchmark`` command-line tool, resulting in standardized reports evaluating all [metrics](#metrics) across all QP solvers available on the test machine. Each report records the solver versions, solver settings and CPU it was produced with, so that anyone can reproduce results on their own machine and share them for comparison.
 
 ## Test sets
 
