@@ -31,7 +31,7 @@ The benchmark comes with standard and community test sets to represent different
 - [Maros-Meszaros](https://github.com/qpsolvers/maros_meszaros_qpbenchmark): a standard test set with problems designed to be difficult.
 - [Model predictive control](https://github.com/qpsolvers/mpc_qpbenchmark): model predictive control problems arising *e.g.* in robotics.
 
-New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to wrap up a new test set without re-implementing the benchmark methodology. Check out the [contribution guidelines](CONTRIBUTING.md) to get started.
+New test sets are welcome! The `qpbenchmark` tool is designed to make it easy to wrap up a new test set without re-implementing the benchmark methodology. Check out the [contribution guidelines](https://qpsolvers.github.io/qpbenchmark/contributing/) to get started.
 
 ## Solvers
 
@@ -61,7 +61,7 @@ The benchmark includes the following solvers:
 | [SCS](https://www.cvxgrp.org/scs/) | ``scs`` | Douglas–Rachford | Sparse | MIT |
 | [SIP](https://github.com/joaospinto/sip/) | ``sip`` | Augmented Barrier Lagrangian | Sparse | MIT |
 
-Solvers are interfaced via [qpsolvers](https://github.com/qpsolvers/qpsolvers) and configured in [`solver_settings.py`](qpbenchmark/solver_settings.py).
+Solvers are interfaced via [qpsolvers](https://github.com/qpsolvers/qpsolvers) and configured in [`solver_settings.py`](https://github.com/qpsolvers/qpbenchmark/blob/main/qpbenchmark/solver_settings.py).
 
 ## Metrics
 
@@ -142,7 +142,7 @@ To generate the following plot:
 
 ## Contributing
 
-Contributions to improving this benchmark are welcome. You can for instance propose new problems, or share the runtimes you obtain on your machine. Check out the [contribution guidelines](CONTRIBUTING.md) for details.
+Contributions to improving this benchmark are welcome. You can for instance propose new problems, or share the runtimes you obtain on your machine. Check out the [contribution guidelines](https://qpsolvers.github.io/qpbenchmark/contributing/) for details.
 
 ## Citation
 

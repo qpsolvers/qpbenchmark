@@ -1,6 +1,6 @@
 # Developer notes
 
-These notes complement the [contribution guidelines](https://github.com/qpsolvers/qpbenchmark/blob/main/CONTRIBUTING.md) with details for developers working on `qpbenchmark` itself.
+These notes complement the [contribution guidelines](contributing.md) with details for developers working on `qpbenchmark` itself.
 
 ## Development environment
 

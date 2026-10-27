@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: Apache-2.0
 
-"""MkDocs hooks generating the website from the readme and test-set reports."""
+"""MkDocs hooks generating the website from repository Markdown files.
+
+The website is built from the readme, the contribution guidelines and the
+test-set reports.
+"""
 
 import re
 from dataclasses import dataclass
@@ -12,11 +16,13 @@ from mkdocs.livereload import LiveReloadServer
 from mkdocs.structure.files import File, Files
 
 ROOT = Path(__file__).resolve().parent.parent
-README = ROOT / "README.md"
 TEST_SETS = ROOT / "test_sets"
 
-# Markdown links whose target is neither absolute nor an anchor
-RELATIVE_LINK = re.compile(r"\]\((?!https?://|#|mailto:)([^)]+)\)")
+# Website pages generated from Markdown files at the root of the repository
+PAGES = {
+    "README.md": "index.md",
+    "CONTRIBUTING.md": "contributing.md",
+}
 
 # Inline math such as $Y$ or $sh = 10$, as rendered by GitHub
 INLINE_MATH = re.compile(r"(?<![\\$\w])\$(?=\S)([^$\n]+?)(?<=\S)\$(?![$\w])")
@@ -157,6 +163,7 @@ def on_config(config: MkDocsConfig) -> MkDocsConfig:
         test_sets.append({test_set.main.title: section})
     config.nav = [
         "index.md",
+        {"Contributing": "contributing.md"},
         {"Results": test_sets},
         {"Development": ["api.md", "developer-notes.md"]},
     ]
@@ -164,7 +171,7 @@ def on_config(config: MkDocsConfig) -> MkDocsConfig:
 
 
 def on_files(files: Files, config: MkDocsConfig) -> Files:
-    """Add the readme and test-set reports to the website.
+    """Add repository Markdown files and test-set reports to the website.
 
     Args:
         files: Files of the website.
@@ -173,12 +180,8 @@ def on_files(files: Files, config: MkDocsConfig) -> Files:
     Returns:
         Updated files.
     """
-    repo_url = config.repo_url.rstrip("/")
-    readme = README.read_text(encoding="utf-8")
-    readme = RELATIVE_LINK.sub(
-        lambda match: f"]({repo_url}/blob/main/{match.group(1)})", readme
-    )
-    files.append(File.generated(config, "index.md", content=readme))
+    for source, uri in PAGES.items():
+        files.append(File.generated(config, uri, abs_src_path=ROOT / source))
     for test_set in find_test_sets():
         for report in [test_set.main] + test_set.subsets:
             files.append(
@@ -201,7 +204,7 @@ def on_page_markdown(markdown: str, **kwargs) -> str:
 
 
 def on_serve(server: LiveReloadServer, config: MkDocsConfig, builder):
-    """Rebuild the website when the readme or test-set reports change.
+    """Rebuild the website when repository pages or test-set reports change.
 
     Args:
         server: Live-reload server.
@@ -211,7 +214,8 @@ def on_serve(server: LiveReloadServer, config: MkDocsConfig, builder):
     Returns:
         Live-reload server.
     """
-    server.watch(str(README))
+    for source in PAGES:
+        server.watch(str(ROOT / source))
     for path in TEST_SETS.glob("*/results/*.md"):
         server.watch(str(path))
     return server

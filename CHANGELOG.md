@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Support Python 3.14
 - Support Python 3.15
 - docs: API documentation page
+- docs: Contributing page generated from the contribution guidelines
 - docs: Developer notes page
 - docs: Documentation website with the readme as its main page
 - docs: Include one page per test-set report
