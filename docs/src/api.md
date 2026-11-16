@@ -12,6 +12,8 @@ A test set is a Python script defining a subclass of [`TestSet`][qpbenchmark.tes
 
 ::: qpbenchmark.tolerance.Tolerance
 
+::: qpbenchmark.scales
+
 ## Problems
 
 ::: qpbenchmark.problem.Problem

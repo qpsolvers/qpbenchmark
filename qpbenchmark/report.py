@@ -78,7 +78,7 @@ class Report:
             [],
             columns=["tolerance"] + names,
         )
-        tolerances = ["primal", "dual", "gap", "runtime"]
+        tolerances = ["primal", "dual", "gap", "runtime", "rounding"]
         for tolerance in tolerances:
             row = {
                 "tolerance": [f"``{tolerance}``"],
@@ -188,15 +188,21 @@ class Report:
             name: tolerance.runtime
             for name, tolerance in self.test_set.tolerances.items()
         }
+        rounding_factors = {
+            name: tolerance.rounding
+            for name, tolerance in self.test_set.tolerances.items()
+        }
         self.__success_rate_df = self.results.build_success_rate_df(
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
+            rounding_factors,
         )
         self.__correct_rate_df = self.results.build_correct_rate_df(
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
+            rounding_factors,
         )
         self.__runtime_df = self.results.build_shgeom_df(
             metric="runtime",
@@ -335,6 +341,15 @@ class Report:
             "They validate solutions using the following tolerances:\n\n"
         )
         fh.write(f"{self.get_tolerances_table()}\n\n")
+        fh.write(
+            "A residual or duality gap passes its check when it is below its "
+            "tolerance plus a floating-point rounding floor "
+            "``rounding * eps * scale``, where ``eps`` is the machine epsilon "
+            "and ``scale`` is the magnitude of the terms involved in "
+            "evaluating the metric. This floor is negligible on well-scaled "
+            "problems. It only matters on badly-scaled ones, where it avoids "
+            "requiring more accuracy than double precision can resolve.\n\n"
+        )
         fh.write("Solvers for each settings are configured as follows:\n\n")
         fh.write(f"{self.get_solver_settings_table()}\n\n")
 
@@ -417,7 +432,8 @@ class Report:
             "We consider that a solver successfully solved a problem when "
             "(1) it returned with a success status and "
             "(2) its solution satisfies optimality conditions "
-            "within [tolerance](#settings). "
+            "within [tolerance](#settings), up to floating-point rounding "
+            "(see the ``rounding`` factor). "
             "The second table below summarizes the frequency at which solvers "
             "return success (1) and the corresponding solution did indeed "
             "pass tolerance checks."

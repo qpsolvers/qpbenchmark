@@ -147,5 +147,67 @@ class TestResults(unittest.TestCase):
         )
 
 
+class TestRoundingFloor(unittest.TestCase):
+    """Test the floating-point rounding floor in tolerance checks."""
+
+    TOLERANCES = {"high_accuracy": 1e-9}
+
+    def _row(self, problem, scale, gap=2e-8):
+        return {
+            "problem": problem,
+            "solver": "solver",
+            "settings": "high_accuracy",
+            "runtime": 1.0,
+            "found": True,
+            "primal_residual": 0.0,
+            "dual_residual": 0.0,
+            "duality_gap": gap,
+            "primal_scale": 0.0,
+            "dual_scale": 0.0,
+            "gap_scale": scale,
+        }
+
+    def _check(self, rows, rounding_factors):
+        results = make_results(rows)
+        return results.check_found_and_valid(
+            self.TOLERANCES,
+            self.TOLERANCES,
+            self.TOLERANCES,
+            rounding_factors,
+        )["high_accuracy"].to_list()
+
+    def test_floor_on_large_scale(self):
+        """A gap below rounding resolution passes on large-scale problems."""
+        # 10 * eps * 2.5e7 ~ 5.6e-8 > 2e-8
+        rows = [self._row("large", 2.5e7), self._row("small", 1.0)]
+        self.assertEqual(
+            self._check(rows, {"high_accuracy": 10.0}), [True, False]
+        )
+
+    def test_no_floor_without_rounding_factors(self):
+        """Without rounding factors, tolerances are purely absolute."""
+        rows = [self._row("large", 2.5e7)]
+        self.assertEqual(self._check(rows, None), [False])
+
+    def test_missing_scales(self):
+        """Results without scale columns are checked without floor."""
+        rows = [self._row("large", 2.5e7)]
+        for row in rows:
+            del row["primal_scale"], row["dual_scale"], row["gap_scale"]
+        self.assertEqual(self._check(rows, {"high_accuracy": 10.0}), [False])
+
+    def test_success_rate_with_floor(self):
+        """The success rate accounts for the rounding floor."""
+        rows = [self._row("large", 2.5e7), self._row("small", 1.0)]
+        results = make_results(rows)
+        df = results.build_success_rate_df(
+            self.TOLERANCES,
+            self.TOLERANCES,
+            self.TOLERANCES,
+            {"high_accuracy": 10.0},
+        )
+        self.assertAlmostEqual(df.loc["solver", "high_accuracy"], 50.0)
+
+
 if __name__ == "__main__":
     unittest.main()
