@@ -341,15 +341,6 @@ class Report:
             "They validate solutions using the following tolerances:\n\n"
         )
         fh.write(f"{self.get_tolerances_table()}\n\n")
-        fh.write(
-            "A residual or duality gap passes its check when it is below its "
-            "tolerance plus a floating-point rounding floor "
-            "``rounding * eps * scale``, where ``eps`` is the machine epsilon "
-            "and ``scale`` is the magnitude of the terms involved in "
-            "evaluating the metric. This floor is negligible on well-scaled "
-            "problems. It only matters on badly-scaled ones, where it avoids "
-            "requiring more accuracy than double precision can resolve.\n\n"
-        )
         fh.write("Solvers for each settings are configured as follows:\n\n")
         fh.write(f"{self.get_solver_settings_table()}\n\n")
 
@@ -432,8 +423,7 @@ class Report:
             "We consider that a solver successfully solved a problem when "
             "(1) it returned with a success status and "
             "(2) its solution satisfies optimality conditions "
-            "within [tolerance](#settings), up to floating-point rounding "
-            "(see the ``rounding`` factor). "
+            "within [tolerance](#settings). "
             "The second table below summarizes the frequency at which solvers "
             "return success (1) and the corresponding solution did indeed "
             "pass tolerance checks."
