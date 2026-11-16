@@ -147,5 +147,40 @@ class TestResults(unittest.TestCase):
         )
 
 
+class TestRoundingFloor(unittest.TestCase):
+    """Test the floating-point rounding floor in tolerance checks."""
+
+    TOLERANCES = {"high_accuracy": 1e-9}
+
+    def _row(self, problem, scale, gap=2e-8):
+        return {
+            "problem": problem,
+            "solver": "solver",
+            "settings": "high_accuracy",
+            "runtime": 1.0,
+            "found": True,
+            "primal_residual": 0.0,
+            "dual_residual": 0.0,
+            "duality_gap": gap,
+            "primal_scale": 0.0,
+            "dual_scale": 0.0,
+            "gap_scale": scale,
+        }
+
+    def test_success_rate_with_floor(self):
+        """A gap below rounding resolution passes on large scales only."""
+        # 10 * eps * 2.5e7 ~ 5.6e-8 > 2e-8 > 10 * eps * 1.0
+        rows = [self._row("large", 2.5e7), self._row("small", 1.0)]
+        results = make_results(rows)
+        for rounding, expected in ((10.0, 50.0), (None, 0.0)):
+            df = results.build_success_rate_df(
+                self.TOLERANCES,
+                self.TOLERANCES,
+                self.TOLERANCES,
+                {"high_accuracy": rounding} if rounding else None,
+            )
+            self.assertAlmostEqual(df.loc["solver", "high_accuracy"], expected)
+
+
 if __name__ == "__main__":
     unittest.main()

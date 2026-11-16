@@ -2,6 +2,7 @@
 
 """Test case results."""
 
+import sys
 from pathlib import Path
 from typing import Dict, Optional, Tuple, Union
 
@@ -11,6 +12,7 @@ import qpsolvers
 
 from .exceptions import BenchmarkError, ResultsError
 from .problem import Problem
+from .scales import compute_scales
 from .shgeom import shgeom
 from .spdlog import logging
 from .test_set import TestSet
@@ -87,6 +89,9 @@ class Results:
                 "primal_residual",
                 "dual_residual",
                 "duality_gap",
+                "primal_scale",
+                "dual_scale",
+                "gap_scale",
             ],
         ).astype(
             {
@@ -98,6 +103,9 @@ class Results:
                 "primal_residual": float,
                 "dual_residual": float,
                 "duality_gap": float,
+                "primal_scale": float,
+                "dual_scale": float,
+                "gap_scale": float,
             }
         )
         if file_path is not None:
@@ -200,6 +208,7 @@ class Results:
             ]
         )
         found: bool = True if solution.found else False  # make sure not None
+        primal_scale, dual_scale, gap_scale = compute_scales(solution)
         self.df = pandas.concat(
             [
                 self.df,
@@ -213,17 +222,59 @@ class Results:
                         "primal_residual": [solution.primal_residual()],
                         "dual_residual": [solution.dual_residual()],
                         "duality_gap": [solution.duality_gap()],
+                        "primal_scale": [primal_scale],
+                        "dual_scale": [dual_scale],
+                        "gap_scale": [gap_scale],
                     }
                 ),
             ],
             ignore_index=True,
         )
 
+    def __found_and_valid(
+        self,
+        primal_tolerances: Dict[str, float],
+        dual_tolerances: Dict[str, float],
+        gap_tolerances: Dict[str, float],
+        rounding_factors: Optional[Dict[str, float]],
+    ) -> Dict[str, pandas.Series]:
+        """Check which solutions are found and within tolerances.
+
+        Tolerances are increased by a rounding floor ``c * eps * scale``, see
+        ``Tolerance.rounding``. Rows without scales get no floor.
+        """
+        df = self.df.fillna(value=np.nan)  # replace None by NaN for abs()
+        eps = sys.float_info.epsilon
+        scales = {
+            metric: df[column].fillna(0.0)
+            for metric, column in (
+                ("primal_residual", "primal_scale"),
+                ("dual_residual", "dual_scale"),
+                ("duality_gap", "gap_scale"),
+            )
+        }
+        found_and_valid = {}
+        for settings in set(df["settings"].to_list()):
+            c = rounding_factors[settings] if rounding_factors else 0.0
+            tolerances = {
+                "primal_residual": primal_tolerances[settings],
+                "dual_residual": dual_tolerances[settings],
+                "duality_gap": gap_tolerances[settings],
+            }
+            valid = df["found"]
+            for metric, tolerance in tolerances.items():
+                valid = valid & (
+                    df[metric] < tolerance + c * eps * scales[metric]
+                )
+            found_and_valid[settings] = valid
+        return found_and_valid
+
     def build_success_rate_df(
         self,
         primal_tolerances: Dict[str, float],
         dual_tolerances: Dict[str, float],
         gap_tolerances: Dict[str, float],
+        rounding_factors: Optional[Dict[str, float]] = None,
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """Build the success-rate data frame.
 
@@ -231,6 +282,8 @@ class Results:
             primal_tolerances: Primal-residual tolerance for each settings.
             dual_tolerances: Dual-residual tolerance for each settings.
             gap_tolerances: Duality-gap tolerance for each settings.
+            rounding_factors: Rounding factor for each settings, see
+                ``Tolerance.rounding``. No rounding floor if None.
 
         Returns:
             Success-rate data frames.
@@ -238,13 +291,12 @@ class Results:
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
         df = self.df.fillna(value=np.nan)  # replace None by NaN for abs()
-        found_and_valid = {
-            settings: df["found"]
-            & (df["primal_residual"] < primal_tolerances[settings])
-            & (df["dual_residual"] < dual_tolerances[settings])
-            & (df["duality_gap"] < gap_tolerances[settings])
-            for settings in all_settings
-        }
+        found_and_valid = self.__found_and_valid(
+            primal_tolerances,
+            dual_tolerances,
+            gap_tolerances,
+            rounding_factors,
+        )
         success_rate_df = (
             pandas.DataFrame(
                 {
@@ -271,6 +323,7 @@ class Results:
         primal_tolerances: Dict[str, float],
         dual_tolerances: Dict[str, float],
         gap_tolerances: Dict[str, float],
+        rounding_factors: Optional[Dict[str, float]] = None,
     ) -> Tuple[pandas.DataFrame, pandas.DataFrame]:
         """Build the correctness-rate data frame.
 
@@ -278,6 +331,8 @@ class Results:
             primal_tolerances: Primal-residual tolerance for each settings.
             dual_tolerances: Dual-residual tolerance for each settings.
             gap_tolerances: Duality-gap tolerance for each settings.
+            rounding_factors: Rounding factor for each settings, see
+                ``Tolerance.rounding``. No rounding floor if None.
 
         Returns:
             Correctness-rate data frames.
@@ -285,13 +340,12 @@ class Results:
         solvers = set(self.df["solver"].to_list())
         all_settings = set(self.df["settings"].to_list())
         df = self.df.fillna(value=np.nan)  # replace None by NaN for abs()
-        found_and_valid = {
-            settings: df["found"]
-            & (df["primal_residual"] < primal_tolerances[settings])
-            & (df["dual_residual"] < dual_tolerances[settings])
-            & (df["duality_gap"] < gap_tolerances[settings])
-            for settings in all_settings
-        }
+        found_and_valid = self.__found_and_valid(
+            primal_tolerances,
+            dual_tolerances,
+            gap_tolerances,
+            rounding_factors,
+        )
         correctness_rate_df = (
             pandas.DataFrame(
                 {

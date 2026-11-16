@@ -78,7 +78,7 @@ class Report:
             [],
             columns=["tolerance"] + names,
         )
-        tolerances = ["primal", "dual", "gap", "runtime"]
+        tolerances = ["primal", "dual", "gap", "runtime", "rounding"]
         for tolerance in tolerances:
             row = {
                 "tolerance": [f"``{tolerance}``"],
@@ -188,15 +188,21 @@ class Report:
             name: tolerance.runtime
             for name, tolerance in self.test_set.tolerances.items()
         }
+        rounding_factors = {
+            name: tolerance.rounding
+            for name, tolerance in self.test_set.tolerances.items()
+        }
         self.__success_rate_df = self.results.build_success_rate_df(
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
+            rounding_factors,
         )
         self.__correct_rate_df = self.results.build_correct_rate_df(
             primal_tolerances,
             dual_tolerances,
             gap_tolerances,
+            rounding_factors,
         )
         self.__runtime_df = self.results.build_shgeom_df(
             metric="runtime",

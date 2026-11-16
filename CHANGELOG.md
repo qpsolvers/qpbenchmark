@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - CLI: `check` command to check that test-set problems are well-formed
 - Pixi task `check-test-sets` checking all test sets in `test_sets/`
 - Pixi task `qpbenchmark` running the CLI in the `solvers` environment
+- Tolerance: `rounding` factor of a floating-point rounding floor, with new `primal_scale`, `dual_scale` and `gap_scale` results columns (#142)
 - Support Python 3.13
 - Support Python 3.14
 - Support Python 3.15

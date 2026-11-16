@@ -16,12 +16,17 @@ class Tolerance:
         dual: Tolerance on dual residuals.
         gap: Tolerance on duality gaps.
         runtime: Time limit in seconds.
+        rounding: Factor ``c`` of a floating-point rounding floor: a metric
+            passes when it is below ``tol + c * eps * scale``, where ``eps``
+            is the machine epsilon and ``scale`` the magnitude of the terms
+            involved in the metric (see ``qpbenchmark.scales``).
     """
 
     primal: float
     dual: float
     gap: float
     runtime: float
+    rounding: float = 10.0
 
     def from_metric(self, metric: str) -> float:
         """Get tolerance corresponding to a given metric.
