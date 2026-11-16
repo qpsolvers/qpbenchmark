@@ -82,9 +82,9 @@ def primal_scale(solution: qpsolvers.Solution) -> float:
     _, _, G, h, A, b, lb, ub = solution.problem.unpack()
     x = np.asarray(solution.x)
     scales = [0.0]
-    if A is not None:
+    if A is not None and b is not None:
         scales.append(_max_or_zero(_abs_dot(A, x) + np.abs(b)))
-    if G is not None:
+    if G is not None and h is not None:
         finite = np.isfinite(h)
         scales.append(_max_or_zero((_abs_dot(G, x) + np.abs(h))[finite]))
     for bound in (lb, ub):
@@ -152,10 +152,10 @@ def gap_scale(solution: qpsolvers.Solution) -> float:
     x = np.asarray(solution.x)
     abs_x = np.abs(x)
     scale = float(abs_x.dot(_abs_dot(P, x))) + float(np.abs(q).dot(abs_x))
-    if A is not None:
+    if A is not None and b is not None:
         y = _vector_or_zeros(solution.y, b.shape[0])
         scale += float(np.abs(b).dot(np.abs(y)))
-    if G is not None:
+    if G is not None and h is not None:
         z = _vector_or_zeros(solution.z, h.shape[0])
         finite = np.isfinite(h)
         scale += float(np.abs(h[finite]).dot(np.abs(z[finite])))
